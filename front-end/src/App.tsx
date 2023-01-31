@@ -1,14 +1,14 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import FileNavigation from './Components/FileNavigation/FileNavigation.component';
+import FileNavigation from "./Components/FileNavigation/FileNavigation.component";
 
-const App=()=> {
+const App = () => {
   return (
-    <div className="App">
-      <FileNavigation/>
-    </div>
+    <div className="App bg-gray-400 h-screen w-screen">
+        <FileNavigation />
+      </div>
   );
-}
+};
 
 export default App;

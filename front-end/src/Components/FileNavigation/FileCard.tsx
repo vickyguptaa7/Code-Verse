@@ -37,7 +37,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   };
 
   return (
-    <div className=" px-4 pt-3 pb-1 rounded-t-xl flex items-center justify-between bg-white gap-2 w-48">
+    <div className=" px-4 pt-3 pb-1 rounded-t-2xl flex items-center justify-between bg-white gap-2 w-48">
       <div className="language-logo">{languageLogo}</div>
       <div className="w-full text-start">
         <h1 className="text-black text-sm">{fileInfo.fileName}</h1>
