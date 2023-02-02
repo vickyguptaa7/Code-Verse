@@ -1,29 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
+import {  removeFile } from "../../Store/reducres/FileNavigation.reducer";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
 import FileCard from "./FileCard";
 
-interface file {
-  id: string;
-  fileName: string;
-  body: string;
-  language: "cpp" | "python" | "java";
-}
-
-let DUMMY_FILES: Array<file> = [
-  { id: "i1", fileName: "text1", body: "Hello world1", language: "python" },
-  { id: "i2", fileName: "text2", body: "Hello world2", language: "cpp" },
-  { id: "i3", fileName: "text3", body: "Hello world3", language: "java" },
-];
-
 const FileContainer = () => {
-  const [createdListOfFiles, setCreatedListOfFiles] = useState(DUMMY_FILES);
+  const filesInNavigation = useAppSelector(
+    (state) => state.fileNavigation.fileList
+  );
+  const dispatch = useAppDispatch();
   const removeFileHandler = (id: string) => {
-    if (createdListOfFiles.find((file) => file.id === id)) {
-      setCreatedListOfFiles((createdListOfFiles) =>
-        createdListOfFiles.filter((file) => file.id !== id)
-      );
-    }
+    dispatch(removeFile(id));
   };
-  const listOfFiles = createdListOfFiles.map((file) => (
+  const listOfFiles = filesInNavigation.map((file) => (
     <FileCard
       key={file.id}
       fileInfo={file}
