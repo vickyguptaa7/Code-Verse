@@ -8,7 +8,7 @@ const FileNavigation = () => {
 
   return (
     <div className=" bg-slate-700 flex justify-between">
-      <FileContainer />
+        <FileContainer />
       <div className="flex justify-center items-center p-2">
         <button className="">
           <VscDebugStart className="text-gray-300 text-2xl" />
