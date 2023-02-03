@@ -1,28 +1,25 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import FileNavigation from "../Components/FileNavigation/FileNavigation.component";
 import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
 import { twMerge } from "tailwind-merge";
 
 const CodeEditor = () => {
-  const drawerRef = useRef<HTMLDivElement>(null);
-  
-  const [drawerWidth, setDrawerWidht] = useState<number>(0);
-
-  useLayoutEffect(() => {
-    setDrawerWidht(drawerRef.current ? drawerRef.current.clientWidth : 0);
-  });
-
-  console.log(drawerWidth);
-  let newWidth = `w-[calc(100%-190px)]`;
-
+  const [isDrawerVisible, setDrawerVisible] = useState(false);
+  const drawerHandler = () => {
+    console.log("click");
+    setDrawerVisible((isDrawerVisible) => !isDrawerVisible);
+  };
   return (
     <div className="w-full h-full flex flex-col">
       <div className="flex h-full">
-        <div className="right w-fit" ref={drawerRef}>
-          <SideDrawer />
+        <div className="right w-fit">
+          <SideDrawer drawerHandler={drawerHandler} isDrawerVisible={isDrawerVisible} />
         </div>
         <div
-          className={twMerge("left flex flex-col justify-between", newWidth)}
+          className={twMerge(
+            "left flex flex-col justify-between",
+            isDrawerVisible ? "w-[calc(100%-270px)]" : "w-[calc(100%-62px)]"
+          )}
         >
           <FileNavigation />
           <div className="code-here bg-gray-200  h-full grow"></div>
