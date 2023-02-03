@@ -6,12 +6,9 @@ import { IoLogoPython } from "react-icons/io";
 import { SiJava } from "react-icons/si";
 import { BiCodeAlt } from "react-icons/bi";
 
-interface file {
-  id: string;
-  fileName: string;
-  body: string;
-  language: string;
-}
+import file from "../../Interface/file.interface";
+
+const MAX_FILE_LENGTH=20;
 
 interface IPROPS {
   fileInfo: file;
@@ -36,13 +33,18 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
     console.log("Remove", fileInfo.id);
   };
 
+  const fileName =
+    fileInfo.fileName.length < MAX_FILE_LENGTH
+      ? fileInfo.fileName
+      : fileInfo.fileName.substring(0, MAX_FILE_LENGTH-3) + "...";
+
   return (
-    <div className=" px-4 pt-3 pb-1 rounded-t-2xl flex items-center justify-between bg-white gap-2 w-48">
+    <div className=" px-4 py-1 pb-1 border-r border-black flex items-center justify-between bg-white gap-2">
       <div className="language-logo">{languageLogo}</div>
-      <div className="w-full text-start">
-        <h1 className="text-black text-sm">{fileInfo.fileName}</h1>
+      <div className="text-start">
+        <h1 className="text-black text-sm pr-3">{fileName}</h1>
       </div>
-      <div className="close-logo">
+      <div className="close-logo pt-[2px]">
         <button onClick={removeHandler}>
           <RxCross2 className="text-sm hover:bg-gray-200 rounded-full duration-300 hover:text-gray-600 p-[1px] flex" />
         </button>

@@ -1,13 +1,13 @@
 import React from "react";
 import "./App.css";
 
-import FileNavigation from "./Components/FileNavigation/FileNavigation.component";
+import CodeEditor from "./Pages/CodeEditor.page";
 
 const App = () => {
   return (
-    <div className="App bg-gray-400 h-screen w-screen">
-        <FileNavigation />
-      </div>
+    <div className="App min-h-[20rem] h-screen min-w-[20rem]">
+      <CodeEditor />
+    </div>
   );
 };
 
