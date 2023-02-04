@@ -2,7 +2,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../Store/store";
 import Drawer from "./drawer.component";
-import Pannel from "./sidePannel.component";
+import Pannel from "../sidePannel/sidePannel.component";
 
 const SideDrawer = () => {
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);

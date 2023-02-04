@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const sideDrawerInitialState = {
   isSidePannelPositionOnLeft: true,
-  isDrawerOpen: false,
+  isDrawerOpen: true,
   isDrawerOpenSideIsLeft: false,
 };
 

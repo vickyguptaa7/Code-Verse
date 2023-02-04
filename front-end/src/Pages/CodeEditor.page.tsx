@@ -11,7 +11,7 @@ const CodeEditor = () => {
   );
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="flex flex-col w-full h-full">
       <div
         className={twMerge(
           "flex h-full",
@@ -24,14 +24,14 @@ const CodeEditor = () => {
         <div
           className={twMerge(
             "left flex flex-col justify-between",
-            isDrawerOpen ? "w-[calc(100%-270px)]" : "w-[calc(100%-62px)]"
+            isDrawerOpen ? "w-[calc(100%-276px)]" : "w-[calc(100%-68px)]"
           )}
         >
           <FileNavigation />
-          <div className="code-here bg-gray-200  h-full grow"></div>
+          <div className="h-full bg-gray-900 code-here grow"></div>
         </div>
       </div>
-      <div className=" bg-gray-700 h-4"></div>
+      <div className="w-full h-4 bg-gray-700 "></div>
     </div>
   );
 };
