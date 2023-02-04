@@ -1,17 +1,23 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
+import { useAppSelector } from "../../Store/store";
 import Drawer from "./drawer.component";
-import Pannel from "./pannel.component";
+import Pannel from "./sidePannel.component";
 
-interface IPROPS {
-  drawerHandler: Function;
-  isDrawerVisible: boolean;
-}
-
-const SideDrawer: React.FC<IPROPS> = ({ drawerHandler, isDrawerVisible }) => {
+const SideDrawer = () => {
+  const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
+  const isDrawerOpenSideIsLeft = useAppSelector(
+    (state) => state.sideDrawer.isDrawerOpenSideIsLeft
+  );
   return (
-    <div className="flex h-full " onClick={() => drawerHandler()}>
+    <div
+      className={twMerge(
+        "flex h-full ",
+        isDrawerOpenSideIsLeft && "flex-row-reverse"
+      )}
+    >
       <Pannel />
-      {isDrawerVisible && <Drawer />}
+      {isDrawerOpen && <Drawer />}
     </div>
   );
 };

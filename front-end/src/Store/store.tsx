@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import fileNavigationReducer from "./reducres/FileNavigation.reducer";
+import SideDrawerReducer from "./reducres/SideDrawer.reducer";
 
 const store = configureStore({
   reducer: {
-    fileNavigation:fileNavigationReducer,
+    fileNavigation: fileNavigationReducer,
+    sideDrawer: SideDrawerReducer,
   },
 });
 

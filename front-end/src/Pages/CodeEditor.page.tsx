@@ -1,24 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import FileNavigation from "../Components/FileNavigation/FileNavigation.component";
 import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
 import { twMerge } from "tailwind-merge";
+import { useAppSelector } from "../Store/store";
 
 const CodeEditor = () => {
-  const [isDrawerVisible, setDrawerVisible] = useState(false);
-  const drawerHandler = () => {
-    console.log("click");
-    setDrawerVisible((isDrawerVisible) => !isDrawerVisible);
-  };
+  const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
+  const isSidePannelPositionOnLeft = useAppSelector(
+    (state) => state.sideDrawer.isSidePannelPositionOnLeft
+  );
+
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="flex h-full">
+      <div
+        className={twMerge(
+          "flex h-full",
+          !isSidePannelPositionOnLeft && "flex-row-reverse"
+        )}
+      >
         <div className="right w-fit">
-          <SideDrawer drawerHandler={drawerHandler} isDrawerVisible={isDrawerVisible} />
+          <SideDrawer />
         </div>
         <div
           className={twMerge(
             "left flex flex-col justify-between",
-            isDrawerVisible ? "w-[calc(100%-270px)]" : "w-[calc(100%-62px)]"
+            isDrawerOpen ? "w-[calc(100%-270px)]" : "w-[calc(100%-62px)]"
           )}
         >
           <FileNavigation />
