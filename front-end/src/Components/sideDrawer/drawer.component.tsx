@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
-import { setIsDrawerOpen } from "../../Store/reducres/SideDrawer.reducer";
+import {
+  setSideDrawerWidht,
+  setIsDrawerOpen,
+} from "../../Store/reducres/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 
-const MIN_DRAWER_SIZE = 15; // percent of the full width of the screen
-const MAX_DRAWER_SIZE = 45; // percent of the full width of the screen
+let MIN_DRAWER_SIZE_PX = 150; // percent of the full width of the screen
+let MAX_DRAWER_SIZE_IN_PERCENT = 50; // percent of the full width of the screen
 
 const Drawer = () => {
   const refDrawer = useRef<HTMLDivElement>(null);
@@ -13,6 +16,7 @@ const Drawer = () => {
   const isSidePannelPositionOnLeft = useAppSelector(
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
   );
+  const sideDrawerWidth=useAppSelector((state)=>state.sideDrawer.sideDrawerWidth);
 
   const location = useLocation();
   const dispatch = useAppDispatch();
@@ -25,14 +29,14 @@ const Drawer = () => {
       dispatch(setIsDrawerOpen(false));
     }
   });
-  
-  // this is for the resizing of the drawer 
+
+  // this is for the resizing of the drawer
   // TODO Do widht adjustments according to the screen size of the drawer
   useEffect(() => {
     const resizableDrawer = refDrawer.current!;
 
     // remove the px from the width thats why parseInt(,10)
-    let width = parseInt(window.getComputedStyle(resizableDrawer).width, 10);
+    let width:number = parseFloat(window.getComputedStyle(resizableDrawer).width);
 
     let x_cord = 0;
     const onPointerMoveSideResize = (event: PointerEvent) => {
@@ -40,8 +44,11 @@ const Drawer = () => {
       const percentChange =
         ((change_x + width) / document.body.clientWidth) * 100;
 
-        // if change is in desired percentage then only update
-      if (percentChange > MIN_DRAWER_SIZE && MAX_DRAWER_SIZE > percentChange) {
+      // if change is in desired percentage then only update
+      if (
+        change_x + width > MIN_DRAWER_SIZE_PX &&
+        MAX_DRAWER_SIZE_IN_PERCENT > percentChange
+      ) {
         width = change_x + width;
         x_cord = event.clientX;
         resizableDrawer.style.width = `${width}px`;
@@ -49,6 +56,8 @@ const Drawer = () => {
     };
 
     const onPointerUpSideResize = (event: PointerEvent) => {
+      // update the new widht in the store so that we open the drawer again we get the prev width
+      dispatch(setSideDrawerWidht(width));
       document.removeEventListener("pointermove", onPointerMoveSideResize);
     };
 
@@ -61,7 +70,10 @@ const Drawer = () => {
     resizerSideDiv.addEventListener("pointerdown", onPointerDownSideResize);
 
     return () => {
-      resizerSideDiv.removeEventListener("pointerdown", onPointerDownSideResize);
+      resizerSideDiv.removeEventListener(
+        "pointerdown",
+        onPointerDownSideResize
+      );
     };
   });
 
@@ -69,9 +81,10 @@ const Drawer = () => {
     <div
       ref={refDrawer}
       className={twMerge(
-        "flex text-white bg-black min-w-fit w-52 justify-between overflow-x-scroll touch-none",
+        "flex text-white bg-black w-52 justify-between overflow-x-scroll touch-none",
         isSidePannelPositionOnLeft && "flex-row-reverse"
       )}
+      style={{width:sideDrawerWidth}}
     >
       <div
         ref={refResizer}
