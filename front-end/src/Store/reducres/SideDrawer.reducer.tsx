@@ -19,13 +19,13 @@ const sideDrawerSlice = createSlice({
         action.payload === "left" ? true : false;
       state.isDrawerOpenSideIsLeft = action.payload === "left" ? false : true;
     },
-    setSideDrawerWidht(state, action: PayloadAction<number>) {
+    setSideDrawerWidth(state, action: PayloadAction<number>) {
       state.sideDrawerWidth = action.payload;
     },
   },
 });
 
-export const { setIsDrawerOpen, setSidePannelPosition, setSideDrawerWidht } =
+export const { setIsDrawerOpen, setSidePannelPosition, setSideDrawerWidth } =
   sideDrawerSlice.actions;
 
 export default sideDrawerSlice.reducer;
