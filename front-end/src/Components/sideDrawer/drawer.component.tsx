@@ -73,18 +73,17 @@ const Drawer = () => {
         width = change_x + width;
         x_cord = event.clientX;
         resizableDrawer.style.width = `${width}px`;
+        // update the new widht in the store so that we open the drawer again we get the prev width
+        dispatch(setSideDrawerWidth(parseFloat(resizableDrawer.style.width)));
       }
     };
 
     const onPointerUpSideResize = (event: PointerEvent) => {
-      // update the new widht in the store so that we open the drawer again we get the prev width
-      dispatch(setSideDrawerWidth(parseFloat(resizableDrawer.style.width)));
       document.removeEventListener("pointermove", onPointerMoveSideResize);
       document.removeEventListener("pointerup", onPointerUpSideResize);
     };
 
     const onPointerDownSideResize = (event: PointerEvent) => {
-      console.log("down");
       x_cord = event.clientX;
       document.addEventListener("pointerup", onPointerUpSideResize);
       document.addEventListener("pointermove", onPointerMoveSideResize);
