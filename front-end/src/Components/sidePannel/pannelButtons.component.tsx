@@ -7,9 +7,10 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 interface IPROPS {
   Icon: React.ElementType;
   to?: string;
+  title:string;
 }
 
-const PannelButtons: React.FC<IPROPS> = ({ Icon, to }) => {
+const PannelButtons: React.FC<IPROPS> = ({ Icon, to,title }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isSidePannelPositionOnLeft = useAppSelector(
@@ -53,7 +54,7 @@ const PannelButtons: React.FC<IPROPS> = ({ Icon, to }) => {
           className={({ isActive }) =>
             isActive ? activeClassName : basicClassName
           }
-          // classNam=""
+          title={title}
         >
           <Icon className="text-3xl" />
         </NavLink>
@@ -62,7 +63,7 @@ const PannelButtons: React.FC<IPROPS> = ({ Icon, to }) => {
   }
   return (
     <div className="text-gray-400 border-gray-700">
-      <button className="flex items-center justify-center p-4 hover:text-white">
+      <button className="flex items-center justify-center p-4 hover:text-white" title={title}>
         <Icon className="text-3xl" />
       </button>
     </div>

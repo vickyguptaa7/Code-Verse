@@ -31,7 +31,7 @@ const CodeEditor = () => {
           <div className="h-full bg-gray-900 code-here grow"></div>
         </div>
       </div>
-      <div className="w-full h-4 bg-gray-700 "></div>
+      <div className="w-full h-4 bg-blue-500 "></div>
     </div>
   );
 };

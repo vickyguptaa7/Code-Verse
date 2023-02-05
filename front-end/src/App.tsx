@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import "./App.css";
 import DebugDrawer from "./Components/sideDrawer/debugDrawer.component";
-import Drawer from "./Components/sideDrawer/drawer.component";
 import ExtensionsDrawer from "./Components/sideDrawer/extensionsDrawer.component";
 import FileDrawer from "./Components/sideDrawer/fileDrawer.component";
 import GitDrawer from "./Components/sideDrawer/gitDrawer.component";
@@ -16,15 +15,13 @@ const App = () => {
     <div className="App min-h-[30rem] h-screen min-w-[20rem]">
       <Routes>
         <Route path="/" element={<CodeEditor />}>
-          <Route path="side-drawer" element={<Drawer />} >
-            <Route path="files" element={<FileDrawer />} />
-            <Route path="search" element={<SearchDrawer />} />
-            <Route path="git" element={<GitDrawer />} />
-            <Route path="debug" element={<DebugDrawer />} />
-            <Route path="extensions" element={<ExtensionsDrawer />} />
-          </Route>
+            <Route path="side-drawer/files" element={<FileDrawer />} />
+            <Route path="side-drawer/search" element={<SearchDrawer />} />
+            <Route path="side-drawer/git" element={<GitDrawer />} />
+            <Route path="side-drawer/debug" element={<DebugDrawer />} />
+            <Route path="side-drawer/extensions" element={<ExtensionsDrawer />} />
         </Route>
-        <Route path="*" element={<Login />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
