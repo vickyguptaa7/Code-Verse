@@ -1,5 +1,5 @@
 import React from "react";
-import { VscChevronUp, VscClose, VscKebabVertical, VscTrash } from "react-icons/vsc";
+import { VscChevronUp, VscClose, VscEllipsis, VscTrash } from "react-icons/vsc";
 import "./BottomPannelNavigation.component.css";
 
 const BottomPannelNavigation = () => {
@@ -17,7 +17,7 @@ const BottomPannelNavigation = () => {
             TERMINAL
           </li>
           <button className="flex items-center justify-center">
-            <VscKebabVertical className="text-xl text-gray-300 rotate-90 translate-y-[2px]" />
+            <VscEllipsis className="text-xl text-gray-300 " />
           </button>
         </ul>
       </div>

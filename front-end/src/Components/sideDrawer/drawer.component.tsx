@@ -110,7 +110,7 @@ const Drawer = () => {
     >
       <div
         ref={refResizer}
-        className="w-[5px] h-full hover:bg-white duration-300 cursor-move resizable-div-left-right"
+        className="w-1 h-full duration-300 cursor-move hover:bg-white resizable-div-left-right"
       ></div>
       <div className="flex flex-col items-center justify-center w-full">
         {sideDrawerWidth}
