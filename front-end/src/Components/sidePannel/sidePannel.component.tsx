@@ -14,7 +14,7 @@ const Pannel = () => {
 
 
   return (
-    <div className="flex flex-col justify-between h-full bg-gray-700">
+    <div className="flex flex-col justify-between h-full bg-gray-900">
       <nav className="flex flex-col">
         <PannelButtons title="Files Explorer" Icon={VscFiles} to="side-drawer/files" />
         <PannelButtons title="Search" Icon={VscSearch}  to="side-drawer/search" />

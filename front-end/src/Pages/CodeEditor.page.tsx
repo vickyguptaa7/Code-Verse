@@ -3,6 +3,8 @@ import FileNavigation from "../Components/FileNavigation/FileNavigation.componen
 import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../Store/store";
+import InputOutput from "../Components/bottomPannel/BottomPannelContainer.component";
+import Editor from "../Components/Editor/editor.component";
 
 const MIN_WIDTH_OF_EDITOR = 320;
 
@@ -18,7 +20,7 @@ const CodeEditor = () => {
 
   // 68px is for the side pannel 
   const remainingWidth =
-    document.body.clientWidth - (isDrawerOpen ? sideDrawerWidth : 0) - 68;
+    document.body.clientWidth - (isDrawerOpen ? sideDrawerWidth : 0) - 60;
 
   useEffect(() => {
     const manageEditorWidth = () => {
@@ -43,11 +45,12 @@ const CodeEditor = () => {
           <SideDrawer />
         </div>
         <div
-          className="flex flex-col justify-between left"
+          className="flex flex-col justify-between h-full left"
           style={{ width: remainingWidth }}
         >
           <FileNavigation />
-          <div className="h-full bg-gray-900 code-here grow"></div>
+          <Editor />
+          <InputOutput/>
         </div>
       </div>
       <div className="w-full h-4 bg-blue-500 "></div>

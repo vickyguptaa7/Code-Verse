@@ -38,7 +38,7 @@ const PannelButtons: React.FC<IPROPS> = ({ Icon, to,title }) => {
       }
     };
     const basicClassName =
-      " flex items-center justify-center p-4 hover:text-white mx-[3px] ";
+      " flex items-center justify-center p-3 hover:text-white mx-[3px] ";
     let activeClassName = twMerge(
       basicClassName,
       "text-white",
@@ -47,7 +47,7 @@ const PannelButtons: React.FC<IPROPS> = ({ Icon, to,title }) => {
         : "border-l-[3px] ml-0"
     );
     return (
-      <div className="text-gray-400 border-gray-700">
+      <div className="mb-2 text-gray-500 border-gray-700">
         <NavLink
           to={to}
           onClick={handleSideDrawer}
@@ -62,8 +62,8 @@ const PannelButtons: React.FC<IPROPS> = ({ Icon, to,title }) => {
     );
   }
   return (
-    <div className="text-gray-400 border-gray-700">
-      <button className="flex items-center justify-center p-4 hover:text-white" title={title}>
+    <div className="mb-2 text-gray-500 border-gray-700">
+      <button className="flex items-center justify-center p-3 hover:text-white mx-[3px]" title={title}>
         <Icon className="text-3xl" />
       </button>
     </div>
