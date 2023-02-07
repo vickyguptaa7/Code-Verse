@@ -1,11 +1,15 @@
 import React, { useRef, useEffect } from "react";
-import { setBottomPannelHeight } from "../../Store/reducres/BottomPannel.reducer";
+import {
+  setBottomPannelHeight,
+  setIsMinimizeBottomPannel,
+} from "../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import BottomPannelNavigation from "./BottomPannelNavigation.component";
 
 // the 56 substracted for the file navigations and the bottom small component
 const MIN_BOTTOM_PANNEL_SIZE_PX = 40;
 const HEIGHT_OF_FILENAVIGATION_AND_FOOTER = 56;
+const BOTTOM_PANNEL_MINIMIZE_PERCENTAGE=80;
 
 const BottomPannel = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);
@@ -13,14 +17,28 @@ const BottomPannel = () => {
   const bottomPannelHeight = useAppSelector(
     (state) => state.bottomPannel.bottomPannelHeight
   );
+  const isBottomPannelHeightMoreThan90Percent = useAppSelector(
+    (state) => state.bottomPannel.isMinimizeBottomPannel
+  );
   const dispatch = useAppDispatch();
 
+  // window resize event for the screen resize to adjust the pannel height
   useEffect(() => {
     const manageBottomPannelHeight = () => {
-      const currRemainingHeight =
+      const maxHeightOfBottomPannel =
         document.body.clientHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
-      if (currRemainingHeight <= bottomPannelHeight) {
-        dispatch(setBottomPannelHeight(currRemainingHeight));
+      if (maxHeightOfBottomPannel <= bottomPannelHeight) {
+        dispatch(setBottomPannelHeight(maxHeightOfBottomPannel));
+      } else {
+        const percentChange =
+        (bottomPannelHeight / maxHeightOfBottomPannel) * 100;
+        
+        // update the state only if requre
+        if (percentChange > BOTTOM_PANNEL_MINIMIZE_PERCENTAGE && !isBottomPannelHeightMoreThan90Percent)
+          dispatch(setIsMinimizeBottomPannel(true));
+        
+        if (percentChange < BOTTOM_PANNEL_MINIMIZE_PERCENTAGE && isBottomPannelHeightMoreThan90Percent)
+          dispatch(setIsMinimizeBottomPannel(false));
       }
     };
     window.addEventListener("resize", manageBottomPannelHeight);
@@ -29,6 +47,7 @@ const BottomPannel = () => {
     };
   });
 
+  // pointer events for resizing the pannel
   useEffect(() => {
     const resizableBottomPannel = refBottomPannel.current!;
     let height: number = parseFloat(
@@ -58,6 +77,17 @@ const BottomPannel = () => {
         "pointermove",
         onPointerMoveBottomPannelResize
       );
+      const maxHeightOfBottomPannel =
+        document.body.clientHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
+      const percentChange =
+        (height / maxHeightOfBottomPannel) * 100;
+      // update the isBottomPannelHeightMoreThan90%
+      if (percentChange > BOTTOM_PANNEL_MINIMIZE_PERCENTAGE && !isBottomPannelHeightMoreThan90Percent) {
+        dispatch(setIsMinimizeBottomPannel(true));
+      }
+      if (percentChange < BOTTOM_PANNEL_MINIMIZE_PERCENTAGE && isBottomPannelHeightMoreThan90Percent) {
+        dispatch(setIsMinimizeBottomPannel(false));
+      }
       document.removeEventListener("pointerup", onPointerUpBottomPannelResize);
     };
 
@@ -81,15 +111,14 @@ const BottomPannel = () => {
   });
   return (
     <div
-    ref={refBottomPannel}
+      ref={refBottomPannel}
       className="flex flex-col bg-gray-900 border-t h-52 border-t-gray-500"
-      style={{height:bottomPannelHeight}}
+      style={{ height: bottomPannelHeight }}
     >
       <div
         ref={refResizer}
         className="w-full h-1 hover:bg-white hover:cursor-move touch-none"
       ></div>
-
       <BottomPannelNavigation />
     </div>
   );

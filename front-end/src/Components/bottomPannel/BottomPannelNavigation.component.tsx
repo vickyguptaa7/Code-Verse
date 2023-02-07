@@ -1,8 +1,13 @@
 import React from "react";
 import { VscChevronUp, VscClose, VscEllipsis, VscTrash } from "react-icons/vsc";
+import { twMerge } from "tailwind-merge";
+import { useAppSelector } from "../../Store/store";
 import "./BottomPannelNavigation.component.css";
 
 const BottomPannelNavigation = () => {
+  const isMinimizeBottomPannel = useAppSelector(
+    (state) => state.bottomPannel.isMinimizeBottomPannel
+  );
   return (
     <div className="flex items-center justify-between gap-6 mx-4 my-2 overflow-auto smd:gap-12 hidescrollbar1 hidescrollbar2">
       <div>
@@ -26,7 +31,7 @@ const BottomPannelNavigation = () => {
           <VscTrash className="text-xl text-gray-300 " />
         </button>
         <button className="flex items-center justify-center">
-          <VscChevronUp className="text-xl text-gray-300 " />
+          <VscChevronUp className={twMerge("text-xl text-gray-300 ",isMinimizeBottomPannel&&"rotate-180")} />
         </button>
         <button className="flex items-center justify-center">
           <VscClose className="text-xl text-gray-300 " />
