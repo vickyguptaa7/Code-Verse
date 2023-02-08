@@ -5,6 +5,7 @@ import {
 } from "../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import BottomPannelNavigation from "./BottomPannelNavigation.component";
+import ShowInBottomPannel from "./showInBottomPannel.component";
 
 // the 56 substracted for the file navigations and the bottom small component
 const MIN_BOTTOM_PANNEL_SIZE_PX = 40;
@@ -130,6 +131,7 @@ const BottomPannel = () => {
         className="w-full h-1 duration-300 hover:bg-white hover:cursor-move touch-none"
       ></div>
       <BottomPannelNavigation />
+      <ShowInBottomPannel/>
     </div>
   );
 };

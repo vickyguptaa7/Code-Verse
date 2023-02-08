@@ -4,6 +4,7 @@ const bottomPannelInitialState = {
   isBottomPannelOpen: true,
   bottomPannelHeight: 208, // 13 rem inital width of drawer
   isMinimizeBottomPannel: false,
+  showInBottomPannel: "input",
 };
 
 const bottomPannelSlice = createSlice({
@@ -16,16 +17,35 @@ const bottomPannelSlice = createSlice({
     setBottomPannelHeight(state, action: PayloadAction<number>) {
       state.bottomPannelHeight = action.payload;
     },
-    setIsMinimizeBottomPannel(
-      state,
-      action: PayloadAction<boolean>
-    ) {
+    setIsMinimizeBottomPannel(state, action: PayloadAction<boolean>) {
       state.isMinimizeBottomPannel = action.payload;
+    },
+    setShowInBottomPannel(
+      state,
+      action: PayloadAction<"input" | "output" | "terminal">
+    ) {
+      if (
+        action.payload === "input" ||
+        action.payload === "output" ||
+        action.payload === "terminal"
+      )
+        state.showInBottomPannel = action.payload;
+    },
+    resetBottomPannel(state){
+      state.bottomPannelHeight=bottomPannelInitialState.bottomPannelHeight;
+      state.isBottomPannelOpen=false;
+      state.isMinimizeBottomPannel=bottomPannelInitialState.isMinimizeBottomPannel;
+      state.showInBottomPannel=bottomPannelInitialState.showInBottomPannel;
     }
   },
 });
 
-export const { setIsBottomPannelOpen, setBottomPannelHeight,setIsMinimizeBottomPannel} =
-  bottomPannelSlice.actions;
+export const {
+  setIsBottomPannelOpen,
+  setBottomPannelHeight,
+  setIsMinimizeBottomPannel,
+  setShowInBottomPannel,
+  resetBottomPannel
+} = bottomPannelSlice.actions;
 
 export default bottomPannelSlice.reducer;
