@@ -3,7 +3,7 @@ import FileNavigation from "../Components/FileNavigation/FileNavigation.componen
 import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../Store/store";
-import InputOutput from "../Components/bottomPannel/BottomPannelContainer.component";
+import BottomPannelContainer from "../Components/bottomPannel/BottomPannelContainer.component";
 import Editor from "../Components/Editor/editor.component";
 
 const MIN_WIDTH_OF_EDITOR = 320;
@@ -16,6 +16,9 @@ const CodeEditor = () => {
   );
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
+  );
+  const isBottomPannelOpen = useAppSelector(
+    (state) => state.bottomPannel.isBottomPannelOpen
   );
 
   // 68px is for the side pannel 
@@ -50,7 +53,7 @@ const CodeEditor = () => {
         >
           <FileNavigation />
           <Editor />
-          <InputOutput/>
+         {isBottomPannelOpen&& <BottomPannelContainer/>}
         </div>
       </div>
       <div className="w-full h-4 bg-blue-500 "></div>

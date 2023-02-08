@@ -9,7 +9,7 @@ import BottomPannelNavigation from "./BottomPannelNavigation.component";
 // the 56 substracted for the file navigations and the bottom small component
 const MIN_BOTTOM_PANNEL_SIZE_PX = 40;
 const HEIGHT_OF_FILENAVIGATION_AND_FOOTER = 56;
-const BOTTOM_PANNEL_MINIMIZE_PERCENTAGE=80;
+const BOTTOM_PANNEL_MINIMIZE_PERCENTAGE = 80;
 
 const BottomPannel = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);
@@ -21,7 +21,6 @@ const BottomPannel = () => {
     (state) => state.bottomPannel.isMinimizeBottomPannel
   );
   const dispatch = useAppDispatch();
-
   // window resize event for the screen resize to adjust the pannel height
   useEffect(() => {
     const manageBottomPannelHeight = () => {
@@ -31,13 +30,19 @@ const BottomPannel = () => {
         dispatch(setBottomPannelHeight(maxHeightOfBottomPannel));
       } else {
         const percentChange =
-        (bottomPannelHeight / maxHeightOfBottomPannel) * 100;
-        
+          (bottomPannelHeight / maxHeightOfBottomPannel) * 100;
+
         // update the state only if requre
-        if (percentChange > BOTTOM_PANNEL_MINIMIZE_PERCENTAGE && !isBottomPannelHeightMoreThan90Percent)
+        if (
+          percentChange > BOTTOM_PANNEL_MINIMIZE_PERCENTAGE &&
+          !isBottomPannelHeightMoreThan90Percent
+        )
           dispatch(setIsMinimizeBottomPannel(true));
-        
-        if (percentChange < BOTTOM_PANNEL_MINIMIZE_PERCENTAGE && isBottomPannelHeightMoreThan90Percent)
+
+        if (
+          percentChange < BOTTOM_PANNEL_MINIMIZE_PERCENTAGE &&
+          isBottomPannelHeightMoreThan90Percent
+        )
           dispatch(setIsMinimizeBottomPannel(false));
       }
     };
@@ -79,13 +84,18 @@ const BottomPannel = () => {
       );
       const maxHeightOfBottomPannel =
         document.body.clientHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
-      const percentChange =
-        (height / maxHeightOfBottomPannel) * 100;
+      const percentChange = (height / maxHeightOfBottomPannel) * 100;
       // update the isBottomPannelHeightMoreThan90%
-      if (percentChange > BOTTOM_PANNEL_MINIMIZE_PERCENTAGE && !isBottomPannelHeightMoreThan90Percent) {
+      if (
+        percentChange > BOTTOM_PANNEL_MINIMIZE_PERCENTAGE &&
+        !isBottomPannelHeightMoreThan90Percent
+      ) {
         dispatch(setIsMinimizeBottomPannel(true));
       }
-      if (percentChange < BOTTOM_PANNEL_MINIMIZE_PERCENTAGE && isBottomPannelHeightMoreThan90Percent) {
+      if (
+        percentChange < BOTTOM_PANNEL_MINIMIZE_PERCENTAGE &&
+        isBottomPannelHeightMoreThan90Percent
+      ) {
         dispatch(setIsMinimizeBottomPannel(false));
       }
       document.removeEventListener("pointerup", onPointerUpBottomPannelResize);
@@ -117,7 +127,7 @@ const BottomPannel = () => {
     >
       <div
         ref={refResizer}
-        className="w-full h-1 hover:bg-white hover:cursor-move touch-none"
+        className="w-full h-1 duration-300 hover:bg-white hover:cursor-move touch-none"
       ></div>
       <BottomPannelNavigation />
     </div>

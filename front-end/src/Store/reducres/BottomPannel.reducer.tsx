@@ -21,11 +21,11 @@ const bottomPannelSlice = createSlice({
       action: PayloadAction<boolean>
     ) {
       state.isMinimizeBottomPannel = action.payload;
-    },
+    }
   },
 });
 
-export const { setIsBottomPannelOpen, setBottomPannelHeight,setIsMinimizeBottomPannel } =
+export const { setIsBottomPannelOpen, setBottomPannelHeight,setIsMinimizeBottomPannel} =
   bottomPannelSlice.actions;
 
 export default bottomPannelSlice.reducer;
