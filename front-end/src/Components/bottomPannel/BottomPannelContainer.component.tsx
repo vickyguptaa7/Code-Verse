@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 import {
   setBottomPannelHeight,
   setIsMinimizeBottomPannel,
@@ -22,6 +23,7 @@ const BottomPannel = () => {
     (state) => state.bottomPannel.isMinimizeBottomPannel
   );
   const dispatch = useAppDispatch();
+  const [isBottomPannelResizing,setIsBottomPannelResizing] = useState(false);
   // window resize event for the screen resize to adjust the pannel height
   useEffect(() => {
     const manageBottomPannelHeight = () => {
@@ -100,12 +102,14 @@ const BottomPannel = () => {
         dispatch(setIsMinimizeBottomPannel(false));
       }
       document.removeEventListener("pointerup", onPointerUpBottomPannelResize);
+      setIsBottomPannelResizing(false);
     };
 
     const onPointerDownBottomPannelResize = (event: PointerEvent) => {
       y_cord = event.clientY;
       document.addEventListener("pointerup", onPointerUpBottomPannelResize);
       document.addEventListener("pointermove", onPointerMoveBottomPannelResize);
+      setIsBottomPannelResizing(true);
     };
     const resizerSideDiv = refResizer.current!;
     resizerSideDiv.addEventListener(
@@ -120,6 +124,7 @@ const BottomPannel = () => {
       );
     };
   });
+  
   return (
     <div
       ref={refBottomPannel}
@@ -128,7 +133,7 @@ const BottomPannel = () => {
     >
       <div
         ref={refResizer}
-        className="w-full h-1 duration-300 hover:bg-white hover:cursor-move touch-none"
+        className={twMerge("w-full h-1 duration-300 hover:bg-white hover:cursor-move touch-none",isBottomPannelResizing&&"bg-white")}
       ></div>
       <BottomPannelNavigation />
       <ShowInBottomPannel/>

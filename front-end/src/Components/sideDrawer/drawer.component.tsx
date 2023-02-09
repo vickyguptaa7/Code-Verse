@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import {
@@ -20,7 +20,7 @@ const Drawer = () => {
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
-
+  const [isDrawerResizing, setIsDrawerResizing] = useState(false);
   const location = useLocation();
   const dispatch = useAppDispatch();
 
@@ -81,12 +81,14 @@ const Drawer = () => {
     const onPointerUpSideResize = (event: PointerEvent) => {
       document.removeEventListener("pointermove", onPointerMoveSideResize);
       document.removeEventListener("pointerup", onPointerUpSideResize);
+      setIsDrawerResizing(false);
     };
 
     const onPointerDownSideResize = (event: PointerEvent) => {
       x_cord = event.clientX;
       document.addEventListener("pointerup", onPointerUpSideResize);
       document.addEventListener("pointermove", onPointerMoveSideResize);
+      setIsDrawerResizing(true);
     };
     const resizerSideDiv = refResizer.current!;
     resizerSideDiv.addEventListener("pointerdown", onPointerDownSideResize);
@@ -110,7 +112,10 @@ const Drawer = () => {
     >
       <div
         ref={refResizer}
-        className="w-1 h-full duration-300 cursor-move hover:bg-white resizable-div-left-right"
+        className={twMerge(
+          "w-1 h-full duration-300 cursor-move hover:bg-white resizable-div-left-right",
+          isDrawerResizing && "bg-white"
+        )}
       ></div>
       <div className="flex flex-col items-center justify-center w-full">
         {sideDrawerWidth}
