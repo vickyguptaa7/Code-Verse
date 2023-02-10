@@ -11,9 +11,10 @@ import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import BottomPannelButton from "../bottomPannelButtons.component";
 import "./BottomPannelNavigation.component.css";
 
-const HEIGHT_OF_FILENAVIGATION_AND_FOOTER = 56;
+// constant
+import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../BottomPannel.Constant";
 
-type bottomPannelContent="input" | "output" | "terminal";
+type bottomPannelContent = "input" | "output" | "terminal";
 
 const BottomPannelNavigation = () => {
   const dispatch = useAppDispatch();
@@ -135,5 +136,4 @@ function dropMenu() {
     <div></div>
   );
 }
-
 export default BottomPannelNavigation;

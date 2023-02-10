@@ -14,7 +14,11 @@ import {
 } from "../../Store/reducres/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import PannelButtons from "./pannelButtons.component";
+
+
 type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
+
+
 const Pannel = () => {
   const dispatch = useAppDispatch();
   const showInSideDrawer = useAppSelector(

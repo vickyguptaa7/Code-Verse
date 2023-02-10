@@ -8,10 +8,10 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 import BottomPannelNavigation from "./BottomPannelNavigation/BottomPannelNavigation.component";
 import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.component";
 
-// the 56 substracted for the file navigations and the bottom small component
-const MIN_BOTTOM_PANNEL_SIZE_PX = 40;
-const HEIGHT_OF_FILENAVIGATION_AND_FOOTER = 56;
-const BOTTOM_PANNEL_MINIMIZE_PERCENTAGE = 80;
+// constants
+import { MIN_BOTTOM_PANNEL_SIZE_PX } from "./BottomPannel.Constant";
+import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "./BottomPannel.Constant";
+import { BOTTOM_PANNEL_MINIMIZE_PERCENTAGE } from "./BottomPannel.Constant";
 
 const BottomPannel = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);

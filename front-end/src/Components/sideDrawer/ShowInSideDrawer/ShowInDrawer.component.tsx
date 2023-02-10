@@ -8,8 +8,9 @@ import FileDrawer from "./fileDrawer.component";
 import GitDrawer from "./gitDrawer.component";
 import SearchDrawer from "./searchDrawer.component";
 
-let MIN_DRAWER_SIZE_PX = 150; // percent of the full width of the screen
-let MAX_DRAWER_SIZE_IN_PERCENT = 50; // percent of the full width of the screen
+// constant
+import { MIN_DRAWER_SIZE_PX } from "../sideDrawer.Constant";
+import { MAX_DRAWER_SIZE_IN_PERCENT } from "../sideDrawer.Constant";
 
 const Drawer = () => {
   const refDrawer = useRef<HTMLDivElement>(null);
@@ -25,7 +26,7 @@ const Drawer = () => {
   );
   const [isDrawerResizing, setIsDrawerResizing] = useState(false);
   useSideDrawerResizing(setIsDrawerResizing, refResizer, refDrawer);
-  
+
   let showComponentInDrawer = <FileDrawer />;
   if (showInSideDrawer === "search") showComponentInDrawer = <SearchDrawer />;
   else if (showInSideDrawer === "git") showComponentInDrawer = <GitDrawer />;
@@ -33,7 +34,7 @@ const Drawer = () => {
     showComponentInDrawer = <DebugDrawer />;
   else if (showInSideDrawer === "extensions")
     showComponentInDrawer = <ExtensionsDrawer />;
-    
+
   return (
     <div
       ref={refDrawer}

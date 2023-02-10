@@ -8,7 +8,8 @@ import { BiCodeAlt } from "react-icons/bi";
 
 import file from "../../Interface/file.interface";
 
-const MAX_FILE_LENGTH=20;
+// constant
+import {MAX_FILE_LENGTH} from "./FileNavigation.Constant";
 
 interface IPROPS {
   fileInfo: file;
@@ -39,10 +40,10 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       : fileInfo.fileName.substring(0, MAX_FILE_LENGTH-3) + "...";
 
   return (
-    <div className=" px-4 py-1 pb-1 border-r border-black flex items-center justify-between bg-white gap-2">
+    <div className="flex items-center justify-between gap-2 px-4 py-1 pb-1 bg-white border-r border-black ">
       <div className="language-logo">{languageLogo}</div>
       <div className="text-start">
-        <h1 className="text-black text-sm pr-3">{fileName}</h1>
+        <h1 className="pr-3 text-sm text-black">{fileName}</h1>
       </div>
       <div className="close-logo pt-[2px]">
         <button onClick={removeHandler}>
