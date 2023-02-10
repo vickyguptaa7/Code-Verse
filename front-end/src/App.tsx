@@ -7,7 +7,7 @@ import Login from "./Pages/Login.page";
 
 const App = () => {
   return (
-    <div className="App min-h-[30rem] h-screen min-w-[20rem]">
+    <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none">
       <Routes>
         <Route path="/" element={<CodeEditor />}/>
         <Route path="/login" element={<Login />} />

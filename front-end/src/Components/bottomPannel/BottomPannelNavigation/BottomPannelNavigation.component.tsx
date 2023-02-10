@@ -54,8 +54,8 @@ const BottomPannelNavigation = () => {
   };
 
   return (
-    <div className="flex items-center justify-between gap-6 mx-4 my-2 overflow-auto smd:gap-12 hidescrollbar1 hidescrollbar2">
-      <div>
+    <div className="flex items-center justify-between gap-6 mx-4 my-2 overflow-x-scroll overflow-y-visible -mb-28 pb-28 smd:gap-6 hidescrollbar1 hidescrollbar2">
+      <div className="">
         <ul className="flex items-center gap-5 text-sm text-gray-400 justify-evenly mt-0.5">
           <BottomPannelButton
             className={
@@ -90,7 +90,7 @@ const BottomPannelNavigation = () => {
             Icon={VscEllipsis}
             onClickHandler={() => {}}
           />
-          {dropMenu()}
+          <div className="relative overflow-visible">{dropMenu()}</div>
         </ul>
       </div>
       <div className="flex items-start gap-4 justify-evenly">
@@ -114,26 +114,20 @@ const BottomPannelNavigation = () => {
 
 function dropMenu() {
   return (
-    // <div className="absolute inline-flex bg-white border rounded-md">
-    //     <div className="absolute right-0 z-10 w-56 mt-4 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg">
-    //         <button
-    //           className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700"
-    //         >
-    //           ReactJS Dropdown 1
-    //         </button>
-    //         <button
-    //           className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700"
-    //         >
-    //           ReactJS Dropdown 2
-    //         </button>
-    //         <button
-    //           className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700"
-    //         >
-    //           ReactJS Dropdown 3
-    //         </button>
-    //   </div>
-    // </div>
-    <div></div>
+    <div className="absolute z-10 py-1 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg -left-10 top-4 w-fit">
+      <button className="block px-4 py-0.5 text-sm text-center text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700">
+        Input
+      </button>
+      <button className="block px-4 py-0.5 text-sm text-center text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700">
+        Output
+      </button>
+      <button className="block px-4 py-0.5 text-sm text-center text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700">
+        Debug
+      </button>
+      <button className="block px-4 py-0.5 text-sm text-center text-gray-500 rounded-lg hover:bg-gray-50 hover:text-gray-700">
+        Terminal
+      </button>
+    </div>
   );
 }
 export default BottomPannelNavigation;
