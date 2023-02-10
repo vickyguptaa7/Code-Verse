@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppSelector } from "../../Store/store";
+import { useAppSelector } from "../../../Store/store";
 import Input from "./Input.component";
 import Output from "./Output.component";
 import Terminal from "./Terminal.component";

@@ -3,7 +3,7 @@ import FileNavigation from "../Components/FileNavigation/FileNavigation.componen
 import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../Store/store";
-import BottomPannelContainer from "../Components/bottomPannel/BottomPannelContainer.component";
+import BottomPannelContainer from "../Components/BottomPannel/BottomPannelContainer.component";
 import Editor from "../Components/Editor/editor.component";
 
 const MIN_WIDTH_OF_EDITOR = 320;

@@ -5,8 +5,8 @@ import {
   setIsMinimizeBottomPannel,
 } from "../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
-import BottomPannelNavigation from "./BottomPannelNavigation.component";
-import ShowInBottomPannel from "./showInBottomPannel.component";
+import BottomPannelNavigation from "./BottomPannelNavigation/BottomPannelNavigation.component";
+import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.component";
 
 // the 56 substracted for the file navigations and the bottom small component
 const MIN_BOTTOM_PANNEL_SIZE_PX = 40;
@@ -19,11 +19,46 @@ const BottomPannel = () => {
   const bottomPannelHeight = useAppSelector(
     (state) => state.bottomPannel.bottomPannelHeight
   );
+  const [isBottomPannelResizing, setIsBottomPannelResizing] = useState(false);
+
+  // manages the resizing of the component
+  useBottomPannelResizing(
+    setIsBottomPannelResizing,
+    refBottomPannel,
+    refResizer
+  );
+
+  return (
+    <div
+      ref={refBottomPannel}
+      className="flex flex-col bg-gray-900 border-t h-52 border-t-gray-500"
+      style={{ height: bottomPannelHeight }}
+    >
+      <div
+        ref={refResizer}
+        className={twMerge(
+          "w-full h-1 duration-300 hover:bg-white hover:cursor-move touch-none",
+          isBottomPannelResizing && "bg-white"
+        )}
+      ></div>
+      <BottomPannelNavigation />
+      <ShowInBottomPannel />
+    </div>
+  );
+};
+
+function useBottomPannelResizing(
+  setIsBottomPannelResizing: Function,
+  refBottomPannel: React.RefObject<HTMLDivElement>,
+  refResizer: React.RefObject<HTMLDivElement>
+) {
+  const dispatch = useAppDispatch();
   const isBottomPannelHeightMoreThan90Percent = useAppSelector(
     (state) => state.bottomPannel.isMinimizeBottomPannel
   );
-  const dispatch = useAppDispatch();
-  const [isBottomPannelResizing,setIsBottomPannelResizing] = useState(false);
+  const bottomPannelHeight = useAppSelector(
+    (state) => state.bottomPannel.bottomPannelHeight
+  );
   // window resize event for the screen resize to adjust the pannel height
   useEffect(() => {
     const manageBottomPannelHeight = () => {
@@ -124,21 +159,6 @@ const BottomPannel = () => {
       );
     };
   });
-  
-  return (
-    <div
-      ref={refBottomPannel}
-      className="flex flex-col bg-gray-900 border-t h-52 border-t-gray-500"
-      style={{ height: bottomPannelHeight }}
-    >
-      <div
-        ref={refResizer}
-        className={twMerge("w-full h-1 duration-300 hover:bg-white hover:cursor-move touch-none",isBottomPannelResizing&&"bg-white")}
-      ></div>
-      <BottomPannelNavigation />
-      <ShowInBottomPannel/>
-    </div>
-  );
-};
+}
 
 export default BottomPannel;

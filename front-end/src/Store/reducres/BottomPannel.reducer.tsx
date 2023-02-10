@@ -7,6 +7,8 @@ const bottomPannelInitialState = {
   showInBottomPannel: "input",
 };
 
+type bottomPannelContent="input" | "output" | "terminal";
+
 const bottomPannelSlice = createSlice({
   name: "sideDrawer",
   initialState: bottomPannelInitialState,
@@ -22,13 +24,8 @@ const bottomPannelSlice = createSlice({
     },
     setShowInBottomPannel(
       state,
-      action: PayloadAction<"input" | "output" | "terminal">
+      action: PayloadAction<bottomPannelContent>
     ) {
-      if (
-        action.payload === "input" ||
-        action.payload === "output" ||
-        action.payload === "terminal"
-      )
         state.showInBottomPannel = action.payload;
     },
     resetBottomPannel(state){

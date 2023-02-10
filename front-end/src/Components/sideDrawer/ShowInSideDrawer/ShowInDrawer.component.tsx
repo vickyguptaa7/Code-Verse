@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
-import {
-  setSideDrawerWidth,
-  setIsDrawerOpen,
-} from "../../Store/reducres/SideDrawer.reducer";
-import { useAppDispatch, useAppSelector } from "../../Store/store";
+import { setSideDrawerWidth } from "../../../Store/reducres/SideDrawer.reducer";
+import { useAppDispatch, useAppSelector } from "../../../Store/store";
+import DebugDrawer from "./debugDrawer.component";
+import ExtensionsDrawer from "./extensionsDrawer.component";
+import FileDrawer from "./fileDrawer.component";
+import GitDrawer from "./gitDrawer.component";
+import SearchDrawer from "./searchDrawer.component";
 
 let MIN_DRAWER_SIZE_PX = 150; // percent of the full width of the screen
 let MAX_DRAWER_SIZE_IN_PERCENT = 50; // percent of the full width of the screen
@@ -16,14 +17,56 @@ const Drawer = () => {
   const isSidePannelPositionOnLeft = useAppSelector(
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
   );
-  const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
+  const showInSideDrawer = useAppSelector(
+    (state) => state.sideDrawer.showInSideDrawer
+  );
   const [isDrawerResizing, setIsDrawerResizing] = useState(false);
-  const location = useLocation();
-  const dispatch = useAppDispatch();
+  useSideDrawerResizing(setIsDrawerResizing, refResizer, refDrawer);
+  
+  let showComponentInDrawer = <FileDrawer />;
+  if (showInSideDrawer === "search") showComponentInDrawer = <SearchDrawer />;
+  else if (showInSideDrawer === "git") showComponentInDrawer = <GitDrawer />;
+  else if (showInSideDrawer === "debug")
+    showComponentInDrawer = <DebugDrawer />;
+  else if (showInSideDrawer === "extensions")
+    showComponentInDrawer = <ExtensionsDrawer />;
+    
+  return (
+    <div
+      ref={refDrawer}
+      className={twMerge(
+        "flex text-white bg-black w-52 justify-between overflow-x-scroll touch-none",
+        isSidePannelPositionOnLeft && "flex-row-reverse"
+      )}
+      style={{ width: sideDrawerWidth }}
+    >
+      <div
+        ref={refResizer}
+        className={twMerge(
+          "w-1 h-full duration-300 cursor-move hover:bg-white resizable-div-left-right",
+          isDrawerResizing && "bg-white"
+        )}
+      ></div>
+      <div className="flex flex-col items-center justify-center w-full">
+        {sideDrawerWidth}
+        {showComponentInDrawer}
+      </div>
+    </div>
+  );
+};
 
+function useSideDrawerResizing(
+  setIsDrawerResizing: Function,
+  refResizer: React.RefObject<HTMLDivElement>,
+  refDrawer: React.RefObject<HTMLDivElement>
+) {
+  const dispatch = useAppDispatch();
+  const sideDrawerWidth = useAppSelector(
+    (state) => state.sideDrawer.sideDrawerWidth
+  );
   useEffect(() => {
     // when the screen size changes it manages the drawer size such that drawer is not on the full screen
     const manageDrawerWidth = () => {
@@ -40,14 +83,6 @@ const Drawer = () => {
     return () => {
       window.removeEventListener("resize", manageDrawerWidth);
     };
-  });
-  // initial value set depending on the url parameter
-  useEffect(() => {
-    if (location.pathname.includes("/side-drawer/")) {
-      if (!isDrawerOpen) dispatch(setIsDrawerOpen(true));
-    } else {
-      if (isDrawerOpen) dispatch(setIsDrawerOpen(false));
-    }
   });
 
   // this is for the resizing of the drawer
@@ -100,29 +135,6 @@ const Drawer = () => {
       );
     };
   });
-
-  return (
-    <div
-      ref={refDrawer}
-      className={twMerge(
-        "flex text-white bg-black w-52 justify-between overflow-x-scroll touch-none",
-        isSidePannelPositionOnLeft && "flex-row-reverse"
-      )}
-      style={{ width: sideDrawerWidth }}
-    >
-      <div
-        ref={refResizer}
-        className={twMerge(
-          "w-1 h-full duration-300 cursor-move hover:bg-white resizable-div-left-right",
-          isDrawerResizing && "bg-white"
-        )}
-      ></div>
-      <div className="flex flex-col items-center justify-center w-full">
-        {sideDrawerWidth}
-        <Outlet />
-      </div>
-    </div>
-  );
-};
+}
 
 export default Drawer;
