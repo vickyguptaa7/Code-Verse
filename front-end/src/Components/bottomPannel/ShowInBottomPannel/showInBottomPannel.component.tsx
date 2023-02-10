@@ -1,5 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../../Store/store";
+import Debug from "./Debug.component";
 import Input from "./Input.component";
 import Output from "./Output.component";
 import Terminal from "./Terminal.component";
@@ -10,7 +11,8 @@ const ShowInBottomPannel = () => {
   );
   if (showInBottomPannel === "input") return <Input />;
   if (showInBottomPannel === "output") return <Output />;
-  return <Terminal />;
+  if (showInBottomPannel === "terminal") return <Terminal />;
+  return <Debug />;
 };
 
 export default ShowInBottomPannel;

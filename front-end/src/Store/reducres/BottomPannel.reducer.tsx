@@ -7,7 +7,7 @@ const bottomPannelInitialState = {
   showInBottomPannel: "input",
 };
 
-type bottomPannelContent="input" | "output" | "terminal";
+type bottomPannelContent = "input" | "output" | "terminal" | "debug";
 
 const bottomPannelSlice = createSlice({
   name: "sideDrawer",
@@ -22,18 +22,16 @@ const bottomPannelSlice = createSlice({
     setIsMinimizeBottomPannel(state, action: PayloadAction<boolean>) {
       state.isMinimizeBottomPannel = action.payload;
     },
-    setShowInBottomPannel(
-      state,
-      action: PayloadAction<bottomPannelContent>
-    ) {
-        state.showInBottomPannel = action.payload;
+    setShowInBottomPannel(state, action: PayloadAction<bottomPannelContent>) {
+      state.showInBottomPannel = action.payload;
     },
-    resetBottomPannel(state){
-      state.bottomPannelHeight=bottomPannelInitialState.bottomPannelHeight;
-      state.isBottomPannelOpen=false;
-      state.isMinimizeBottomPannel=bottomPannelInitialState.isMinimizeBottomPannel;
-      state.showInBottomPannel=bottomPannelInitialState.showInBottomPannel;
-    }
+    resetBottomPannel(state) {
+      state.bottomPannelHeight = bottomPannelInitialState.bottomPannelHeight;
+      state.isBottomPannelOpen = false;
+      state.isMinimizeBottomPannel =
+        bottomPannelInitialState.isMinimizeBottomPannel;
+      state.showInBottomPannel = bottomPannelInitialState.showInBottomPannel;
+    },
   },
 });
 
@@ -42,7 +40,7 @@ export const {
   setBottomPannelHeight,
   setIsMinimizeBottomPannel,
   setShowInBottomPannel,
-  resetBottomPannel
+  resetBottomPannel,
 } = bottomPannelSlice.actions;
 
 export default bottomPannelSlice.reducer;
