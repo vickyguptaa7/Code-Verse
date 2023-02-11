@@ -55,7 +55,7 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
 
   // text buttons
   return (
-    <li className={twMerge("hidden hover:text-white xs:block mr-4", className)}>
+    <li className={twMerge("hover:text-white mr-4", className)}>
       <button
         className="px-1 pb-1 mb-0.5"
         data-name={dataName}

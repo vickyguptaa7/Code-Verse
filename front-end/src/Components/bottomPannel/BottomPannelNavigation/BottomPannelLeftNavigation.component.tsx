@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { VscEllipsis } from "react-icons/vsc";
+import { twMerge } from "tailwind-merge";
 import { setShowInBottomPannel } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
@@ -34,38 +35,38 @@ const BottomPannelLeftNavigation = () => {
       )}
       <ul className="flex items-center text-sm text-gray-400 justify-evenly mt-0.5">
         <BottomPannelButton
-          className={
+          className={twMerge("hidden xs:block",
             showInBottomPannel === "input"
               ? "border-b border-gray-400 text-white"
               : ""
-          }
+          )}
           dataName="input"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={
+          className={twMerge("hidden sm:block",
             showInBottomPannel === "output"
               ? "border-b border-gray-400 text-white"
               : ""
-          }
+          )}
           dataName="output"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={
+          className={twMerge("hidden md:block",
             showInBottomPannel === "debug"
               ? "border-b border-gray-400 text-white"
               : ""
-          }
+          )}
           dataName="debug"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={
+          className={twMerge("hidden lg:block",
             showInBottomPannel === "terminal"
               ? "border-b border-gray-400 text-white"
               : ""
-          }
+          )}
           dataName="terminal"
           onClickHandler={showInBottomPannelHandler}
         />
