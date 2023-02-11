@@ -25,10 +25,7 @@ const PannelButtons: React.FC<IPROPS> = ({
     (state) => state.sideDrawer.showInSideDrawer
   );
 
-  const basicClassName =
-    " flex items-center justify-center p-3 hover:text-white mx-[3px] ";
   let activeClassName = twMerge(
-    basicClassName,
     "text-white",
     !isSidePannelPositionOnLeft ? "border-r-[3px] mr-0" : "border-l-[3px] ml-0"
   );
@@ -36,11 +33,10 @@ const PannelButtons: React.FC<IPROPS> = ({
     <div className="mb-2 text-gray-500 border-gray-700">
       <button
         onClick={onClickHandler}
-        className={
-          showInSideDrawer === buttonName && isDrawerOpen
-            ? activeClassName
-            : basicClassName
-        }
+        className={twMerge(
+          "flex items-center justify-center p-3 hover:text-white mx-[3px]",
+          showInSideDrawer === buttonName && isDrawerOpen ? activeClassName : ""
+        )}
         title={title}
         data-name={buttonName}
       >
@@ -49,24 +45,5 @@ const PannelButtons: React.FC<IPROPS> = ({
     </div>
   );
 };
-/*
-<div
-          className={twMerge(
-            " border-gray-700 text-gray-300",
-            isDrawerOpen && " border-gray-100 text-white",
-            !isSidePannelPositionOnLeft
-              ? "border-r-[3px] ml-[3px]"
-              : "border-l-[3px] mr-[3px]"
-          )}
-        >
-          <button
-            className="flex items-center justify-center p-4 hover:text-white"
-            title="Explorer"
-            onClick={sideDrawerHandler}
-          >
-            <VscFiles className="" />
-          </button>
-        </div>
-*/
 
 export default PannelButtons;

@@ -14,7 +14,7 @@ const BottomPannelLeftNavigation = () => {
   );
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
 
-  const closeDropMenuHandler = () => {
+  const closeDropMenuHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
     setIsDropMenuOpen(false);
   };
   const openDropMenuHandler = () => {
@@ -92,8 +92,9 @@ function dropMenu(
     showInBottomPannelHandler(event);
     closeDropMenuHandler(event);
   };
+  // TODO: fix the horizontal scrolling issue of the drop down menu 
   return (
-    <div className="absolute z-10 flex flex-col p-1 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg -left-10 top-4 w-fit">
+    <div className="absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right bg-white border border-gray-100 rounded-md shadow-lg -left-6 top-4 w-fit">
       <BottomPannelButton
         className=""
         dataName="input"
