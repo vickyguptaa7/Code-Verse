@@ -9,6 +9,7 @@ import {
 } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
+import DropMenuButton from "../../UI/DropMenuButton.component";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../BottomPannel.Constant";
 import BottomPannelButton from "../bottomPannelButtons.component";
 
@@ -92,16 +93,12 @@ function dropMenu(
   };
   return (
     <div className="absolute z-10 flex flex-col p-1 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg -right-0 top-8 min-w-max">
-      <BottomPannelButton
-        className=""
+      <DropMenuButton
         name="Clear Terminal"
-        dropMenu={true}
         onClickHandler={onClickHandler}
       />
-      <BottomPannelButton
-        className=""
+      <DropMenuButton
         name="Run Active File"
-        dropMenu={true}
         onClickHandler={closeDropMenuHandler}
       />
     </div>

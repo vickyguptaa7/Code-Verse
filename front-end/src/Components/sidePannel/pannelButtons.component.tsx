@@ -7,8 +7,6 @@ interface IPROPS {
   title?: string;
   onClickHandler: React.MouseEventHandler;
   buttonName: string;
-  dropMenu?: boolean;
-  className?: string;
 }
 
 const PannelButtons: React.FC<IPROPS> = ({
@@ -16,8 +14,6 @@ const PannelButtons: React.FC<IPROPS> = ({
   title,
   onClickHandler,
   buttonName,
-  dropMenu,
-  className
 }) => {
 
   const isSidePannelPositionOnLeft = useAppSelector(
@@ -29,21 +25,6 @@ const PannelButtons: React.FC<IPROPS> = ({
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
-
-  if(dropMenu)
-  {
-    return (
-      <button
-        className={twMerge(
-          "block px-4 py-0.5 text-sm text-start text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700",
-          className
-        )}
-        onClick={onClickHandler}
-      >
-        {buttonName?.charAt(0).toUpperCase() + buttonName?.substring(1).toLowerCase()}
-      </button>
-    );
-  }
 
   let activeClassName = twMerge(
     "text-white",

@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { setShowInBottomPannel } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
+import DropMenuButton from "../../UI/DropMenuButton.component";
 import BottomPannelButton from "../bottomPannelButtons.component";
 
 type bottomPannelContent = "input" | "output" | "terminal" | "debug";
@@ -96,28 +97,20 @@ function dropMenu(
   // TODO: fix the horizontal scrolling issue of the drop down menu 
   return (
     <div className="absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right bg-white border border-gray-100 rounded-md shadow-lg -left-6 top-4 w-fit">
-      <BottomPannelButton
-        className=""
-        dataName="input"
-        dropMenu={true}
+      <DropMenuButton
+        name="Input"
         onClickHandler={onClickHandler}
       />
-      <BottomPannelButton
-        className=""
-        dataName="output"
-        dropMenu={true}
+      <DropMenuButton
+        name="Output"
         onClickHandler={onClickHandler}
       />
-      <BottomPannelButton
-        className=""
-        dataName="debug"
-        dropMenu={true}
+      <DropMenuButton
+        name="Debug"
         onClickHandler={onClickHandler}
       />
-      <BottomPannelButton
-        className=""
-        dataName="terminal"
-        dropMenu={true}
+      <DropMenuButton
+        name="Terminal"
         onClickHandler={onClickHandler}
       />
     </div>
