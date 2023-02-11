@@ -68,7 +68,7 @@ const BottomPannelRightNavigation = () => {
         </div>
         <BottomPannelButton
           Icon={VscChevronUp}
-          className={isMinimizeBottomPannel ? "rotate-180" : ""}
+          className={twMerge(isMinimizeBottomPannel && "rotate-180")}
           onClickHandler={minMaxBottomPannelHandler}
         />
         <BottomPannelButton

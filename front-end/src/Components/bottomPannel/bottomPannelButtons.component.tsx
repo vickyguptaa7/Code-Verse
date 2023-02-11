@@ -32,7 +32,7 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
         )}
         onClick={onClickHandler}
       >
-        <Icon className={twMerge("text-xl text-gray-300 ", className)} />
+        <Icon className={twMerge("text-xl text-gray-300 ")} />
       </button>
     );
 
@@ -57,7 +57,7 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
   return (
     <li className={twMerge("hover:text-white mr-4", className)}>
       <button
-        className="px-1 pb-1 mb-0.5"
+        className={twMerge("px-1 pb-1 mb-0.5",className)}
         data-name={dataName}
         onClick={onClickHandler}
       >
