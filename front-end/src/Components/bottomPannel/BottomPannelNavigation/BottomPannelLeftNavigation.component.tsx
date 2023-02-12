@@ -36,37 +36,37 @@ const BottomPannelLeftNavigation = () => {
       )}
       <ul className="flex items-center text-sm text-gray-400 justify-evenly mt-0.5">
         <BottomPannelButton
-          className={twMerge("hidden xs:block",
+          className={twMerge("hidden xs:block border-b",
             showInBottomPannel === "input"
-              ? "border-b border-gray-400 text-white"
-              : ""
+              ? "border-gray-400 text-white"
+              : "border-gray-900"
           )}
           dataName="input"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge("hidden sm:block",
+          className={twMerge("hidden sm:block border-b",
             showInBottomPannel === "output"
-              ? "border-b border-gray-400 text-white"
-              : ""
+              ? "border-gray-400 text-white"
+              : "border-gray-900"
           )}
           dataName="output"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge("hidden md:block",
+          className={twMerge("hidden md:block border-b",
             showInBottomPannel === "debug"
-              ? "border-b border-gray-400 text-white"
-              : ""
+              ? " border-gray-400 text-white"
+              : "border-gray-900"
           )}
           dataName="debug"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge("hidden lg:block",
+          className={twMerge("hidden lg:block border-b",
             showInBottomPannel === "terminal"
-              ? "border-b border-gray-400 text-white"
-              : ""
+              ? " border-gray-400 text-white"
+              : "border-gray-900"
           )}
           dataName="terminal"
           onClickHandler={showInBottomPannelHandler}
