@@ -5,9 +5,16 @@ import { VscDebugStart, VscEllipsis } from "react-icons/vsc";
 import DropMenuButton from "../UI/DropMenuButton.component";
 import { twMerge } from "tailwind-merge";
 import Backdrop from "../UI/Backdrop.component";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
+import { removeAllFilesFromNavigation } from "../../Store/reducres/FileNavigation.reducer";
+import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel.reducer";
 
 const FileNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
+  const isBottomPannelOpen = useAppSelector(
+    (state) => state.bottomPannel.isBottomPannelOpen
+  );
+  const dispatch = useAppDispatch();
 
   const closeDropMenuHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setIsDropMenuOpen(false);
@@ -23,8 +30,8 @@ const FileNavigation = () => {
       <div className="flex justify-between bg-gray-900">
         <FileContainer />
         <div className="flex items-center justify-center p-2">
-          <button className="flex items-center justify-center rounded-lg hover:bg-gray-700">
-            <VscDebugStart className="text-2xl text-gray-300 p-0.5 mr-4" />
+          <button className="flex items-center justify-center mr-4 rounded-lg hover:bg-gray-700">
+            <VscDebugStart className="text-2xl text-gray-300 p-0.5" />
           </button>
           <button
             className={twMerge(
@@ -36,7 +43,8 @@ const FileNavigation = () => {
             <VscEllipsis className="text-xl text-gray-300 " />
           </button>
           <div className="relative overflow-visible">
-            {isDropMenuOpen && dropMenu(() => {}, closeDropMenuHandler)}
+            {isDropMenuOpen &&
+              dropMenu(isBottomPannelOpen, dispatch, closeDropMenuHandler)}
           </div>
         </div>
       </div>
@@ -45,18 +53,33 @@ const FileNavigation = () => {
 };
 
 function dropMenu(
-  showInBottomPannelHandler: React.MouseEventHandler,
+  isBottomPannelOpen: boolean,
+  dispatch: Function,
   closeDropMenuHandler: React.MouseEventHandler
 ) {
-  const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    showInBottomPannelHandler(event);
+  const closeAllFilesHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(removeAllFilesFromNavigation());
+    closeDropMenuHandler(event);
+  };
+
+  const toggleBottomPannelHandler = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    dispatch(setIsBottomPannelOpen(!isBottomPannelOpen));
     closeDropMenuHandler(event);
   };
   // TODO: fix the horizontal scrolling issue of the drop down menu
   return (
-    <div className="absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right bg-white border border-gray-100 rounded-md shadow-lg right-4 top-5 w-fit">
-      <DropMenuButton name="Close All" onClickHandler={onClickHandler} />
-      <DropMenuButton name="Run Active File" onClickHandler={onClickHandler} />
+    <div className="absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right bg-white border border-gray-100 rounded-md shadow-lg right-2.5 top-6 w-fit">
+      <DropMenuButton name="Close All" onClickHandler={closeAllFilesHandler} />
+      <DropMenuButton
+        name="Run Active File"
+        onClickHandler={closeDropMenuHandler}
+      />
+      <DropMenuButton
+        name={`${!isBottomPannelOpen ? "Open" : "Close"} Pannel`}
+        onClickHandler={toggleBottomPannelHandler}
+      />
     </div>
   );
 }
