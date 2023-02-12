@@ -20,7 +20,7 @@ const ShowInBottomPannel = () => {
   if (showInBottomPannel === "terminal") return <Terminal />;
   return (
     <div
-      className="mx-4 mt-2 overflow-scroll "
+      className="p-1 mx-4 mt-2 overflow-scroll "
       style={{ height: bottomPannelHeight - BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX }}
     >
       <Debug />;
