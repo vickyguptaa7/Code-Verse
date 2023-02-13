@@ -77,7 +77,7 @@ function dropMenu(
         onClickHandler={closeDropMenuHandler}
       />
       <DropMenuButton
-        name={`${!isBottomPannelOpen ? "Open" : "Close"} Pannel`}
+        name={`${!isBottomPannelOpen ? "Open" : "Close"} Terminal`}
         onClickHandler={toggleBottomPannelHandler}
       />
     </div>

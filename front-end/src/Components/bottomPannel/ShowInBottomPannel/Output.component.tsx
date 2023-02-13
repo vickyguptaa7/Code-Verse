@@ -1,9 +1,24 @@
-import React from 'react'
+import React from "react";
 
-const Output = () => {
-  return (
-    <div className='text-white'>Output</div>
-  )
+interface PROPS_INTEFACE {
+  mainDivHeight: number;
 }
 
-export default Output
+const Output: React.FC<PROPS_INTEFACE> = ({ mainDivHeight }) => {
+  return (
+    <div className="text-white">
+      <textarea
+        name="output"
+        id="output"
+        className="w-full outline-none resize-none bg-inherit font-cascadia"
+        // here 18px subtracted as the parent div have margins and padding so to remove scrolling
+        style={{ height: mainDivHeight - 18 }}
+        disabled
+      >
+        Output Will Be Displayed Here...
+      </textarea>
+    </div>
+  );
+};
+
+export default Output;

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Terminal = () => {
   return (
-    <div className='text-white'>Terminal</div>
+    <div className='text-white font-cascadia'>Terminal</div>
   )
 }
 

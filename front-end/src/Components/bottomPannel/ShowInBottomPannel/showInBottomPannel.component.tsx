@@ -15,15 +15,18 @@ const ShowInBottomPannel = () => {
   const showInBottomPannel = useAppSelector(
     (state) => state.bottomPannel.showInBottomPannel
   );
+  const contentShowInBottomPannelHeight =
+    bottomPannelHeight - BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX;
   let show = <Debug />;
-  if (showInBottomPannel === "input") show = <Input />;
-  if (showInBottomPannel === "output") show = <Output />;
+  if (showInBottomPannel === "input")
+    show = <Input mainDivHeight={contentShowInBottomPannelHeight} />;
+  if (showInBottomPannel === "output") show = <Output mainDivHeight={contentShowInBottomPannelHeight} />;
   if (showInBottomPannel === "terminal") show = <Terminal />;
   return (
     <div
       className="p-1 mx-4 mt-2 overflow-scroll "
       style={{
-        height: bottomPannelHeight - BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX,
+        height: contentShowInBottomPannelHeight,
       }}
     >
       {show}

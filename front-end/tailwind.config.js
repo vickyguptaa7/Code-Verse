@@ -4,7 +4,14 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'cascadia': ['Cascadia Code', 'sans-serif'],
+        'sans':[ "-apple-system", 'BlinkMacSystemFont',
+         "Helvetica Neue","Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"
+        ]
+      },
+    },
     screens: {
       'xs':'410px',
       'sm':'510px',
