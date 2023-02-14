@@ -8,6 +8,7 @@ import Backdrop from "../UI/Backdrop.component";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { removeAllFilesFromNavigation } from "../../Store/reducres/FileNavigation.reducer";
 import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel.reducer";
+import DropMenu from "../UI/DropMenu.component";
 
 const FileNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -70,7 +71,7 @@ function dropMenu(
   };
   // TODO: fix the horizontal scrolling issue of the drop down menu
   return (
-    <div className="absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right bg-white border border-gray-100 rounded-md shadow-lg right-2.5 top-6 w-fit">
+    <DropMenu className="right-2.5 top-6">
       <DropMenuButton name="Close All" onClickHandler={closeAllFilesHandler} />
       <DropMenuButton
         name="Run Active File"
@@ -80,7 +81,7 @@ function dropMenu(
         name={`${!isBottomPannelOpen ? "Open" : "Close"} Terminal`}
         onClickHandler={toggleBottomPannelHandler}
       />
-    </div>
+    </DropMenu>
   );
 }
 

@@ -12,6 +12,7 @@ import {
 } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
+import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../BottomPannel.Constant";
 import BottomPannelButton from "../bottomPannelButtons.component";
@@ -103,7 +104,7 @@ function dropMenu(
   };
 
   return (
-    <div className="absolute z-10 flex flex-col p-1 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg -right-0 top-8 min-w-max">
+    <DropMenu className="-right-0 top-8">
       <DropMenuButton name="Clear Output" onClickHandler={clearOutputHandler} />
       <DropMenuButton
         name="Clear Terminal"
@@ -113,7 +114,7 @@ function dropMenu(
         name="Run Active File"
         onClickHandler={closeDropMenuHandler}
       />
-    </div>
+    </DropMenu>
   );
 }
 

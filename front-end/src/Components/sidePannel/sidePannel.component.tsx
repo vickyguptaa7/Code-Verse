@@ -14,6 +14,7 @@ import {
 } from "../../Store/reducres/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import Backdrop from "../UI/Backdrop.component";
+import DropMenu from "../UI/DropMenu.component";
 import DropMenuButton from "../UI/DropMenuButton.component";
 import PannelButtons from "./pannelButtons.component";
 
@@ -122,15 +123,12 @@ function dropMenu(
   };
   // TODO: Add the functionality of each buttons
   return (
-    <div className="absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right bg-white border border-gray-100 rounded-md shadow-lg bottom-5 left-14 w-fit">
+    <DropMenu className=" bottom-5 left-14">
       <DropMenuButton name="Setting" onClickHandler={onClickHandler} />
       <DropMenuButton name="Extensions" onClickHandler={onClickHandler} />
       <DropMenuButton name="Themes" onClickHandler={onClickHandler} />
-      <DropMenuButton
-        name="White Board"
-        onClickHandler={onClickHandler}
-      />
-    </div>
+      <DropMenuButton name="White Board" onClickHandler={onClickHandler} />
+    </DropMenu>
   );
 }
 

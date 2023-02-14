@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { setShowInBottomPannel } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
+import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
 import BottomPannelButton from "../bottomPannelButtons.component";
 
@@ -16,7 +17,7 @@ const BottomPannelLeftNavigation = () => {
   );
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
 
-  const closeDropMenuHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
+  const closeDropMenuHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setIsDropMenuOpen(false);
   };
   const openDropMenuHandler = () => {
@@ -36,7 +37,8 @@ const BottomPannelLeftNavigation = () => {
       )}
       <ul className="flex items-center text-sm text-gray-400 justify-evenly mt-0.5">
         <BottomPannelButton
-          className={twMerge("hidden xs:block border-b",
+          className={twMerge(
+            "hidden xs:block border-b",
             showInBottomPannel === "input"
               ? "border-gray-400 text-white"
               : "border-gray-900"
@@ -45,7 +47,8 @@ const BottomPannelLeftNavigation = () => {
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge("hidden sm:block border-b",
+          className={twMerge(
+            "hidden sm:block border-b",
             showInBottomPannel === "output"
               ? "border-gray-400 text-white"
               : "border-gray-900"
@@ -54,7 +57,8 @@ const BottomPannelLeftNavigation = () => {
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge("hidden md:block border-b",
+          className={twMerge(
+            "hidden md:block border-b",
             showInBottomPannel === "debug"
               ? " border-gray-400 text-white"
               : "border-gray-900"
@@ -63,7 +67,8 @@ const BottomPannelLeftNavigation = () => {
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge("hidden lg:block border-b",
+          className={twMerge(
+            "hidden lg:block border-b",
             showInBottomPannel === "terminal"
               ? " border-gray-400 text-white"
               : "border-gray-900"
@@ -94,26 +99,14 @@ function dropMenu(
     showInBottomPannelHandler(event);
     closeDropMenuHandler(event);
   };
-  // TODO: fix the horizontal scrolling issue of the drop down menu 
+
   return (
-    <div className="absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right bg-white border border-gray-100 rounded-md shadow-lg -left-6 top-4 w-fit">
-      <DropMenuButton
-        name="Input"
-        onClickHandler={onClickHandler}
-      />
-      <DropMenuButton
-        name="Output"
-        onClickHandler={onClickHandler}
-      />
-      <DropMenuButton
-        name="Debug"
-        onClickHandler={onClickHandler}
-      />
-      <DropMenuButton
-        name="Terminal"
-        onClickHandler={onClickHandler}
-      />
-    </div>
+    <DropMenu className="-left-6 top-4">
+      <DropMenuButton name="Input" onClickHandler={onClickHandler} />
+      <DropMenuButton name="Output" onClickHandler={onClickHandler} />
+      <DropMenuButton name="Debug" onClickHandler={onClickHandler} />
+      <DropMenuButton name="Terminal" onClickHandler={onClickHandler} />
+    </DropMenu>
   );
 }
 
