@@ -5,6 +5,10 @@ const bottomPannelInitialState = {
   bottomPannelHeight: 208, // 13 rem inital width of drawer
   isMinimizeBottomPannel: false,
   showInBottomPannel: "input",
+  terminalContent: "",
+  inputContent: "",
+  outputContent: "",
+  debugContent: "",
 };
 
 type bottomPannelContent = "input" | "output" | "terminal" | "debug";
@@ -31,7 +35,20 @@ const bottomPannelSlice = createSlice({
       state.isMinimizeBottomPannel =
         bottomPannelInitialState.isMinimizeBottomPannel;
       state.showInBottomPannel = bottomPannelInitialState.showInBottomPannel;
+      state.terminalContent = bottomPannelInitialState.terminalContent;
+      state.inputContent = bottomPannelInitialState.inputContent;
+      state.outputContent = bottomPannelInitialState.outputContent;
+      state.debugContent = bottomPannelInitialState.debugContent;
     },
+    setTerminalContent(state, action: PayloadAction<string>) {
+      state.terminalContent = action.payload;
+    },
+    setInputContent(state, action: PayloadAction<string>) {
+      state.inputContent = action.payload;
+    },
+    setOutputContent(state, action: PayloadAction<string>) {
+      state.outputContent = action.payload;
+    }
   },
 });
 
@@ -41,6 +58,9 @@ export const {
   setIsMinimizeBottomPannel,
   setShowInBottomPannel,
   resetBottomPannel,
+  setInputContent,
+  setTerminalContent,
+  setOutputContent
 } = bottomPannelSlice.actions;
 
 export default bottomPannelSlice.reducer;

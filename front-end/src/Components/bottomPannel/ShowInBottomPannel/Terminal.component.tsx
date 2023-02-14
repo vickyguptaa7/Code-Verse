@@ -1,9 +1,59 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from "react";
+import { setTerminalContent } from "../../../Store/reducres/BottomPannel.reducer";
+import { useAppDispatch, useAppSelector } from "../../../Store/store";
 
 const Terminal = () => {
-  return (
-    <div className='text-white font-cascadia'>Terminal</div>
-  )
-}
+  const terminalContent = useAppSelector(
+    (state) => state.bottomPannel.terminalContent
+  );
+  const dispatch = useAppDispatch();
 
-export default Terminal
+  const [terminalInput, setTerminalInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  
+
+  const setFocusHandler=()=> {
+    inputRef.current?.focus();
+  }
+  
+  useEffect(() => {
+    setFocusHandler();
+  }, []);
+
+  const onKeyDownHandler = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      dispatch(
+        setTerminalContent(terminalContent + "user& " + terminalInput + "\n")
+      );
+      setTerminalInput("");
+    }
+  };
+
+  const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    setTerminalInput(event.currentTarget.value);
+  };
+
+  return (
+    <div
+      className="flex flex-col h-full items-start text-[0.9rem] font-[350] text-white font-cascadia"
+      onClick={setFocusHandler}
+    >
+      <div className="w-full text-left whitespace-pre-line terminal-output">
+        {terminalContent}
+      </div>
+      <div className="flex gap-[8.5px]">
+        <span>user&</span>
+        <input
+          ref={inputRef}
+          type="text"
+          className="w-full outline-none bg-inherit"
+          value={terminalInput}
+          onChange={onChangeHandler}
+          onKeyDown={onKeyDownHandler}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Terminal;

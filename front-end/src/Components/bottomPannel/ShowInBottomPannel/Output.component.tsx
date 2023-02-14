@@ -1,10 +1,15 @@
 import React from "react";
+import { useAppSelector } from "../../../Store/store";
 
 interface PROPS_INTEFACE {
   mainDivHeight: number;
 }
 
 const Output: React.FC<PROPS_INTEFACE> = ({ mainDivHeight }) => {
+  const outputContent = useAppSelector(
+    (state) => state.bottomPannel.outputContent
+  );
+  
   return (
     <div className="text-white">
       <textarea
@@ -14,9 +19,9 @@ const Output: React.FC<PROPS_INTEFACE> = ({ mainDivHeight }) => {
         // here 18px subtracted as the parent div have margins and padding so to remove scrolling
         style={{ height: mainDivHeight - 18 }}
         disabled
-      >
-        Output Will Be Displayed Here...
-      </textarea>
+        placeholder="output will be displayed here..."
+        value={outputContent}
+      ></textarea>
     </div>
   );
 };

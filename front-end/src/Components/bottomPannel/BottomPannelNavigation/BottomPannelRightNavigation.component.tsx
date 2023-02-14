@@ -6,6 +6,9 @@ import {
   setBottomPannelHeight,
   setIsBottomPannelOpen,
   setIsMinimizeBottomPannel,
+  setOutputContent,
+  setShowInBottomPannel,
+  setTerminalContent,
 } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
@@ -59,13 +62,15 @@ const BottomPannelRightNavigation = () => {
           onClickHandler={resetBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge("flex items-start justify-center",isDropMenuOpen&&"bg-gray-700")}
+          className={twMerge(
+            "flex items-start justify-center",
+            isDropMenuOpen && "bg-gray-700"
+          )}
           Icon={VscEllipsis}
           onClickHandler={openDropMenuHandler}
         />
         <div className="relative overflow-visible">
-          {isDropMenuOpen &&
-            dropMenu(resetBottomPannelHandler,closeDropMenuHandler)}
+          {isDropMenuOpen && dropMenu(dispatch, closeDropMenuHandler)}
         </div>
         <BottomPannelButton
           Icon={VscChevronUp}
@@ -81,21 +86,28 @@ const BottomPannelRightNavigation = () => {
   );
 };
 
-
 function dropMenu(
-  resetBottomPannelHandler: React.MouseEventHandler,
+  dispatch: Function,
   closeDropMenuHandler: React.MouseEventHandler
 ) {
-  const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // TODO: Here we have to apply the clear terminal function and also run file function
-    resetBottomPannelHandler(event);
+  const clearTerminalHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setTerminalContent(""));
     closeDropMenuHandler(event);
+    dispatch(setShowInBottomPannel("terminal"));
   };
+
+  const clearOutputHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setOutputContent(""));
+    closeDropMenuHandler(event);
+    dispatch(setShowInBottomPannel("output"));
+  };
+
   return (
     <div className="absolute z-10 flex flex-col p-1 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg -right-0 top-8 min-w-max">
+      <DropMenuButton name="Clear Output" onClickHandler={clearOutputHandler} />
       <DropMenuButton
         name="Clear Terminal"
-        onClickHandler={onClickHandler}
+        onClickHandler={clearTerminalHandler}
       />
       <DropMenuButton
         name="Run Active File"
@@ -104,6 +116,5 @@ function dropMenu(
     </div>
   );
 }
-
 
 export default BottomPannelRightNavigation;
