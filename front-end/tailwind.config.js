@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'cascadia': ['Cascadia Code', 'sans-serif'],
+        'cascadia': ['Fira Code','Cascadia Code', 'sans-serif'],
         'sans':[ "-apple-system", 'BlinkMacSystemFont',
          "Helvetica Neue","Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"
         ]
