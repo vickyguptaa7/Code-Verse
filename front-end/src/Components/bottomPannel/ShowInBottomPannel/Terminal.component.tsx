@@ -10,43 +10,45 @@ const Terminal = () => {
 
   const [terminalInput, setTerminalInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const setFocusHandler=()=> {
+  const setFocusHandler = () => {
+    inputRef.current?.blur();
     inputRef.current?.focus();
-  }
-  
+  };
+
   useEffect(() => {
     setFocusHandler();
-  }, []);
-
+  },);
+  
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       dispatch(
-        setTerminalContent(terminalContent + "user& " + terminalInput + "\n")
-      );
-      setTerminalInput("");
-    }
-  };
-
-  const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    setTerminalInput(event.currentTarget.value);
-  };
-
-  return (
-    <div
+        setTerminalContent(terminalContent + "user$ " + terminalInput + "\n")
+        );
+        setTerminalInput("");
+      }
+    };
+    
+    const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
+      setTerminalInput(event.currentTarget.value);
+    };
+    
+    return (
+      <div
+      ref={containerRef}
       className="flex flex-col h-full items-start text-[0.9rem] font-[350] text-white font-cascadia"
       onClick={setFocusHandler}
     >
       <div className="w-full text-left whitespace-pre-line terminal-output">
         {terminalContent}
       </div>
-      <div className="flex gap-[8.5px]">
-        <span>user&</span>
+      <div className="flex w-full">
+        <span className="whitespace-pre-wrap">user{"$ "}</span>
         <input
           ref={inputRef}
           type="text"
-          className="w-full outline-none bg-inherit"
+          className="w-full outline-none bg-inherit "
           value={terminalInput}
           onChange={onChangeHandler}
           onKeyDown={onKeyDownHandler}
