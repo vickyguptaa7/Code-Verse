@@ -40,14 +40,14 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       : fileInfo.fileName.substring(0, MAX_FILE_LENGTH - 3) + "...";
 
   return (
-    <div className="flex items-center justify-between gap-2 px-4 py-1 pb-1 bg-gray-900 border-r border-black">
+    <div className="flex items-center justify-between gap-2 px-4 py-1 pb-1 bg-gray-900 border-r border-black group">
       <div className="language-logo">{languageLogo}</div>
       <div className="text-start">
         <h1 className="pr-3 text-[color:var(--primary-text-color)]">{fileName}</h1>
       </div>
-      <div className="close-logo pt-[2px] text-[color:var(--highlight-text-color)]">
-        <button onClick={removeHandler}>
-          <RxCross2 className="text-sm hover:bg-gray-200 rounded-full duration-300 hover:text-gray-600 p-[1px] flex" />
+      <div className="close-logo pt-[2px] text-[color:var(--highlight-text-color)] invisible group-hover:visible">
+        <button onClick={removeHandler} className="flex items-center justify-start">
+          <RxCross2 className="text-lg hover:bg-[color:var(--hover-text-color)] rounded-md duration-100 p-[2px] flex" />
         </button>
       </div>
     </div>

@@ -14,7 +14,7 @@ const SideDrawer = () => {
   return (
     <div
       className={twMerge(
-        "flex h-full ",
+        "flex h-full bg-[color:var(--sidedrawer-color)]",
         isDrawerOpenSideIsLeft && "flex-row-reverse"
       )}
     >

@@ -38,7 +38,7 @@ const BottomPannelLeftNavigation = () => {
       <ul className="flex items-center text-sm text-[color:var(--primary-text-color)] justify-evenly mt-0.5">
         <BottomPannelButton
           className={twMerge(
-            "hidden xs:block border-b",
+            "hidden xs:block border-b-[1.5px] ",
             showInBottomPannel === "input"
               ? "border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
               : "border-gray-900"
@@ -48,7 +48,7 @@ const BottomPannelLeftNavigation = () => {
         />
         <BottomPannelButton
           className={twMerge(
-            "hidden sm:block border-b",
+            "hidden sm:block border-b-[1.5px] ",
             showInBottomPannel === "output"
               ? "border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
               : "border-gray-900"
@@ -58,7 +58,7 @@ const BottomPannelLeftNavigation = () => {
         />
         <BottomPannelButton
           className={twMerge(
-            "hidden md:block border-b",
+            "hidden md:block border-b-[1.5px] ",
             showInBottomPannel === "debug"
               ? " border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
               : "border-gray-900"
@@ -68,7 +68,7 @@ const BottomPannelLeftNavigation = () => {
         />
         <BottomPannelButton
           className={twMerge(
-            "hidden lg:block border-b",
+            "hidden lg:block border-b-[1.5px] ",
             showInBottomPannel === "terminal"
               ? " border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
               : "border-gray-900"

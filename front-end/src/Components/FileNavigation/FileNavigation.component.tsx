@@ -28,7 +28,7 @@ const FileNavigation = () => {
       {isDropMenuOpen && (
         <Backdrop onClick={closeDropMenuHandler} className="bg-transparent" />
       )}
-      <div className="flex justify-between bg-gray-900">
+      <div className="flex justify-between bg-[color:var(--sidepannel-color)]">
         <FileContainer />
         <div className="flex items-center justify-center p-2 text-[color:var(--highlight-text-color)]">
           <button className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]">

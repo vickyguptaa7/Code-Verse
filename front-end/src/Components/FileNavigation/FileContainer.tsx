@@ -21,7 +21,7 @@ const FileContainer = () => {
   ));
   
   return (
-    <div className="file-container flex overflow-x-auto hidescrollbar1 hidescrollbar2">
+    <div className="flex overflow-x-auto file-container hidescrollbar1 hidescrollbar2">
       {listOfFiles}
     </div>
   );
