@@ -36,7 +36,7 @@ const PannelButtons: React.FC<IPROPS> = ({
       <button
         onClick={onClickHandler}
         className={twMerge(
-          "flex items-center justify-center p-3 hover:text-white mx-[3px]",
+          "flex items-center justify-center p-3 hover:text-[color:var(--highlight-text-color)] mx-[3px]",
           showInSideDrawer === buttonName && isDrawerOpen ? activeClassName : ""
         )}
         title={title}

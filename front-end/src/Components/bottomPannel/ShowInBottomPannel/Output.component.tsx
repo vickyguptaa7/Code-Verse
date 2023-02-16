@@ -11,7 +11,7 @@ const Output: React.FC<PROPS_INTEFACE> = ({ mainDivHeight }) => {
   );
   
   return (
-    <div className="text-white">
+    <div className="">
       <textarea
         name="output"
         id="output"

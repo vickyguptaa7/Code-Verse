@@ -31,7 +31,7 @@ const Input: React.FC<PROPS_INTEFACE> = ({ mainDivHeight }) => {
   };
 
   return (
-    <div className="text-white">
+    <div className="">
       <textarea
         ref={inputRef}
         name="input"

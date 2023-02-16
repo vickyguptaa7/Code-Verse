@@ -30,18 +30,18 @@ const FileNavigation = () => {
       )}
       <div className="flex justify-between bg-gray-900">
         <FileContainer />
-        <div className="flex items-center justify-center p-2">
-          <button className="flex items-center justify-center mr-4 rounded-lg hover:bg-gray-700">
-            <VscDebugStart className="text-2xl text-gray-300 p-0.5" />
+        <div className="flex items-center justify-center p-2 text-[color:var(--highlight-text-color)]">
+          <button className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]">
+            <VscDebugStart className="text-2xl p-0.5" />
           </button>
           <button
             className={twMerge(
-              "flex items-center justify-center rounded-lg p-0.5 hover:bg-gray-700 mr-2",
+              "flex items-center justify-center rounded-lg p-0.5 hover:bg-[color:var(--hover-text-color)] mr-2",
               isDropMenuOpen && "bg-gray-700"
             )}
             onClick={openDropMenuHandler}
           >
-            <VscEllipsis className="text-xl text-gray-300 " />
+            <VscEllipsis className="text-xl" />
           </button>
           <div className="relative overflow-visible">
             {isDropMenuOpen &&

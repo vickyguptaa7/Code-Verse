@@ -24,17 +24,17 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
       <button
         className={twMerge(
           "flex items-start mb-0.5 justify-center p-0.5 rounded-lg ml-4",
-          isHover && " hover:bg-gray-700",className
+          isHover && " hover:bg-[color:var(--hover-text-color)]",className
         )}
         onClick={onClickHandler}
       >
-        <Icon className={twMerge("text-xl text-gray-300 ")} />
+        <Icon className={twMerge("text-xl text-[color:var(--highlight-text-color)] ")} />
       </button>
     );
 
   // text buttons
   return (
-    <li className={twMerge("hover:text-white mr-4", className)}>
+    <li className={twMerge("hover:text-[color:var(--highlight-text-color)] mr-4", className)}>
       <button
         className={twMerge("px-1 pb-1 mb-0.5")}
         data-name={dataName}

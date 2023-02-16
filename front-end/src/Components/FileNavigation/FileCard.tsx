@@ -9,7 +9,7 @@ import { BiCodeAlt } from "react-icons/bi";
 import file from "../../Interface/file.interface";
 
 // constant
-import {MAX_FILE_LENGTH} from "./FileNavigation.Constant";
+import { MAX_FILE_LENGTH } from "./FileNavigation.Constant";
 
 interface IPROPS {
   fileInfo: file;
@@ -37,15 +37,15 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   const fileName =
     fileInfo.fileName.length < MAX_FILE_LENGTH
       ? fileInfo.fileName
-      : fileInfo.fileName.substring(0, MAX_FILE_LENGTH-3) + "...";
+      : fileInfo.fileName.substring(0, MAX_FILE_LENGTH - 3) + "...";
 
   return (
-    <div className="flex items-center justify-between gap-2 px-4 py-1 pb-1 bg-white border-r border-black ">
+    <div className="flex items-center justify-between gap-2 px-4 py-1 pb-1 bg-gray-900 border-r border-black">
       <div className="language-logo">{languageLogo}</div>
       <div className="text-start">
-        <h1 className="pr-3 text-sm text-black">{fileName}</h1>
+        <h1 className="pr-3 text-[color:var(--primary-text-color)]">{fileName}</h1>
       </div>
-      <div className="close-logo pt-[2px]">
+      <div className="close-logo pt-[2px] text-[color:var(--highlight-text-color)]">
         <button onClick={removeHandler}>
           <RxCross2 className="text-sm hover:bg-gray-200 rounded-full duration-300 hover:text-gray-600 p-[1px] flex" />
         </button>

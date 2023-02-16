@@ -24,7 +24,7 @@ const ShowInBottomPannel = () => {
   if (showInBottomPannel === "terminal") show = <Terminal />;
   return (
     <div
-      className="p-1 mx-4 mt-2 overflow-scroll "
+      className="p-1 mx-4 mt-2 overflow-scroll text-[color:var(--tertiary-text-color)] font-[400] font-cascadia"
       style={{
         height: contentShowInBottomPannelHeight,
       }}

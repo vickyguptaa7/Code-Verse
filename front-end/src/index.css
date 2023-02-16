@@ -6,6 +6,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
                 
 
+:root{
+  --color-primary: #05cbf7;
+  --primary-text-color: hsl(220,9%,46.1%);
+  --highlight-text-color: hsl(220,9%,92%);
+  --tertiary-text-color: hsl(220,9%,92%);
+  --hover-text-color:hsl(217, 19%, 27%);
+  --background-color: #e3e6ea;
+  --main-color: #fff;
+  --shadow-color: #d1d5db;
+}
+
 body {
   /* avoid tab highlighting in smartphone of blue color */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

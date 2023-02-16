@@ -40,7 +40,7 @@ const BottomPannelLeftNavigation = () => {
           className={twMerge(
             "hidden xs:block border-b",
             showInBottomPannel === "input"
-              ? "border-gray-400 text-white"
+              ? "border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
               : "border-gray-900"
           )}
           dataName="input"
@@ -50,7 +50,7 @@ const BottomPannelLeftNavigation = () => {
           className={twMerge(
             "hidden sm:block border-b",
             showInBottomPannel === "output"
-              ? "border-gray-400 text-white"
+              ? "border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
               : "border-gray-900"
           )}
           dataName="output"
@@ -60,7 +60,7 @@ const BottomPannelLeftNavigation = () => {
           className={twMerge(
             "hidden md:block border-b",
             showInBottomPannel === "debug"
-              ? " border-gray-400 text-white"
+              ? " border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
               : "border-gray-900"
           )}
           dataName="debug"
@@ -70,7 +70,7 @@ const BottomPannelLeftNavigation = () => {
           className={twMerge(
             "hidden lg:block border-b",
             showInBottomPannel === "terminal"
-              ? " border-gray-400 text-white"
+              ? " border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
               : "border-gray-900"
           )}
           dataName="terminal"
