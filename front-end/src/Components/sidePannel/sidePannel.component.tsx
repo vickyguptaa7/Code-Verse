@@ -59,7 +59,7 @@ const Pannel = () => {
         <Backdrop onClick={closeDropMenuHandler} className="bg-transparent" />
       )}
       <div className="flex flex-col justify-between h-full bg-gray-900">
-        <nav className="flex flex-col">
+        <nav className="flex flex-col text-[color:var(--primary-text-color)]">
           <PannelButtons
             title="Files Explorer"
             Icon={VscFiles}

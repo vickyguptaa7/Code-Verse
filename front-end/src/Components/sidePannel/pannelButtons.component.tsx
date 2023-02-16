@@ -27,12 +27,12 @@ const PannelButtons: React.FC<IPROPS> = ({
   );
 
   let activeClassName = twMerge(
-    "text-white",
+    "text-[color:var(--highlight-text-color)] border-[color:var(--highlight-text-color)]",
     !isSidePannelPositionOnLeft ? "border-r-[3px] mr-0" : "border-l-[3px] ml-0"
   );
   if(Icon)
   return (
-    <div className="mb-2 text-gray-500 border-gray-700">
+    <div className="mb-2">
       <button
         onClick={onClickHandler}
         className={twMerge(

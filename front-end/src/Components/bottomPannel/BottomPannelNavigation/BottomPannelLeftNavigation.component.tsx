@@ -35,7 +35,7 @@ const BottomPannelLeftNavigation = () => {
       {isDropMenuOpen && (
         <Backdrop onClick={closeDropMenuHandler} className="bg-transparent" />
       )}
-      <ul className="flex items-center text-sm text-gray-400 justify-evenly mt-0.5">
+      <ul className="flex items-center text-sm text-[color:var(--primary-text-color)] justify-evenly mt-0.5">
         <BottomPannelButton
           className={twMerge(
             "hidden xs:block border-b",

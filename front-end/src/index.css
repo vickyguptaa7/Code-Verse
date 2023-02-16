@@ -8,7 +8,7 @@
 
 :root{
   --color-primary: #05cbf7;
-  --primary-text-color: hsl(220,9%,46.1%);
+  --primary-text-color: hsl(180, 9%, 46%);
   --highlight-text-color: hsl(220,9%,92%);
   --tertiary-text-color: hsl(220,9%,92%);
   --hover-text-color:hsl(217, 19%, 27%);
