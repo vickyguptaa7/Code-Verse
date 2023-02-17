@@ -10,7 +10,7 @@ const DropMenu: React.FC<PROPS_INTEFACE> = ({ children, className }) => {
   return (
     <div
       className={twMerge(
-        "absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right rounded-md shadow-lg w-fit border border-gray-500 bg-slate-900 text-[color:var(--highlight-text-color)]",
+        "absolute z-10 flex flex-col p-1 overflow-hidden origin-top-right rounded-md shadow-lg w-fit border border-[color:var(--primary-text-color)] bg-slate-900 text-[color:var(--highlight-text-color)]",
         className
       )}
     >

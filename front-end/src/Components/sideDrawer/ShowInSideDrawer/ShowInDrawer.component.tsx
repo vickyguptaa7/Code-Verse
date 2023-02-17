@@ -47,8 +47,8 @@ const Drawer = () => {
       <div
         ref={refResizer}
         className={twMerge(
-          "w-1 h-full duration-300 cursor-move hover:bg-white resizable-div-left-right",
-          isDrawerResizing && "bg-white"
+          "w-1 h-full duration-300 cursor-move hover:bg-[color:var(--accent-color)] resizable-div-left-right",
+          isDrawerResizing && "bg-[color:var(--accent-color)]"
         )}
       ></div>
       <div className="flex flex-col items-center justify-center w-full">

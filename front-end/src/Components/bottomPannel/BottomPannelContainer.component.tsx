@@ -31,14 +31,14 @@ const BottomPannel = () => {
   return (
     <div
       ref={refBottomPannel}
-      className="flex flex-col bg-[color:var(--bottompannel-color)] border-t h-52 border-t-gray-500"
+      className="flex flex-col bg-[color:var(--bottompannel-color)] border-t h-52 border-t-[color:var(--primary-text-color)]"
       style={{ height: bottomPannelHeight }}
     >
       <div
         ref={refResizer}
         className={twMerge(
-          "w-full h-1 duration-300 hover:bg-white hover:cursor-move touch-none",
-          isBottomPannelResizing && "bg-white"
+          "w-full h-1 duration-300 hover:bg-[color:var(--accent-color)] hover:cursor-move touch-none",
+          isBottomPannelResizing && "bg-[color:var(--accent-color)]"
         )}
       ></div>
       <BottomPannelNavigation />

@@ -37,7 +37,7 @@ const FileNavigation = () => {
           <button
             className={twMerge(
               "flex items-center justify-center rounded-lg p-0.5 hover:bg-[color:var(--hover-text-color)] mr-2",
-              isDropMenuOpen && "bg-gray-700"
+              isDropMenuOpen && "bg-[color:var(--hover-text-color)]"
             )}
             onClick={openDropMenuHandler}
           >

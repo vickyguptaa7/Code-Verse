@@ -65,7 +65,7 @@ const BottomPannelRightNavigation = () => {
         <BottomPannelButton
           className={twMerge(
             "flex items-start justify-center",
-            isDropMenuOpen && "bg-gray-700"
+            isDropMenuOpen && "bg-[color:var(--hover-text-color)]"
           )}
           Icon={VscEllipsis}
           onClickHandler={openDropMenuHandler}
