@@ -6,7 +6,7 @@ import DropMenuButton from "../UI/DropMenuButton.component";
 import { twMerge } from "tailwind-merge";
 import Backdrop from "../UI/Backdrop.component";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { removeAllFilesFromNavigation } from "../../Store/reducres/FileNavigation.reducer";
+import { removeAllFilesFromNavigation } from "../../Store/reducres/File/FileNavigation.reducer";
 import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel.reducer";
 import DropMenu from "../UI/DropMenu.component";
 

@@ -1,11 +1,11 @@
 import React from "react";
-import {  removeFileFromNavigation } from "../../Store/reducres/FileNavigation.reducer";
+import { removeFileFromNavigation } from "../../Store/reducres/File/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import FileCard from "./FileCard";
 
 const FileContainer = () => {
   const filesInNavigation = useAppSelector(
-    (state) => state.fileNavigation.fileList
+    (state) => state.fileNavigation.fileNavList
   );
   const dispatch = useAppDispatch();
   const removeFileHandler = (id: string) => {
@@ -19,7 +19,7 @@ const FileContainer = () => {
       removeFileHandler={removeFileHandler}
     />
   ));
-  
+
   return (
     <div className="flex overflow-x-auto file-container hidescrollbar1 hidescrollbar2">
       {listOfFiles}
