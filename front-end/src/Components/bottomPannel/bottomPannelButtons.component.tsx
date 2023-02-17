@@ -1,5 +1,6 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import { useAppSelector } from "../../Store/store";
 
 interface PROPS_INTERFACE {
   Icon?: React.ElementType;
@@ -16,6 +17,13 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
   dataName,
   hoverBg,
 }) => {
+  const showInBottomPannel = useAppSelector(
+    (state) => state.bottomPannel.showInBottomPannel
+  );
+  const avtiveClassName =
+    showInBottomPannel === dataName
+      ? "border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
+      : "border-[color:var(--bottompannel-color)]";
   const isHover = hoverBg === undefined;
 
   // icons button
@@ -24,17 +32,28 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
       <button
         className={twMerge(
           "flex items-start mb-0.5 justify-center p-0.5 rounded-lg ml-4",
-          isHover && " hover:bg-[color:var(--hover-text-color)]",className
+          isHover && " hover:bg-[color:var(--hover-text-color)]",
+          className
         )}
         onClick={onClickHandler}
       >
-        <Icon className={twMerge("text-xl text-[color:var(--highlight-text-color)] ")} />
+        <Icon
+          className={twMerge(
+            "text-xl text-[color:var(--highlight-text-color)] "
+          )}
+        />
       </button>
     );
 
   // text buttons
   return (
-    <li className={twMerge("hover:text-[color:var(--highlight-text-color)] mr-4", className)}>
+    <li
+      className={twMerge(
+        "hover:text-[color:var(--highlight-text-color)] mr-4 border-b-[1.5px]",
+        className,
+        avtiveClassName
+      )}
+    >
       <button
         className={twMerge("px-1 pb-1 mb-0.5")}
         data-name={dataName}

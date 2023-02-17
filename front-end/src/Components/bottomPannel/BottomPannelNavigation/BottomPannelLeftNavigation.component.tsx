@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { VscEllipsis } from "react-icons/vsc";
-import { twMerge } from "tailwind-merge";
 import { setShowInBottomPannel } from "../../../Store/reducres/BottomPannel.reducer";
-import { useAppDispatch, useAppSelector } from "../../../Store/store";
+import { useAppDispatch } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
 import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
@@ -12,9 +11,6 @@ type bottomPannelContent = "input" | "output" | "terminal" | "debug";
 
 const BottomPannelLeftNavigation = () => {
   const dispatch = useAppDispatch();
-  const showInBottomPannel = useAppSelector(
-    (state) => state.bottomPannel.showInBottomPannel
-  );
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
 
   const closeDropMenuHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,42 +33,22 @@ const BottomPannelLeftNavigation = () => {
       )}
       <ul className="flex items-center text-sm text-[color:var(--primary-text-color)] justify-evenly mt-0.5">
         <BottomPannelButton
-          className={twMerge(
-            "hidden xs:block border-b-[1.5px] ",
-            showInBottomPannel === "input"
-              ? "border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
-              : "border-gray-900"
-          )}
+          className="hidden xs:block "
           dataName="input"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge(
-            "hidden sm:block border-b-[1.5px] ",
-            showInBottomPannel === "output"
-              ? "border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
-              : "border-gray-900"
-          )}
+          className="hidden sm:block"
           dataName="output"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge(
-            "hidden md:block border-b-[1.5px] ",
-            showInBottomPannel === "debug"
-              ? " border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
-              : "border-gray-900"
-          )}
+          className="hidden md:block "
           dataName="debug"
           onClickHandler={showInBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge(
-            "hidden lg:block border-b-[1.5px] ",
-            showInBottomPannel === "terminal"
-              ? " border-[color:var(--primary-text-color)] text-[color:var(--highlight-text-color)]"
-              : "border-gray-900"
-          )}
+          className="hidden lg:block "
           dataName="terminal"
           onClickHandler={showInBottomPannelHandler}
         />
