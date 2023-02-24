@@ -48,7 +48,7 @@ const CodeEditor = () => {
           <SideDrawer />
         </div>
         <div
-          className="flex flex-col justify-between h-full left"
+          className="flex flex-col justify-between h-full left bg-[color:var(--codeeditor-color)]"
           style={{ width: remainingWidth }}
         >
           <FileNavigation />
@@ -56,7 +56,7 @@ const CodeEditor = () => {
          {isBottomPannelOpen&& <BottomPannelContainer/>}
         </div>
       </div>
-      <div className="w-full h-4 bg-blue-500 "></div>
+      <div className="w-full h-4 bg-[color:var(--accent-color)] "></div>
     </div>
   );
 };
