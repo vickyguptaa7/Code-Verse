@@ -24,7 +24,9 @@ const CodeEditor = () => {
 
   // 68px is for the side pannel
   const remainingWidth =
-    document.body.clientWidth - (isDrawerOpen ? sideDrawerWidth : 0) - 60;
+    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) -
+    (isDrawerOpen ? sideDrawerWidth : 0) -
+    60;
 
   useEffect(() => {
     const manageEditorWidthAndHeight = () => {

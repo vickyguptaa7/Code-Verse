@@ -4,6 +4,8 @@ import { useAppSelector } from "../../Store/store";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
 import { twMerge } from "tailwind-merge";
 
+const EDITOR_MIN_HEIGHT = 480;
+
 const Editor = () => {
   const bottomPannelHeight = useAppSelector(
     (state) => state.bottomPannel.bottomPannelHeight
@@ -13,7 +15,8 @@ const Editor = () => {
   );
 
   let editorHeight =
-   Math.max(document.body.clientHeight,480) - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
+    Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) -
+    HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
   editorHeight -= isBottomPannelOpen ? bottomPannelHeight : 0;
 
   return (
@@ -34,6 +37,10 @@ const Editor = () => {
           fontSize: 16,
           scrollBeyondLastLine: false,
           automaticLayout: true,
+          scrollbar: {
+            // this option is to scroll the page when editor reaches at the bottom so we can scroll to the end from the editor also
+            alwaysConsumeMouseWheel: false,
+          },
         }}
         value={""}
       ></MonacoEditor>

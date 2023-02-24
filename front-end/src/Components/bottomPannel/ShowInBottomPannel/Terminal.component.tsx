@@ -37,7 +37,7 @@ const Terminal = () => {
   return (
     <div
       ref={containerRef}
-      className="flex flex-col h-full items-start text-[0.9rem]"
+      className="flex flex-col h-full items-start text-[0.9rem] overflow-y-scroll"
       onClick={setFocusHandler}
     >
       <div className="w-full text-left whitespace-pre-line terminal-output">
