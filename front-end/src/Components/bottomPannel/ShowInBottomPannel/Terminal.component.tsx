@@ -19,23 +19,23 @@ const Terminal = () => {
 
   useEffect(() => {
     setFocusHandler();
-  },);
-  
+  });
+
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       dispatch(
         setTerminalContent(terminalContent + "user$ " + terminalInput + "\n")
-        );
-        setTerminalInput("");
-      }
-    };
-    
-    const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
-      setTerminalInput(event.currentTarget.value);
-    };
-    
-    return (
-      <div
+      );
+      setTerminalInput("");
+    }
+  };
+
+  const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    setTerminalInput(event.currentTarget.value);
+  };
+
+  return (
+    <div
       ref={containerRef}
       className="flex flex-col h-full items-start text-[0.9rem]"
       onClick={setFocusHandler}
@@ -48,7 +48,7 @@ const Terminal = () => {
         <input
           ref={inputRef}
           type="text"
-          className="w-full outline-none bg-inherit "
+          className="w-full outline-none bg-inherit"
           value={terminalInput}
           onChange={onChangeHandler}
           onKeyDown={onKeyDownHandler}

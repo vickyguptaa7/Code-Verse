@@ -57,9 +57,9 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   };
 
   return (
-    <button
+    <div
       className={twMerge(
-        "flex items-center justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px] border-r border-r-black group",
+        "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px] border-r border-r-black group",
         activeClassName
       )}
       onClick={changeCurrentFileInNavigationHandler}
@@ -83,7 +83,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
           <RxCross2 className="text-lg hover:bg-[color:var(--hover-text-color)] rounded-md duration-100 p-[2px] flex" />
         </button>
       </div>
-    </button>
+    </div>
   );
 };
 

@@ -17,6 +17,7 @@ import Backdrop from "../UI/Backdrop.component";
 import DropMenu from "../UI/DropMenu.component";
 import DropMenuButton from "../UI/DropMenuButton.component";
 import PannelButtons from "./pannelButtons.component";
+import { whiteBoardUrl } from "./SidePannel.constants";
 
 type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
 
@@ -122,12 +123,22 @@ function dropMenu(
     closeDropMenuHandler(event);
   };
   // TODO: Add the functionality of each buttons
+
+  const openToWhiteboardHandler = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    window.open(whiteBoardUrl, "_blank");
+    closeDropMenuHandler(event);
+  };
   return (
     <DropMenu className=" bottom-5 left-14">
       <DropMenuButton name="Setting" onClickHandler={onClickHandler} />
       <DropMenuButton name="Extensions" onClickHandler={onClickHandler} />
       <DropMenuButton name="Themes" onClickHandler={onClickHandler} />
-      <DropMenuButton name="White Board" onClickHandler={onClickHandler} />
+      <DropMenuButton
+        name="White Board"
+        onClickHandler={openToWhiteboardHandler}
+      />
     </DropMenu>
   );
 }
