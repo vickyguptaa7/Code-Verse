@@ -14,7 +14,10 @@ import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
 import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
-import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../BottomPannel.Constant";
+import {
+  HEIGHT_OF_FILENAVIGATION_AND_FOOTER,
+  BOTTOM_PANNEL_MIN_SIZE_PX,
+} from "../BottomPannel.Constant";
 import BottomPannelButton from "../bottomPannelButtons.component";
 
 const BottomPannelRightNavigation = () => {
@@ -27,12 +30,13 @@ const BottomPannelRightNavigation = () => {
   const minMaxBottomPannelHandler = () => {
     if (!isMinimizeBottomPannel) {
       const maxHeightOfBottomPannel =
-        document.body.clientHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
+        Math.max(document.body.clientHeight, 480) -
+        HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
       dispatch(setBottomPannelHeight(maxHeightOfBottomPannel));
       dispatch(setIsMinimizeBottomPannel(true));
       return;
     }
-    dispatch(setBottomPannelHeight(208));
+    dispatch(setBottomPannelHeight(BOTTOM_PANNEL_MIN_SIZE_PX));
     dispatch(setIsMinimizeBottomPannel(false));
   };
 

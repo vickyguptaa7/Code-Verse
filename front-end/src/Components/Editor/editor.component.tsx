@@ -11,11 +11,9 @@ const Editor = () => {
   const isBottomPannelOpen = useAppSelector(
     (state) => state.bottomPannel.isBottomPannelOpen
   );
-  const currentNavFile = useAppSelector(
-    (state) => state.fileNavigation.currentNavFile
-  );
 
-  let editorHeight = window.innerHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
+  let editorHeight =
+   Math.max(document.body.clientHeight,480) - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
   editorHeight -= isBottomPannelOpen ? bottomPannelHeight : 0;
 
   return (

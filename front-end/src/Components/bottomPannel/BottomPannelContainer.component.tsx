@@ -9,7 +9,7 @@ import BottomPannelNavigation from "./BottomPannelNavigation/BottomPannelNavigat
 import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.component";
 
 // constants
-import { MIN_BOTTOM_PANNEL_SIZE_PX } from "./BottomPannel.Constant";
+import { BOTTOM_PANNEL_MIN_SIZE_PX } from "./BottomPannel.Constant";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "./BottomPannel.Constant";
 import { BOTTOM_PANNEL_MINIMIZE_PERCENTAGE } from "./BottomPannel.Constant";
 
@@ -101,7 +101,7 @@ function useBottomPannelResizing(
       const change_y = y_cord - event.clientY;
       // if change is in desired percentage then only update
       if (
-        change_y + height > MIN_BOTTOM_PANNEL_SIZE_PX &&
+        change_y + height > BOTTOM_PANNEL_MIN_SIZE_PX &&
         change_y + height <
           document.body.offsetHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER
       ) {

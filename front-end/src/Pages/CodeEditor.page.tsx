@@ -6,10 +6,11 @@ import Editor from "../Components/Editor/editor.component";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../Store/store";
 
-const MIN_WIDTH_OF_EDITOR = 320;
+const EDITOR_MIN_WIDTH = 320;
+const EDITOR_MIN_HEIGHT = 480;
 
 const CodeEditor = () => {
-  const [, setWidthChangee] = useState(0);
+  const [, setWidthChange] = useState(0);
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
   const isSidePannelPositionOnLeft = useAppSelector(
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
@@ -21,18 +22,22 @@ const CodeEditor = () => {
     (state) => state.bottomPannel.isBottomPannelOpen
   );
 
-  // 68px is for the side pannel 
+  // 68px is for the side pannel
   const remainingWidth =
     document.body.clientWidth - (isDrawerOpen ? sideDrawerWidth : 0) - 60;
 
   useEffect(() => {
-    const manageEditorWidth = () => {
-      if (document.body.clientWidth > MIN_WIDTH_OF_EDITOR)
-        setWidthChangee(document.body.clientWidth);
+    const manageEditorWidthAndHeight = () => {
+      if (
+        document.body.clientWidth > EDITOR_MIN_WIDTH ||
+        document.body.clientHeight > EDITOR_MIN_HEIGHT
+      )
+        // just to rerender as reszing done
+        setWidthChange(document.body.clientWidth + document.body.clientHeight);
     };
-    window.addEventListener("resize", manageEditorWidth);
+    window.addEventListener("resize", manageEditorWidthAndHeight);
     return () => {
-      window.removeEventListener("resize", manageEditorWidth);
+      window.removeEventListener("resize", manageEditorWidthAndHeight);
     };
   });
 
@@ -53,7 +58,7 @@ const CodeEditor = () => {
         >
           <FileNavigation />
           <Editor />
-         {isBottomPannelOpen&& <BottomPannelContainer/>}
+          {isBottomPannelOpen && <BottomPannelContainer />}
         </div>
       </div>
       <div className="w-full h-4 bg-[color:var(--accent-color)] "></div>
