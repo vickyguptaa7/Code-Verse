@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const bottomPannelInitialState = {
-  isBottomPannelOpen: true,
+  isBottomPannelOpen: false,
   bottomPannelHeight: 208, // 13 rem inital width of drawer
   isMinimizeBottomPannel: false,
   showInBottomPannel: "input",

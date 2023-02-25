@@ -1,12 +1,16 @@
-import React from "react";
-import MonacoEditor from "@monaco-editor/react";
+import React, { useEffect } from "react";
+import MonacoEditor, { useMonaco } from "@monaco-editor/react";
 import { useAppSelector } from "../../Store/store";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
 import { twMerge } from "tailwind-merge";
 
+import monkaiTheme from "monaco-themes/themes/Night Owl.json";
+
 const EDITOR_MIN_HEIGHT = 480;
 
 const Editor = () => {
+  const monaco = useMonaco();
+  
   const bottomPannelHeight = useAppSelector(
     (state) => state.bottomPannel.bottomPannelHeight
   );
@@ -19,6 +23,21 @@ const Editor = () => {
     HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
   editorHeight -= isBottomPannelOpen ? bottomPannelHeight : 0;
 
+  useEffect(() => {
+    if (monaco) {
+      const chngecolor = async () => {
+        monaco.editor.defineTheme("monokai-bright", {
+          base: monkaiTheme.base === "vs-dark" ? "vs-dark" : "vs",
+          rules: monkaiTheme.rules,
+          inherit: monkaiTheme.inherit,
+          colors: monkaiTheme.colors,
+        });
+        monaco.editor.setTheme("monokai-bright");
+      };
+      chngecolor();
+    }
+  }, [monaco]);
+
   return (
     <div
       className={twMerge(
@@ -29,8 +48,7 @@ const Editor = () => {
       style={{ height: editorHeight }}
     >
       <MonacoEditor
-        language="javascript"
-        theme="vs-dark"
+        language="cpp"
         options={{
           wordWrap: "on",
           lineNumbersMinChars: 3, // for the line numbers at the left

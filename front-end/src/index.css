@@ -15,7 +15,7 @@
   --sidepannel-color: hsl(221, 39%, 11%);
   --bottompannel-color: hsl(221, 39%, 11%);
   --sidedrawer-color: hsl(221, 39%, 8%);
-  --codeeditor-color: hsl(0, 0%, 0%);
+  --codeeditor-color: #000000;
 }
 
 body {
