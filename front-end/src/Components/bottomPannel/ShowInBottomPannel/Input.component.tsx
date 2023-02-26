@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { setInputContent } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 
@@ -14,17 +14,17 @@ const Input: React.FC<PROPS_INTEFACE> = ({ mainDivHeight }) => {
 
   const dispatch = useAppDispatch();
 
-  const setFocusHandler = () => {
+  const setFocusHandler = useCallback(() => {
     const lenght = inputContent.length;
-    // place the cursor at the end of the input content 
+    // place the cursor at the end of the input content
     // first argument is for the start selection and the other is for the end selection range
     inputRef.current?.setSelectionRange(lenght, lenght);
     inputRef.current?.focus();
-  };
+  }, [inputRef, inputContent]);
 
   useEffect(() => {
     setFocusHandler();
-  }, []);
+  }, [setFocusHandler]);
 
   const onChangeHandler = (event: React.FormEvent<HTMLTextAreaElement>) => {
     dispatch(setInputContent(event.currentTarget.value));

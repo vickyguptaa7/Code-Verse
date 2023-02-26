@@ -6,7 +6,7 @@ const Debug = () => {
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, []);
+  }, [inputRef]);
   
   return (
     <div className="flex items-end w-full h-full">

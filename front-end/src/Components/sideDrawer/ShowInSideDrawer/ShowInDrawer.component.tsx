@@ -73,7 +73,8 @@ function useSideDrawerResizing(
     // when the screen size changes it manages the drawer size such that drawer is not on the full screen
     const manageDrawerWidth = () => {
       const percentChange = (sideDrawerWidth / document.body.clientWidth) * 100;
-      const newWidth = document.body.clientWidth * 0.5;
+      const newWidth =
+        (document.body.clientWidth * MAX_DRAWER_SIZE_IN_PERCENT) / 100;
       if (
         percentChange > MAX_DRAWER_SIZE_IN_PERCENT &&
         newWidth > MIN_DRAWER_SIZE_PX
@@ -85,7 +86,7 @@ function useSideDrawerResizing(
     return () => {
       window.removeEventListener("resize", manageDrawerWidth);
     };
-  });
+  }, [dispatch, sideDrawerWidth]);
 
   // this is for the resizing of the drawer
   useEffect(() => {
@@ -116,7 +117,7 @@ function useSideDrawerResizing(
         width = (document.body.clientWidth * MAX_DRAWER_SIZE_IN_PERCENT) / 100;
         x_cord = SIDE_PANNEL_WIDTH + width;
       }
-      
+
       resizableDrawer.style.width = `${width}px`;
       // update the new widht in the store so that we open the drawer again we get the prev width
       dispatch(setSideDrawerWidth(width));
@@ -143,7 +144,7 @@ function useSideDrawerResizing(
         onPointerDownSideResize
       );
     };
-  });
+  }, [dispatch, refDrawer, refResizer, setIsDrawerResizing]);
 }
 
 export default Drawer;

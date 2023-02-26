@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { setTerminalContent } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 
@@ -12,14 +12,14 @@ const Terminal = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const setFocusHandler = () => {
+  const setFocusHandler = useCallback(() => {
     inputRef.current?.blur();
     inputRef.current?.focus();
-  };
+  }, [inputRef]);
 
   useEffect(() => {
     setFocusHandler();
-  });
+  }, [setFocusHandler]);
 
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {

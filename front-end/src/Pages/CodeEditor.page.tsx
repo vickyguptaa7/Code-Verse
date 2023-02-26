@@ -22,11 +22,10 @@ const CodeEditor = () => {
     (state) => state.bottomPannel.isBottomPannelOpen
   );
 
-  // 68px is for the side pannel
-  const remainingWidth =
-    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) -
-    (isDrawerOpen ? sideDrawerWidth : 0) -
-    60;
+  // 60px is for the side pannel
+  let remainingWidth =
+    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) - 60;
+  remainingWidth -= isDrawerOpen ? sideDrawerWidth : 0;
 
   useEffect(() => {
     const manageEditorWidthAndHeight = () => {
@@ -41,7 +40,7 @@ const CodeEditor = () => {
     return () => {
       window.removeEventListener("resize", manageEditorWidthAndHeight);
     };
-  });
+  }, []);
 
   return (
     <div className="flex flex-col w-full h-full">
