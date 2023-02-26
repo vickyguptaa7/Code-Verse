@@ -9,8 +9,6 @@ import monkaiTheme from "monaco-themes/themes/Night Owl.json";
 const EDITOR_MIN_HEIGHT = 480;
 
 const Editor = () => {
-  const monaco = useMonaco();
-  
   const bottomPannelHeight = useAppSelector(
     (state) => state.bottomPannel.bottomPannelHeight
   );
@@ -23,20 +21,7 @@ const Editor = () => {
     HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
   editorHeight -= isBottomPannelOpen ? bottomPannelHeight : 0;
 
-  useEffect(() => {
-    if (monaco) {
-      const chngecolor = async () => {
-        monaco.editor.defineTheme("monokai-bright", {
-          base: monkaiTheme.base === "vs-dark" ? "vs-dark" : "vs",
-          rules: monkaiTheme.rules,
-          inherit: monkaiTheme.inherit,
-          colors: monkaiTheme.colors,
-        });
-        monaco.editor.setTheme("monokai-bright");
-      };
-      chngecolor();
-    }
-  }, [monaco]);
+  useSetEditorTheme();
 
   return (
     <div
@@ -64,6 +49,24 @@ const Editor = () => {
       ></MonacoEditor>
     </div>
   );
+};
+
+const useSetEditorTheme = () => {
+  const monaco = useMonaco();
+  useEffect(() => {
+    if (monaco) {
+      const chngecolor = async () => {
+        monaco.editor.defineTheme("monokai-bright", {
+          base: monkaiTheme.base === "vs-dark" ? "vs-dark" : "vs",
+          rules: monkaiTheme.rules,
+          inherit: monkaiTheme.inherit,
+          colors: monkaiTheme.colors,
+        });
+        monaco.editor.setTheme("monokai-bright");
+      };
+      chngecolor();
+    }
+  }, [monaco]);
 };
 
 export default Editor;

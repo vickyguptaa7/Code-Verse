@@ -11,6 +11,7 @@ import SearchDrawer from "./searchDrawer.component";
 // constant
 import { MIN_DRAWER_SIZE_PX } from "../sideDrawer.Constant";
 import { MAX_DRAWER_SIZE_IN_PERCENT } from "../sideDrawer.Constant";
+import { SIDE_PANNEL_WIDTH } from "../../sidePannel/SidePannel.constants";
 
 const Drawer = () => {
   const refDrawer = useRef<HTMLDivElement>(null);
@@ -108,10 +109,17 @@ function useSideDrawerResizing(
       ) {
         width = change_x + width;
         x_cord = event.clientX;
-        resizableDrawer.style.width = `${width}px`;
-        // update the new widht in the store so that we open the drawer again we get the prev width
-        dispatch(setSideDrawerWidth(parseFloat(resizableDrawer.style.width)));
+      } else if (change_x + width < MIN_DRAWER_SIZE_PX) {
+        width = MIN_DRAWER_SIZE_PX;
+        x_cord = SIDE_PANNEL_WIDTH + MIN_DRAWER_SIZE_PX;
+      } else if (MAX_DRAWER_SIZE_IN_PERCENT < percentChange) {
+        width = (document.body.clientWidth * MAX_DRAWER_SIZE_IN_PERCENT) / 100;
+        x_cord = SIDE_PANNEL_WIDTH + width;
       }
+      
+      resizableDrawer.style.width = `${width}px`;
+      // update the new widht in the store so that we open the drawer again we get the prev width
+      dispatch(setSideDrawerWidth(width));
     };
 
     const onPointerUpSideResize = (event: PointerEvent) => {

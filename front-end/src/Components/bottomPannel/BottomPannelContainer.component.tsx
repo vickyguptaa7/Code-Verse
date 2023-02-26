@@ -12,6 +12,7 @@ import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.componen
 import { BOTTOM_PANNEL_MIN_SIZE_PX } from "./BottomPannel.Constant";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "./BottomPannel.Constant";
 import { BOTTOM_PANNEL_MINIMIZE_PERCENTAGE } from "./BottomPannel.Constant";
+const EDITOR_MIN_HEIGHT=480;
 
 const BottomPannel = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);
@@ -63,7 +64,7 @@ function useBottomPannelResizing(
   useEffect(() => {
     const manageBottomPannelHeight = () => {
       const maxHeightOfBottomPannel =
-        document.body.clientHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
+        Math.max(document.body.clientHeight,EDITOR_MIN_HEIGHT)- HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
       if (maxHeightOfBottomPannel <= bottomPannelHeight) {
         dispatch(setBottomPannelHeight(maxHeightOfBottomPannel));
       } else {
@@ -103,7 +104,7 @@ function useBottomPannelResizing(
       if (
         change_y + height > BOTTOM_PANNEL_MIN_SIZE_PX &&
         change_y + height <
-          document.body.offsetHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER
+          Math.max(document.body.clientHeight,EDITOR_MIN_HEIGHT) - HEIGHT_OF_FILENAVIGATION_AND_FOOTER
       ) {
         height = change_y + height;
         y_cord = event.clientY;
@@ -121,7 +122,7 @@ function useBottomPannelResizing(
         onPointerMoveBottomPannelResize
       );
       const maxHeightOfBottomPannel =
-        document.body.clientHeight - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
+        Math.max(document.body.clientHeight,EDITOR_MIN_HEIGHT) - HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
       const percentChange = (height / maxHeightOfBottomPannel) * 100;
       // update the isBottomPannelHeightMoreThan90%
       if (
