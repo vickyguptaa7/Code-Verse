@@ -56,6 +56,8 @@ const BottomPannelRightNavigation = () => {
     setIsDropMenuOpen(true);
   };
 
+  // TODO:Bottom Pannel Icons fixe ui as some icons are cropped on hover
+
   return (
     <>
       {isDropMenuOpen && (
