@@ -22,9 +22,9 @@ const CodeEditor = () => {
     (state) => state.bottomPannel.isBottomPannelOpen
   );
 
-  // 60px is for the side pannel
+  // 60px is for the side pannel and 4  px for the side pannel resizer
   let remainingWidth =
-    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) - 60;
+    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) - 60 -4 ;
   remainingWidth -= isDrawerOpen ? sideDrawerWidth : 0;
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const CodeEditor = () => {
       window.removeEventListener("resize", manageEditorWidthAndHeight);
     };
   }, []);
-
+  // TODO:Refactor this to avoid unnecessary rerendering due isBottomPannelOpen and IsSidePannelOpen
   return (
     <div className="flex flex-col w-full h-full">
       <div

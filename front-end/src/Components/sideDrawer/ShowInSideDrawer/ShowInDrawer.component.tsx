@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../../Store/store";
 import DebugDrawer from "./debugDrawer.component";
 import ExtensionsDrawer from "./extensionsDrawer.component";
-import FileDrawer from "./fileDrawer.component";
+import FileDrawer from "./fileDrawer/fileDrawer.component";
 import GitDrawer from "./gitDrawer.component";
 import SearchDrawer from "./searchDrawer.component";
 
@@ -22,7 +22,7 @@ const Drawer = () => {
     (state) => state.sideDrawer.showInSideDrawer
   );
   const [isDrawerResizing, setIsDrawerResizing] = useState(false);
-  
+
   useSideDrawerResizing(setIsDrawerResizing, refResizer, refDrawer);
 
   let showComponentInDrawer = <FileDrawer />;
@@ -34,14 +34,19 @@ const Drawer = () => {
     showComponentInDrawer = <ExtensionsDrawer />;
 
   return (
-    <div
-      ref={refDrawer}
-      className={twMerge(
-        "flex text-white w-52 justify-between overflow-x-scroll touch-none",
-        isSidePannelPositionOnLeft && "flex-row-reverse"
-      )}
-      style={{ width: sideDrawerWidth }}
-    >
+    <>
+      <div
+        ref={refDrawer}
+        className={twMerge(
+          "flex text-white w-52 justify-between overflow-x-scroll touch-none",
+          isSidePannelPositionOnLeft && "flex-row-reverse"
+        )}
+        style={{ width: sideDrawerWidth }}
+      >
+        <div className="flex flex-col w-full">
+          {showComponentInDrawer}
+        </div>
+      </div>
       <div
         ref={refResizer}
         className={twMerge(
@@ -49,11 +54,7 @@ const Drawer = () => {
           isDrawerResizing && "bg-[color:var(--accent-color)]"
         )}
       ></div>
-      <div className="flex flex-col items-center justify-center w-full">
-        {sideDrawerWidth}
-        {showComponentInDrawer}
-      </div>
-    </div>
+    </>
   );
 };
 
