@@ -38,22 +38,22 @@ const Drawer = () => {
       <div
         ref={refDrawer}
         className={twMerge(
-          "flex text-white w-52 justify-between overflow-x-scroll touch-none",
+          "flex text-white w-52 justify-between overflow-x-scroll",
           isSidePannelPositionOnLeft && "flex-row-reverse"
         )}
         style={{ width: sideDrawerWidth }}
       >
-        <div className="flex flex-col w-full">
-          {showComponentInDrawer}
-        </div>
+        <div className="flex flex-col w-full">{showComponentInDrawer}</div>
       </div>
-      <div
-        ref={refResizer}
-        className={twMerge(
-          "w-1 h-full duration-300 cursor-move hover:bg-[color:var(--accent-color)] resizable-div-left-right",
-          isDrawerResizing && "bg-[color:var(--accent-color)]"
-        )}
-      ></div>
+      <div className="touch-none">
+        <div
+          ref={refResizer}
+          className={twMerge(
+            "w-1 h-full duration-300 cursor-move hover:bg-[color:var(--accent-color)] resizable-div-left-right",
+            isDrawerResizing && "bg-[color:var(--accent-color)]"
+          )}
+        ></div>
+      </div>
     </>
   );
 };
