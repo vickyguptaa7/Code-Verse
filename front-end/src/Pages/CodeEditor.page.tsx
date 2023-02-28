@@ -24,8 +24,8 @@ const CodeEditor = () => {
 
   // 60px is for the side pannel and 4  px for the side pannel resizer
   let remainingWidth =
-    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) - 60 -4 ;
-  remainingWidth -= isDrawerOpen ? sideDrawerWidth : 0;
+    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) - 60;
+  remainingWidth -= isDrawerOpen ? sideDrawerWidth + 4 : 0;
 
   useEffect(() => {
     const manageEditorWidthAndHeight = () => {

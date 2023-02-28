@@ -19,7 +19,6 @@ const BottomPannel = () => {
     refBottomPannel,
     refResizer
   );
-  console.log('bottomPannel');
   
   return (
     <div

@@ -6,8 +6,12 @@ import {
   VscNewFile,
   VscNewFolder,
 } from "react-icons/vsc";
+
+import { FaFolder, FaFolderOpen } from "react-icons/fa";
+
 import { twMerge } from "tailwind-merge";
 import directory from "../../../../Interface/directory.interface";
+
 interface IPROPS {
   folderInfo: directory;
   children: React.ReactElement;
@@ -39,7 +43,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
   return (
     <div className="">
       <div
-        className="flex gap-1 hover:bg-[color:var(--hover-text-color)] group cursor-pointer"
+        className="flex gap-1 hover:bg-[color:var(--hover-text-color)] group cursor-pointer overflow-x-scroll hidescrollbar1 hidescrollbar2"
         title={`${isVisibleChildren ? "Hide" : "Show"} Content`}
         style={{ paddingLeft: shiftAmount + 8 }}
         onClick={toggleChildrenVisibilityHandler}
@@ -50,8 +54,11 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
           />
         </div>
         <div className="flex justify-between gap-3 pr-4 py-0.5 w-full">
-          <div className="flex items-center justify-center">
-            <h3>{folderInfo.name}</h3>
+          <div className="flex items-center justify-center gap-1.5">
+            {isVisibleChildren ? <FaFolderOpen/> : <FaFolder />}
+            <div className="flex items-center justify-center">
+              <h3>{folderInfo.name}</h3>
+            </div>
           </div>
           <div className="flex items-center justify-center invisible group-hover:visible text-[color:var(--primary-text-color)]">
             <button

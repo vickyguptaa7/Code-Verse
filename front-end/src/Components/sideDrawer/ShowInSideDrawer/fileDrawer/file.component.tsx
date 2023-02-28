@@ -21,7 +21,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   return (
     <div
       title="Open"
-      className="flex group justify-between gap-3 cursor-pointer hover:bg-[color:var(--hover-text-color)] pr-4 py-0.5"
+      className="flex group justify-between gap-3 cursor-pointer overflow-x-scroll hidescrollbar1 hidescrollbar2 hover:bg-[color:var(--hover-text-color)] pr-4 py-0.5"
       onClick={addToFileNavigationHandler}
       // extra padding to align the folder and file name
       style={{ paddingLeft: shiftAmount + 19 }}
