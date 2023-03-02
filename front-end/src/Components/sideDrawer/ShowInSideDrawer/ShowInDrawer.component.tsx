@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../../Store/store";
 import DebugDrawer from "./debugDrawer.component";
 import ExtensionsDrawer from "./extensionsDrawer.component";
-import FileDrawer from "./fileDrawer/fileDrawer.component";
+import FileExplorer from "./fileExplorer/fileExplorer.component";
 import GitDrawer from "./gitDrawer.component";
 import SearchDrawer from "./searchDrawer.component";
 
@@ -25,7 +25,7 @@ const Drawer = () => {
 
   useSideDrawerResizing(setIsDrawerResizing, refResizer, refDrawer);
 
-  let showComponentInDrawer = <FileDrawer />;
+  let showComponentInDrawer = <FileExplorer />;
   if (showInSideDrawer === "search") showComponentInDrawer = <SearchDrawer />;
   else if (showInSideDrawer === "git") showComponentInDrawer = <GitDrawer />;
   else if (showInSideDrawer === "debug")

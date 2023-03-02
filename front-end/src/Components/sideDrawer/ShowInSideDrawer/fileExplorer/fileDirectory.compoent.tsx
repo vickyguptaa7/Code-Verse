@@ -1,8 +1,8 @@
 import React from "react";
 import directory from "../../../../Interface/directory.interface";
 import { FILE_DIRECTORY_AMOUNT_OF_SHIFT } from "../../sideDrawer.Constant";
-import File from "./file.component";
-import Folder from "./folder.component";
+import File from "./fileDirectory/file.component";
+import Folder from "./fileDirectory/folder.component";
 interface IPROPS {
   directoryInfo: Array<directory>;
   shiftAmount: number;

@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import directory from "../../../Interface/directory.interface";
+import { createSlice } from "@reduxjs/toolkit";
+// import directory from "../../../Interface/directory.interface";
 // TODO:Central file state
 
 let DUMMY_FILE_DIRECTORY = [
@@ -10,8 +10,8 @@ let DUMMY_FILE_DIRECTORY = [
     fileId: null,
     children: [
       {
-        id: "i2",
-        name: "file1",
+        id: "i9",
+        name: "file2",
         isFolder: false,
         fileId: "i1",
         children: [],
@@ -25,11 +25,47 @@ let DUMMY_FILE_DIRECTORY = [
           {
             id: "i4",
             name: "file2",
+            isFolder: true,
+            fileId: "i1",
+            children: [
+              {
+                id: "i9",
+                name: "file2",
+                isFolder: false,
+                fileId: "i1",
+                children: [],
+              },
+              {
+                id: "i21",
+                name: "file2",
+                isFolder: false,
+                fileId: "i1",
+                children: [],
+              },
+            ],
+          },
+          {
+            id: "i6",
+            name: "file2",
             isFolder: false,
             fileId: "i1",
             children: [],
           },
         ],
+      },
+      {
+        id: "i2",
+        name: "file1",
+        isFolder: false,
+        fileId: "i1",
+        children: [],
+      },
+      {
+        id: "i5",
+        name: "file1",
+        isFolder: false,
+        fileId: "i1",
+        children: [],
       },
     ],
   },
@@ -44,6 +80,6 @@ const fileDirectorySlice = createSlice({
   initialState: fileDirectoryInitialState,
   reducers: {},
 });
-export const {} = fileDirectorySlice.actions;
+// export const {} = fileDirectorySlice.actions;
 
 export default fileDirectorySlice.reducer;

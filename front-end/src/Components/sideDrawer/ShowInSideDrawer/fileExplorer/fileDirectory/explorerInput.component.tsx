@@ -8,7 +8,7 @@ interface IPROPS {
   inputRef: React.RefObject<HTMLInputElement>;
 }
 
-const FileDrawerInput: React.FC<IPROPS> = ({
+const ExplorerInput: React.FC<IPROPS> = ({
   initialFileName,
   isInputInFocus,
   setIsInputInFocus,
@@ -38,7 +38,7 @@ const FileDrawerInput: React.FC<IPROPS> = ({
     <input
       ref={inputRef}
       className={twMerge(
-        "min-w-16 w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent selection:bg-transparent",
+        "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent selection:bg-transparent",
         !isInputInFocus
           ? "cursor-pointer"
           : "  border-[color:var(--highlight-text-color)] selection:bg-[color:var(--accent-color)]"
@@ -52,4 +52,4 @@ const FileDrawerInput: React.FC<IPROPS> = ({
   );
 };
 
-export default FileDrawerInput;
+export default ExplorerInput;
