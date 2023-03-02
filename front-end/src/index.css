@@ -24,6 +24,11 @@ body {
   -webkit-tap-highlight-color: transparent;
   height: 100vh;
   width: 100vw;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 * {
@@ -41,3 +46,4 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+

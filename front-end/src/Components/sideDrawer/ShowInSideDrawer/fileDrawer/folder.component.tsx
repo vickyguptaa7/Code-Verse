@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   VscChevronRight,
   VscClose,
@@ -11,6 +11,7 @@ import { FaFolder, FaFolderOpen } from "react-icons/fa";
 
 import { twMerge } from "tailwind-merge";
 import directory from "../../../../Interface/directory.interface";
+import FileDrawerInput from "./fileDrawerInput.component";
 
 interface IPROPS {
   folderInfo: directory;
@@ -19,6 +20,9 @@ interface IPROPS {
 }
 const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
   const [isVisibleChildren, setIsVisibleChildren] = useState(false);
+  const [isInputInFocus, setIsInputInFocus] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const addFolderHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     console.log("add Folder");
@@ -29,6 +33,11 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
   };
   const renameFolderHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
+    setIsInputInFocus(true);
+    if (inputRef.current?.hasAttribute("disabled"))
+      inputRef.current?.removeAttribute("disabled");
+    inputRef.current?.focus();
+    inputRef.current?.setSelectionRange(0, inputRef.current.value.length);
     console.log("rename Folder");
   };
   const deleteFolderHandler = (event: React.MouseEvent) => {
@@ -54,10 +63,21 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
           />
         </div>
         <div className="flex justify-between gap-3 pr-4 py-0.5 w-full">
-          <div className="flex items-center justify-center gap-1.5">
-            {isVisibleChildren ? <FaFolderOpen/> : <FaFolder />}
-            <div className="flex items-center justify-center">
-              <h3>{folderInfo.name}</h3>
+          <div className="flex items-center justify-center gap-1.5 w-full min-w-[6rem]">
+            <div>
+              {isVisibleChildren ? (
+                <FaFolderOpen className="" />
+              ) : (
+                <FaFolder className="" />
+              )}
+            </div>
+            <div className="flex items-center justify-center w-full ">
+              <FileDrawerInput
+                inputRef={inputRef}
+                initialFileName={folderInfo.name}
+                isInputInFocus={isInputInFocus}
+                setIsInputInFocus={setIsInputInFocus}
+              />
             </div>
           </div>
           <div className="flex items-center justify-center invisible group-hover:visible text-[color:var(--primary-text-color)]">
