@@ -9,6 +9,8 @@ import ExplorerInput from "./explorerInput.component";
 import ExplorerButtons from "./explorerButtons.component";
 import DummyFileFolder from "./DummyFileFolder.component";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 interface IPROPS {
   folderInfo: directory;
   children: React.ReactElement;
@@ -59,7 +61,6 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
                 initialFileName={folderInfo.name}
                 isInputInFocus={isInputInFocus}
                 setIsInputInFocus={setIsInputInFocus}
-                
               />
             </div>
           </div>
@@ -77,17 +78,28 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
           from="folder"
         />
       </div>
-      <div style={{ paddingLeft: shiftAmount + 8 * 2 }}>
-        <DummyFileFolder
-          addFileOrFolder={addFileOrFolder}
-          setAddFileOrFolder={setAddFileOrFolder}
-          childName={childName}
-          setChildName={setChildName}
-          parentId={folderInfo.parentId}
-          setTimerId={setTimerId}
-          childRef={childRef}
-        />
-      </div>
+      <AnimatePresence>
+        {addFileOrFolder !== "none" && (
+          <motion.div
+            key="id1"
+            style={{ paddingLeft: shiftAmount + 8 * 2 }}
+            initial={{ y: -2, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.1 }}
+            exit={{ opacity: 0, y: -2 }}
+          >
+            <DummyFileFolder
+              addFileOrFolder={addFileOrFolder}
+              setAddFileOrFolder={setAddFileOrFolder}
+              childName={childName}
+              setChildName={setChildName}
+              parentId={folderInfo.id}
+              setTimerId={setTimerId}
+              childRef={childRef}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       {isVisibleChildren && children}
     </div>
   );

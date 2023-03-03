@@ -6,6 +6,8 @@ import DummyFileFolder from "./fileDirectory/DummyFileFolder.component";
 import ExplorerButtons from "./fileDirectory/explorerButtons.component";
 import FileDirectory from "./fileDirectory.compoent";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 const FileExplorer = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const childRef = useRef<HTMLInputElement>(null);
@@ -86,17 +88,29 @@ const FileExplorer = () => {
               from="root"
             />
           </div>
-          <div className="" style={{ paddingLeft: 17 }}>
-            <DummyFileFolder
-              addFileOrFolder={addFileOrFolder}
-              setAddFileOrFolder={setAddFileOrFolder}
-              childName={childName}
-              setChildName={setChildName}
-              setTimerId={setTimerId}
-              parentId={"root"}
-              childRef={childRef}
-            />
-          </div>
+          <AnimatePresence>
+            {addFileOrFolder !== "none" && (
+              <motion.div
+                className=""
+                style={{ paddingLeft: 17 }}
+                key="id1"
+                initial={{ y: -2, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.1 }}
+                exit={{ opacity: 0, y: -2 }}
+              >
+                <DummyFileFolder
+                  addFileOrFolder={addFileOrFolder}
+                  setAddFileOrFolder={setAddFileOrFolder}
+                  childName={childName}
+                  setChildName={setChildName}
+                  setTimerId={setTimerId}
+                  parentId={"root"}
+                  childRef={childRef}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
           {isExplorerContentVisible.fileDirectory && (
             <FileDirectory directoryInfo={directories} shiftAmount={9} />
           )}

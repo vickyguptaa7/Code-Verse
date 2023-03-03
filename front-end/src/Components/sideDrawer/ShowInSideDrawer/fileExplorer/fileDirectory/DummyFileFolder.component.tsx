@@ -52,6 +52,8 @@ const DummyFileFolder: React.FC<IPROPS> = ({
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       // TODO: ADD To The Directory
+      console.log(parentId, childName);
+
       console.log(
         verifyThatSameNameFileOrFolderExists(directories, parentId, childName)
       );
@@ -61,31 +63,33 @@ const DummyFileFolder: React.FC<IPROPS> = ({
   if (addFileOrFolder === "none") return <></>;
 
   return (
-    <div className="flex gap-1">
-      {addFileOrFolder === "folder" ? (
-        <>
-          <div className="flex items-center justify-center">
-            <VscChevronRight className="" />
+      <div
+        className="flex gap-1"
+      >
+        {addFileOrFolder === "folder" ? (
+          <>
+            <div className="flex items-center justify-center">
+              <VscChevronRight className="" />
+            </div>
+            <div className="flex items-center justify-center mr-1">
+              <FaFolder className="" />
+            </div>
+          </>
+        ) : (
+          <div className="flex items-center justify-center ml-4">
+            <FaFileAlt className="text-xs" />
           </div>
-          <div className="flex items-center justify-center mr-1">
-            <FaFolder className="" />
-          </div>
-        </>
-      ) : (
-        <div className="flex items-center justify-center ml-4">
-          <FaFileAlt className="text-xs" />
-        </div>
-      )}
-      <input
-        ref={childRef}
-        className="w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-[color:var(--highlight-text-color)] selection:bg-[color:var(--accent-color)]"
-        onKeyDown={onKeyDownHandler}
-        onChange={inputChangeHandler}
-        onBlur={inputBlurHandler}
-        value={childName}
-        autoFocus
-      />
-    </div>
+        )}
+        <input
+          ref={childRef}
+          className="w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-[color:var(--highlight-text-color)] selection:bg-[color:var(--accent-color)]"
+          onKeyDown={onKeyDownHandler}
+          onChange={inputChangeHandler}
+          onBlur={inputBlurHandler}
+          value={childName}
+          autoFocus
+        />
+      </div>
   );
 };
 
