@@ -16,11 +16,16 @@ interface IPROPS {
 }
 const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const childRef = useRef<HTMLInputElement>(null);
   const [isVisibleChildren, setIsVisibleChildren] = useState(false);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
   const [addFileOrFolder, setAddFileOrFolder] = useState<
     "file" | "folder" | "none"
   >("none");
+  const [timerId, setTimerId] = useState<{
+    isTimer: boolean;
+    id: ReturnType<typeof setTimeout> | null;
+  }>({ isTimer: false, id: null });
   const [childName, setChildName] = useState("");
   const toggleChildrenVisibilityHandler = () => {
     console.log("hide/show children visibility");
@@ -54,6 +59,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
                 initialFileName={folderInfo.name}
                 isInputInFocus={isInputInFocus}
                 setIsInputInFocus={setIsInputInFocus}
+                
               />
             </div>
           </div>
@@ -64,6 +70,10 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
           setIsInputInFocus={setIsInputInFocus}
           setIsVisibleChildren={setIsVisibleChildren}
           setAddFileOrFolder={setAddFileOrFolder}
+          addFileOrFolder={addFileOrFolder}
+          timerId={timerId}
+          setTimerId={setTimerId}
+          childRef={childRef}
           from="folder"
         />
       </div>
@@ -73,6 +83,9 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
           setAddFileOrFolder={setAddFileOrFolder}
           childName={childName}
           setChildName={setChildName}
+          parentId={folderInfo.parentId}
+          setTimerId={setTimerId}
+          childRef={childRef}
         />
       </div>
       {isVisibleChildren && children}

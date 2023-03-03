@@ -8,7 +8,13 @@ import FileDirectory from "./fileDirectory.compoent";
 
 const FileExplorer = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const childRef = useRef<HTMLInputElement>(null);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
+  const [timerId, setTimerId] = useState<{
+    isTimer: boolean;
+    id: ReturnType<typeof setTimeout> | null;
+  }>({ isTimer: false, id: null });
+
   const directories = useAppSelector(
     (state) => state.fileDirectory.directories
   );
@@ -29,6 +35,13 @@ const FileExplorer = () => {
     setIsExplorerContentVisible({
       ...isExplorerContentVisible,
       [key]: !isExplorerContentVisible[key],
+    });
+  };
+  const showFileExplorerContent = () => {
+    if (isExplorerContentVisible.fileDirectory) return;
+    setIsExplorerContentVisible({
+      ...isExplorerContentVisible,
+      fileDirectory: true,
     });
   };
 
@@ -65,6 +78,11 @@ const FileExplorer = () => {
               isInputInFocus={isInputInFocus}
               setIsInputInFocus={setIsInputInFocus}
               setAddFileOrFolder={setAddFileOrFolder}
+              setIsVisibleChildren={showFileExplorerContent}
+              addFileOrFolder={addFileOrFolder}
+              timerId={timerId}
+              setTimerId={setTimerId}
+              childRef={childRef}
               from="root"
             />
           </div>
@@ -74,6 +92,9 @@ const FileExplorer = () => {
               setAddFileOrFolder={setAddFileOrFolder}
               childName={childName}
               setChildName={setChildName}
+              setTimerId={setTimerId}
+              parentId={"root"}
+              childRef={childRef}
             />
           </div>
           {isExplorerContentVisible.fileDirectory && (

@@ -7,7 +7,14 @@ interface IPROPS {
   setIsInputInFocus: Function;
   setIsVisibleChildren?: (val: boolean) => void;
   setAddFileOrFolder?: (val: "file" | "folder") => void;
+  addFileOrFolder?: "file" | "folder" | "none";
+  timerId?: { isTimer: boolean; id: ReturnType<typeof setTimeout> | null };
+  setTimerId?: (value: {
+    isTimer: boolean;
+    id: ReturnType<typeof setTimeout> | null;
+  }) => void;
   from: "file" | "folder" | "root";
+  childRef?: React.RefObject<HTMLInputElement>;
 }
 
 const ExplorerButtons: React.FC<IPROPS> = ({
@@ -16,6 +23,10 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   setIsInputInFocus,
   setIsVisibleChildren,
   setAddFileOrFolder,
+  addFileOrFolder,
+  timerId,
+  childRef,
+  setTimerId,
   from,
 }) => {
   const renameHandler = (event: React.MouseEvent) => {
@@ -56,15 +67,33 @@ const ExplorerButtons: React.FC<IPROPS> = ({
 
   const addFolderHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
+
+    // folder to expand
     if (setIsVisibleChildren) setIsVisibleChildren(true);
-    console.log("add Folder");
-    if (setAddFileOrFolder) setAddFileOrFolder("folder");
+
+    if (setAddFileOrFolder) {
+      if (timerId?.isTimer) {
+        clearTimeout(timerId.id!);
+      }
+      childRef?.current?.focus();
+      console.log("add Folder");
+      setAddFileOrFolder("folder");
+    }
   };
+
   const addFileHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
+
+    // folder to expand
     if (setIsVisibleChildren) setIsVisibleChildren(true);
-    console.log("add File");
-    if (setAddFileOrFolder) setAddFileOrFolder("file");
+    if (setAddFileOrFolder) {
+      if (timerId?.isTimer) {
+        clearTimeout(timerId.id!);
+      }
+      childRef?.current?.focus();
+      console.log("add File");
+      setAddFileOrFolder("file");
+    }
   };
 
   if (from === "root") {

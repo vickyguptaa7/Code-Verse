@@ -39,6 +39,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
         inputRef={inputRef}
         isInputInFocus={isInputInFocus}
         setIsInputInFocus={setIsInputInFocus}
+        
         from="file"
       />
     </div>
