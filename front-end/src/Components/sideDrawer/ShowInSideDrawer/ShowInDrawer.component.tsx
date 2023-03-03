@@ -38,7 +38,7 @@ const Drawer = () => {
       <div
         ref={refDrawer}
         className={twMerge(
-          "flex text-white w-52 justify-between overflow-x-scroll",
+          "flex text-white w-52 justify-between",
           isSidePannelPositionOnLeft && "flex-row-reverse"
         )}
         style={{ width: sideDrawerWidth }}

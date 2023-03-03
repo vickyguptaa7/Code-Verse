@@ -31,12 +31,14 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
         <ExplorerInput
           inputRef={inputRef}
           initialFileName={fileInfo.name}
+          id={fileInfo.id}
           isInputInFocus={isInputInFocus}
           setIsInputInFocus={setIsInputInFocus}
         />
       </div>
       <ExplorerButtons
         inputRef={inputRef}
+        id={fileInfo.id}
         isInputInFocus={isInputInFocus}
         setIsInputInFocus={setIsInputInFocus}
         from="file"

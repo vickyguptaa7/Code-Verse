@@ -21,7 +21,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
   const childRef = useRef<HTMLInputElement>(null);
   const [isVisibleChildren, setIsVisibleChildren] = useState(false);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
-  const [addFileOrFolder, setAddFileOrFolder] = useState<
+  const [isFileOrFolder, setIsFileOrFolder] = useState<
     "file" | "folder" | "none"
   >("none");
   const [timerId, setTimerId] = useState<{
@@ -59,6 +59,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
               <ExplorerInput
                 inputRef={inputRef}
                 initialFileName={folderInfo.name}
+                id={folderInfo.id}
                 isInputInFocus={isInputInFocus}
                 setIsInputInFocus={setIsInputInFocus}
               />
@@ -67,11 +68,12 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
         </div>
         <ExplorerButtons
           inputRef={inputRef}
+          id={folderInfo.id}
           isInputInFocus={isInputInFocus}
           setIsInputInFocus={setIsInputInFocus}
           setIsVisibleChildren={setIsVisibleChildren}
-          setAddFileOrFolder={setAddFileOrFolder}
-          addFileOrFolder={addFileOrFolder}
+          setIsFileOrFolder={setIsFileOrFolder}
+          isFileOrFolder={isFileOrFolder}
           timerId={timerId}
           setTimerId={setTimerId}
           childRef={childRef}
@@ -79,7 +81,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
         />
       </div>
       <AnimatePresence>
-        {addFileOrFolder !== "none" && (
+        {isFileOrFolder !== "none" && (
           <motion.div
             key="id2"
             style={{ paddingLeft: shiftAmount + 8 * 2 }}
@@ -89,8 +91,8 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
             exit={{ opacity: 0 }}
           >
             <DummyFileFolder
-              addFileOrFolder={addFileOrFolder}
-              setAddFileOrFolder={setAddFileOrFolder}
+              isFileOrFolder={isFileOrFolder}
+              setIsFileOrFolder={setIsFileOrFolder}
               parentId={folderInfo.id}
               setTimerId={setTimerId}
               childRef={childRef}

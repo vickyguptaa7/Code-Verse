@@ -25,7 +25,7 @@ const FileExplorer = () => {
     outline: false,
     timeline: false,
   });
-  const [addFileOrFolder, setAddFileOrFolder] = useState<
+  const [isFileOrFolder, setIsFileOrFolder] = useState<
     "file" | "folder" | "none"
   >("none");
 
@@ -44,6 +44,9 @@ const FileExplorer = () => {
       fileDirectory: true,
     });
   };
+  const fileDirectoryHeight = isExplorerContentVisible.fileDirectory
+    ? document.body.clientHeight - 150
+    : 0;
 
   return (
     <div className="flex flex-col justify-start h-full py-2 text-sm whitespace-nowrap ">
@@ -77,9 +80,9 @@ const FileExplorer = () => {
               inputRef={inputRef}
               isInputInFocus={isInputInFocus}
               setIsInputInFocus={setIsInputInFocus}
-              setAddFileOrFolder={setAddFileOrFolder}
+              setIsFileOrFolder={setIsFileOrFolder}
               setIsVisibleChildren={showFileExplorerContent}
-              addFileOrFolder={addFileOrFolder}
+              isFileOrFolder={isFileOrFolder}
               timerId={timerId}
               setTimerId={setTimerId}
               childRef={childRef}
@@ -87,12 +90,12 @@ const FileExplorer = () => {
             />
           </div>
           <div
-            className="overflow-scroll"
+            className="overflow-y-scroll"
             // subtracted 150 bcoz of other content on the explorer to get the scroll bar we have to fix the height of the div
-            style={{ height: document.body.clientHeight - 150 }}
+            style={{ height: fileDirectoryHeight }}
           >
             <AnimatePresence>
-              {addFileOrFolder !== "none" && (
+              {isFileOrFolder !== "none" && (
                 <motion.div
                   className=""
                   style={{ paddingLeft: 17 }}
@@ -103,8 +106,8 @@ const FileExplorer = () => {
                   exit={{ opacity: 0, y: -2 }}
                 >
                   <DummyFileFolder
-                    addFileOrFolder={addFileOrFolder}
-                    setAddFileOrFolder={setAddFileOrFolder}
+                    isFileOrFolder={isFileOrFolder}
+                    setIsFileOrFolder={setIsFileOrFolder}
                     setTimerId={setTimerId}
                     parentId={"root"}
                     childRef={childRef}

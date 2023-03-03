@@ -47,12 +47,12 @@ const fileDirectorySlice = createSlice({
               children: [],
               parentId: directory.id,
             });
-            return directories;
+            return;
           }
           if (directory.isFolder)
             add(directory.children, parentId, name, isFolder);
         }
-        return [...directories];
+        return;
       };
       add(
         state.directories,
@@ -61,8 +61,53 @@ const fileDirectorySlice = createSlice({
         action.payload.isFolder
       );
     },
+    renameDirectoryFileOrFolder(
+      state,
+      action: PayloadAction<{ id: string; name: string }>
+    ) {
+      const rename = (
+        directories: Array<directory>,
+        id: string,
+        name: string
+      ) => {
+        for (const directoryIndx in directories) {
+          if (directories[directoryIndx].id === id) {
+            directories[directoryIndx] = {
+              ...directories[directoryIndx],
+              name: name,
+            };
+            return;
+          }
+          if (directories[directoryIndx].isFolder) {
+            rename(directories[directoryIndx].children, id, name);
+          }
+        }
+      };
+      rename(state.directories, action.payload.id, action.payload.name);
+    },
+    deleteDirectoryFileOrFolder(state, action: PayloadAction<{ id: string }>) {
+      const deleteFileOrFolder = (
+        directories: Array<directory>,
+        id: string
+      ) => {
+        for (const directoryIndx in directories) {
+          if (directories[directoryIndx].id === id) {
+            directories.splice(parseInt(directoryIndx), 1);
+            return;
+          }
+          if (directories[directoryIndx].isFolder) {
+            deleteFileOrFolder(directories[directoryIndx].children, id);
+          }
+        }
+      };
+      deleteFileOrFolder(state.directories, action.payload.id);
+    },
   },
 });
-export const { addToDirectory } = fileDirectorySlice.actions;
+export const {
+  addToDirectory,
+  renameDirectoryFileOrFolder,
+  deleteDirectoryFileOrFolder,
+} = fileDirectorySlice.actions;
 
 export default fileDirectorySlice.reducer;

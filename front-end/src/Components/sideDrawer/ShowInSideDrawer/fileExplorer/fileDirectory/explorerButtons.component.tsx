@@ -1,13 +1,15 @@
 import React from "react";
 import { VscClose, VscEdit, VscNewFile, VscNewFolder } from "react-icons/vsc";
+import useDirectory from "../../../../../hooks/useDirectory.hook";
 
 interface IPROPS {
   inputRef: React.RefObject<HTMLInputElement>;
+  id?: string;
   isInputInFocus: boolean;
   setIsInputInFocus: Function;
   setIsVisibleChildren?: (val: boolean) => void;
-  setAddFileOrFolder?: (val: "file" | "folder") => void;
-  addFileOrFolder?: "file" | "folder" | "none";
+  setIsFileOrFolder?: (val: "file" | "folder") => void;
+  isFileOrFolder?: "file" | "folder" | "none";
   timerId?: { isTimer: boolean; id: ReturnType<typeof setTimeout> | null };
   setTimerId?: (value: {
     isTimer: boolean;
@@ -19,16 +21,18 @@ interface IPROPS {
 
 const ExplorerButtons: React.FC<IPROPS> = ({
   inputRef,
+  id,
   isInputInFocus,
   setIsInputInFocus,
   setIsVisibleChildren,
-  setAddFileOrFolder,
-  addFileOrFolder,
+  setIsFileOrFolder,
+  isFileOrFolder,
   timerId,
   childRef,
   setTimerId,
   from,
 }) => {
+  const { deleteFileOrFolderOfDirectory } = useDirectory();
   const renameHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsInputInFocus(true);
@@ -40,7 +44,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   };
   const deleteHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
-
+    deleteFileOrFolderOfDirectory(id ? id : "");
     console.log("delete Folder");
   };
 
@@ -71,13 +75,13 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     // folder to expand
     if (setIsVisibleChildren) setIsVisibleChildren(true);
 
-    if (setAddFileOrFolder) {
+    if (setIsFileOrFolder) {
       if (timerId?.isTimer) {
         clearTimeout(timerId.id!);
       }
       childRef?.current?.focus();
       console.log("add Folder");
-      setAddFileOrFolder("folder");
+      setIsFileOrFolder("folder");
     }
   };
 
@@ -86,13 +90,13 @@ const ExplorerButtons: React.FC<IPROPS> = ({
 
     // folder to expand
     if (setIsVisibleChildren) setIsVisibleChildren(true);
-    if (setAddFileOrFolder) {
+    if (setIsFileOrFolder) {
       if (timerId?.isTimer) {
         clearTimeout(timerId.id!);
       }
       childRef?.current?.focus();
       console.log("add File");
-      setAddFileOrFolder("file");
+      setIsFileOrFolder("file");
     }
   };
 

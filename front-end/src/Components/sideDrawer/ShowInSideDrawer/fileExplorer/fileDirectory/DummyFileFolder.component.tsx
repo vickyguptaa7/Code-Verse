@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { FaFileAlt, FaFolder } from "react-icons/fa";
 import { VscChevronRight } from "react-icons/vsc";
-import directory from "../../../../../Interface/directory.interface";
-import { addToDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
-import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
+import useDirectory from "../../../../../hooks/useDirectory.hook";
 
 interface IPROPS {
-  addFileOrFolder: "file" | "folder" | "none";
-  setAddFileOrFolder: Function;
+  isFileOrFolder: "file" | "folder" | "none";
+  setIsFileOrFolder: Function;
   parentId: string;
   setTimerId?: (val: {
     isTimer: boolean;
@@ -17,27 +15,23 @@ interface IPROPS {
 }
 
 const DummyFileFolder: React.FC<IPROPS> = ({
-  addFileOrFolder,
-  setAddFileOrFolder,
+  isFileOrFolder,
+  setIsFileOrFolder,
   parentId,
   setTimerId,
   childRef,
 }) => {
   const [childName, setChildName] = useState("");
-  const dispatch = useAppDispatch();
-  const directories = useAppSelector(
-    (state) => state.fileDirectory.directories
-  );
-  const { verifyThatSameNameFileOrFolderExists } = useDummyFileOrFolder();
+  const { addFileOrFolderToDirectory } = useDirectory();
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChildName(event.target.value);
   };
 
   const inputBlurHandler = () => {
-    if (childName.length === 0) {
+    if (childName.trim().length === 0) {
       const timerId = setTimeout(() => {
-        setAddFileOrFolder("none");
+        setIsFileOrFolder("none");
         console.log("hello blur");
       }, 60);
       if (setTimerId)
@@ -45,38 +39,32 @@ const DummyFileFolder: React.FC<IPROPS> = ({
           isTimer: true,
           id: timerId,
         });
+      return;
     }
-    // TODO: Check for the name duplication here and add to the directory
+    addFileOrFolderToDirectory(
+      parentId,
+      childName,
+      isFileOrFolder === "folder"
+    );
+    setIsFileOrFolder("none");
   };
 
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      // TODO: ADD To The Directory
-      if (
-        verifyThatSameNameFileOrFolderExists(directories, parentId, childName)
-      ) {
-        console.log("File already exists!");
-        return;
-      }
-      //
-      console.log(parentId, childName);
-      dispatch(
-        addToDirectory({
-          parentId,
-          name: childName,
-          isFolder: addFileOrFolder === "folder",
-        })
+    if (event.key === "Enter" && childName.trim().length) {
+      setIsFileOrFolder("none");
+      addFileOrFolderToDirectory(
+        parentId,
+        childName,
+        isFileOrFolder === "folder"
       );
-      setAddFileOrFolder("none");
-      console.log("Add To Directory");
     }
   };
 
-  if (addFileOrFolder === "none") return <></>;
+  if (isFileOrFolder === "none") return <></>;
 
   return (
     <div className="flex gap-1">
-      {addFileOrFolder === "folder" ? (
+      {isFileOrFolder === "folder" ? (
         <>
           <div className="flex items-center justify-center">
             <VscChevronRight className="" />
@@ -102,33 +90,5 @@ const DummyFileFolder: React.FC<IPROPS> = ({
     </div>
   );
 };
-
-function useDummyFileOrFolder() {
-  const verifyThatSameNameFileOrFolderExists = (
-    directories: Array<directory>,
-    parentId: string,
-    name: string
-  ) => {
-    for (const directory of directories) {
-      if (
-        (directory.parentId === parentId &&
-          directory.name.toLowerCase() === name.toLowerCase()) ||
-        (directory.isFolder &&
-          verifyThatSameNameFileOrFolderExists(
-            directory.children,
-            parentId,
-            name
-          ))
-      ) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  return {
-    verifyThatSameNameFileOrFolderExists,
-  };
-}
 
 export default DummyFileFolder;
