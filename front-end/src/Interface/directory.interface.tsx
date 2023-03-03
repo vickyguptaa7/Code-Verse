@@ -3,6 +3,5 @@ export default interface directory {
   name: string;
   parentId: string;
   isFolder: boolean;
-  fileId: string | null;
   children: Array<directory>;
 }

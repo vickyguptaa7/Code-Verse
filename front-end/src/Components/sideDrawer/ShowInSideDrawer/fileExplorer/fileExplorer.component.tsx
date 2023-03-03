@@ -29,8 +29,6 @@ const FileExplorer = () => {
     "file" | "folder" | "none"
   >("none");
 
-  const [childName, setChildName] = useState("");
-
   const toggleExplorerContentHandler = (
     key: "fileDirectory" | "timeline" | "outline"
   ) => {
@@ -48,7 +46,7 @@ const FileExplorer = () => {
   };
 
   return (
-    <div className="flex flex-col justify-start h-full py-2 text-sm whitespace-nowrap">
+    <div className="flex flex-col justify-start h-full py-2 text-sm whitespace-nowrap ">
       <div className="pl-3.5 mt-1.5 mb-2">
         <h2>EXPLORER</h2>
       </div>
@@ -88,32 +86,36 @@ const FileExplorer = () => {
               from="root"
             />
           </div>
-          <AnimatePresence>
-            {addFileOrFolder !== "none" && (
-              <motion.div
-                className=""
-                style={{ paddingLeft: 17 }}
-                key="id1"
-                initial={{ y: -2, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.1 }}
-                exit={{ opacity: 0, y: -2 }}
-              >
-                <DummyFileFolder
-                  addFileOrFolder={addFileOrFolder}
-                  setAddFileOrFolder={setAddFileOrFolder}
-                  childName={childName}
-                  setChildName={setChildName}
-                  setTimerId={setTimerId}
-                  parentId={"root"}
-                  childRef={childRef}
-                />
-              </motion.div>
+          <div
+            className="overflow-scroll"
+            // subtracted 150 bcoz of other content on the explorer to get the scroll bar we have to fix the height of the div
+            style={{ height: document.body.clientHeight - 150 }}
+          >
+            <AnimatePresence>
+              {addFileOrFolder !== "none" && (
+                <motion.div
+                  className=""
+                  style={{ paddingLeft: 17 }}
+                  key="id1"
+                  initial={{ y: -2, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.1 }}
+                  exit={{ opacity: 0, y: -2 }}
+                >
+                  <DummyFileFolder
+                    addFileOrFolder={addFileOrFolder}
+                    setAddFileOrFolder={setAddFileOrFolder}
+                    setTimerId={setTimerId}
+                    parentId={"root"}
+                    childRef={childRef}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {isExplorerContentVisible.fileDirectory && (
+              <FileDirectory directoryInfo={directories} shiftAmount={9} />
             )}
-          </AnimatePresence>
-          {isExplorerContentVisible.fileDirectory && (
-            <FileDirectory directoryInfo={directories} shiftAmount={9} />
-          )}
+          </div>
         </div>
         <div className="flex flex-col">
           <div

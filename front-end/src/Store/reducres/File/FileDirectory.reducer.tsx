@@ -1,76 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import directory from "../../../Interface/directory.interface";
+import directory from "../../../Interface/directory.interface";
 // TODO:Central file state
 
-let DUMMY_FILE_DIRECTORY = [
-  {
-    id: "i1",
-    name: "folder1",
-    parentId: "root",
-    isFolder: true,
-    fileId: null,
-    children: [
-      {
-        id: "i9",
-        parentId: "i1",
-        name: "file1",
-        isFolder: false,
-        fileId: "i1",
-        children: [],
-      },
-      {
-        id: "i3",
-        parentId: "i1",
-        name: "folder2",
-        isFolder: true,
-        fileId: "i1",
-        children: [
-          {
-            id: "i4",
-            parentId: "i3",
-            name: "folder3",
-            isFolder: true,
-            fileId: "i1",
-            children: [
-              {
-                id: "i9",
-                parentId: "i4",
-                name: "file3",
-                isFolder: false,
-                fileId: "i1",
-                children: [],
-              },
-              {
-                id: "i21",
-                parentId: "i4",
-                name: "file4",
-                isFolder: false,
-                fileId: "i1",
-                children: [],
-              },
-            ],
-          },
-          {
-            id: "i6",
-            parentId: "i3",
-            name: "file5",
-            isFolder: false,
-            fileId: "i1",
-            children: [],
-          },
-        ],
-      },
-      {
-        id: "i2",
-        parentId: "i1",
-        name: "file6",
-        isFolder: false,
-        fileId: "i1",
-        children: [],
-      },
-    ],
-  },
-];
+let DUMMY_FILE_DIRECTORY = new Array<directory>();
 
 const fileDirectoryInitialState = {
   directories: DUMMY_FILE_DIRECTORY,
@@ -82,8 +14,53 @@ const fileDirectorySlice = createSlice({
   reducers: {
     addToDirectory(
       state,
-      action: PayloadAction<{ id: string; name: string; isFolder: boolean }>
-    ) {},
+      action: PayloadAction<{
+        parentId: string;
+        name: string;
+        isFolder: boolean;
+      }>
+    ) {
+      if (action.payload.parentId === "root") {
+        const id = new Date().getTime().toString();
+        state.directories.unshift({
+          id: id,
+          parentId: action.payload.parentId,
+          name: action.payload.name,
+          isFolder: action.payload.isFolder,
+          children: [],
+        });
+        return;
+      }
+      const add = (
+        directories: Array<directory>,
+        parentId: string,
+        name: string,
+        isFolder: boolean
+      ) => {
+        for (const directory of directories) {
+          if (directory.isFolder && directory.id === parentId) {
+            const id = new Date().getTime().toString();
+            directory.children.unshift({
+              id: id,
+              name,
+              isFolder,
+              children: [],
+              parentId: directory.id,
+            });
+            return directories;
+          }
+          if (directory.isFolder)
+            add(directory.children, parentId, name, isFolder);
+        }
+        return [...directories];
+      };
+      add(
+        state.directories,
+        action.payload.parentId,
+        action.payload.name,
+        action.payload.isFolder
+      );
+    },
   },
 });
 export const { addToDirectory } = fileDirectorySlice.actions;

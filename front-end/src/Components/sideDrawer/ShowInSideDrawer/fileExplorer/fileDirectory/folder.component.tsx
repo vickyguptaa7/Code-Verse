@@ -28,7 +28,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
     isTimer: boolean;
     id: ReturnType<typeof setTimeout> | null;
   }>({ isTimer: false, id: null });
-  const [childName, setChildName] = useState("");
+
   const toggleChildrenVisibilityHandler = () => {
     console.log("hide/show children visibility");
     setIsVisibleChildren((state) => !state);
@@ -81,18 +81,16 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
       <AnimatePresence>
         {addFileOrFolder !== "none" && (
           <motion.div
-            key="id1"
+            key="id2"
             style={{ paddingLeft: shiftAmount + 8 * 2 }}
             initial={{ y: -2, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.1 }}
-            exit={{ opacity: 0, y: -2 }}
+            transition={{ duration: 0.2 }}
+            exit={{ opacity: 0 }}
           >
             <DummyFileFolder
               addFileOrFolder={addFileOrFolder}
               setAddFileOrFolder={setAddFileOrFolder}
-              childName={childName}
-              setChildName={setChildName}
               parentId={folderInfo.id}
               setTimerId={setTimerId}
               childRef={childRef}
