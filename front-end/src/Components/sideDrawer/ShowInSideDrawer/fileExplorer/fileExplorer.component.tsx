@@ -8,6 +8,8 @@ import FileDirectory from "./fileDirectory.compoent";
 
 import { motion, AnimatePresence } from "framer-motion";
 
+const EDITOR_MIN_HEIGHT = 480;
+
 const FileExplorer = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const childRef = useRef<HTMLInputElement>(null);
@@ -45,7 +47,7 @@ const FileExplorer = () => {
     });
   };
   const fileDirectoryHeight = isExplorerContentVisible.fileDirectory
-    ? document.body.clientHeight - 150
+    ? Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 150
     : 0;
 
   return (

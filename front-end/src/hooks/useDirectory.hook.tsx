@@ -35,8 +35,11 @@ const useDirectory = () => {
     name: string,
     isFolder: boolean
   ) => {
-    if (isFileOrFolderAlreadyExists(directories, parentId, name)) {
-      console.log("File already exists!");
+    if (
+      isFileOrFolderAlreadyExists(directories, parentId, name) ||
+      !name.trim().length
+    ) {
+      console.log("File already exists! Or Name Empty");
       return;
     }
     dispatch(
@@ -49,8 +52,10 @@ const useDirectory = () => {
   };
 
   const renameFileOrFolderOfDirectory = (id: string, name: string) => {
-    if (isFileOrFolderAlreadyExists(directories, id, name)) {
-      console.log("File already exists!");
+    if (
+      isFileOrFolderAlreadyExists(directories, id, name) ||
+      !name.trim().length
+    ) {
       return;
     }
     dispatch(renameDirectoryFileOrFolder({ id, name }));
