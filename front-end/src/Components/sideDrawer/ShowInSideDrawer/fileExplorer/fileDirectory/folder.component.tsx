@@ -58,8 +58,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
             <div className="flex items-center justify-center w-full ">
               <ExplorerInput
                 inputRef={inputRef}
-                initialFileName={folderInfo.name}
-                id={folderInfo.id}
+                directoryInfo={folderInfo}
                 isInputInFocus={isInputInFocus}
                 setIsInputInFocus={setIsInputInFocus}
               />
@@ -83,12 +82,16 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
       <AnimatePresence>
         {isFileOrFolder !== "none" && (
           <motion.div
-            key="id2"
             style={{ paddingLeft: shiftAmount + 8 * 2 }}
+            key="id2"
             initial={{ y: -2, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.2 }}
-            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+            exit={{
+              opacity: 0,
+              y: timerId.isTimer ? -2 : 0,
+              transition: { duration: timerId.isTimer ? 0.1 : 0 },
+            }}
           >
             <DummyFileFolder
               isFileOrFolder={isFileOrFolder}

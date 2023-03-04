@@ -12,7 +12,7 @@ const fileDirectorySlice = createSlice({
   name: "file-directory",
   initialState: fileDirectoryInitialState,
   reducers: {
-    addToDirectory(
+    addFileOrFolderToDirectory(
       state,
       action: PayloadAction<{
         parentId: string;
@@ -61,7 +61,7 @@ const fileDirectorySlice = createSlice({
         action.payload.isFolder
       );
     },
-    renameDirectoryFileOrFolder(
+    renameFileOrFolderOfDirectory(
       state,
       action: PayloadAction<{ id: string; name: string }>
     ) {
@@ -85,7 +85,7 @@ const fileDirectorySlice = createSlice({
       };
       rename(state.directories, action.payload.id, action.payload.name);
     },
-    deleteDirectoryFileOrFolder(state, action: PayloadAction<{ id: string }>) {
+    deleteFileOrFolderOfDirectory(state, action: PayloadAction<{ id: string }>) {
       const deleteFileOrFolder = (
         directories: Array<directory>,
         id: string
@@ -105,9 +105,9 @@ const fileDirectorySlice = createSlice({
   },
 });
 export const {
-  addToDirectory,
-  renameDirectoryFileOrFolder,
-  deleteDirectoryFileOrFolder,
+  addFileOrFolderToDirectory,
+  renameFileOrFolderOfDirectory,
+  deleteFileOrFolderOfDirectory,
 } = fileDirectorySlice.actions;
 
 export default fileDirectorySlice.reducer;

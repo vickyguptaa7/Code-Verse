@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaFileAlt, FaFolder } from "react-icons/fa";
 import { VscChevronRight } from "react-icons/vsc";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
+import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
+import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 
 interface IPROPS {
   isFileOrFolder: "file" | "folder" | "none";
@@ -22,14 +24,18 @@ const DummyFileFolder: React.FC<IPROPS> = ({
   childRef,
 }) => {
   const [childName, setChildName] = useState("");
-  const { addFileOrFolderToDirectory } = useDirectory();
+  const dispatch = useAppDispatch();
+  const directories = useAppSelector(
+    (state) => state.fileDirectory.directories
+  );
+  const { isFileOrFolderAlreadyExists } = useDirectory();
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChildName(event.target.value);
   };
 
   const inputBlurHandler = () => {
-    if (childName.trim().length === 0) {
+    if (!childName.trim().length) {
       const timerId = setTimeout(() => {
         setIsFileOrFolder("none");
         console.log("hello blur");
@@ -41,21 +47,45 @@ const DummyFileFolder: React.FC<IPROPS> = ({
         });
       return;
     }
-    addFileOrFolderToDirectory(
-      parentId,
-      childName,
-      isFileOrFolder === "folder"
-    );
+    if (isFileOrFolderAlreadyExists(directories, parentId, childName)) {
+      console.log("File already exists!");
+      return;
+    }
     setIsFileOrFolder("none");
+    // Added timeout so that there is setFileOrFolder will update and the dummyfileorfolder get removed first and then our new folder or file gets added to directory
+    // if its not done then it will add file or folder to directory first and then dummyfileorfolder gets removed so there is wierd ui change
+    setTimeout(
+      () =>
+        dispatch(
+          addFileOrFolderToDirectory({
+            parentId,
+            name: childName,
+            isFolder: isFileOrFolder === "folder",
+          })
+        ),
+      0
+    );
   };
 
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" && childName.trim().length) {
+      if (isFileOrFolderAlreadyExists(directories, parentId, childName)) {
+        console.log("File already exists!");
+        return;
+      }
       setIsFileOrFolder("none");
-      addFileOrFolderToDirectory(
-        parentId,
-        childName,
-        isFileOrFolder === "folder"
+      // Added timeout so that there is setFileOrFolder will update and the dummyfileorfolder get removed first and then our new folder or file gets added to directory
+      // if its not done then it will add file or folder to directory first and then dummyfileorfolder gets removed so there is wierd ui change
+      setTimeout(
+        () =>
+          dispatch(
+            addFileOrFolderToDirectory({
+              parentId,
+              name: childName,
+              isFolder: isFileOrFolder === "folder",
+            })
+          ),
+        0
       );
     }
   };

@@ -1,6 +1,7 @@
 import React from "react";
 import { VscClose, VscEdit, VscNewFile, VscNewFolder } from "react-icons/vsc";
-import useDirectory from "../../../../../hooks/useDirectory.hook";
+import { deleteFileOrFolderOfDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
+import { useAppDispatch } from "../../../../../Store/store";
 
 interface IPROPS {
   inputRef: React.RefObject<HTMLInputElement>;
@@ -32,7 +33,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   setTimerId,
   from,
 }) => {
-  const { deleteFileOrFolderOfDirectory } = useDirectory();
+  const dispatch = useAppDispatch();
   const renameHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsInputInFocus(true);
@@ -44,8 +45,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   };
   const deleteHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
-    deleteFileOrFolderOfDirectory(id ? id : "");
-    console.log("delete Folder");
+    if (id && id.trim().length) dispatch(deleteFileOrFolderOfDirectory({ id }));
   };
 
   if (from === "file") {
@@ -78,6 +78,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     if (setIsFileOrFolder) {
       if (timerId?.isTimer) {
         clearTimeout(timerId.id!);
+        if (setTimerId) setTimerId({ isTimer: false, id: null });
       }
       childRef?.current?.focus();
       console.log("add Folder");
@@ -93,6 +94,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     if (setIsFileOrFolder) {
       if (timerId?.isTimer) {
         clearTimeout(timerId.id!);
+        if (setTimerId) setTimerId({ isTimer: false, id: null });
       }
       childRef?.current?.focus();
       console.log("add File");

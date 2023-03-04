@@ -1,17 +1,6 @@
 import directory from "../Interface/directory.interface";
-import {
-  addToDirectory,
-  deleteDirectoryFileOrFolder,
-  renameDirectoryFileOrFolder,
-} from "../Store/reducres/File/FileDirectory.reducer";
-import { useAppDispatch, useAppSelector } from "../Store/store";
 
 const useDirectory = () => {
-  const dispatch = useAppDispatch();
-  const directories = useAppSelector(
-    (state) => state.fileDirectory.directories
-  );
-
   const isFileOrFolderAlreadyExists = (
     directories: Array<directory>,
     parentId: string,
@@ -30,46 +19,8 @@ const useDirectory = () => {
     return false;
   };
 
-  const addFileOrFolderToDirectory = (
-    parentId: string,
-    name: string,
-    isFolder: boolean
-  ) => {
-    if (
-      isFileOrFolderAlreadyExists(directories, parentId, name) ||
-      !name.trim().length
-    ) {
-      console.log("File already exists! Or Name Empty");
-      return;
-    }
-    dispatch(
-      addToDirectory({
-        parentId,
-        name,
-        isFolder,
-      })
-    );
-  };
-
-  const renameFileOrFolderOfDirectory = (id: string, name: string) => {
-    if (
-      isFileOrFolderAlreadyExists(directories, id, name) ||
-      !name.trim().length
-    ) {
-      return;
-    }
-    dispatch(renameDirectoryFileOrFolder({ id, name }));
-  };
-
-  const deleteFileOrFolderOfDirectory = (id: string) => {
-    if (!id.trim().length) return;
-    dispatch(deleteDirectoryFileOrFolder({ id }));
-  };
-
   return {
-    addFileOrFolderToDirectory,
-    renameFileOrFolderOfDirectory,
-    deleteFileOrFolderOfDirectory,
+    isFileOrFolderAlreadyExists,
   };
 };
 

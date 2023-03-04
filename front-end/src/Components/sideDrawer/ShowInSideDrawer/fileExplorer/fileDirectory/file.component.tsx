@@ -30,8 +30,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
         </div>
         <ExplorerInput
           inputRef={inputRef}
-          initialFileName={fileInfo.name}
-          id={fileInfo.id}
+          directoryInfo={fileInfo}
           isInputInFocus={isInputInFocus}
           setIsInputInFocus={setIsInputInFocus}
         />

@@ -105,7 +105,11 @@ const FileExplorer = () => {
                   initial={{ y: -2, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.1 }}
-                  exit={{ opacity: 0, y: -2 }}
+                  exit={{
+                    opacity: 0,
+                    y: timerId.isTimer ? -2 : 0,
+                    transition: { duration: timerId.isTimer ? 0.1 : 0 },
+                  }}
                 >
                   <DummyFileFolder
                     isFileOrFolder={isFileOrFolder}
