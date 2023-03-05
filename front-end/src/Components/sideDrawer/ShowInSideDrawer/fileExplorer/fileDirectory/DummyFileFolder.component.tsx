@@ -59,7 +59,7 @@ const DummyFileFolder: React.FC<IPROPS> = ({
         dispatch(
           addFileOrFolderToDirectory({
             parentId,
-            name: childName,
+            name: childName.toLowerCase(),
             isFolder: isFileOrFolder === "folder",
           })
         ),

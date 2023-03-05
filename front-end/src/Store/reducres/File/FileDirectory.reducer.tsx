@@ -15,6 +15,7 @@ const fileDirectoryInitialState = {
 };
 
 const findIconUrl = (name: string, isFolder: boolean, iconList: iconObject) => {
+  name = name.toLowerCase();
   if (isFolder) {
     if (
       !iconList.hasOwnProperty("folder-" + name) ||
