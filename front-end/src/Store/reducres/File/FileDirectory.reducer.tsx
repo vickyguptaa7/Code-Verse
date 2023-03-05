@@ -14,6 +14,32 @@ const fileDirectoryInitialState = {
   folderIcons: {} as iconObject,
 };
 
+const findIconUrl = (name: string, isFolder: boolean, iconList: iconObject) => {
+  if (isFolder) {
+    if (
+      !iconList.hasOwnProperty("folder-" + name) ||
+      !iconList.hasOwnProperty("folder-" + name + "-open")
+    ) {
+      return [];
+    }
+    return [iconList["folder-" + name], iconList["folder-" + name + "-open"]];
+  }
+  let extension = "";
+  let isDotPresent = false;
+  for (let i = name.length - 1; i >= 0; i--) {
+    if (name[i] === ".") {
+      isDotPresent = true;
+      break;
+    }
+    extension += name[i];
+  }
+  extension = extension.split("").reverse().join("");
+  if (!isDotPresent || !iconList.hasOwnProperty(extension)) {
+    return [];
+  }
+  return [iconList[extension]];
+};
+
 const fileDirectorySlice = createSlice({
   name: "file-directory",
   initialState: fileDirectoryInitialState,
@@ -32,6 +58,11 @@ const fileDirectorySlice = createSlice({
           id: id,
           parentId: action.payload.parentId,
           name: action.payload.name,
+          iconsUrl: findIconUrl(
+            action.payload.name,
+            action.payload.isFolder,
+            action.payload.isFolder ? state.folderIcons : state.fileIcons
+          ),
           isFolder: action.payload.isFolder,
           children: [],
         });
@@ -50,6 +81,11 @@ const fileDirectorySlice = createSlice({
               id: id,
               name,
               isFolder,
+              iconsUrl: findIconUrl(
+                action.payload.name,
+                action.payload.isFolder,
+                action.payload.isFolder ? state.folderIcons : state.fileIcons
+              ),
               children: [],
               parentId: directory.id,
             });
@@ -81,6 +117,13 @@ const fileDirectorySlice = createSlice({
             directories[directoryIndx] = {
               ...directories[directoryIndx],
               name: name,
+              iconsUrl: findIconUrl(
+                action.payload.name,
+                directories[directoryIndx].isFolder,
+                directories[directoryIndx].isFolder
+                  ? state.folderIcons
+                  : state.fileIcons
+              ),
             };
             return;
           }
