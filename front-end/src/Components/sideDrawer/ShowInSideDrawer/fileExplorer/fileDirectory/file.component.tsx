@@ -17,36 +17,36 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   };
 
   return (
-    <div
-      title="Open"
-      className="flex group justify-between gap-3 cursor-pointer overflow-x-scroll hidescrollbar1 hidescrollbar2 hover:bg-[color:var(--hover-text-color)] pr-4"
-      onClick={addToFileNavigationHandler}
-      // extra padding to align the folder and file name
-      style={{ paddingLeft: shiftAmount + 26 }}
-    >
-      <div className="flex items-center justify-center w-full min-w-[6rem] gap-1">
-        <div className="flex items-center justify-center">
-          {fileInfo.iconsUrl.length ? (
-            <img src={fileInfo.iconsUrl[0]} className="w-5" alt="icon" />
-          ) : (
-            <VscFile className="text-[#42A5F5]" />
-          )}
+      <div
+        title="Open"
+        className="flex group justify-between gap-3 cursor-pointer  hover:bg-[color:var(--hover-text-color)] pr-4 w-full min-w-fit"
+        onClick={addToFileNavigationHandler}
+        // extra padding to align the folder and file name
+        style={{ paddingLeft: shiftAmount + 26 }}
+      >
+        <div className="flex items-center justify-center w-full min-w-[6rem] gap-1">
+          <div className="flex items-center justify-center">
+            {fileInfo.iconsUrl.length ? (
+              <img src={fileInfo.iconsUrl[0]} className="w-5" alt="icon" />
+            ) : (
+              <VscFile className="text-[#42A5F5]" />
+            )}
+          </div>
+          <ExplorerInput
+            inputRef={inputRef}
+            directoryInfo={fileInfo}
+            isInputInFocus={isInputInFocus}
+            setIsInputInFocus={setIsInputInFocus}
+          />
         </div>
-        <ExplorerInput
+        <ExplorerButtons
           inputRef={inputRef}
-          directoryInfo={fileInfo}
+          id={fileInfo.id}
           isInputInFocus={isInputInFocus}
           setIsInputInFocus={setIsInputInFocus}
+          from="file"
         />
       </div>
-      <ExplorerButtons
-        inputRef={inputRef}
-        id={fileInfo.id}
-        isInputInFocus={isInputInFocus}
-        setIsInputInFocus={setIsInputInFocus}
-        from="file"
-      />
-    </div>
   );
 };
 

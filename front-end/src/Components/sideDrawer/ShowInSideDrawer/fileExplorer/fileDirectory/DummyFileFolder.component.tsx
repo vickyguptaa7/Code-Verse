@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaFolder } from "react-icons/fa";
 import { VscChevronRight, VscFile } from "react-icons/vsc";
+import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
@@ -24,6 +25,7 @@ const DummyFileFolder: React.FC<IPROPS> = ({
   childRef,
 }) => {
   const [childName, setChildName] = useState("");
+  const [isExistAlready, setIsExistAlready] = useState(false);
   const dispatch = useAppDispatch();
   const directories = useAppSelector(
     (state) => state.fileDirectory.directories
@@ -32,6 +34,7 @@ const DummyFileFolder: React.FC<IPROPS> = ({
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChildName(event.target.value);
+    setIsExistAlready(false);
   };
 
   const inputBlurHandler = () => {
@@ -49,6 +52,7 @@ const DummyFileFolder: React.FC<IPROPS> = ({
     }
     if (isFileOrFolderAlreadyExists(directories, parentId, childName)) {
       console.log("File already exists!");
+      setIsExistAlready(true);
       return;
     }
     setIsFileOrFolder("none");
@@ -65,12 +69,17 @@ const DummyFileFolder: React.FC<IPROPS> = ({
         ),
       0
     );
+    setIsExistAlready(false);
   };
 
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" && childName.trim().length) {
-      if (isFileOrFolderAlreadyExists(directories, parentId, childName)) {
-        console.log("File already exists!");
+    if (event.key === "Enter") {
+      if (
+        isFileOrFolderAlreadyExists(directories, parentId, childName) ||
+        !childName.trim().length
+      ) {
+        console.log("File already exists! key");
+        setIsExistAlready(true);
         return;
       }
       setIsFileOrFolder("none");
@@ -87,6 +96,7 @@ const DummyFileFolder: React.FC<IPROPS> = ({
           ),
         0
       );
+      setIsExistAlready(false);
     }
   };
 
@@ -108,15 +118,32 @@ const DummyFileFolder: React.FC<IPROPS> = ({
           <VscFile className="text-[#42A5F5]" />
         </div>
       )}
-      <input
-        ref={childRef}
-        className="w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-[color:var(--highlight-text-color)] selection:bg-[color:var(--accent-color)]"
-        onKeyDown={onKeyDownHandler}
-        onChange={inputChangeHandler}
-        onBlur={inputBlurHandler}
-        value={childName}
-        autoFocus
-      />
+      <div className="relative w-full">
+        <input
+          ref={childRef}
+          className={twMerge(
+            "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border  border-red-900  selection:bg-[color:var(--accent-color)]",
+            isExistAlready && "border-red-600"
+          )}
+          onKeyDown={onKeyDownHandler}
+          onChange={inputChangeHandler}
+          onBlur={inputBlurHandler}
+          value={childName}
+          autoFocus
+        />
+        {isExistAlready && (
+          <div className="absolute z-20 w-full p-1 break-words whitespace-normal bg-red-900 border-b border-red-600 border-x">
+            {childName.trim().length ? (
+              <h3>
+                A file or folder <span className="font-bold">{childName}</span>{" "}
+                already exists at this location. Please choose a different name.
+              </h3>
+            ) : (
+              <h3>A file or folder name must be provided.</h3>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
