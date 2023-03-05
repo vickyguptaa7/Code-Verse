@@ -2,10 +2,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import directory from "../../../Interface/directory.interface";
 // TODO:Central file state
 
+interface iconObject {
+  [key: string]: string;
+}
+
 let DUMMY_FILE_DIRECTORY = new Array<directory>();
 
 const fileDirectoryInitialState = {
   directories: DUMMY_FILE_DIRECTORY,
+  fileIcons: {} as iconObject,
+  folderIcons: {} as iconObject,
 };
 
 const fileDirectorySlice = createSlice({
@@ -85,7 +91,10 @@ const fileDirectorySlice = createSlice({
       };
       rename(state.directories, action.payload.id, action.payload.name);
     },
-    deleteFileOrFolderOfDirectory(state, action: PayloadAction<{ id: string }>) {
+    deleteFileOrFolderOfDirectory(
+      state,
+      action: PayloadAction<{ id: string }>
+    ) {
       const deleteFileOrFolder = (
         directories: Array<directory>,
         id: string
@@ -102,12 +111,22 @@ const fileDirectorySlice = createSlice({
       };
       deleteFileOrFolder(state.directories, action.payload.id);
     },
+    setFileIcons(state, action: PayloadAction<{ [key: string]: string }>) {
+      // console.log(action.payload);
+      state.fileIcons = { ...action.payload };
+    },
+    setFolderIcons(state, action: PayloadAction<{ [key: string]: string }>) {
+      // console.log(action.payload);
+      state.folderIcons = { ...action.payload };
+    },
   },
 });
 export const {
   addFileOrFolderToDirectory,
   renameFileOrFolderOfDirectory,
   deleteFileOrFolderOfDirectory,
+  setFileIcons,
+  setFolderIcons,
 } = fileDirectorySlice.actions;
 
 export default fileDirectorySlice.reducer;

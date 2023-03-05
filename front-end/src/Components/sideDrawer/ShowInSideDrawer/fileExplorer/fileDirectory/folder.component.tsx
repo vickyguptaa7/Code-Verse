@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
 import { VscChevronRight } from "react-icons/vsc";
 
-import { FaFolder, FaFolderOpen } from "react-icons/fa";
-
 import { twMerge } from "tailwind-merge";
 import directory from "../../../../../Interface/directory.interface";
 import ExplorerInput from "./explorerInput.component";
@@ -10,6 +8,8 @@ import ExplorerButtons from "./explorerButtons.component";
 import DummyFileFolder from "./DummyFileFolder.component";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { useAppSelector } from "../../../../../Store/store";
+import { FaFolder, FaFolderOpen } from "react-icons/fa";
 
 interface IPROPS {
   folderInfo: directory;
@@ -28,6 +28,15 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
     isTimer: boolean;
     id: ReturnType<typeof setTimeout> | null;
   }>({ isTimer: false, id: null });
+  const folderIcons = useAppSelector(
+    (state) => state.fileDirectory.folderIcons
+  );
+
+  let folderIconSrc = "folder-" + folderInfo.name.toLowerCase();
+  folderIconSrc += isVisibleChildren ? "-open" : "";
+  console.log(folderIconSrc);
+  folderIconSrc = folderIcons[folderIconSrc];
+  console.log(folderIconSrc);
 
   const toggleChildrenVisibilityHandler = () => {
     console.log("hide/show children visibility");
@@ -49,10 +58,12 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
         <div className="flex justify-between w-full gap-3 pr-4">
           <div className="flex items-center justify-center gap-1.5 w-full min-w-[6rem]">
             <div>
-              {isVisibleChildren ? (
-                <FaFolderOpen className="" />
+              {folderIconSrc ? (
+                <img src={folderIconSrc} className="w-6" alt="icon" />
+              ) : isVisibleChildren ? (
+                <FaFolderOpen />
               ) : (
-                <FaFolder className="" />
+                <FaFolder />
               )}
             </div>
             <div className="flex items-center justify-center w-full ">

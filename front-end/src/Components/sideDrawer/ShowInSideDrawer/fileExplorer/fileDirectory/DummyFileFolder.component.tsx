@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FaFileAlt, FaFolder } from "react-icons/fa";
-import { VscChevronRight } from "react-icons/vsc";
+import { FaFolder } from "react-icons/fa";
+import { VscChevronRight, VscFile } from "react-icons/vsc";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
@@ -104,8 +104,8 @@ const DummyFileFolder: React.FC<IPROPS> = ({
           </div>
         </>
       ) : (
-        <div className="flex items-center justify-center ml-4">
-          <FaFileAlt className="text-xs" />
+        <div className="flex items-center justify-center ml-[18.2px]">
+          <VscFile className="text-[#42A5F5]" />
         </div>
       )}
       <input
