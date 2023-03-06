@@ -12,7 +12,11 @@ const fileDirectoryInitialState = {
   directories: DUMMY_FILE_DIRECTORY,
   fileIcons: {} as iconObject,
   folderIcons: {} as iconObject,
-  
+  currentWorkingFileOrFolder: {
+    isActive: false,
+    operation: "",
+    id: "",
+  },
 };
 
 const findIconUrl = (name: string, isFolder: boolean, iconList: iconObject) => {
@@ -104,6 +108,11 @@ const fileDirectorySlice = createSlice({
         action.payload.name,
         action.payload.isFolder
       );
+      state.currentWorkingFileOrFolder = {
+        isActive:false,
+        id:"",
+        operation:""
+      };
     },
     renameFileOrFolderOfDirectory(
       state,
@@ -135,6 +144,11 @@ const fileDirectorySlice = createSlice({
         }
       };
       rename(state.directories, action.payload.id, action.payload.name);
+      state.currentWorkingFileOrFolder = {
+        isActive:false,
+        id:"",
+        operation:""
+      };
     },
     deleteFileOrFolderOfDirectory(
       state,
@@ -164,12 +178,23 @@ const fileDirectorySlice = createSlice({
       // console.log(action.payload);
       state.folderIcons = { ...action.payload };
     },
+    setCurrentWorkingFileOrFolder(
+      state,
+      action: PayloadAction<{
+        isActive: boolean;
+        id: string;
+        operation: "rename" | "add";
+      }>
+    ) {
+      state.currentWorkingFileOrFolder = action.payload;
+    },
   },
 });
 export const {
   addFileOrFolderToDirectory,
   renameFileOrFolderOfDirectory,
   deleteFileOrFolderOfDirectory,
+  setCurrentWorkingFileOrFolder,
   setFileIcons,
   setFolderIcons,
 } = fileDirectorySlice.actions;

@@ -43,9 +43,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
         onClick={toggleChildrenVisibilityHandler}
       >
         <div className="flex items-center justify-center">
-          <VscChevronRight
-            className={twMerge(isFolderOpen && "rotate-90")}
-          />
+          <VscChevronRight className={twMerge(isFolderOpen && "rotate-90")} />
         </div>
         <div className="flex justify-between w-full gap-3 pr-4">
           <div className="flex items-center justify-center gap-1.5 w-full min-w-[6rem]">
@@ -94,11 +92,19 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
             initial={{ y: -2, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.1 }}
+            // exit animation only when inputIsBlur and child field is empty otherwise we have to add new file or folder so we don't want any animations
             exit={{
               opacity: 0,
-              y: newFileOrFolderDummyTimerId.isTimer ? -2 : 0,
+              y:
+                newFileOrFolderDummyTimerId.isTimer && !childRef.current?.value
+                  ? -2
+                  : 0,
               transition: {
-                duration: newFileOrFolderDummyTimerId.isTimer ? 0.1 : 0,
+                duration:
+                  newFileOrFolderDummyTimerId.isTimer &&
+                  !childRef.current?.value
+                    ? 0.1
+                    : 0,
               },
             }}
           >

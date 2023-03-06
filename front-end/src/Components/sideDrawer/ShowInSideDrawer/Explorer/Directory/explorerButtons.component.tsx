@@ -1,6 +1,9 @@
 import React from "react";
 import { VscClose, VscEdit, VscNewFile, VscNewFolder } from "react-icons/vsc";
-import { deleteFileOrFolderOfDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
+import {
+  deleteFileOrFolderOfDirectory,
+  setCurrentWorkingFileOrFolder,
+} from "../../../../../Store/reducres/File/FileDirectory.reducer";
 import { useAppDispatch } from "../../../../../Store/store";
 
 interface IPROPS {
@@ -45,6 +48,14 @@ const ExplorerButtons: React.FC<IPROPS> = ({
       inputRef.current?.removeAttribute("disabled");
     inputRef.current?.focus();
     inputRef.current?.setSelectionRange(0, inputRef.current.value.length);
+    dispatch(
+      setCurrentWorkingFileOrFolder({
+        isActive: true,
+        id: id!,
+        operation: "rename",
+      })
+    );
+    
     console.log("rename Folder");
   };
 
@@ -68,6 +79,13 @@ const ExplorerButtons: React.FC<IPROPS> = ({
       childRef?.current?.focus();
       console.log("add Folder");
       setIsFileOrFolder("folder");
+      dispatch(
+        setCurrentWorkingFileOrFolder({
+          isActive: true,
+          id: id!,
+          operation: "add",
+        })
+      );
     }
   };
 
@@ -85,6 +103,13 @@ const ExplorerButtons: React.FC<IPROPS> = ({
       childRef?.current?.focus();
       console.log("add File");
       setIsFileOrFolder("file");
+      dispatch(
+        setCurrentWorkingFileOrFolder({
+          isActive: true,
+          id: id!,
+          operation: "add",
+        })
+      );
     }
   };
 

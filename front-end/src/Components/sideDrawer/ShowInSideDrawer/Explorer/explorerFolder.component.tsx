@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useAppSelector } from "../../../../Store/store";
 
 import ExplorerButtons from "./Directory/explorerButtons.component";
@@ -21,7 +21,6 @@ const ExplorerFolder = () => {
       isTimer: boolean;
       id: ReturnType<typeof setTimeout> | null;
     }>({ isTimer: false, id: null });
-
   const directories = useAppSelector(
     (state) => state.fileDirectory.directories
   );
@@ -38,7 +37,7 @@ const ExplorerFolder = () => {
         className="flex items-center justify-between gap-3 pr-4 py-0.5 group bg-[color:var(--sidepannel-color)]"
         onClick={() => setIsExplorerFolderOpen(!isExplorerFolderOpen)}
       >
-        <div className="flex">
+        <div className="flex cursor-pointer">
           <div className="flex items-center justify-center p-1">
             <VscChevronRight
               className={twMerge(isExplorerFolderOpen ? "rotate-90" : "")}
@@ -58,6 +57,7 @@ const ExplorerFolder = () => {
           newFileOrFolderDummyTimerId={newFileOrFolderDummyTimerId}
           setNewFileOrFolderDummyTimerId={setNewFileOrFolderDummyTimerId}
           childRef={childRef}
+          id="root"
           from="root"
         />
       </div>
@@ -75,11 +75,20 @@ const ExplorerFolder = () => {
               initial={{ y: -2, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.1 }}
+              // exit animation only when inputIsBlur and child field is empty otherwise we have to add new file or folder so we don't want any animations
               exit={{
                 opacity: 0,
-                y: newFileOrFolderDummyTimerId.isTimer ? -2 : 0,
+                y:
+                  newFileOrFolderDummyTimerId.isTimer &&
+                  !childRef.current?.value
+                    ? -2
+                    : 0,
                 transition: {
-                  duration: newFileOrFolderDummyTimerId.isTimer ? 0.1 : 0,
+                  duration:
+                    newFileOrFolderDummyTimerId.isTimer &&
+                    !childRef.current?.value
+                      ? 0.1
+                      : 0,
                 },
               }}
             >
