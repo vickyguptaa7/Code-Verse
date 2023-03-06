@@ -1,17 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import directory from "../../../Interface/directory.interface";
+import IDirectory from "../../../Interface/directory.interface";
 // TODO:Central file state
 
 interface iconObject {
   [key: string]: string;
 }
 
-let DUMMY_FILE_DIRECTORY = new Array<directory>();
+let DUMMY_FILE_DIRECTORY = new Array<IDirectory>();
 
 const fileDirectoryInitialState = {
   directories: DUMMY_FILE_DIRECTORY,
   fileIcons: {} as iconObject,
   folderIcons: {} as iconObject,
+  
 };
 
 const findIconUrl = (name: string, isFolder: boolean, iconList: iconObject) => {
@@ -70,7 +71,7 @@ const fileDirectorySlice = createSlice({
         return;
       }
       const add = (
-        directories: Array<directory>,
+        directories: Array<IDirectory>,
         parentId: string,
         name: string,
         isFolder: boolean
@@ -109,7 +110,7 @@ const fileDirectorySlice = createSlice({
       action: PayloadAction<{ id: string; name: string }>
     ) {
       const rename = (
-        directories: Array<directory>,
+        directories: Array<IDirectory>,
         id: string,
         name: string
       ) => {
@@ -140,7 +141,7 @@ const fileDirectorySlice = createSlice({
       action: PayloadAction<{ id: string }>
     ) {
       const deleteFileOrFolder = (
-        directories: Array<directory>,
+        directories: Array<IDirectory>,
         id: string
       ) => {
         for (const directoryIndx in directories) {

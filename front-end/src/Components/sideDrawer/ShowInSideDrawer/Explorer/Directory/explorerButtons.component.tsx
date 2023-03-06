@@ -8,11 +8,14 @@ interface IPROPS {
   id?: string;
   isInputInFocus: boolean;
   setIsInputInFocus: Function;
-  setIsVisibleChildren?: (val: boolean) => void;
+  setIsFolderOpen?: (val: boolean) => void;
   setIsFileOrFolder?: (val: "file" | "folder") => void;
   isFileOrFolder?: "file" | "folder" | "none";
-  timerId?: { isTimer: boolean; id: ReturnType<typeof setTimeout> | null };
-  setTimerId?: (value: {
+  newFileOrFolderDummyTimerId?: {
+    isTimer: boolean;
+    id: ReturnType<typeof setTimeout> | null;
+  };
+  setNewFileOrFolderDummyTimerId?: (value: {
     isTimer: boolean;
     id: ReturnType<typeof setTimeout> | null;
   }) => void;
@@ -25,15 +28,16 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   id,
   isInputInFocus,
   setIsInputInFocus,
-  setIsVisibleChildren,
+  setIsFolderOpen,
   setIsFileOrFolder,
   isFileOrFolder,
-  timerId,
+  newFileOrFolderDummyTimerId,
   childRef,
-  setTimerId,
+  setNewFileOrFolderDummyTimerId,
   from,
 }) => {
   const dispatch = useAppDispatch();
+
   const renameHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsInputInFocus(true);
@@ -43,42 +47,23 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     inputRef.current?.setSelectionRange(0, inputRef.current.value.length);
     console.log("rename Folder");
   };
+
   const deleteHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     if (id && id.trim().length) dispatch(deleteFileOrFolderOfDirectory({ id }));
   };
 
-  if (from === "file") {
-    return (
-      <div className="flex items-center justify-center invisible group-hover:visible text-[color:var(--primary-text-color)]">
-        <button
-          title="Rename"
-          onClick={renameHandler}
-          className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
-        >
-          <VscEdit className="text-[14px]" />
-        </button>
-        <button
-          title="Delete"
-          onClick={deleteHandler}
-          className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
-        >
-          <VscClose className="text-[15px]" />
-        </button>
-      </div>
-    );
-  }
-
   const addFolderHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
 
     // folder to expand
-    if (setIsVisibleChildren) setIsVisibleChildren(true);
+    if (setIsFolderOpen) setIsFolderOpen(true);
 
     if (setIsFileOrFolder) {
-      if (timerId?.isTimer) {
-        clearTimeout(timerId.id!);
-        if (setTimerId) setTimerId({ isTimer: false, id: null });
+      if (newFileOrFolderDummyTimerId?.isTimer) {
+        clearTimeout(newFileOrFolderDummyTimerId.id!);
+        if (setNewFileOrFolderDummyTimerId)
+          setNewFileOrFolderDummyTimerId({ isTimer: false, id: null });
       }
       childRef?.current?.focus();
       console.log("add Folder");
@@ -90,11 +75,12 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     event.stopPropagation();
 
     // folder to expand
-    if (setIsVisibleChildren) setIsVisibleChildren(true);
+    if (setIsFolderOpen) setIsFolderOpen(true);
     if (setIsFileOrFolder) {
-      if (timerId?.isTimer) {
-        clearTimeout(timerId.id!);
-        if (setTimerId) setTimerId({ isTimer: false, id: null });
+      if (newFileOrFolderDummyTimerId?.isTimer) {
+        clearTimeout(newFileOrFolderDummyTimerId.id!);
+        if (setNewFileOrFolderDummyTimerId)
+          setNewFileOrFolderDummyTimerId({ isTimer: false, id: null });
       }
       childRef?.current?.focus();
       console.log("add File");
@@ -125,20 +111,24 @@ const ExplorerButtons: React.FC<IPROPS> = ({
 
   return (
     <div className="flex items-center justify-center invisible group-hover:visible text-[color:var(--primary-text-color)]">
-      <button
-        title="New File"
-        onClick={addFileHandler}
-        className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
-      >
-        <VscNewFile className="text-[15px]" />
-      </button>
-      <button
-        title="New Folder"
-        onClick={addFolderHandler}
-        className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
-      >
-        <VscNewFolder className="text-[15px]" />
-      </button>
+      {from === "folder" ? (
+        <>
+          <button
+            title="New File"
+            onClick={addFileHandler}
+            className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
+          >
+            <VscNewFile className="text-[15px]" />
+          </button>
+          <button
+            title="New Folder"
+            onClick={addFolderHandler}
+            className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
+          >
+            <VscNewFolder className="text-[15px]" />
+          </button>
+        </>
+      ) : null}
       <button
         title="Rename"
         onClick={renameHandler}

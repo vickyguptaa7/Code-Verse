@@ -1,13 +1,13 @@
 import React from "react";
-import directory from "../../../../Interface/directory.interface";
-import { FILE_DIRECTORY_AMOUNT_OF_SHIFT } from "../../sideDrawer.Constant";
-import File from "./fileDirectory/file.component";
-import Folder from "./fileDirectory/folder.component";
+import IDirectory from "../../../../../Interface/directory.interface";
+import { FILE_DIRECTORY_AMOUNT_OF_SHIFT } from "../../../sideDrawer.Constant";
+import File from "./file.component";
+import Folder from "./folder.component";
 interface IPROPS {
-  directoryInfo: Array<directory>;
+  directoryInfo: Array<IDirectory>;
   shiftAmount: number;
 }
-const FileDirectory: React.FC<IPROPS> = ({ directoryInfo, shiftAmount }) => {
+const Directory: React.FC<IPROPS> = ({ directoryInfo, shiftAmount }) => {
   const directoryList = directoryInfo.map((document) => {
     if (document.isFolder) {
       return (
@@ -16,7 +16,7 @@ const FileDirectory: React.FC<IPROPS> = ({ directoryInfo, shiftAmount }) => {
           key={document.id}
           shiftAmount={shiftAmount}
           children={
-            <FileDirectory
+            <Directory
               directoryInfo={document.children}
               shiftAmount={shiftAmount + FILE_DIRECTORY_AMOUNT_OF_SHIFT}
             />
@@ -31,4 +31,4 @@ const FileDirectory: React.FC<IPROPS> = ({ directoryInfo, shiftAmount }) => {
   return <>{directoryList}</>;
 };
 
-export default FileDirectory;
+export default Directory;

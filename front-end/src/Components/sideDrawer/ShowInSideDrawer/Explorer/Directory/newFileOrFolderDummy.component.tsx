@@ -10,18 +10,18 @@ interface IPROPS {
   isFileOrFolder: "file" | "folder" | "none";
   setIsFileOrFolder: Function;
   parentId: string;
-  setTimerId?: (val: {
+  setNewFileOrFolderDummyTimerId?: (val: {
     isTimer: boolean;
     id: ReturnType<typeof setTimeout>;
   }) => void;
   childRef: React.RefObject<HTMLInputElement>;
 }
 
-const DummyFileFolder: React.FC<IPROPS> = ({
+const NewFileOrFolderDummy: React.FC<IPROPS> = ({
   isFileOrFolder,
   setIsFileOrFolder,
   parentId,
-  setTimerId,
+  setNewFileOrFolderDummyTimerId,
   childRef,
 }) => {
   const [childName, setChildName] = useState("");
@@ -41,10 +41,9 @@ const DummyFileFolder: React.FC<IPROPS> = ({
     if (!childName.trim().length) {
       const timerId = setTimeout(() => {
         setIsFileOrFolder("none");
-        console.log("hello blur");
       }, 60);
-      if (setTimerId)
-        setTimerId({
+      if (setNewFileOrFolderDummyTimerId)
+        setNewFileOrFolderDummyTimerId({
           isTimer: true,
           id: timerId,
         });
@@ -103,27 +102,21 @@ const DummyFileFolder: React.FC<IPROPS> = ({
   if (isFileOrFolder === "none") return <></>;
 
   return (
-    <div className="flex gap-1">
+    <div className="flex items-center justify-center gap-[3px]">
       {isFileOrFolder === "folder" ? (
         <>
-          <div className="flex items-center justify-center">
-            <VscChevronRight className="" />
-          </div>
-          <div className="flex items-center justify-center mr-1">
-            <FaFolder className="" />
-          </div>
+          <VscChevronRight className="text-[17px]" />
+          <FaFolder className="mr-[5px] text-[17px]" />
         </>
       ) : (
-        <div className="flex items-center justify-center ml-[18.2px]">
-          <VscFile className="text-[#42A5F5]" />
-        </div>
+        <VscFile className="text-[#42A5F5] ml-[18.2px] text-[18px]" />
       )}
       <div className="relative w-full">
         <input
           ref={childRef}
           className={twMerge(
             "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border  border-red-900  selection:bg-[color:var(--accent-color)]",
-            isExistAlready && "border-red-600"
+            isExistAlready ? "border-red-600" : ""
           )}
           onKeyDown={onKeyDownHandler}
           onChange={inputChangeHandler}
@@ -131,7 +124,7 @@ const DummyFileFolder: React.FC<IPROPS> = ({
           value={childName}
           autoFocus
         />
-        {isExistAlready && (
+        {isExistAlready ? (
           <div className="absolute z-20 w-full p-1 break-words whitespace-normal bg-red-900 border-b border-red-600 border-x">
             {childName.trim().length ? (
               <h3>
@@ -142,10 +135,10 @@ const DummyFileFolder: React.FC<IPROPS> = ({
               <h3>A file or folder name must be provided.</h3>
             )}
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
 };
 
-export default DummyFileFolder;
+export default NewFileOrFolderDummy;

@@ -6,7 +6,7 @@ import { IoLogoPython } from "react-icons/io";
 import { SiJava } from "react-icons/si";
 import { BiCodeAlt } from "react-icons/bi";
 
-import file from "../../Interface/file.interface";
+import IFile from "../../Interface/file.interface";
 
 // constant
 import { MAX_FILE_LENGTH } from "./FileNavigation.Constant";
@@ -15,7 +15,7 @@ import { twMerge } from "tailwind-merge";
 import { setCurrentNavFile } from "../../Store/reducres/File/FileNavigation.reducer";
 
 interface IPROPS {
-  fileInfo: file;
+  fileInfo: IFile;
   removeFileHandler: Function;
 }
 

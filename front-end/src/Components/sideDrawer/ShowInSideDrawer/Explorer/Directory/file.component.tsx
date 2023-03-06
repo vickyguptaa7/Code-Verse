@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import directory from "../../../../../Interface/directory.interface";
+import IDirectory from "../../../../../Interface/directory.interface";
 import ExplorerButtons from "./explorerButtons.component";
 import ExplorerInput from "./explorerInput.component";
 import { VscFile } from "react-icons/vsc";
 interface IPROPS {
-  fileInfo: directory;
+  fileInfo: IDirectory;
   shiftAmount: number;
 }
 const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
@@ -25,11 +25,11 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
         style={{ paddingLeft: shiftAmount + 26 }}
       >
         <div className="flex items-center justify-center w-full min-w-[6rem] gap-1">
-          <div className="flex items-center justify-center">
+          <div className="max-w-[18px] min-w-[18px]">
             {fileInfo.iconsUrl.length ? (
-              <img src={fileInfo.iconsUrl[0]} className="w-5" alt="icon" />
+              <img src={fileInfo.iconsUrl[0]} className="object-contain" alt="icon" />
             ) : (
-              <VscFile className="text-[#42A5F5]" />
+              <VscFile className="text-[#42A5F5] text-[16px]" />
             )}
           </div>
           <ExplorerInput

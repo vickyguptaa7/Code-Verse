@@ -1,8 +1,8 @@
-import directory from "../Interface/directory.interface";
+import IDirectory from "../Interface/directory.interface";
 
 const useDirectory = () => {
   const isFileOrFolderAlreadyExists = (
-    directories: Array<directory>,
+    directories: Array<IDirectory>,
     parentId: string,
     name: string
   ) => {

@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import file from "../../../Interface/file.interface";
+import IFile from "../../../Interface/file.interface";
 
-let DUMMY_FILES: Array<file> = [
+let DUMMY_FILES: Array<IFile> = [
   { id: "i1", fileName: "hello", body: "Hello world1", language: "python" },
   { id: "i2", fileName: "text2", body: "Hello world2", language: "cpp" },
   { id: "i3", fileName: "text3", body: "Hello world3", language: "java" },
 ];
 
-const emptyFile: file = {
+const emptyFile: IFile = {
   id: "null",
   fileName: "",
   body: "",
@@ -23,7 +23,7 @@ const fileNavigationSlice = createSlice({
   name: "files",
   initialState: filesNavigationInitialState,
   reducers: {
-    addFileToNavigation(state, action: PayloadAction<file>) {
+    addFileToNavigation(state, action: PayloadAction<IFile>) {
       state.fileNavList.push(action.payload);
       state.currentNavFile = action.payload;
     },
@@ -52,7 +52,7 @@ const fileNavigationSlice = createSlice({
       state.fileNavList = [];
       state.currentNavFile = emptyFile;
     },
-    setCurrentNavFile(state, action: PayloadAction<file>) {
+    setCurrentNavFile(state, action: PayloadAction<IFile>) {
       state.currentNavFile = action.payload;
     },
   },

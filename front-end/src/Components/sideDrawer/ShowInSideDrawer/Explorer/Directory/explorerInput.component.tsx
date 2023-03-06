@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
-import directory from "../../../../../Interface/directory.interface";
+import IDirectory from "../../../../../Interface/directory.interface";
 import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 
 interface IPROPS {
-  directoryInfo: directory;
+  directoryInfo: IDirectory;
   isInputInFocus: boolean;
   setIsInputInFocus: Function;
   inputRef: React.RefObject<HTMLInputElement>;
@@ -84,6 +84,7 @@ const ExplorerInput: React.FC<IPROPS> = ({
     }
     // if()
   };
+
   return (
     <div className="relative w-full">
       <input
@@ -101,10 +102,8 @@ const ExplorerInput: React.FC<IPROPS> = ({
         onBlur={inputBlurHandler}
         value={fileName}
       />
-      {isFileNameExistAlready && (
-        <div
-          className="absolute z-20 w-full p-1 break-words whitespace-normal bg-red-900 border-b border-red-600 z-100 border-x"
-        >
+      {isFileNameExistAlready ? (
+        <div className="absolute z-20 w-full p-1 break-words whitespace-normal bg-red-900 border-b border-red-600 z-100 border-x">
           {fileName.trim().length ? (
             <h3>
               A file or folder <span className="font-bold">{fileName}</span>{" "}
@@ -114,7 +113,7 @@ const ExplorerInput: React.FC<IPROPS> = ({
             <h3>A file or folder name must be provided.</h3>
           )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
