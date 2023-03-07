@@ -41,11 +41,12 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
       currentWorkingFileOrFolder.operation !== "add" ||
       currentWorkingFileOrFolder.id !== parentId
     ) {
+      // user tries to add another file or folder so we need to remove the previous one
       console.log("collision");
       setIsFileOrFolder("none");
     }
-    return;
   },[currentWorkingFileOrFolder,parentId,setIsFileOrFolder]);
+  
   const { isFileOrFolderAlreadyExists } = useDirectory();
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -12,7 +12,6 @@ import { twMerge } from "tailwind-merge";
 const EDITOR_MIN_HEIGHT = 480;
 
 const ExplorerFolder = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
   const childRef = useRef<HTMLInputElement>(null);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
   const [isExplorerFolderOpen, setIsExplorerFolderOpen] = useState(true);
@@ -48,7 +47,6 @@ const ExplorerFolder = () => {
           </div>
         </div>
         <ExplorerButtons
-          inputRef={inputRef}
           isInputInFocus={isInputInFocus}
           setIsInputInFocus={setIsInputInFocus}
           setIsFileOrFolder={setIsFileOrFolder}

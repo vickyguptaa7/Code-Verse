@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import IDirectory from "../../../../../Interface/directory.interface";
@@ -6,17 +6,19 @@ import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/Fil
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 
 interface IPROPS {
+  id: string;
   directoryInfo: IDirectory;
   isInputInFocus: boolean;
   setIsInputInFocus: Function;
   inputRef: React.RefObject<HTMLInputElement>;
 }
 
-const ExplorerInput: React.FC<IPROPS> = ({
+const RenameInput: React.FC<IPROPS> = ({
   directoryInfo,
   isInputInFocus,
   setIsInputInFocus,
   inputRef,
+  id,
 }) => {
   const [fileName, setfileName] = useState(directoryInfo.name);
   const [isFileNameExistAlready, setIsFileNameExistAlready] = useState(false);
@@ -26,8 +28,30 @@ const ExplorerInput: React.FC<IPROPS> = ({
   );
   const { isFileOrFolderAlreadyExists } = useDirectory();
 
-  const inputChangeHandler = () => {
-    setfileName(inputRef.current?.value!);
+  useEffect(() => {
+    // On initial render the text will be selected and focused
+    inputRef.current?.focus();
+    inputRef.current?.setSelectionRange(0, directoryInfo.name.length);
+  }, [directoryInfo, inputRef]);
+
+  const currentWorkingFileOrFolder = useAppSelector(
+    (state) => state.fileDirectory.currentWorkingFileOrFolder
+  );
+
+  useEffect(() => {
+    if (!currentWorkingFileOrFolder.isActive) return;
+    if (
+      currentWorkingFileOrFolder.operation !== "rename" ||
+      currentWorkingFileOrFolder.id !== id
+    ) {
+      // user tries to add another file or folder so we need to remove the previous one
+      console.log("rename collision");
+      setIsInputInFocus(false);
+    }
+  }, [currentWorkingFileOrFolder, setIsInputInFocus, id]);
+
+  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setfileName(event.target.value);
     setIsFileNameExistAlready(false);
   };
 
@@ -36,7 +60,6 @@ const ExplorerInput: React.FC<IPROPS> = ({
       setfileName(directoryInfo.name);
       setIsInputInFocus(false);
       setIsFileNameExistAlready(false);
-      inputRef.current?.setAttribute("disabled", "");
       return;
     }
     // check if the file with same name does'nt exist already and filename not empty
@@ -51,13 +74,12 @@ const ExplorerInput: React.FC<IPROPS> = ({
     );
     setIsInputInFocus(false);
     setIsFileNameExistAlready(false);
-    inputRef.current?.setAttribute("disabled", "");
   };
 
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       if (fileName === directoryInfo.name) {
-        inputRef.current?.blur();
+        setIsInputInFocus(false);
         return;
       }
       // check if the file with same name does'nt exist already and filename not empty
@@ -78,11 +100,9 @@ const ExplorerInput: React.FC<IPROPS> = ({
           name: fileName,
         })
       );
-      inputRef.current?.blur();
       setIsInputInFocus(false);
       setIsFileNameExistAlready(false);
     }
-    // if()
   };
 
   return (
@@ -90,13 +110,9 @@ const ExplorerInput: React.FC<IPROPS> = ({
       <input
         ref={inputRef}
         className={twMerge(
-          "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent selection:bg-transparent",
-          !isInputInFocus
-            ? "cursor-pointer"
-            : "  border-red-900 selection:bg-[color:var(--accent-color)]",
+          "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent border-red-900 selection:bg-[color:var(--accent-color)]",
           isFileNameExistAlready && "border-red-600"
         )}
-        disabled
         onKeyDown={onKeyDownHandler}
         onChange={inputChangeHandler}
         onBlur={inputBlurHandler}
@@ -118,4 +134,4 @@ const ExplorerInput: React.FC<IPROPS> = ({
   );
 };
 
-export default ExplorerInput;
+export default RenameInput;

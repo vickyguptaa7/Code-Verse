@@ -7,7 +7,6 @@ import {
 import { useAppDispatch } from "../../../../../Store/store";
 
 interface IPROPS {
-  inputRef: React.RefObject<HTMLInputElement>;
   id?: string;
   isInputInFocus: boolean;
   setIsInputInFocus: Function;
@@ -27,7 +26,6 @@ interface IPROPS {
 }
 
 const ExplorerButtons: React.FC<IPROPS> = ({
-  inputRef,
   id,
   isInputInFocus,
   setIsInputInFocus,
@@ -44,10 +42,6 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   const renameHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsInputInFocus(true);
-    if (inputRef.current?.hasAttribute("disabled"))
-      inputRef.current?.removeAttribute("disabled");
-    inputRef.current?.focus();
-    inputRef.current?.setSelectionRange(0, inputRef.current.value.length);
     dispatch(
       setCurrentWorkingFileOrFolder({
         isActive: true,
@@ -55,8 +49,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
         operation: "rename",
       })
     );
-
-    console.log("rename Folder");
+    console.log("rename");
   };
 
   const deleteHandler = (event: React.MouseEvent) => {

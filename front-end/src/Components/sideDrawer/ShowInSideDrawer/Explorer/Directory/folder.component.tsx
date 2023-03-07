@@ -3,7 +3,7 @@ import { VscChevronRight } from "react-icons/vsc";
 
 import { twMerge } from "tailwind-merge";
 import IDirectory from "../../../../../Interface/directory.interface";
-import ExplorerInput from "./explorerInput.component";
+import RenameInput from "./renameInput.component";
 import ExplorerButtons from "./explorerButtons.component";
 import NewFileOrFolderDummy from "./newFileOrFolderDummy.component";
 
@@ -61,28 +61,36 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
               )}
             </div>
             <div className="flex items-center justify-center w-full ">
-              <ExplorerInput
-                inputRef={inputRef}
-                directoryInfo={folderInfo}
-                isInputInFocus={isInputInFocus}
-                setIsInputInFocus={setIsInputInFocus}
-              />
+              {isInputInFocus ? (
+                <RenameInput
+                  inputRef={inputRef}
+                  id={folderInfo.id}
+                  directoryInfo={folderInfo}
+                  isInputInFocus={isInputInFocus}
+                  setIsInputInFocus={setIsInputInFocus}
+                />
+              ) : (
+                <h3 className="cursor-pointer w-full overflow-clip p-[2px] select-none border border-transparent selection:bg-transparent">
+                  {folderInfo.name}
+                </h3>
+              )}
             </div>
           </div>
         </div>
-        <ExplorerButtons
-          inputRef={inputRef}
-          id={folderInfo.id}
-          isInputInFocus={isInputInFocus}
-          setIsInputInFocus={setIsInputInFocus}
-          setIsFolderOpen={setIsFolderOpen}
-          setIsFileOrFolder={setIsFileOrFolder}
-          isFileOrFolder={isFileOrFolder}
-          newFileOrFolderDummyTimerId={newFileOrFolderDummyTimerId}
-          setNewFileOrFolderDummyTimerId={setNewFileOrFolderDummyTimerId}
-          childRef={childRef}
-          from="folder"
-        />
+        {isInputInFocus ? null : (
+          <ExplorerButtons
+            id={folderInfo.id}
+            isInputInFocus={isInputInFocus}
+            setIsInputInFocus={setIsInputInFocus}
+            setIsFolderOpen={setIsFolderOpen}
+            setIsFileOrFolder={setIsFileOrFolder}
+            isFileOrFolder={isFileOrFolder}
+            newFileOrFolderDummyTimerId={newFileOrFolderDummyTimerId}
+            setNewFileOrFolderDummyTimerId={setNewFileOrFolderDummyTimerId}
+            childRef={childRef}
+            from="folder"
+          />
+        )}
       </div>
       <AnimatePresence>
         {isFileOrFolder !== "none" && (
