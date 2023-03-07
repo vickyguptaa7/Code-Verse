@@ -36,8 +36,6 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
   );
 
   useEffect(() => {
-    console.log("ll");
-    
     if (!currentWorkingFileOrFolder.isActive) return;
     if (
       currentWorkingFileOrFolder.operation !== "add" ||
@@ -75,13 +73,13 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         dispatch(
           addFileOrFolderToDirectory({
             parentId,
-            name: childName.toLowerCase(),
+            name: childName,
             isFolder: isFileOrFolder === "folder",
           })
         );
       }, 20);
       setIsExistAlready(false);
-    }, 60);
+    }, 160);
     if (setNewFileOrFolderDummyTimerId)
       setNewFileOrFolderDummyTimerId({
         isTimer: true,

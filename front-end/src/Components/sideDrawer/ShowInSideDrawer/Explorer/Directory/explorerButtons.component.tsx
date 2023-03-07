@@ -55,7 +55,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
         operation: "rename",
       })
     );
-    
+
     console.log("rename Folder");
   };
 
@@ -64,7 +64,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     if (id && id.trim().length) dispatch(deleteFileOrFolderOfDirectory({ id }));
   };
 
-  const addFolderHandler = (event: React.MouseEvent) => {
+  function addFolderHandler(event: React.MouseEvent) {
     event.stopPropagation();
 
     // folder to expand
@@ -87,11 +87,12 @@ const ExplorerButtons: React.FC<IPROPS> = ({
         })
       );
     }
-  };
+  }
 
-  const addFileHandler = (event: React.MouseEvent) => {
+  function addFileHandler(event: React.MouseEvent) {
     event.stopPropagation();
-
+    console.log("file handler");
+    
     // folder to expand
     if (setIsFolderOpen) setIsFolderOpen(true);
     if (setIsFileOrFolder) {
@@ -111,7 +112,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
         })
       );
     }
-  };
+  }
 
   if (from === "root") {
     return (

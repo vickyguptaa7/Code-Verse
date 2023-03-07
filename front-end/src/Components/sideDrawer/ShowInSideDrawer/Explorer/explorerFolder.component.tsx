@@ -33,11 +33,11 @@ const ExplorerFolder = () => {
 
   return (
     <>
-      <div
-        className="flex items-center justify-between gap-3 pr-4 py-0.5 group bg-[color:var(--sidepannel-color)]"
-        onClick={() => setIsExplorerFolderOpen(!isExplorerFolderOpen)}
-      >
-        <div className="flex cursor-pointer">
+      <div className="flex items-center justify-between gap-3 pr-4 py-0.5 group bg-[color:var(--sidepannel-color)]">
+        <div
+          className="flex cursor-pointer"
+          onClick={() => setIsExplorerFolderOpen(!isExplorerFolderOpen)}
+        >
           <div className="flex items-center justify-center p-1">
             <VscChevronRight
               className={twMerge(isExplorerFolderOpen ? "rotate-90" : "")}
