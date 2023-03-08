@@ -8,7 +8,7 @@ const bottomPannelInitialState = {
   terminalContent: "",
   inputContent: "",
   outputContent: "",
-  debugContent: "",
+  debugContent: "This feature is comming soon...",
 };
 
 type bottomPannelContent = "input" | "output" | "terminal" | "debug";
@@ -48,7 +48,7 @@ const bottomPannelSlice = createSlice({
     },
     setOutputContent(state, action: PayloadAction<string>) {
       state.outputContent = action.payload;
-    }
+    },
   },
 });
 
@@ -60,7 +60,7 @@ export const {
   resetBottomPannel,
   setInputContent,
   setTerminalContent,
-  setOutputContent
+  setOutputContent,
 } = bottomPannelSlice.actions;
 
 export default bottomPannelSlice.reducer;

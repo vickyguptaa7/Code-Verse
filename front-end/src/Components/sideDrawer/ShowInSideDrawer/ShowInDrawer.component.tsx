@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../../Store/store";
-import DebugDrawer from "./debugDrawer.component";
-import ExtensionsDrawer from "./extensionsDrawer.component";
+import DebugDrawer from "./Debug/debugDrawer.component";
+import ExtensionsDrawer from "./Extensions/extensionsDrawer.component";
 import ExplorerContainer from "./Explorer/ExplorerContainer.component";
-import GitDrawer from "./gitDrawer.component";
-import SearchDrawer from "./searchDrawer.component";
+import GitDrawer from "./Git/gitDrawer.component";
+import SearchDrawer from "./Search/searchDrawer.component";
 
 import useSideDrawerResizing from "../../../hooks/useSideDrawerResizing.hook";
 

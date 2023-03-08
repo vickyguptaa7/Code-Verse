@@ -1,4 +1,6 @@
-import React from 'react'
+import React from "react";
+import Breakpoints from "./Breakpoints.component";
+import Run from "./Run.component";
 
 const DebugDrawer = () => {
   return (
@@ -7,10 +9,11 @@ const DebugDrawer = () => {
         <h2>RUN AND DEBUG</h2>
       </div>
       <div className="flex flex-col h-full">
-        
+        <Run />
+        <Breakpoints />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DebugDrawer
+export default DebugDrawer;
