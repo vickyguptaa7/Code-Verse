@@ -70,7 +70,11 @@ const RenameInput: React.FC<IPROPS> = ({
       return;
     }
     dispatch(
-      renameFileOrFolderOfDirectory({ id: directoryInfo.id, name: fileName })
+      renameFileOrFolderOfDirectory({
+        id: directoryInfo.id,
+        name: fileName,
+        isFolder: directoryInfo.isFolder,
+      })
     );
     setIsInputInFocus(false);
     setIsFileNameExistAlready(false);
@@ -98,6 +102,7 @@ const RenameInput: React.FC<IPROPS> = ({
         renameFileOrFolderOfDirectory({
           id: directoryInfo.id,
           name: fileName,
+          isFolder:directoryInfo.isFolder
         })
       );
       setIsInputInFocus(false);
