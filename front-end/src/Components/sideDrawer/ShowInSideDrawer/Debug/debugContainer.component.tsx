@@ -2,7 +2,7 @@ import React from "react";
 import Breakpoints from "./Breakpoints.component";
 import Run from "./Run.component";
 
-const DebugDrawer = () => {
+const DebugContainer = () => {
   return (
     <div className="flex flex-col justify-start h-full py-2 text-sm whitespace-nowrap ">
       <div className="pl-3.5 mt-1.5 mb-2">
@@ -16,4 +16,4 @@ const DebugDrawer = () => {
   );
 };
 
-export default DebugDrawer;
+export default DebugContainer;

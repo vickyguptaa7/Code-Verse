@@ -39,12 +39,13 @@ const Run = () => {
       </div>
       {isRunOpen ? (
         <div
-          className="flex flex-col justify-center gap-6 break-words whitespace-normal px-4 py-4 md:justify-start text-[color:var(--highlight-text)]"
+          className="flex flex-col overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4  text-[color:var(--highlight-text)] max-w-2xl"
           style={{ height: height }}
         >
           <button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300"
+            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
             onClick={onClickHandler}
+            title="comming soon..."
           >
             Run and Debug
           </button>
@@ -62,8 +63,9 @@ const Run = () => {
             </h3>
           </div>
           <button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300"
+            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
             onClick={onClickHandler}
+            title="comming soon..."
           >
             JavaScript Debug Terminal
           </button>
@@ -74,8 +76,9 @@ const Run = () => {
             </p>
           </div>
           <button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300"
+            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
             onClick={onClickHandler}
+            title="comming soon..."
           >
             Debug URL
           </button>

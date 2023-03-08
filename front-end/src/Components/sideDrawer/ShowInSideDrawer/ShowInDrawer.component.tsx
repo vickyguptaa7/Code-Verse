@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../../Store/store";
-import DebugDrawer from "./Debug/debugDrawer.component";
-import ExtensionsDrawer from "./Extensions/extensionsDrawer.component";
+import DebugContainer from "./Debug/debugContainer.component";
+import ExtensionsContainer from "./Extensions/extensionsContainer.component";
 import ExplorerContainer from "./Explorer/ExplorerContainer.component";
-import GitDrawer from "./Git/gitDrawer.component";
+import SourceControlContainer from "./SourceControl/SourceControlContainer.component";
 import SearchDrawer from "./Search/searchDrawer.component";
 
 import useSideDrawerResizing from "../../../hooks/useSideDrawerResizing.hook";
@@ -27,11 +27,11 @@ const Drawer = () => {
 
   let showComponentInDrawer = <ExplorerContainer />;
   if (showInSideDrawer === "search") showComponentInDrawer = <SearchDrawer />;
-  else if (showInSideDrawer === "git") showComponentInDrawer = <GitDrawer />;
+  else if (showInSideDrawer === "git") showComponentInDrawer = <SourceControlContainer />;
   else if (showInSideDrawer === "debug")
-    showComponentInDrawer = <DebugDrawer />;
+    showComponentInDrawer = <DebugContainer />;
   else if (showInSideDrawer === "extensions")
-    showComponentInDrawer = <ExtensionsDrawer />;
+    showComponentInDrawer = <ExtensionsContainer />;
 
   return (
     <>
