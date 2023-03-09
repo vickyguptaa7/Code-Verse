@@ -9,7 +9,7 @@ const useDirectory = () => {
     for (const directory of directories) {
       if (
         (directory.parentId === parentId &&
-          directory.name.toLowerCase() === name.toLowerCase()) ||
+          directory.name.toLowerCase() === name.trim().toLowerCase()) ||
         (directory.isFolder &&
           isFileOrFolderAlreadyExists(directory.children, parentId, name))
       ) {

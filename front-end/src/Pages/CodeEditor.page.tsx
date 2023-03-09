@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import FileNavigation from "../Components/FileNavigation/FileNavigation.component";
 import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
-import BottomPannelContainer from "../Components/bottomPannel/BottomPannelContainer.component";
-import Editor from "../Components/Editor/editor.component";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../Store/store";
+import Main from "../Components/Layout/Main.component";
 
 const EDITOR_MIN_WIDTH = 320;
 const EDITOR_MIN_HEIGHT = 480;
@@ -17,9 +15,6 @@ const CodeEditor = () => {
   );
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
-  );
-  const isBottomPannelOpen = useAppSelector(
-    (state) => state.bottomPannel.isBottomPannelOpen
   );
 
   // 60px is for the side pannel and 4  px for the side pannel resizer
@@ -57,9 +52,7 @@ const CodeEditor = () => {
           className="flex flex-col justify-between h-full left bg-[color:var(--codeeditor-color)]"
           style={{ width: remainingWidth }}
         >
-          <FileNavigation />
-          <Editor />
-          {isBottomPannelOpen && <BottomPannelContainer />}
+          <Main />
         </div>
       </div>
       <div className="w-full h-4 bg-[color:var(--accent-color)] "></div>

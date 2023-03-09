@@ -5,7 +5,7 @@ import BottomPannelNavigation from "./BottomPannelNavigation/BottomPannelNavigat
 import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.component";
 import useBottomPannelResizing from "../../hooks/useBottomPannelResizing.hook";
 
-const BottomPannel = () => {
+const BottomPannelContainer = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);
   const refResizer = useRef<HTMLDivElement>(null);
   const bottomPannelHeight = useAppSelector(
@@ -19,7 +19,7 @@ const BottomPannel = () => {
     refBottomPannel,
     refResizer
   );
-  
+
   return (
     <div
       ref={refBottomPannel}
@@ -39,4 +39,4 @@ const BottomPannel = () => {
   );
 };
 
-export default BottomPannel;
+export default BottomPannelContainer;

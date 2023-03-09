@@ -12,6 +12,8 @@ import { useAppDispatch } from "./Store/store";
 const App = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    console.log("call for icons firebase");
+    
     dispatch(fetchFileIconsAction());
     dispatch(fetchFolderIconsAction());
   }, [dispatch]);

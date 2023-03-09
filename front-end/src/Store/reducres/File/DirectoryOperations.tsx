@@ -108,7 +108,7 @@ function addToDirectory(
   directories.unshift({
     id: id,
     parentId: info.parentId,
-    name: info.name,
+    name: info.name.trim(),
     iconsUrl: findIconUrl(info.name, info.isFolder, iconList),
     isFolder: info.isFolder,
     children: [],
@@ -119,7 +119,7 @@ function addToDirectory(
 function mycomparator(d1: IDirectory, d2: IDirectory) {
   if (d1.isFolder && !d2.isFolder) return -1; // if d1 is folder then it must be above d2
   if (!d1.isFolder && d2.isFolder) return 1; // vice versa
-  return d1.name > d2.name ? 1 : -1; // otherwise sort on the basis of the name
+  return d1.name.toLowerCase() > d2.name.toLowerCase() ? 1 : -1; // otherwise sort on the basis of the name
 }
 
 export {
