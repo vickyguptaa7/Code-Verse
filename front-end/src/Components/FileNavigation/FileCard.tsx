@@ -13,6 +13,7 @@ import { MAX_FILE_LENGTH } from "./FileNavigation.Constant";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
 import { setCurrentNavFile } from "../../Store/reducres/File/FileNavigation.reducer";
+import Button from "../UI/Button.component";
 
 interface IPROPS {
   fileInfo: IFile;
@@ -76,12 +77,12 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
           isThisActiveNavFile ? "" : "invisible"
         )}
       >
-        <button
+        <Button
           onClick={removeHandler}
           className="flex items-center justify-start"
         >
           <RxCross2 className="text-lg hover:bg-[color:var(--hover-text-color)] rounded-md duration-100 p-[2px] flex" />
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import {
   setCurrentWorkingFileOrFolder,
 } from "../../../../../Store/reducres/File/FileDirectory.reducer";
 import { useAppDispatch } from "../../../../../Store/store";
+import Button from "../../../../UI/Button.component";
 
 interface IPROPS {
   id?: string;
@@ -85,7 +86,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   function addFileHandler(event: React.MouseEvent) {
     event.stopPropagation();
     console.log("file handler");
-    
+
     // folder to expand
     if (setIsFolderOpen) setIsFolderOpen(true);
     if (setIsFileOrFolder) {
@@ -110,20 +111,20 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   if (from === "root") {
     return (
       <div className="flex invisible gap-1 group-hover:visible">
-        <button
+        <Button
           title="New File"
           onClick={addFileHandler}
           className="rounded-lg hover:bg-[color:var(--hover-text-color)] p-1"
         >
           <VscNewFile className="text-[16px]" />
-        </button>
-        <button
+        </Button>
+        <Button
           title="New Folder"
           onClick={addFolderHandler}
           className="rounded-lg hover:bg-[color:var(--hover-text-color)] p-1"
         >
           <VscNewFolder className="text-[16px]" />
-        </button>
+        </Button>
       </div>
     );
   }
@@ -132,36 +133,36 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     <div className="flex items-center justify-center invisible group-hover:visible text-[color:var(--primary-text-color)]">
       {from === "folder" ? (
         <>
-          <button
+          <Button
             title="New File"
             onClick={addFileHandler}
             className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
           >
             <VscNewFile className="text-[15px]" />
-          </button>
-          <button
+          </Button>
+          <Button
             title="New Folder"
             onClick={addFolderHandler}
             className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
           >
             <VscNewFolder className="text-[15px]" />
-          </button>
+          </Button>
         </>
       ) : null}
-      <button
+      <Button
         title="Rename"
         onClick={renameHandler}
         className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
       >
         <VscEdit className="text-[14px]" />
-      </button>
-      <button
+      </Button>
+      <Button
         title="Delete"
         onClick={deleteHandler}
         className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
       >
         <VscClose className="text-[15px]" />
-      </button>
+      </Button>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { FallbackProps } from "react-error-boundary";
+import Button from "../UI/Button.component";
 
 export const ErrorFallback: React.FC<FallbackProps> = ({
   error,
@@ -8,7 +9,9 @@ export const ErrorFallback: React.FC<FallbackProps> = ({
     <div role="alert">
       <p>Something went wrong:</p>
       <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
+      <Button onClick={resetErrorBoundary} className="">
+        Try again
+      </Button>
     </div>
   );
 };

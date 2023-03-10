@@ -1,6 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../Store/store";
+import Button from "../UI/Button.component";
 
 interface IPROPS {
   Icon?: React.ElementType;
@@ -33,7 +34,7 @@ const PannelButtons: React.FC<IPROPS> = ({
   if(Icon)
   return (
     <div className="mb-2">
-      <button
+      <Button
         onClick={onClickHandler}
         className={twMerge(
           "flex items-center justify-center p-3 hover:text-[color:var(--highlight-text-color)] mx-[3px]",
@@ -43,7 +44,7 @@ const PannelButtons: React.FC<IPROPS> = ({
         data-name={buttonName}
       >
         <Icon className="text-3xl" />
-      </button>
+      </Button>
     </div>
   );
   return <div></div>

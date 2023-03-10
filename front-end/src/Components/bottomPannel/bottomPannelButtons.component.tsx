@@ -1,6 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../Store/store";
+import Button from "../UI/Button.component";
 
 interface PROPS_INTERFACE {
   Icon?: React.ElementType;
@@ -29,7 +30,7 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
   // icons button
   if (Icon)
     return (
-      <button
+      <Button
         className={twMerge(
           "flex items-start mb-0.5 justify-center p-0.5 rounded-lg ml-4",
           isHover && " hover:bg-[color:var(--hover-text-color)]",
@@ -42,7 +43,7 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
             "text-xl text-[color:var(--highlight-text-color)] "
           )}
         />
-      </button>
+      </Button>
     );
 
   // text buttons
@@ -54,13 +55,13 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
         avtiveClassName
       )}
     >
-      <button
+      <Button
         className={twMerge("px-1 pb-1 mb-0.5")}
         data-name={dataName}
         onClick={onClickHandler}
       >
         {dataName?.toLocaleUpperCase()}
-      </button>
+      </Button>
     </li>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import Button from "./Button.component";
 
 interface PROPS_INTERFACE {
   onClickHandler: React.MouseEventHandler;
@@ -13,7 +14,7 @@ const DropMenuButton: React.FC<PROPS_INTERFACE> = ({
   name,
 }) => {
   return (
-    <button
+    <Button
       className={twMerge(
         "whitespace-nowrap block px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]",
         className
@@ -22,7 +23,7 @@ const DropMenuButton: React.FC<PROPS_INTERFACE> = ({
       data-name={name.toLowerCase()}
     >
       {name}
-    </button>
+    </Button>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { VscChevronRight } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
+import Button from "../../../UI/Button.component";
 const EDITOR_MIN_HEIGHT = 480;
 const SourceControl = () => {
   const [isSourceControlOpen, setIsSourceControlOpen] = useState(true);
@@ -63,20 +64,20 @@ const SourceControl = () => {
               git repository or clone from a URL.
             </p>
           </div>
-          <button
+          <Button
             className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
             onClick={() => {}}
             title="comming soon..."
           >
             Open Folder
-          </button>
-          <button
+          </Button>
+          <Button
             className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
             onClick={() => {}}
             title="comming soon..."
           >
             Clone Repository
-          </button>
+          </Button>
           <div className="flex flex-col gap-4 text-[0.85rem] ">
             <p>
               To learn more about how to use git and source control is code{" "}

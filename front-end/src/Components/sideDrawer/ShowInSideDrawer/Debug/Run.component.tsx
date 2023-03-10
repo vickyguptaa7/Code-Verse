@@ -6,6 +6,7 @@ import {
   setIsBottomPannelOpen,
   setShowInBottomPannel,
 } from "../../../../Store/reducres/BottomPannel.reducer";
+import Button from "../../../UI/Button.component";
 
 const EDITOR_MIN_HEIGHT = 480;
 
@@ -42,13 +43,13 @@ const Run = () => {
           className="flex flex-col overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4  text-[color:var(--highlight-text)] max-w-2xl"
           style={{ height: height }}
         >
-          <button
+          <Button
             className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
             onClick={onClickHandler}
             title="comming soon..."
           >
             Run and Debug
-          </button>
+          </Button>
           <div className="flex flex-col gap-4 text-[0.85rem] ">
             <h3>
               To customize Run and Debug{" "}
@@ -62,26 +63,26 @@ const Run = () => {
               automatic debug configurations.
             </h3>
           </div>
-          <button
+          <Button
             className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
             onClick={onClickHandler}
             title="comming soon..."
           >
             JavaScript Debug Terminal
-          </button>
+          </Button>
           <div className="flex flex-col gap-3">
             <p className="text-[0.85rem]">
               You can use the Javascript Debug Terminal to debug Node.js
               processes run on the command line.
             </p>
           </div>
-          <button
+          <Button
             className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
             onClick={onClickHandler}
             title="comming soon..."
           >
             Debug URL
-          </button>
+          </Button>
         </div>
       ) : null}
     </div>

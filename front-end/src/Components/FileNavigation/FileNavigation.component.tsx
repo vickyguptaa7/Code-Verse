@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { removeAllFilesFromNavigation } from "../../Store/reducres/File/FileNavigation.reducer";
 import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel.reducer";
 import DropMenu from "../UI/DropMenu.component";
+import Button from "../UI/Button.component";
 
 const FileNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -31,10 +32,10 @@ const FileNavigation = () => {
       <div className="flex justify-between bg-[color:var(--sidepannel-color)]">
         <FileContainer />
         <div className="flex items-center justify-center p-2 text-[color:var(--highlight-text-color)]">
-          <button className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]">
+          <Button className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]">
             <VscDebugStart className="text-2xl p-0.5" />
-          </button>
-          <button
+          </Button>
+          <Button
             className={twMerge(
               "flex items-center justify-center rounded-lg p-0.5 hover:bg-[color:var(--hover-text-color)] mr-2",
               isDropMenuOpen && "bg-[color:var(--hover-text-color)]"
@@ -42,7 +43,7 @@ const FileNavigation = () => {
             onClick={openDropMenuHandler}
           >
             <VscEllipsis className="text-xl" />
-          </button>
+          </Button>
           <div className="relative overflow-visible">
             {isDropMenuOpen &&
               dropMenu(isBottomPannelOpen, dispatch, closeDropMenuHandler)}
