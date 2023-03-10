@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
+import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
   isFileOrFolder: "file" | "folder" | "none";
@@ -127,8 +128,8 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         <VscFile className="text-[#42A5F5] ml-[18.2px] text-[18px]" />
       )}
       <div className="relative w-full">
-        <input
-          ref={childRef}
+        <Input
+          inputRef={childRef}
           className={twMerge(
             "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border  border-red-900  selection:bg-[color:var(--accent-color)]",
             isExistAlready ? "border-red-600" : ""

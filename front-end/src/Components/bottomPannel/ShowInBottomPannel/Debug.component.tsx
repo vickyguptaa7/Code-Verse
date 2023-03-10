@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { VscChevronRight } from "react-icons/vsc";
 import { useAppSelector } from "../../../Store/store";
+import Input from "../../UI/Input.component";
 
 const Debug = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const debugContent = useAppSelector(
     (state) => state.bottomPannel.debugContent
   );
-  
+
   useEffect(() => {
     inputRef.current?.focus();
   }, [inputRef]);
@@ -19,10 +20,11 @@ const Debug = () => {
       </div>
       <div className="flex items-center justify-center w-full gap-2">
         <VscChevronRight />
-        <input
-          ref={inputRef}
-          type=""
-          className="w-full outline-none bg-inherit font-cascadia"
+        <Input
+          inputRef={inputRef}
+          type="text"
+          name="debug"
+          className="w-full font-cascadia"
           placeholder="Please start a debug session to evaluate expressions"
         />
       </div>

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { setTerminalContent } from "../../../Store/reducres/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
+import Input from "../../UI/Input.component";
 
 const Terminal = () => {
   const terminalContent = useAppSelector(
@@ -45,8 +46,8 @@ const Terminal = () => {
       </div>
       <div className="flex w-full">
         <span className="whitespace-pre-wrap">user{"$ "}</span>
-        <input
-          ref={inputRef}
+        <Input
+          inputRef={inputRef}
           type="text"
           className="w-full outline-none bg-inherit"
           value={terminalInput}

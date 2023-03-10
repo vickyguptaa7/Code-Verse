@@ -4,6 +4,7 @@ import useDirectory from "../../../../../hooks/useDirectory.hook";
 import IDirectory from "../../../../../Interface/directory.interface";
 import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
+import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
   id: string;
@@ -112,8 +113,8 @@ const RenameInput: React.FC<IPROPS> = ({
 
   return (
     <div className="relative w-full">
-      <input
-        ref={inputRef}
+      <Input
+        inputRef={inputRef}
         className={twMerge(
           "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent border-red-900 selection:bg-[color:var(--accent-color)]",
           isFileNameExistAlready && "border-red-600"

@@ -6,17 +6,18 @@ import { ErrorBoundary } from "react-error-boundary";
 import useSideDrawerResizing from "../../../hooks/useSideDrawerResizing.hook";
 import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
 
+import ExplorerContainer from "./Explorer/ExplorerContainer.component";
+
 const DebugContainer = lazy(() => import("./Debug/debugContainer.component"));
+
 const ExtensionsContainer = lazy(
   () => import("./Extensions/extensionsContainer.component")
 );
-const ExplorerContainer = lazy(
-  () => import("./Explorer/ExplorerContainer.component")
-);
+
 const SourceControlContainer = lazy(
   () => import("./SourceControl/SourceControlContainer.component")
 );
-const SearchDrawer = lazy(() => import("./Search/searchDrawer.component"));
+const SearchContainer = lazy(() => import("./Search/searchContainer.component"));
 
 const Drawer = () => {
   const refDrawer = useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ const Drawer = () => {
   useSideDrawerResizing(setIsDrawerResizing, refResizer, refDrawer);
 
   let showComponentInDrawer = <ExplorerContainer />;
-  if (showInSideDrawer === "search") showComponentInDrawer = <SearchDrawer />;
+  if (showInSideDrawer === "search") showComponentInDrawer = <SearchContainer />;
   else if (showInSideDrawer === "git")
     showComponentInDrawer = <SourceControlContainer />;
   else if (showInSideDrawer === "debug")
