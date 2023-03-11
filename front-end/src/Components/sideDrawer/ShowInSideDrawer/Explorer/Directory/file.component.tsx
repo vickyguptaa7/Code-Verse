@@ -3,6 +3,8 @@ import IDirectory from "../../../../../Interface/directory.interface";
 import ExplorerButtons from "./explorerButtons.component";
 import RenameInput from "./renameInput.component";
 import { VscFile } from "react-icons/vsc";
+import { useAppDispatch } from "../../../../../Store/store";
+import { addFileToNavigation } from "../../../../../Store/reducres/File/FileNavigation.reducer";
 interface IPROPS {
   fileInfo: IDirectory;
   shiftAmount: number;
@@ -10,10 +12,11 @@ interface IPROPS {
 const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
+  const dispatch = useAppDispatch();
 
   const addToFileNavigationHandler = () => {
     if (isInputInFocus) return;
-    console.log("add to file navigation");
+    dispatch(addFileToNavigation({ id: fileInfo.id, type: "file" }));
   };
   // TODO: Do something for the large names of files
 

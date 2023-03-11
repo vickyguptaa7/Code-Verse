@@ -137,6 +137,7 @@ const traverseInDirectoryForDelete = (
   return false;
 };
 
+//TODO: if we are deleting a folder then we have to check recusively to delete all the child files present so that our fileInformation should be upto date.
 function deleteFileOrFolder(
   directories: Array<IDirectory>,
   directoryIndx: number

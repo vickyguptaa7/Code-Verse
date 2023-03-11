@@ -1,21 +1,39 @@
 import FileCard from "./FileCard";
 
-import { removeFileFromNavigation } from "../../Store/reducres/File/FileNavigation.reducer";
+import {
+  removeFileFromNavigation,
+  updateNavFileList,
+} from "../../Store/reducres/File/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
+import { useEffect } from "react";
 
 const FileContainer = () => {
-  const filesInNavigation = useAppSelector(
+  const navFilesList = useAppSelector(
     (state) => state.fileNavigation.navFilesList
   );
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
   );
   const dispatch = useAppDispatch();
+
+  // only have the files that exist in the file information
+  const newNavList = navFilesList.filter(
+    (navFile) => filesInformation[navFile.id] !== undefined
+  );
+  
+  useEffect(() => {
+    // if there is deletion in filesInformation table and that deletion affect the navFileList then
+    // nav File list should be update accordingly
+    if (newNavList.length !== navFilesList.length) {
+      dispatch(updateNavFileList(newNavList));
+    }
+  }, [filesInformation, dispatch]);
+  
   const removeFileHandler = (id: string) => {
     dispatch(removeFileFromNavigation({ id }));
   };
 
-  const listOfFiles = filesInNavigation.map((file) => (
+  const listOfFiles = newNavList.map((file) => (
     <FileCard
       key={file.id}
       fileInfo={filesInformation[file.id]}

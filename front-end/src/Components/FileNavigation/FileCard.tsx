@@ -35,9 +35,9 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
     );
   else
     languageLogo = (
-        <div className="max-w-[20px] min-w-[20px]">
-            <img src={fileInfo.iconUrls[0]} className="object-contain" alt="icon" />
-        </div>
+      <div className="max-w-[20px] min-w-[20px]">
+        <img src={fileInfo.iconUrls[0]} className="object-contain" alt="icon" />
+      </div>
     );
 
   const removeHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,9 +63,18 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       )}
       onClick={changeCurrentFileInNavigationHandler}
     >
-      <div className="flex items-center justify-center w-full h-full language-logo">{languageLogo}</div>
-      <div className="text-start whitespace-nowrap" >
-        <h1 className="pr-3 text-[color:var(--primary-text-color)]">
+      <div className="flex items-center justify-center w-full h-full language-logo">
+        {languageLogo}
+      </div>
+      <div className="text-start whitespace-nowrap">
+        <h1
+          className={twMerge(
+            "pr-3 text-[color:var(--primary-text-color)]",
+            isThisActiveNavFile
+              ? "text-[color:var(--highlight-text-color)]"
+              : ""
+          )}
+        >
           {fileName}
         </h1>
       </div>
