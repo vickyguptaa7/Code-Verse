@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../Store/store";
 import Drawer from "./ShowInSideDrawer/ShowInDrawer.component";
 import Pannel from "../sidePannel/sidePannel.component";
+import Warning from "../UI/warning.component";
 
 const SideDrawer = () => {
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
@@ -17,6 +18,7 @@ const SideDrawer = () => {
         isDrawerOpenSideIsLeft && "flex-row-reverse"
       )}
     >
+      <Warning/>
       <Pannel />
       {isDrawerOpen && <Drawer />}
     </div>
