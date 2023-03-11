@@ -3,7 +3,7 @@ import FileCard from "./FileCard";
 import {
   removeFileFromNavigation,
   updateNavFileList,
-} from "../../Store/reducres/File/FileNavigation.reducer";
+} from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { useEffect } from "react";
 
@@ -20,7 +20,7 @@ const FileContainer = () => {
   const newNavList = navFilesList.filter(
     (navFile) => filesInformation[navFile.id] !== undefined
   );
-  
+
   useEffect(() => {
     // if there is deletion in filesInformation table and that deletion affect the navFileList then
     // nav File list should be update accordingly
@@ -28,7 +28,7 @@ const FileContainer = () => {
       dispatch(updateNavFileList(newNavList));
     }
   }, [filesInformation, dispatch]);
-  
+
   const removeFileHandler = (id: string) => {
     dispatch(removeFileFromNavigation({ id }));
   };

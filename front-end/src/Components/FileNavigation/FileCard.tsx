@@ -6,7 +6,7 @@ import { VscFile } from "react-icons/vsc";
 import { IFile } from "../../Interface/file.interface";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
-import { setCurrentNavFile } from "../../Store/reducres/File/FileNavigation.reducer";
+import { setCurrentNavFile } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import Button from "../UI/Button.component";
 
 // constant

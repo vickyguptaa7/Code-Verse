@@ -1,5 +1,5 @@
 import IDirectory from "../../../Interface/directory.interface";
-import { IFile, IFilesInforation } from "../../../Interface/file.interface";
+import { IFilesInforation } from "../../../Interface/file.interface";
 import { iconObject } from "../../../Interface/iconObject.interface";
 
 const findExtension = (name: string) => {
@@ -41,7 +41,7 @@ const findIconUrl = (name: string, isFolder: boolean, iconList: iconObject) => {
 // otherwise we visit the child directory until we have not performed the targeted operation
 
 const traverseInDirectoryForAdd = (
-  filesInformation: { [key: string]: IFile },
+  filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
   iconList: iconObject,
   info: {
@@ -79,7 +79,7 @@ const traverseInDirectoryForAdd = (
 };
 
 const traverseInDirectoryForRename = (
-  filesInformation: { [key: string]: IFile },
+  filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
   iconList: iconObject,
   info: {
@@ -118,6 +118,7 @@ const traverseInDirectoryForRename = (
 };
 
 const traverseInDirectoryForDelete = (
+  filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
   id: string
 ) => {
@@ -126,23 +127,41 @@ const traverseInDirectoryForDelete = (
     console.log(directories[directoryIndx].name, "delete");
 
     if (directories[directoryIndx].id === id) {
-      deleteFileOrFolder(directories, parseInt(directoryIndx));
+      if (directories[directoryIndx].isFolder)
+        deleteAllChildFiles(
+          filesInformation,
+          directories[directoryIndx].children
+        );
+      directories.splice(parseInt(directoryIndx), 1);
       return true;
     }
     if (directories[directoryIndx].isFolder) {
-      if (traverseInDirectoryForDelete(directories[directoryIndx].children, id))
+      if (
+        traverseInDirectoryForDelete(
+          filesInformation,
+          directories[directoryIndx].children,
+          id
+        )
+      )
         return true;
     }
   }
   return false;
 };
 
-//TODO: if we are deleting a folder then we have to check recusively to delete all the child files present so that our fileInformation should be upto date.
-function deleteFileOrFolder(
-  directories: Array<IDirectory>,
-  directoryIndx: number
+// if we are deleting a folder then we have to check recusively to delete all the child files present so that our fileInformation should be upto date.
+function deleteAllChildFiles(
+  filesInformation: IFilesInforation,
+  directories: Array<IDirectory>
 ) {
-  directories.splice(directoryIndx, 1);
+  for (const directory of directories) {
+    if (directory.isFolder) {
+      deleteAllChildFiles(filesInformation, directory.children);
+    } else {
+      // removing the files
+      delete filesInformation[directory.id];
+    }
+  }
 }
 
 function renameOfFileOrFolder(

@@ -3,7 +3,7 @@ import { VscClose, VscEdit, VscNewFile, VscNewFolder } from "react-icons/vsc";
 import {
   deleteFileOrFolderOfDirectory,
   setInfoOfCurrentWorkingFileOrFolder,
-} from "../../../../../Store/reducres/File/Directory.reducer";
+} from "../../../../../Store/reducres/Directory/Directory.reducer";
 import { useAppDispatch } from "../../../../../Store/store";
 import Button from "../../../../UI/Button.component";
 

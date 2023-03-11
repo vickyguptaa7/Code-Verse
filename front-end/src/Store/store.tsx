@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import BottomPannelReducer from "./reducres/BottomPannel/BottomPannel.reducer";
-import DirectoryReducer from "./reducres/File/Directory.reducer";
-import fileNavigationReducer from "./reducres/File/FileNavigation.reducer";
+import DirectoryReducer from "./reducres/Directory/Directory.reducer";
+import fileNavigationReducer from "./reducres/Navigation/FileNavigation.reducer";
 import SideDrawerReducer from "./reducres/SideDrawer/SideDrawer.reducer";
 
 const store = configureStore({

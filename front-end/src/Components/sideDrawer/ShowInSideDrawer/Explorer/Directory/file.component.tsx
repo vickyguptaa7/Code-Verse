@@ -4,7 +4,7 @@ import ExplorerButtons from "./explorerButtons.component";
 import RenameInput from "./renameInput.component";
 import { VscFile } from "react-icons/vsc";
 import { useAppDispatch } from "../../../../../Store/store";
-import { addFileToNavigation } from "../../../../../Store/reducres/File/FileNavigation.reducer";
+import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
 interface IPROPS {
   fileInfo: IDirectory;
   shiftAmount: number;

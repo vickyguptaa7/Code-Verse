@@ -3,7 +3,7 @@ import { FaFolder } from "react-icons/fa";
 import { VscChevronRight, VscFile } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
-import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/File/Directory.reducer";
+import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Input from "../../../../UI/Input.component";
 

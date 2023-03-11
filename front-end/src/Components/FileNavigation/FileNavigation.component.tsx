@@ -10,7 +10,7 @@ import DropMenu from "../UI/DropMenu.component";
 import Button from "../UI/Button.component";
 
 import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { removeAllFilesFromNavigation } from "../../Store/reducres/File/FileNavigation.reducer";
+import { removeAllFilesFromNavigation } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel/BottomPannel.reducer";
 
 const FileNavigation = () => {

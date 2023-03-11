@@ -92,12 +92,7 @@ const directorySlice = createSlice({
       state,
       action: PayloadAction<{ id: string }>
     ) {
-      traverseInDirectoryForDelete(state.directories, action.payload.id);
-      if (state.filesInformation[action.payload.id]) {
-        const { [action.payload.id]: remove, ...newFileInfo } =
-          state.filesInformation;
-        state.filesInformation = { ...newFileInfo };
-      }
+      traverseInDirectoryForDelete(state.filesInformation,state.directories, action.payload.id);
     },
 
     setFileIcons(state, action: PayloadAction<{ [key: string]: string }>) {
