@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import IDirectory from "../../../../../Interface/directory.interface";
-import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
+import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/File/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Input from "../../../../UI/Input.component";
 
@@ -24,9 +24,7 @@ const RenameInput: React.FC<IPROPS> = ({
   const [fileName, setfileName] = useState(directoryInfo.name);
   const [isFileNameExistAlready, setIsFileNameExistAlready] = useState(false);
   const dispatch = useAppDispatch();
-  const directories = useAppSelector(
-    (state) => state.fileDirectory.directories
-  );
+  const directories = useAppSelector((state) => state.Directory.directories);
   const { isFileOrFolderAlreadyExists } = useDirectory();
 
   useEffect(() => {
@@ -35,21 +33,21 @@ const RenameInput: React.FC<IPROPS> = ({
     inputRef.current?.setSelectionRange(0, directoryInfo.name.length);
   }, [directoryInfo, inputRef]);
 
-  const currentWorkingFileOrFolder = useAppSelector(
-    (state) => state.fileDirectory.currentWorkingFileOrFolder
+  const infoOfCurrentWorkingFileOrFolder = useAppSelector(
+    (state) => state.Directory.infoOfCurrentWorkingFileOrFolder
   );
 
   useEffect(() => {
-    if (!currentWorkingFileOrFolder.isActive) return;
+    if (!infoOfCurrentWorkingFileOrFolder.isActive) return;
     if (
-      currentWorkingFileOrFolder.operation !== "rename" ||
-      currentWorkingFileOrFolder.id !== id
+      infoOfCurrentWorkingFileOrFolder.operation !== "rename" ||
+      infoOfCurrentWorkingFileOrFolder.id !== id
     ) {
       // user tries to add another file or folder so we need to remove the previous one
       console.log("rename collision");
       setIsInputInFocus(false);
     }
-  }, [currentWorkingFileOrFolder, setIsInputInFocus, id]);
+  }, [infoOfCurrentWorkingFileOrFolder, setIsInputInFocus, id]);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setfileName(event.target.value);
@@ -103,7 +101,7 @@ const RenameInput: React.FC<IPROPS> = ({
         renameFileOrFolderOfDirectory({
           id: directoryInfo.id,
           name: fileName,
-          isFolder:directoryInfo.isFolder
+          isFolder: directoryInfo.isFolder,
         })
       );
       setIsInputInFocus(false);

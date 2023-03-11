@@ -8,7 +8,7 @@ import {
 import {
   setBottomPannelHeight,
   setIsMinimizeBottomPannel,
-} from "../Store/reducres/BottomPannel.reducer";
+} from "../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../Store/store";
 
 const EDITOR_MIN_HEIGHT = 480;

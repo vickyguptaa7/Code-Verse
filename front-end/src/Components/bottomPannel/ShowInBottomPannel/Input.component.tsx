@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import { setInputContent } from "../../../Store/reducres/BottomPannel.reducer";
+import { setInputContent } from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import TextArea from "../../UI/TextArea.component";
 

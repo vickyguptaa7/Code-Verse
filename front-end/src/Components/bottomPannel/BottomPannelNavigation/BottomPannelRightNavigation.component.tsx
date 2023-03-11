@@ -9,7 +9,7 @@ import {
   setOutputContent,
   setShowInBottomPannel,
   setTerminalContent,
-} from "../../../Store/reducres/BottomPannel.reducer";
+} from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
 import DropMenu from "../../UI/DropMenu.component";

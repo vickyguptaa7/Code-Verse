@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../../../Store/store";
 import {
   setIsBottomPannelOpen,
   setShowInBottomPannel,
-} from "../../../../Store/reducres/BottomPannel.reducer";
+} from "../../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import Button from "../../../UI/Button.component";
 
 const EDITOR_MIN_HEIGHT = 480;

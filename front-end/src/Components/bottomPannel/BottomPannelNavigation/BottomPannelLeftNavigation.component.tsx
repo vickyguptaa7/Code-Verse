@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { VscEllipsis } from "react-icons/vsc";
-import { setShowInBottomPannel } from "../../../Store/reducres/BottomPannel.reducer";
+import { setShowInBottomPannel } from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { useAppDispatch } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
 import DropMenu from "../../UI/DropMenu.component";

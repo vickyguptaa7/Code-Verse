@@ -2,8 +2,8 @@ import React from "react";
 import { VscClose, VscEdit, VscNewFile, VscNewFolder } from "react-icons/vsc";
 import {
   deleteFileOrFolderOfDirectory,
-  setCurrentWorkingFileOrFolder,
-} from "../../../../../Store/reducres/File/FileDirectory.reducer";
+  setInfoOfCurrentWorkingFileOrFolder,
+} from "../../../../../Store/reducres/File/Directory.reducer";
 import { useAppDispatch } from "../../../../../Store/store";
 import Button from "../../../../UI/Button.component";
 
@@ -44,7 +44,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     event.stopPropagation();
     setIsInputInFocus(true);
     dispatch(
-      setCurrentWorkingFileOrFolder({
+      setInfoOfCurrentWorkingFileOrFolder({
         isActive: true,
         id: id!,
         operation: "rename",
@@ -74,7 +74,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
       console.log("add Folder");
       setIsFileOrFolder("folder");
       dispatch(
-        setCurrentWorkingFileOrFolder({
+        setInfoOfCurrentWorkingFileOrFolder({
           isActive: true,
           id: id!,
           operation: "add",
@@ -99,7 +99,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
       console.log("add File");
       setIsFileOrFolder("file");
       dispatch(
-        setCurrentWorkingFileOrFolder({
+        setInfoOfCurrentWorkingFileOrFolder({
           isActive: true,
           id: id!,
           operation: "add",

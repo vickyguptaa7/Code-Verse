@@ -11,7 +11,7 @@ import {
 import {
   setIsDrawerOpen,
   setShowInSideDrawer,
-} from "../../Store/reducres/SideDrawer.reducer";
+} from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import Backdrop from "../UI/Backdrop.component";
 import DropMenu from "../UI/DropMenu.component";

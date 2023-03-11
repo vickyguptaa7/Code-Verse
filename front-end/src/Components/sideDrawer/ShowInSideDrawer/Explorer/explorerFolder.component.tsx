@@ -21,7 +21,7 @@ const ExplorerFolder = () => {
       id: ReturnType<typeof setTimeout> | null;
     }>({ isTimer: false, id: null });
   const directories = useAppSelector(
-    (state) => state.fileDirectory.directories
+    (state) => state.Directory.directories
   );
   const [isFileOrFolder, setIsFileOrFolder] = useState<
     "file" | "folder" | "none"

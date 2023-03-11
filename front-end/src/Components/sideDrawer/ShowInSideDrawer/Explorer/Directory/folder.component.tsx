@@ -33,6 +33,8 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
     console.log("hide/show children visibility");
     setIsFolderOpen((state) => !state);
   };
+  
+  // TODO: Do something for the large names of folder
 
   return (
     <div className="">
@@ -48,9 +50,9 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
         <div className="flex justify-between w-full gap-3 pr-4">
           <div className="flex items-center justify-center gap-1.5 w-full min-w-[6rem]">
             <div className="min-w-[18px] max-w-[18px]">
-              {folderInfo.iconsUrl.length ? (
+              {folderInfo.iconUrls.length ? (
                 <img
-                  src={folderInfo.iconsUrl[isFolderOpen ? 1 : 0]}
+                  src={folderInfo.iconUrls[isFolderOpen ? 1 : 0]}
                   className="object-contain"
                   alt="icon"
                 />

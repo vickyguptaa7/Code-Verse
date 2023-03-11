@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { setTerminalContent } from "../../../Store/reducres/BottomPannel.reducer";
+import { setTerminalContent } from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Input from "../../UI/Input.component";
 

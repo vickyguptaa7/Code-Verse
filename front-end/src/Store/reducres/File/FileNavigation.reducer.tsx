@@ -1,58 +1,64 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import IFile from "../../../Interface/file.interface";
+import { INavFile } from "../../../Interface/file.interface";
 
-let DUMMY_FILES: Array<IFile> = [
-  { id: "i1", fileName: "hello", body: "Hello world1", language: "python" },
-  { id: "i2", fileName: "text2", body: "Hello world2", language: "cpp" },
-  { id: "i3", fileName: "text3", body: "Hello world3", language: "java" },
+let DUMMY_FILES: Array<INavFile> = [
+  {
+    id: "welcome",
+    type: "file",
+  },
 ];
 
-const emptyFile: IFile = {
+const emptyFile: INavFile = {
   id: "null",
-  fileName: "",
-  body: "",
-  language: "",
+  type: "file",
 };
 
-const filesNavigationInitialState = {
-  fileNavList: DUMMY_FILES,
+const navigationFilesInitialState = {
+  navFilesList: DUMMY_FILES,
   currentNavFile: DUMMY_FILES[0],
 };
 
-const fileNavigationSlice = createSlice({
+const navigationFilesSlice = createSlice({
   name: "files",
-  initialState: filesNavigationInitialState,
+  initialState: navigationFilesInitialState,
   reducers: {
-    addFileToNavigation(state, action: PayloadAction<IFile>) {
-      state.fileNavList.push(action.payload);
+    addFileToNavigation(state, action: PayloadAction<INavFile>) {
+      const isFilePresentAlready =
+        state.navFilesList.findIndex(
+          (navFile) => navFile.id === action.payload.id
+        ) === -1;
+      // add only when file is not in the navigation list
+      if (!isFilePresentAlready) {
+        state.navFilesList.push(action.payload);
+      }
       state.currentNavFile = action.payload;
     },
-    removeFileFromNavigation(state, action: PayloadAction<string>) {
+    removeFileFromNavigation(state, action: PayloadAction<{ id: string }>) {
       // if currrentNavFile removed from navigation
-      if (state.currentNavFile.id === action.payload) {
-        const removefileIndx = state.fileNavList.findIndex(
-          (file) => file.id === action.payload
+      if (state.currentNavFile.id === action.payload.id) {
+        const removefileIndx = state.navFilesList.findIndex(
+          (file) => file.id === action.payload.id
         );
         if (removefileIndx !== 0) {
           // there is already a file in the left side
-          state.currentNavFile = state.fileNavList[removefileIndx - 1];
-        } else if (removefileIndx !== state.fileNavList.length - 1) {
+          state.currentNavFile = state.navFilesList[removefileIndx - 1];
+        } else if (removefileIndx !== state.navFilesList.length - 1) {
           // it's the leftmost file so take the right one
-          state.currentNavFile = state.fileNavList[removefileIndx + 1];
+          state.currentNavFile = state.navFilesList[removefileIndx + 1];
         } else {
           // only one file left
           state.currentNavFile = emptyFile;
         }
       }
-      state.fileNavList = state.fileNavList.filter(
-        (file) => file.id !== action.payload
+      state.navFilesList = state.navFilesList.filter(
+        (navFile) => navFile.id !== action.payload.id
       );
     },
     removeAllFilesFromNavigation(state) {
-      state.fileNavList = [];
+      state.navFilesList = [];
       state.currentNavFile = emptyFile;
     },
-    setCurrentNavFile(state, action: PayloadAction<IFile>) {
+    setCurrentNavFile(state, action: PayloadAction<INavFile>) {
       state.currentNavFile = action.payload;
     },
   },
@@ -63,6 +69,6 @@ export const {
   removeFileFromNavigation,
   removeAllFilesFromNavigation,
   setCurrentNavFile,
-} = fileNavigationSlice.actions;
+} = navigationFilesSlice.actions;
 
-export default fileNavigationSlice.reducer;
+export default navigationFilesSlice.reducer;

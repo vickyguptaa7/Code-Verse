@@ -1,19 +1,16 @@
 import React from "react";
 
-import { CgCPlusPlus } from "react-icons/cg";
 import { RxCross2 } from "react-icons/rx";
-import { IoLogoPython } from "react-icons/io";
-import { SiJava } from "react-icons/si";
-import { BiCodeAlt } from "react-icons/bi";
+import { VscFile } from "react-icons/vsc";
 
-import IFile from "../../Interface/file.interface";
-
-// constant
-import { MAX_FILE_LENGTH } from "./FileNavigation.Constant";
+import { IFile } from "../../Interface/file.interface";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
 import { setCurrentNavFile } from "../../Store/reducres/File/FileNavigation.reducer";
 import Button from "../UI/Button.component";
+
+// constant
+import { MAX_FILE_LENGTH } from "./FileNavigation.Constant";
 
 interface IPROPS {
   fileInfo: IFile;
@@ -32,15 +29,16 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
 
   let languageLogo: JSX.Element;
 
-  if (fileInfo.language === "cpp") {
-    languageLogo = <CgCPlusPlus className="text-[1.25rem] text-blue-600 " />;
-  } else if (fileInfo.language === "python") {
-    languageLogo = <IoLogoPython className="text-[1.25rem] text-blue-600 " />;
-  } else if (fileInfo.language) {
-    languageLogo = <SiJava className="text-[1.25rem] text-yellow-600 " />;
-  } else {
-    languageLogo = <BiCodeAlt className="text-[1.25rem] text-blue-600 " />;
-  }
+  if (fileInfo.iconUrls.length === 0)
+    languageLogo = (
+      <VscFile className="text-[18px] text-[color:var(--accent-color)] " />
+    );
+  else
+    languageLogo = (
+        <div className="max-w-[20px] min-w-[20px]">
+            <img src={fileInfo.iconUrls[0]} className="object-contain" alt="icon" />
+        </div>
+    );
 
   const removeHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -49,12 +47,12 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   };
 
   const fileName =
-    fileInfo.fileName.length < MAX_FILE_LENGTH
-      ? fileInfo.fileName
-      : fileInfo.fileName.substring(0, MAX_FILE_LENGTH - 3) + "...";
+    fileInfo.name.length < MAX_FILE_LENGTH
+      ? fileInfo.name
+      : fileInfo.name.substring(0, MAX_FILE_LENGTH - 3) + "...";
 
-  const changeCurrentFileInNavigationHandler = (event:React.MouseEvent) => {
-    dispatch(setCurrentNavFile(fileInfo));
+  const changeCurrentFileInNavigationHandler = (event: React.MouseEvent) => {
+    dispatch(setCurrentNavFile({ id: fileInfo.id, type: "file" }));
   };
 
   return (
@@ -65,8 +63,8 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       )}
       onClick={changeCurrentFileInNavigationHandler}
     >
-      <div className="language-logo">{languageLogo}</div>
-      <div className="text-start">
+      <div className="flex items-center justify-center w-full h-full language-logo">{languageLogo}</div>
+      <div className="text-start whitespace-nowrap" >
         <h1 className="pr-3 text-[color:var(--primary-text-color)]">
           {fileName}
         </h1>

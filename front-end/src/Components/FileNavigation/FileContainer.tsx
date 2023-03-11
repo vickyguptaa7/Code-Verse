@@ -1,21 +1,24 @@
-import React from "react";
+import FileCard from "./FileCard";
+
 import { removeFileFromNavigation } from "../../Store/reducres/File/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
-import FileCard from "./FileCard";
 
 const FileContainer = () => {
   const filesInNavigation = useAppSelector(
-    (state) => state.fileNavigation.fileNavList
+    (state) => state.fileNavigation.navFilesList
+  );
+  const filesInformation = useAppSelector(
+    (state) => state.Directory.filesInformation
   );
   const dispatch = useAppDispatch();
   const removeFileHandler = (id: string) => {
-    dispatch(removeFileFromNavigation(id));
+    dispatch(removeFileFromNavigation({ id }));
   };
 
   const listOfFiles = filesInNavigation.map((file) => (
     <FileCard
       key={file.id}
-      fileInfo={file}
+      fileInfo={filesInformation[file.id]}
       removeFileHandler={removeFileHandler}
     />
   ));

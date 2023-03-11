@@ -3,7 +3,7 @@ import { FaFolder } from "react-icons/fa";
 import { VscChevronRight, VscFile } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
-import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/File/FileDirectory.reducer";
+import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/File/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Input from "../../../../UI/Input.component";
 
@@ -28,26 +28,24 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
   const [childName, setChildName] = useState("");
   const [isExistAlready, setIsExistAlready] = useState(false);
   const dispatch = useAppDispatch();
-  const directories = useAppSelector(
-    (state) => state.fileDirectory.directories
-  );
+  const directories = useAppSelector((state) => state.Directory.directories);
 
-  const currentWorkingFileOrFolder = useAppSelector(
-    (state) => state.fileDirectory.currentWorkingFileOrFolder
+  const infoOfCurrentWorkingFileOrFolder = useAppSelector(
+    (state) => state.Directory.infoOfCurrentWorkingFileOrFolder
   );
 
   useEffect(() => {
-    if (!currentWorkingFileOrFolder.isActive) return;
+    if (!infoOfCurrentWorkingFileOrFolder.isActive) return;
     if (
-      currentWorkingFileOrFolder.operation !== "add" ||
-      currentWorkingFileOrFolder.id !== parentId
+      infoOfCurrentWorkingFileOrFolder.operation !== "add" ||
+      infoOfCurrentWorkingFileOrFolder.id !== parentId
     ) {
       // user tries to add another file or folder so we need to remove the previous one
       console.log("collision");
       setIsFileOrFolder("none");
     }
-  },[currentWorkingFileOrFolder,parentId,setIsFileOrFolder]);
-  
+  }, [infoOfCurrentWorkingFileOrFolder, parentId, setIsFileOrFolder]);
+
   const { isFileOrFolderAlreadyExists } = useDirectory();
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

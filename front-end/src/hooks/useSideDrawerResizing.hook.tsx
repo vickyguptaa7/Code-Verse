@@ -4,7 +4,7 @@ import {
   MIN_DRAWER_SIZE_PX,
 } from "../Components/sideDrawer/sideDrawer.Constant";
 import { SIDE_PANNEL_WIDTH } from "../Components/sidePannel/SidePannel.constants";
-import { setSideDrawerWidth } from "../Store/reducres/SideDrawer.reducer";
+import { setSideDrawerWidth } from "../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../Store/store";
 
 const useSideDrawerResizing = (

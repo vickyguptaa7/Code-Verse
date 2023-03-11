@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import "./FileNavigation.css";
-import FileContainer from "./FileContainer";
-import { VscDebugStart, VscEllipsis } from "react-icons/vsc";
-import DropMenuButton from "../UI/DropMenuButton.component";
+
 import { twMerge } from "tailwind-merge";
+import { VscDebugStart, VscEllipsis } from "react-icons/vsc";
+
+import FileContainer from "./FileContainer";
+import DropMenuButton from "../UI/DropMenuButton.component";
 import Backdrop from "../UI/Backdrop.component";
-import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { removeAllFilesFromNavigation } from "../../Store/reducres/File/FileNavigation.reducer";
-import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel.reducer";
 import DropMenu from "../UI/DropMenu.component";
 import Button from "../UI/Button.component";
+
+import { useAppDispatch, useAppSelector } from "../../Store/store";
+import { removeAllFilesFromNavigation } from "../../Store/reducres/File/FileNavigation.reducer";
+import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel/BottomPannel.reducer";
 
 const FileNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -21,9 +23,11 @@ const FileNavigation = () => {
   const closeDropMenuHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setIsDropMenuOpen(false);
   };
+
   const openDropMenuHandler = () => {
     setIsDropMenuOpen(true);
   };
+
   return (
     <>
       {isDropMenuOpen && (

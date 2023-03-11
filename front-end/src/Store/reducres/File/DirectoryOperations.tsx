@@ -1,8 +1,20 @@
 import IDirectory from "../../../Interface/directory.interface";
+import { IFile, IFilesInforation } from "../../../Interface/file.interface";
+import { iconObject } from "../../../Interface/iconObject.interface";
 
-interface iconObject {
-  [key: string]: string;
-}
+const findExtension = (name: string) => {
+  let extension = "";
+  let isDotPresent = false;
+  for (let i = name.length - 1; i >= 0; i--) {
+    if (name[i] === ".") {
+      isDotPresent = true;
+      break;
+    }
+    extension += name[i];
+  }
+  extension = extension.split("").reverse().join("");
+  return { extName: extension, isDotPresent };
+};
 
 const findIconUrl = (name: string, isFolder: boolean, iconList: iconObject) => {
   name = name.toLowerCase();
@@ -15,23 +27,21 @@ const findIconUrl = (name: string, isFolder: boolean, iconList: iconObject) => {
     }
     return [iconList["folder-" + name], iconList["folder-" + name + "-open"]];
   }
-  let extension = "";
-  let isDotPresent = false;
-  for (let i = name.length - 1; i >= 0; i--) {
-    if (name[i] === ".") {
-      isDotPresent = true;
-      break;
-    }
-    extension += name[i];
-  }
-  extension = extension.split("").reverse().join("");
-  if (!isDotPresent || !iconList.hasOwnProperty(extension)) {
+  const extensionInfo = findExtension(name);
+  if (
+    !extensionInfo.isDotPresent ||
+    !iconList.hasOwnProperty(extensionInfo.extName)
+  ) {
     return [];
   }
-  return [iconList[extension]];
+  return [iconList[extensionInfo.extName]];
 };
 
-const traverseToDirectory = (
+// Note : if we performed the targeted operation on the file or folder then we don't visit further child directory we just come out from the recursive traversal
+// otherwise we visit the child directory until we have not performed the targeted operation
+
+const traverseInDirectoryForAdd = (
+  filesInformation: { [key: string]: IFile },
   directories: Array<IDirectory>,
   iconList: iconObject,
   info: {
@@ -40,22 +50,36 @@ const traverseToDirectory = (
     isFolder: boolean;
   }
 ) => {
+  // for root directory we dont need to traverse to the the child directory (root directory is the main menu where we can just add file or folder)
   if (info.parentId === "root") {
-    addToDirectory(directories, iconList, info);
-    return;
+    addFileOrFolder(filesInformation, directories, iconList, info);
+    return true;
   }
 
   for (const directory of directories) {
+    console.log(directory.name, "add");
+    // we can add files or folder in folder only not in file :)
+    // and we should know the parent id of the directory where we have to add the file or folder
     if (directory.isFolder && directory.id === info.parentId) {
-      addToDirectory(directory.children, iconList, info);
-      return;
+      addFileOrFolder(filesInformation, directory.children, iconList, info);
+      return true;
     }
     if (directory.isFolder)
-      traverseToDirectory(directory.children, iconList, info);
+      if (
+        traverseInDirectoryForAdd(
+          filesInformation,
+          directory.children,
+          iconList,
+          info
+        )
+      )
+        return true;
   }
+  return false;
 };
 
-const renameFileOrFolder = (
+const traverseInDirectoryForRename = (
+  filesInformation: { [key: string]: IFile },
   directories: Array<IDirectory>,
   iconList: iconObject,
   info: {
@@ -64,38 +88,98 @@ const renameFileOrFolder = (
   }
 ) => {
   for (const directoryIndx in directories) {
+    // if id matches we rename the file or folder
+    console.log(directories[directoryIndx].name, "rename");
+
     if (directories[directoryIndx].id === info.id) {
-      directories[directoryIndx] = {
-        ...directories[directoryIndx],
-        name: info.name,
-        iconsUrl: findIconUrl(
-          info.name,
-          directories[directoryIndx].isFolder,
-          iconList
-        ),
-      };
-      directories.sort(mycomparator);
-      return;
+      renameOfFileOrFolder(
+        filesInformation,
+        directories,
+        iconList,
+        parseInt(directoryIndx),
+        info
+      );
+      return true;
     }
+    // if its folder then we search in childrens if we have not found it yet
     if (directories[directoryIndx].isFolder) {
-      renameFileOrFolder(directories[directoryIndx].children, iconList, info);
+      if (
+        traverseInDirectoryForRename(
+          filesInformation,
+          directories[directoryIndx].children,
+          iconList,
+          info
+        )
+      )
+        return true;
     }
   }
+  return false;
 };
 
-const deleteFileOrFolder = (directories: Array<IDirectory>, id: string) => {
+const traverseInDirectoryForDelete = (
+  directories: Array<IDirectory>,
+  id: string
+) => {
   for (const directoryIndx in directories) {
+    // if id matches remove that directory from the list and just dont traverse the other nested directories as our task is done
+    console.log(directories[directoryIndx].name, "delete");
+
     if (directories[directoryIndx].id === id) {
-      directories.splice(parseInt(directoryIndx), 1);
-      return;
+      deleteFileOrFolder(directories, parseInt(directoryIndx));
+      return true;
     }
     if (directories[directoryIndx].isFolder) {
-      deleteFileOrFolder(directories[directoryIndx].children, id);
+      if (traverseInDirectoryForDelete(directories[directoryIndx].children, id))
+        return true;
     }
   }
+  return false;
 };
 
-function addToDirectory(
+function deleteFileOrFolder(
+  directories: Array<IDirectory>,
+  directoryIndx: number
+) {
+  directories.splice(directoryIndx, 1);
+}
+
+function renameOfFileOrFolder(
+  filesInformation: IFilesInforation,
+  directories: Array<IDirectory>,
+  iconList: iconObject,
+  directoryIndx: number,
+  info: {
+    id: string;
+    name: string;
+  }
+) {
+  // updating the name and icon url
+  const newIconUrl = findIconUrl(
+    info.name,
+    directories[directoryIndx].isFolder,
+    iconList
+  );
+  directories[directoryIndx] = {
+    ...directories[directoryIndx],
+    name: info.name,
+    iconUrls: newIconUrl,
+  };
+  // if its a folder then we have to update the file informations also
+  if (!directories[directoryIndx].isFolder) {
+    filesInformation[info.id] = {
+      ...filesInformation[info.id],
+      name: info.name,
+      iconUrls: newIconUrl,
+      language: findExtension(info.name).extName,
+    };
+  }
+  // sort to organize the files or folders of that directory with respect to name and type ie file or folder
+  directories.sort(mycomparator);
+}
+
+function addFileOrFolder(
+  filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
   iconList: iconObject,
   info: {
@@ -105,14 +189,25 @@ function addToDirectory(
   }
 ) {
   const id = new Date().getTime().toString();
-  directories.unshift({
+  const newItem = {
     id: id,
     parentId: info.parentId,
     name: info.name.trim(),
-    iconsUrl: findIconUrl(info.name, info.isFolder, iconList),
+    iconUrls: findIconUrl(info.name, info.isFolder, iconList),
     isFolder: info.isFolder,
     children: [],
-  });
+  };
+  directories.unshift(newItem);
+
+  if (!info.isFolder) {
+    filesInformation[id] = {
+      id: id,
+      name: newItem.name,
+      iconUrls: newItem.iconUrls,
+      body: "",
+      language: findExtension(newItem.name).extName,
+    };
+  }
   directories.sort(mycomparator);
 }
 
@@ -124,7 +219,7 @@ function mycomparator(d1: IDirectory, d2: IDirectory) {
 
 export {
   findIconUrl,
-  traverseToDirectory,
-  renameFileOrFolder,
-  deleteFileOrFolder,
+  traverseInDirectoryForAdd,
+  traverseInDirectoryForRename,
+  traverseInDirectoryForDelete,
 };

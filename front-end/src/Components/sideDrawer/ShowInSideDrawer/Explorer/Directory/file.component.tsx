@@ -15,6 +15,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
     if (isInputInFocus) return;
     console.log("add to file navigation");
   };
+  // TODO: Do something for the large names of files
 
   return (
     <div
@@ -26,14 +27,14 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
     >
       <div className="flex items-center justify-center w-full min-w-[6rem] gap-1">
         <div className="max-w-[18px] min-w-[18px]">
-          {fileInfo.iconsUrl.length ? (
+          {fileInfo.iconUrls.length ? (
             <img
-              src={fileInfo.iconsUrl[0]}
+              src={fileInfo.iconUrls[0]}
               className="object-contain"
               alt="icon"
             />
           ) : (
-            <VscFile className="text-[#42A5F5] text-[16px]" />
+            <VscFile className="text-[color:var(--accent-color)] text-[16px]" />
           )}
         </div>
         {isInputInFocus ? (
