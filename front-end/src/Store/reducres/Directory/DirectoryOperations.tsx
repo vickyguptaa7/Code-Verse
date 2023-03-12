@@ -132,6 +132,7 @@ const traverseInDirectoryForDelete = (
           filesInformation,
           directories[directoryIndx].children
         );
+      else delete filesInformation[directories[directoryIndx].id];
       directories.splice(parseInt(directoryIndx), 1);
       return true;
     }

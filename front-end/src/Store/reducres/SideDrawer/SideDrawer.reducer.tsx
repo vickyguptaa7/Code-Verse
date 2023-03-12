@@ -6,6 +6,7 @@ const sideDrawerInitialState = {
   isDrawerOpenSideIsLeft: false,
   sideDrawerWidth: 208, // 13 rem inital width of drawer
   showInSideDrawer: "file",
+  isDeleteWarningEnable: true,
 };
 
 type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
@@ -26,12 +27,20 @@ const sideDrawerSlice = createSlice({
       state.sideDrawerWidth = action.payload;
     },
     setShowInSideDrawer(state, action: PayloadAction<drawerContent>) {
-        state.showInSideDrawer = action.payload;
+      state.showInSideDrawer = action.payload;
+    },
+    setIsDeleteWarningEnable(state, action: PayloadAction<boolean>) {
+      state.isDeleteWarningEnable = action.payload;
     },
   },
 });
 
-export const { setIsDrawerOpen, setSidePannelPosition, setSideDrawerWidth,setShowInSideDrawer } =
-  sideDrawerSlice.actions;
+export const {
+  setIsDrawerOpen,
+  setSidePannelPosition,
+  setSideDrawerWidth,
+  setShowInSideDrawer,
+  setIsDeleteWarningEnable,
+} = sideDrawerSlice.actions;
 
 export default sideDrawerSlice.reducer;

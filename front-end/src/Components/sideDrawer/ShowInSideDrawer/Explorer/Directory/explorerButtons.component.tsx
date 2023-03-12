@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { VscClose, VscEdit, VscNewFile, VscNewFolder } from "react-icons/vsc";
 import {
   deleteFileOrFolderOfDirectory,
   setInfoOfCurrentWorkingFileOrFolder,
 } from "../../../../../Store/reducres/Directory/Directory.reducer";
-import { useAppDispatch } from "../../../../../Store/store";
+import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
+import Backdrop from "../../../../UI/Backdrop.component";
 import Button from "../../../../UI/Button.component";
+import Warning from "../../../../UI/warning.component";
 
 interface IPROPS {
   id?: string;
+  name?: string;
   isInputInFocus: boolean;
   setIsInputInFocus: Function;
   setIsFolderOpen?: (val: boolean) => void;
@@ -28,6 +31,7 @@ interface IPROPS {
 
 const ExplorerButtons: React.FC<IPROPS> = ({
   id,
+  name,
   isInputInFocus,
   setIsInputInFocus,
   setIsFolderOpen,
@@ -38,7 +42,11 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   setNewFileOrFolderDummyTimerId,
   from,
 }) => {
+  const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const isDeleteWarningEnable = useAppSelector(
+    (state) => state.sideDrawer.isDeleteWarningEnable
+  );
 
   const renameHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -53,9 +61,19 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     console.log("rename");
   };
 
+  const closeDeleteWarningHandler = () => {
+    setIsDeleteWarningOpen(false);
+  };
+
+  const deleteFileOrFolder = () => {
+    if (id && id.trim().length) dispatch(deleteFileOrFolderOfDirectory({ id }));
+  };
+
   const deleteHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
-    if (id && id.trim().length) dispatch(deleteFileOrFolderOfDirectory({ id }));
+    if (isDeleteWarningEnable) {
+      setIsDeleteWarningOpen(true);
+    } else deleteFileOrFolder();
   };
 
   function addFolderHandler(event: React.MouseEvent) {
@@ -130,40 +148,52 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   }
 
   return (
-    <div className="flex items-center justify-center invisible group-hover:visible text-[color:var(--primary-text-color)]">
-      {from === "folder" ? (
+    <>
+      {isDeleteWarningOpen ? (
         <>
-          <Button
-            title="New File"
-            onClick={addFileHandler}
-            className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
-          >
-            <VscNewFile className="text-[15px]" />
-          </Button>
-          <Button
-            title="New Folder"
-            onClick={addFolderHandler}
-            className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
-          >
-            <VscNewFolder className="text-[15px]" />
-          </Button>
+          <Backdrop className="bg-opacity-30" onClick={closeDeleteWarningHandler} />
+          <Warning
+            name={name!}
+            onCancel={closeDeleteWarningHandler}
+            onDelete={deleteFileOrFolder}
+          />
         </>
       ) : null}
-      <Button
-        title="Rename"
-        onClick={renameHandler}
-        className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
-      >
-        <VscEdit className="text-[14px]" />
-      </Button>
-      <Button
-        title="Delete"
-        onClick={deleteHandler}
-        className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
-      >
-        <VscClose className="text-[15px]" />
-      </Button>
-    </div>
+      <div className="flex items-center justify-center invisible group-hover:visible text-[color:var(--primary-text-color)]">
+        {from === "folder" ? (
+          <>
+            <Button
+              title="New File"
+              onClick={addFileHandler}
+              className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
+            >
+              <VscNewFile className="text-[15px]" />
+            </Button>
+            <Button
+              title="New Folder"
+              onClick={addFolderHandler}
+              className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
+            >
+              <VscNewFolder className="text-[15px]" />
+            </Button>
+          </>
+        ) : null}
+        <Button
+          title="Rename"
+          onClick={renameHandler}
+          className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
+        >
+          <VscEdit className="text-[14px]" />
+        </Button>
+        <Button
+          title="Delete"
+          onClick={deleteHandler}
+          className="rounded-lg hover:text-[color:var(--highlight-text-color)] p-1"
+        >
+          <VscClose className="text-[15px]" />
+        </Button>
+      </div>
+    </>
   );
 };
 
