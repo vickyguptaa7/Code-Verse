@@ -37,22 +37,25 @@ const Editor: React.FC<IPROPS> = ({
 
   const [editorContent, setEditorContent] = useState(content);
 
-  const updateStore = () => {
-    dispatch(updateFileBody({ id: currentWorkingFileId, body: editorContent }));
+  const updateStore = (content: string) => {
+    // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
+    dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
   };
 
   const debouncedFunc = useDebounce(updateStore, 500);
 
   const onChangeHandler = (value: string | undefined) => {
-    // if it returns undefined then we don't do any changes
-    if (value === undefined) return;
-    setEditorContent((state) => (value ? value : state));
     // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
+    // as currentWorkingFileId changes use effect will update with initial value
     if (!isUpdateStoreRef.current.valueOf()) {
       isUpdateStoreRef.current = true;
       return;
     }
-    debouncedFunc();
+    // if it returns undefined then we don't do any changes
+    if (value === undefined) return;
+    console.log(value);
+    setEditorContent(value);
+    debouncedFunc(value);
   };
 
   useEffect(() => {
