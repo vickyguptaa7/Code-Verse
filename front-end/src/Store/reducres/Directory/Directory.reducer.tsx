@@ -92,7 +92,11 @@ const directorySlice = createSlice({
       state,
       action: PayloadAction<{ id: string }>
     ) {
-      traverseInDirectoryForDelete(state.filesInformation,state.directories, action.payload.id);
+      traverseInDirectoryForDelete(
+        state.filesInformation,
+        state.directories,
+        action.payload.id
+      );
     },
 
     setFileIcons(state, action: PayloadAction<{ [key: string]: string }>) {
@@ -115,6 +119,9 @@ const directorySlice = createSlice({
     ) {
       state.infoOfCurrentWorkingFileOrFolder = action.payload;
     },
+    updateFileBody(state, action: PayloadAction<{ id: string; body: string }>) {
+      state.filesInformation[action.payload.id].body = action.payload.body;
+    },
   },
 });
 export const {
@@ -124,6 +131,7 @@ export const {
   setInfoOfCurrentWorkingFileOrFolder,
   setFileIcons,
   setFolderIcons,
+  updateFileBody
 } = directorySlice.actions;
 
 export default directorySlice.reducer;

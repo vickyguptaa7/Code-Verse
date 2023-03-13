@@ -28,6 +28,7 @@ const Input: React.FC<PROPS_INTEFACE> = ({ mainDivHeight }) => {
   }, [setFocusHandler]);
 
   const onChangeHandler = (event: React.FormEvent<HTMLTextAreaElement>) => {
+    //TODO: Reduce the number of dispatch call by debounce
     dispatch(setInputContent(event.currentTarget.value));
   };
 

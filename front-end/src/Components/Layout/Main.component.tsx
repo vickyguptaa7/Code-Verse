@@ -1,7 +1,7 @@
 import { useAppSelector } from "../../Store/store";
-import Editor from "../Editor/editor.component";
 import FileNavigation from "../FileNavigation/FileNavigation.component";
 import BottomPannelContainer from "../bottomPannel/BottomPannelContainer.component";
+import EditorContainer from "../Editor/EditorContainer.component";
 
 function Main() {
   const isBottomPannelOpen = useAppSelector(
@@ -10,7 +10,7 @@ function Main() {
   return (
     <>
       <FileNavigation />
-      <Editor />
+      <EditorContainer />
       {isBottomPannelOpen && <BottomPannelContainer />}
     </>
   );

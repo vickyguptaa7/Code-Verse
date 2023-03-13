@@ -1,20 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MonacoEditor, { useMonaco } from "@monaco-editor/react";
-import { useAppSelector } from "../../Store/store";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
 import { twMerge } from "tailwind-merge";
 
 import monkaiTheme from "monaco-themes/themes/Night Owl.json";
+import useDebounce from "../../hooks/useDebounce.hook";
+import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
+// import useDebounce from "../../hooks/useDebounce.hook";
+// import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
 
 const EDITOR_MIN_HEIGHT = 480;
 
-const Editor = () => {
+interface IPROPS {
+  content: string;
+  language: string | undefined;
+  currentWorkingFileId: string;
+}
+
+const Editor: React.FC<IPROPS> = ({
+  content,
+  language,
+  currentWorkingFileId,
+}) => {
+  // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
+  let isUpdateStoreRef = useRef(true);
+
+  const dispatch = useAppDispatch();
   const bottomPannelHeight = useAppSelector(
     (state) => state.bottomPannel.bottomPannelHeight
   );
+
   const isBottomPannelOpen = useAppSelector(
     (state) => state.bottomPannel.isBottomPannelOpen
   );
+
+  const [editorContent, setEditorContent] = useState(content);
+
+  const updateStore = () => {
+    dispatch(updateFileBody({ id: currentWorkingFileId, body: editorContent }));
+  };
+
+  const debouncedFunc = useDebounce(updateStore, 500);
+
+  const onChangeHandler = (value: string | undefined) => {
+    // if it returns undefined then we don't do any changes
+    if (value === undefined) return;
+    setEditorContent((state) => (value ? value : state));
+    // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
+    if (!isUpdateStoreRef.current.valueOf()) {
+      isUpdateStoreRef.current = true;
+      return;
+    }
+    debouncedFunc();
+  };
+
+  useEffect(() => {
+    setEditorContent(content);
+    isUpdateStoreRef.current = false;
+    // as we don't want to update with the content as it changes frequently we update only when the current working file id's change so there will be less rerenders
+    // eslint-disable-next-line
+  }, [currentWorkingFileId]);
 
   let editorHeight =
     Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) -
@@ -33,7 +79,7 @@ const Editor = () => {
       style={{ height: editorHeight }}
     >
       <MonacoEditor
-        language="cpp"
+        language={language}
         options={{
           wordWrap: "on",
           lineNumbersMinChars: 3, // for the line numbers at the left
@@ -45,7 +91,8 @@ const Editor = () => {
             alwaysConsumeMouseWheel: false,
           },
         }}
-        value={""}
+        value={editorContent}
+        onChange={onChangeHandler}
       ></MonacoEditor>
     </div>
   );
