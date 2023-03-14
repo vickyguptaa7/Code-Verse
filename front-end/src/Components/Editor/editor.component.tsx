@@ -94,6 +94,7 @@ const Editor: React.FC<IPROPS> = ({
             alwaysConsumeMouseWheel: false,
           },
         }}
+        className=""
         value={editorContent}
         onChange={onChangeHandler}
       ></MonacoEditor>

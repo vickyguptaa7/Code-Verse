@@ -123,7 +123,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
           <FaFolder className="mr-[5px] text-[17px]" />
         </>
       ) : (
-        <VscFile className="text-[#42A5F5] ml-[18.2px] text-[18px]" />
+        <VscFile className="text-[color:var(--accent-color)] ml-[18.2px] text-[18px]" />
       )}
       <div className="relative w-full">
         <Input

@@ -1,5 +1,5 @@
 import React from "react";
-import Breakpoints from "./Breakpoints.component";
+import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 import Run from "./Run.component";
 
 const DebugContainer = () => {
@@ -10,7 +10,7 @@ const DebugContainer = () => {
       </div>
       <div className="flex flex-col h-full">
         <Run />
-        <Breakpoints />
+        <CollapsibleMenu menuName="BREAKPOINTS" children={null} />
       </div>
     </div>
   );

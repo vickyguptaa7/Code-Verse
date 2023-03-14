@@ -1,17 +1,10 @@
-import React, { useState } from "react";
-import { VscChevronRight } from "react-icons/vsc";
-import { twMerge } from "tailwind-merge";
+import React from "react";
 import Button from "../../../UI/Button.component";
+import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 const EDITOR_MIN_HEIGHT = 480;
 const SourceControl = () => {
-  const [isSourceControlOpen, setIsSourceControlOpen] = useState(true);
-
-  const toggleSourceControlHandler = () => {
-    setIsSourceControlOpen(!isSourceControlOpen);
-  };
-  const height = isSourceControlOpen
-    ? Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 90
-    : 0;
+  const height = Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 90;
+  
   // TODO : Add local files
   const openFileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files
@@ -26,22 +19,10 @@ const SourceControl = () => {
       console.log("file error", reader.error);
     };
   };
+  
   return (
     <div className="flex flex-col">
-      <div
-        className="flex cursor-pointer bg-[color:var(--sidepannel-color)] py-0.5"
-        onClick={toggleSourceControlHandler}
-      >
-        <div className="flex items-center justify-center p-1">
-          <VscChevronRight
-            className={twMerge(isSourceControlOpen ? "rotate-90" : "")}
-          />
-        </div>
-        <div className="flex items-center justify-center">
-          <h3 className="font-semibold">SOURCE CONTROL</h3>
-        </div>
-      </div>
-      {isSourceControlOpen ? (
+      <CollapsibleMenu menuName="SOURCE CONTROL" initialState={true}>
         <div
           className="flex flex-col justify-start overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4 text-[color:var(--highlight-text)] max-w-2xl"
           style={{ height: height }}
@@ -88,7 +69,7 @@ const SourceControl = () => {
             </p>
           </div>
         </div>
-      ) : null}
+      </CollapsibleMenu>
     </div>
   );
 };

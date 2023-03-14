@@ -1,8 +1,7 @@
-import Outline from "./outline.component";
-import Timeline from "./timeline.component";
 import ExplorerFolder from "./explorerFolder.component";
 
 import { twMerge } from "tailwind-merge";
+import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 
 const Explorer = () => {
   return (
@@ -12,8 +11,8 @@ const Explorer = () => {
       </div>
       <div className={twMerge("flex flex-col h-full")}>
         <ExplorerFolder />
-        <Outline />
-        <Timeline />
+        <CollapsibleMenu menuName="OUTLINE" children={null}/>
+        <CollapsibleMenu menuName="TIMELINE" children={null}/>
       </div>
     </div>
   );
