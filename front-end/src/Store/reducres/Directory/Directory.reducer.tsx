@@ -32,6 +32,22 @@ let DUMMY_FILE_INFORMATION: IFilesInforation = {
     language: "txt",
     body: "welcome you all!",
   },
+  setting: {
+    id: "setting",
+    name: "setting",
+    iconUrls: [
+      "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fsettings.svg?alt=media&token=7dcef9c8-c6ac-44ef-8f44-835b12fc59a7",
+    ],
+    language: "setting",
+    body: "",
+  },
+  extension: {
+    id: "extension",
+    name: "extension",
+    iconUrls: [],
+    language: "extension",
+    body: "",
+  },
 };
 
 const directoryInitialState = {
@@ -131,7 +147,7 @@ export const {
   setInfoOfCurrentWorkingFileOrFolder,
   setFileIcons,
   setFolderIcons,
-  updateFileBody
+  updateFileBody,
 } = directorySlice.actions;
 
 export default directorySlice.reducer;

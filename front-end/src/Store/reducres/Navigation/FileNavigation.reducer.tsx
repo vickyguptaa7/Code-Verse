@@ -6,6 +6,11 @@ let DUMMY_FILES: Array<INavFile> = [
     id: "welcome",
     type: "file",
   },
+  {
+    id: "setting",
+    type: "setting",
+  },
+  
 ];
 
 const emptyFile: INavFile = {
@@ -15,7 +20,7 @@ const emptyFile: INavFile = {
 
 const navigationFilesInitialState = {
   navFilesList: DUMMY_FILES,
-  currentNavFile: DUMMY_FILES[0],
+  currentNavFile: DUMMY_FILES[1],
 };
 
 const navigationFilesSlice = createSlice({

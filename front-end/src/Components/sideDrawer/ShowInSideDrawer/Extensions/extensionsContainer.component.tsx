@@ -11,8 +11,24 @@ const ExtensionsContainer = () => {
       <div className="flex flex-col h-full gap-3">
         <SearchExtension />
         <div>
-          <CollapsibleMenu menuName="INSTALLED" children={null} />
-          <CollapsibleMenu menuName="RECOMMENDED" children={null} />
+          <CollapsibleMenu
+            menuName="INSTALLED"
+            children={null}
+            sibbling={
+              <div className="bg-[color:var(--accent-color)] mr-2 px-1.5 rounded-full">
+                46
+              </div>
+            }
+          />
+          <CollapsibleMenu
+            menuName="RECOMMENDED"
+            children={null}
+            sibbling={
+              <div className="bg-[color:var(--accent-color)] mr-2 px-1.5 rounded-full">
+                6
+              </div>
+            }
+          />
         </div>
       </div>
     </div>

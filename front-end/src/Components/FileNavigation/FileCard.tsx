@@ -52,7 +52,17 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       : fileInfo.name.substring(0, MAX_FILE_LENGTH - 3) + "...";
 
   const changeCurrentFileInNavigationHandler = (event: React.MouseEvent) => {
-    dispatch(setCurrentNavFile({ id: fileInfo.id, type: "file" }));
+    dispatch(
+      setCurrentNavFile({
+        id: fileInfo.id,
+        type:
+          fileInfo.id === "setting"
+            ? "setting"
+            : fileInfo.id === "extension"
+            ? "extension"
+            : "file",
+      })
+    );
   };
 
   return (

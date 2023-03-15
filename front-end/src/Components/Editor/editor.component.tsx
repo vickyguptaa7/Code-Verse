@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
 import { twMerge } from "tailwind-merge";
 
-import monkaiTheme from "monaco-themes/themes/Night Owl.json";
 import useDebounce from "../../hooks/useDebounce.hook";
 import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
 // import useDebounce from "../../hooks/useDebounce.hook";
@@ -25,7 +24,6 @@ const Editor: React.FC<IPROPS> = ({
 }) => {
   // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
   let isUpdateStoreRef = useRef(true);
-
   const dispatch = useAppDispatch();
   const bottomPannelHeight = useAppSelector(
     (state) => state.bottomPannel.bottomPannelHeight
@@ -34,7 +32,7 @@ const Editor: React.FC<IPROPS> = ({
   const isBottomPannelOpen = useAppSelector(
     (state) => state.bottomPannel.isBottomPannelOpen
   );
-
+  const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
 
   const updateStore = (content: string) => {
@@ -70,7 +68,7 @@ const Editor: React.FC<IPROPS> = ({
     HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
   editorHeight -= isBottomPannelOpen ? bottomPannelHeight : 0;
 
-  useSetEditorTheme();
+  useSetEditorTheme(setIsEditorReady);
 
   return (
     <div
@@ -81,43 +79,51 @@ const Editor: React.FC<IPROPS> = ({
       )}
       style={{ height: editorHeight }}
     >
-      <MonacoEditor
-        language={language}
-        options={{
-          wordWrap: "on",
-          lineNumbersMinChars: 3, // for the line numbers at the left
-          fontSize: 16,
-          scrollBeyondLastLine: false,
-          automaticLayout: true,
-          scrollbar: {
-            // this option is to scroll the page when editor reaches at the bottom so we can scroll to the end from the editor also
-            alwaysConsumeMouseWheel: false,
-          },
-        }}
-        className=""
-        value={editorContent}
-        onChange={onChangeHandler}
-      ></MonacoEditor>
+      {isEditorReady && (
+        <MonacoEditor
+          language={language}
+          theme="Blackboard"
+          options={{
+            wordWrap: "on",
+            lineNumbersMinChars: 3, // for the line numbers at the left
+            fontSize: 16,
+            scrollBeyondLastLine: false,
+            automaticLayout: true,
+            scrollbar: {
+              // this option is to scroll the page when editor reaches at the bottom so we can scroll to the end from the editor also
+              alwaysConsumeMouseWheel: false,
+            },
+          }}
+          className=""
+          value={editorContent}
+          onChange={onChangeHandler}
+        ></MonacoEditor>
+      )}
     </div>
   );
 };
 
-const useSetEditorTheme = () => {
+const useSetEditorTheme = (setIsEditorReady: Function) => {
   const monaco = useMonaco();
   useEffect(() => {
     if (monaco) {
-      const chngecolor = async () => {
-        monaco.editor.defineTheme("monokai-bright", {
-          base: monkaiTheme.base === "vs-dark" ? "vs-dark" : "vs",
-          rules: monkaiTheme.rules,
-          inherit: monkaiTheme.inherit,
-          colors: monkaiTheme.colors,
-        });
-        monaco.editor.setTheme("monokai-bright");
-      };
-      chngecolor();
+      try {
+        const defineTheme = async () => {
+          const theme = await import("monaco-themes/themes/Night Owl.json");
+          monaco.editor.defineTheme("Blackboard", {
+            base: theme.base ? "vs-dark" : "vs",
+            rules: theme.rules,
+            inherit: theme.inherit,
+            colors: theme.colors,
+          });
+          setIsEditorReady(true);
+        };
+        defineTheme();
+      } catch (error) {
+        console.log("error : ", error);
+      }
     }
-  }, [monaco]);
+  }, [monaco,setIsEditorReady]);
 };
 
 export default Editor;

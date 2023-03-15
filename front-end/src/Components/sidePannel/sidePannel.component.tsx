@@ -8,6 +8,7 @@ import {
   VscDebugAlt,
   VscExtensions,
 } from "react-icons/vsc";
+import { addFileToNavigation } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import {
   setIsDrawerOpen,
   setShowInSideDrawer,
@@ -106,7 +107,7 @@ const Pannel = () => {
             onClickHandler={openDropMenuHandler}
           />
           <div className="relative overflow-visible">
-            {isDropMenuOpen && dropMenu(() => {}, closeDropMenuHandler)}
+            {isDropMenuOpen && dropMenu(dispatch, closeDropMenuHandler)}
           </div>
         </nav>
       </div>
@@ -115,11 +116,10 @@ const Pannel = () => {
 };
 
 function dropMenu(
-  showInBottomPannelHandler: React.MouseEventHandler,
+  dispatch: Function,
   closeDropMenuHandler: React.MouseEventHandler
 ) {
   const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    showInBottomPannelHandler(event);
     closeDropMenuHandler(event);
   };
   // TODO: Add the functionality of each buttons
@@ -130,9 +130,14 @@ function dropMenu(
     window.open(whiteBoardUrl, "_blank");
     closeDropMenuHandler(event);
   };
+
+  const openSettingHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(addFileToNavigation({ id: "setting", type: "setting" }));
+    closeDropMenuHandler(event);
+  };
   return (
     <DropMenu className=" bottom-5 left-14">
-      <DropMenuButton name="Setting" onClickHandler={onClickHandler} />
+      <DropMenuButton name="Settings" onClickHandler={openSettingHandler} />
       <DropMenuButton name="Extensions" onClickHandler={onClickHandler} />
       <DropMenuButton name="Themes" onClickHandler={onClickHandler} />
       <DropMenuButton

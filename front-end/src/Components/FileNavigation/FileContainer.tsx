@@ -18,7 +18,8 @@ const FileContainer = () => {
 
   // only have the files that exist in the file information
   const newNavList = navFilesList.filter(
-    (navFile) => filesInformation[navFile.id] !== undefined
+    (navFile) =>
+      filesInformation[navFile.id] !== undefined || navFile.type !== "file"
   );
 
   useEffect(() => {

@@ -3,8 +3,8 @@ import Button from "../../../UI/Button.component";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 const EDITOR_MIN_HEIGHT = 480;
 const SourceControl = () => {
-  const height = Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 90;
-  
+  const height = Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 100;
+
   // TODO : Add local files
   const openFileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files
@@ -19,7 +19,7 @@ const SourceControl = () => {
       console.log("file error", reader.error);
     };
   };
-  
+
   return (
     <div className="flex flex-col">
       <CollapsibleMenu menuName="SOURCE CONTROL" initialState={true}>
