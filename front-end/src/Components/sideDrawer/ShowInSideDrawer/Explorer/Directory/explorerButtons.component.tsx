@@ -65,7 +65,8 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     setIsDeleteWarningOpen(false);
   };
 
-  const deleteFileOrFolder = () => {
+  const deleteFileOrFolder = (event: React.MouseEvent) => {
+    event.stopPropagation();
     if (id && id.trim().length) dispatch(deleteFileOrFolderOfDirectory({ id }));
   };
 
@@ -73,7 +74,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     event.stopPropagation();
     if (isDeleteWarningEnable) {
       setIsDeleteWarningOpen(true);
-    } else deleteFileOrFolder();
+    } else deleteFileOrFolder(event);
   };
 
   function addFolderHandler(event: React.MouseEvent) {
@@ -151,7 +152,10 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     <>
       {isDeleteWarningOpen ? (
         <>
-          <Backdrop className="bg-opacity-30" onClick={closeDeleteWarningHandler} />
+          <Backdrop
+            className="bg-opacity-30"
+            onClick={closeDeleteWarningHandler}
+          />
           <Warning
             name={name!}
             onCancel={closeDeleteWarningHandler}

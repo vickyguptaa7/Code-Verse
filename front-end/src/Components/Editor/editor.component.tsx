@@ -1,37 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import MonacoEditor, { useMonaco } from "@monaco-editor/react";
-import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
+import { useAppDispatch } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
 
 import useDebounce from "../../hooks/useDebounce.hook";
 import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
-// import useDebounce from "../../hooks/useDebounce.hook";
-// import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
-
-const EDITOR_MIN_HEIGHT = 480;
 
 interface IPROPS {
   content: string;
   language: string | undefined;
   currentWorkingFileId: string;
+  editorHeight:number;
 }
 
 const Editor: React.FC<IPROPS> = ({
   content,
   language,
   currentWorkingFileId,
+  editorHeight,
 }) => {
   // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
   let isUpdateStoreRef = useRef(true);
   const dispatch = useAppDispatch();
-  const bottomPannelHeight = useAppSelector(
-    (state) => state.bottomPannel.bottomPannelHeight
-  );
 
-  const isBottomPannelOpen = useAppSelector(
-    (state) => state.bottomPannel.isBottomPannelOpen
-  );
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
 
@@ -62,11 +53,6 @@ const Editor: React.FC<IPROPS> = ({
     // as we don't want to update with the content as it changes frequently we update only when the current working file id's change so there will be less rerenders
     // eslint-disable-next-line
   }, [currentWorkingFileId]);
-
-  let editorHeight =
-    Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) -
-    HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
-  editorHeight -= isBottomPannelOpen ? bottomPannelHeight : 0;
 
   useSetEditorTheme(setIsEditorReady);
 

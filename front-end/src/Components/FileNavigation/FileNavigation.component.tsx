@@ -18,6 +18,10 @@ const FileNavigation = () => {
   const isBottomPannelOpen = useAppSelector(
     (state) => state.bottomPannel.isBottomPannelOpen
   );
+  const navFilesList = useAppSelector(
+    (state) => state.fileNavigation.navFilesList
+  );
+  const isNavListEmpty = navFilesList.length === 0;
   const dispatch = useAppDispatch();
 
   const closeDropMenuHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,14 +31,17 @@ const FileNavigation = () => {
   const openDropMenuHandler = () => {
     setIsDropMenuOpen(true);
   };
-
+  if (isNavListEmpty) {
+    return <></>;
+  }
+  
   return (
     <>
       {isDropMenuOpen && (
         <Backdrop onClick={closeDropMenuHandler} className="bg-transparent" />
       )}
       <div className="flex justify-between bg-[color:var(--sidepannel-color)]">
-        <FileContainer />
+        <FileContainer navFilesList={navFilesList} />
         <div className="flex items-center justify-center p-2 text-[color:var(--highlight-text-color)]">
           <Button className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]">
             <VscDebugStart className="text-2xl p-0.5" />

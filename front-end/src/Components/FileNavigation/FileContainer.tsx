@@ -2,14 +2,20 @@ import FileCard from "./FileCard";
 
 import {
   removeFileFromNavigation,
+  setCurrentNavFile,
   updateNavFileList,
 } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { useEffect } from "react";
+import { INavFile } from "../../Interface/file.interface";
 
-const FileContainer = () => {
-  const navFilesList = useAppSelector(
-    (state) => state.fileNavigation.navFilesList
+interface IPROPS {
+  navFilesList: Array<INavFile>;
+}
+
+const FileContainer: React.FC<IPROPS> = ({ navFilesList }) => {
+  const currentNavFile = useAppSelector(
+    (state) => state.fileNavigation.currentNavFile
   );
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
@@ -27,6 +33,14 @@ const FileContainer = () => {
     // nav File list should be update accordingly
     if (newNavList.length !== navFilesList.length) {
       dispatch(updateNavFileList(newNavList));
+    }
+    if (newNavList.length === 0) {
+      dispatch(setCurrentNavFile({ id: "null", type: "file" }));
+      return;
+    }
+
+    if (filesInformation[currentNavFile.id] === undefined) {
+      dispatch(setCurrentNavFile(newNavList[newNavList.length - 1]));
     }
   }, [filesInformation, dispatch]);
 
