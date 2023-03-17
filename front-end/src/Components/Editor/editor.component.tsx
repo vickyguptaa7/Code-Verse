@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
 import useDebounce from "../../hooks/useDebounce.hook";
 import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
-import "./editor.component.css"
+import "./editor.component.css";
 
 interface IPROPS {
   content: string;
@@ -114,7 +114,7 @@ const useSetEditorTheme = (setIsEditorReady: Function) => {
 };
 
 const highlight = (
-  monaco: typeof import("/Users/vicky_gupta/Desktop/code/React Projects/Online Compiler/front-end/node_modules/monaco-editor/esm/vs/editor/editor.api")|null,
+  monaco: typeof import("monaco-editor/esm/vs/editor/editor.api") | null,
   searchedText: string
 ) => {
   if (!monaco || monaco.editor.getModels().length === 0) return;
