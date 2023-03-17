@@ -26,10 +26,12 @@ const SearchResult: React.FC<IPROPS> = ({
     setSearchedResultState(searchedResult);
   }, [searchedResult]);
 
-  const removeFileHandler = (id: string) => {
+  const removeFileHandler = (event: React.MouseEvent, id: string) => {
+    event.stopPropagation();
     setSearchedResultState(searchedResult.filter((file) => id !== file.id));
   };
-  const openFileHandler = (id: string) => {
+  const openFileHandler = (event: React.MouseEvent, id: string) => {
+    event.stopPropagation();
     dispatch(addFileToNavigation({ id: id, type: "file" }));
   };
 

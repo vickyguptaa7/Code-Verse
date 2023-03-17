@@ -22,7 +22,7 @@ const Run = () => {
     <div>
       <CollapsibleMenu menuName="RUN" initialState={true}>
         <div
-          className="flex flex-col overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4  text-[color:var(--highlight-text)] max-w-2xl"
+          className="flex flex-col overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4  text-[color:var(--highlight-text)]"
           style={{ height: height }}
         >
           <Button

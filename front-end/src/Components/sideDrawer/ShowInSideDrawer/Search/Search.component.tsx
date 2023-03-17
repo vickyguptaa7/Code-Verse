@@ -29,8 +29,7 @@ const Search = () => {
   }, []);
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (searchedText === event.currentTarget.value) return;
-    setSearchedText(event.currentTarget.value);
+    setSearchedText(event.currentTarget.value.trim());
     console.log("changeInput");
   };
 
@@ -64,11 +63,13 @@ const Search = () => {
           ) : null}
         </div>
       </div>
-      <SearchResult
-        searchedText={searchedText}
-        searchedResult={data}
-        filesInformation={filesInformation}
-      />
+      {searchedText.length > 0 ? (
+        <SearchResult
+          searchedText={searchedText}
+          searchedResult={data}
+          filesInformation={filesInformation}
+        />
+      ) : null}
     </>
   );
 };

@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import MonacoEditor, { useMonaco } from "@monaco-editor/react";
 import { useAppDispatch } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
-
 import useDebounce from "../../hooks/useDebounce.hook";
 import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
+import "./editor.component.css"
 
 interface IPROPS {
   content: string;
   language: string | undefined;
   currentWorkingFileId: string;
-  editorHeight:number;
+  editorHeight: number;
 }
 
 const Editor: React.FC<IPROPS> = ({
@@ -25,7 +25,7 @@ const Editor: React.FC<IPROPS> = ({
 
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
-
+  const monaco = useMonaco();
   const updateStore = (content: string) => {
     // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
     dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
@@ -83,6 +83,7 @@ const Editor: React.FC<IPROPS> = ({
           className=""
           value={editorContent}
           onChange={onChangeHandler}
+          onMount={() => highlight(monaco, "w")}
         ></MonacoEditor>
       )}
     </div>
@@ -109,7 +110,38 @@ const useSetEditorTheme = (setIsEditorReady: Function) => {
         console.log("error : ", error);
       }
     }
-  }, [monaco,setIsEditorReady]);
+  }, [monaco, setIsEditorReady]);
+};
+
+const highlight = (
+  monaco: typeof import("/Users/vicky_gupta/Desktop/code/React Projects/Online Compiler/front-end/node_modules/monaco-editor/esm/vs/editor/editor.api")|null,
+  searchedText: string
+) => {
+  if (!monaco || monaco.editor.getModels().length === 0) return;
+  console.log(
+    monaco.editor.getModels(),
+    monaco.editor
+      .getModels()[0]
+      .findMatches(searchedText, false, false, false, null, false)
+  );
+
+  const matches = monaco.editor
+    .getModels()[0]
+    .findMatches(searchedText, false, false, false, null, false);
+  matches.forEach((match) => {
+    monaco.editor.getModels()[0].deltaDecorations(
+      [],
+      [
+        {
+          range: match.range,
+          options: {
+            isWholeLine: false,
+            inlineClassName: "highlight",
+          },
+        },
+      ]
+    );
+  });
 };
 
 export default Editor;

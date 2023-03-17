@@ -7,8 +7,8 @@ interface IPROPS {
   id: string;
   name: string;
   iconUrls: string[];
-  removeHandler: (id: string) => void;
-  openFileHandler: (id: string) => void;
+  removeHandler: (event: React.MouseEvent, id: string) => void;
+  openFileHandler: (event: React.MouseEvent, id: string) => void;
 }
 
 const SearchedFileCard: React.FC<IPROPS> = ({
@@ -34,7 +34,7 @@ const SearchedFileCard: React.FC<IPROPS> = ({
   return (
     <div
       className="flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 group hover:bg-[color:var(--hover-text-color)]"
-      onClick={() => openFileHandler(id)}
+      onClick={(event) => openFileHandler(event, id)}
     >
       <div className="flex gap-2">
         <div className="flex items-center justify-center language-logo">
@@ -48,7 +48,7 @@ const SearchedFileCard: React.FC<IPROPS> = ({
       </div>
       <div className="close-logo pt-[2px] text-[color:var(--primary-text-color)] group-hover:visible invisible">
         <Button
-          onClick={() => removeHandler(id)}
+          onClick={(event) => removeHandler(event, id)}
           className="flex items-center justify-start"
         >
           <RxCross2 className="text-lg hover:text-[color:var(--highlight-text-color)] rounded-md duration-100 p-[2px] flex" />

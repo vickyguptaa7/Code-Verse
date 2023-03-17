@@ -24,7 +24,7 @@ const SourceControl = () => {
     <div className="flex flex-col">
       <CollapsibleMenu menuName="SOURCE CONTROL" initialState={true}>
         <div
-          className="flex flex-col justify-start overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4 text-[color:var(--highlight-text)] max-w-2xl"
+          className="flex flex-col justify-start overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4 text-[color:var(--highlight-text)]"
           style={{ height: height }}
         >
           <label htmlFor="file" title="Add local files">
