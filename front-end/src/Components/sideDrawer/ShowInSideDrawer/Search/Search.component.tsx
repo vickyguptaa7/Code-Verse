@@ -5,18 +5,26 @@ import {
   IFilesInforation,
   INavFile,
 } from "../../../../Interface/file.interface";
-import { useAppSelector } from "../../../../Store/store";
+import { useAppDispatch, useAppSelector } from "../../../../Store/store";
+import { setSearchedText as updateSearchedText } from "../../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import Button from "../../../UI/Button.component";
 import SearchInput from "./Basic/SearchInput.component";
 import SearchResult from "./SearchResult.component";
+import useDebounce from "../../../../hooks/useDebounce.hook";
 
 const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchedText, setSearchedText] = useState("");
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
   );
+  const initialSearchedText = useAppSelector(
+    (state) => state.sideDrawer.searchedText
+  );
+  console.log(initialSearchedText);
+
+  const [searchedText, setSearchedText] = useState(initialSearchedText);
+  const dispatch = useAppDispatch();
   const { findSearchedTextInFiles } = useSearch();
   let data = findSearchedTextInFiles(filesInformation, searchedText);
 
@@ -24,12 +32,19 @@ const Search = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
+  const updateSearcheTextInStore = (searchedText: string) => {
+    dispatch(updateSearchedText(searchedText));
+  };
+
+  const debouncedFunc = useDebounce(updateSearcheTextInStore, 500);
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchedText(event.currentTarget.value.trim());
+    debouncedFunc(event.currentTarget.value.trim());
     console.log("changeInput");
   };
 
@@ -49,6 +64,7 @@ const Search = () => {
             inputRef={inputRef}
             name="Search"
             onChangeHandler={onChangeHandler}
+            value={searchedText}
           />
           {isSearchOpen ? (
             <div className="flex items-center justify-center w-full gap-2">

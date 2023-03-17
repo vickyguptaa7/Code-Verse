@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import MonacoEditor, { useMonaco } from "@monaco-editor/react";
-import { useAppDispatch } from "../../Store/store";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
 import useDebounce from "../../hooks/useDebounce.hook";
 import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
 import "./editor.component.css";
+import { drawerContent } from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
 
 interface IPROPS {
   content: string;
@@ -26,6 +27,11 @@ const Editor: React.FC<IPROPS> = ({
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
   const monaco = useMonaco();
+  const searchedText = useAppSelector((state) => state.sideDrawer.searchedText);
+  const showInSideDrawer = useAppSelector(
+    (state) => state.sideDrawer.showInSideDrawer
+  );
+
   const updateStore = (content: string) => {
     // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
     dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
@@ -56,6 +62,11 @@ const Editor: React.FC<IPROPS> = ({
 
   useSetEditorTheme(setIsEditorReady);
 
+  useEffect(() => {
+    if (!isEditorReady || showInSideDrawer !== "search") return;
+    setTimeout(() => highlight(monaco, searchedText, showInSideDrawer), 100);
+  });
+
   return (
     <div
       className={twMerge(
@@ -83,7 +94,7 @@ const Editor: React.FC<IPROPS> = ({
           className=""
           value={editorContent}
           onChange={onChangeHandler}
-          onMount={() => highlight(monaco, "w")}
+          onMount={() => highlight(monaco, searchedText, showInSideDrawer)}
         ></MonacoEditor>
       )}
     </div>
@@ -115,20 +126,18 @@ const useSetEditorTheme = (setIsEditorReady: Function) => {
 
 const highlight = (
   monaco: typeof import("monaco-editor/esm/vs/editor/editor.api") | null,
-  searchedText: string
+  searchedText: string,
+  showInSideDrawer: drawerContent
 ) => {
+  console.log("update highlight");
+  if (searchedText.length === 0 || showInSideDrawer !== "search") return;
   if (!monaco || monaco.editor.getModels().length === 0) return;
-  console.log(
-    monaco.editor.getModels(),
-    monaco.editor
-      .getModels()[0]
-      .findMatches(searchedText, false, false, false, null, false)
-  );
 
   const matches = monaco.editor
     .getModels()[0]
     .findMatches(searchedText, false, false, false, null, false);
   matches.forEach((match) => {
+    console.log(match);
     monaco.editor.getModels()[0].deltaDecorations(
       [],
       [
@@ -136,7 +145,10 @@ const highlight = (
           range: match.range,
           options: {
             isWholeLine: false,
-            inlineClassName: "highlight",
+            inlineClassName: "highlights",
+            // its used to avoid the change of the background of the unwanted text read about the prop in detail in doc
+            stickiness:
+              monaco.editor.TrackedRangeStickiness.NeverGrowsWhenTypingAtEdges,
           },
         },
       ]

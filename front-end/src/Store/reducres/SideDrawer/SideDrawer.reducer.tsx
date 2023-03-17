@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
+
 const sideDrawerInitialState = {
   isSidePannelPositionOnLeft: true,
   isDrawerOpen: true,
   isDrawerOpenSideIsLeft: false,
   sideDrawerWidth: 208, // 13 rem inital width of drawer
-  showInSideDrawer: "file",
+  showInSideDrawer: "file" as drawerContent,
   isDeleteWarningEnable: true,
+  searchedText: "",
 };
 
-type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
 
 const sideDrawerSlice = createSlice({
   name: "sideDrawer",
@@ -32,6 +34,9 @@ const sideDrawerSlice = createSlice({
     setIsDeleteWarningEnable(state, action: PayloadAction<boolean>) {
       state.isDeleteWarningEnable = action.payload;
     },
+    setSearchedText(state, action: PayloadAction<string>) {
+      state.searchedText = action.payload;
+    },
   },
 });
 
@@ -41,6 +46,7 @@ export const {
   setSideDrawerWidth,
   setShowInSideDrawer,
   setIsDeleteWarningEnable,
+  setSearchedText,
 } = sideDrawerSlice.actions;
 
 export default sideDrawerSlice.reducer;

@@ -6,12 +6,14 @@ interface IPROPS {
   inputRef?: React.RefObject<HTMLInputElement>;
   onChangeHandler: React.ChangeEventHandler;
   name: string;
+  value?:string
 }
 
 const SearchInput: React.FC<IPROPS> = ({
   inputRef,
   onChangeHandler,
   name,
+  value,
 }) => {
   const [isInputInFocus, setIsInputInFocus] = useState(true);
   return (
@@ -28,6 +30,7 @@ const SearchInput: React.FC<IPROPS> = ({
       )}
       onChange={onChangeHandler}
       placeholder={name}
+      value={value}
     />
   );
 };
