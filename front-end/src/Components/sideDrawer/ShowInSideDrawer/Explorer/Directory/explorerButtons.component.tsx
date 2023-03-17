@@ -61,7 +61,11 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     console.log("rename");
   };
 
-  const closeDeleteWarningHandler = () => {
+  const closeDeleteWarningHandler = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    console.log(event.currentTarget,'close');
+    event.stopPropagation();
     setIsDeleteWarningOpen(false);
   };
 

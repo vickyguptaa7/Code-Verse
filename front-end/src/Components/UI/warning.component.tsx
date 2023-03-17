@@ -7,8 +7,8 @@ import Button from "./Button.component";
 
 interface IPROPS {
   name: string;
-  onCancel: React.MouseEventHandler;
-  onDelete: React.MouseEventHandler;
+  onCancel: React.MouseEventHandler<HTMLButtonElement>;
+  onDelete: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
@@ -16,12 +16,17 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
     (state) => state.sideDrawer.isDeleteWarningEnable
   );
   const dispatch = useAppDispatch();
-  const onCheckHandler = () => {
+  const onCheckHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.stopPropagation();
+    console.log(event.currentTarget);
+    
     dispatch(setIsDeleteWarningEnable(!isChecked));
   };
-  
+
   const content = (
-    <div className="fixed z-20 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 md:-translate-y-3/4 left-1/2 top-1/2">
+    <div className="fixed z-20 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 md:-translate-y-3/4 left-1/2 top-1/2"
+    // avoid event bubbling
+    onClick={(event)=>{event.stopPropagation()}}>
       <div className="flex flex-col gap-4 p-6 bg-[color:var(--highlight-text-color)] rounded-md md:flex-row">
         <div className="flex items-center justify-center md:block ">
           <img

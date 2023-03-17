@@ -14,7 +14,9 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   const [isInputInFocus, setIsInputInFocus] = useState(false);
   const dispatch = useAppDispatch();
 
-  const addToFileNavigationHandler = () => {
+  const addToFileNavigationHandler = (event:React.MouseEvent) => {
+    console.log(event.target,"auto");
+    
     if (isInputInFocus) return;
     dispatch(addFileToNavigation({ id: fileInfo.id, type: "file" }));
   };
