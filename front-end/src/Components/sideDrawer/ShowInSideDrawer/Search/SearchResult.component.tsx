@@ -28,7 +28,7 @@ const SearchResult: React.FC<IPROPS> = ({
 
   const removeFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();
-    setSearchedResultState(searchedResult.filter((file) => id !== file.id));
+    setSearchedResultState(searchedResultState.filter((file) => id !== file.id));
   };
   const openFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();

@@ -23,9 +23,9 @@ const Editor: React.FC<IPROPS> = ({
   // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
   let isUpdateStoreRef = useRef(true);
   const dispatch = useAppDispatch();
-
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
+  let previousDecorationsRef = useRef<Array<string>>(Array<string>());
   const monaco = useMonaco();
   const searchedText = useAppSelector((state) => state.sideDrawer.searchedText);
   const showInSideDrawer = useAppSelector(
@@ -64,7 +64,10 @@ const Editor: React.FC<IPROPS> = ({
 
   useEffect(() => {
     if (!isEditorReady || showInSideDrawer !== "search") return;
-    setTimeout(() => highlight(monaco, searchedText, showInSideDrawer), 100);
+    console.log(previousDecorationsRef);
+    setTimeout(() => {
+      highlight(monaco, previousDecorationsRef, searchedText, showInSideDrawer);
+    }, 100);
   });
 
   return (
@@ -94,7 +97,14 @@ const Editor: React.FC<IPROPS> = ({
           className=""
           value={editorContent}
           onChange={onChangeHandler}
-          onMount={() => highlight(monaco, searchedText, showInSideDrawer)}
+          onMount={() => {
+            highlight(
+              monaco,
+              previousDecorationsRef,
+              searchedText,
+              showInSideDrawer
+            );
+          }}
         ></MonacoEditor>
       )}
     </div>
@@ -124,36 +134,76 @@ const useSetEditorTheme = (setIsEditorReady: Function) => {
   }, [monaco, setIsEditorReady]);
 };
 
-const highlight = (
+function highlight(
   monaco: typeof import("monaco-editor/esm/vs/editor/editor.api") | null,
+  previousDecorationsRef: React.RefObject<Array<string>>,
   searchedText: string,
   showInSideDrawer: drawerContent
-) => {
+) {
   console.log("update highlight");
-  if (searchedText.length === 0 || showInSideDrawer !== "search") return;
+  if (showInSideDrawer !== "search") return;
   if (!monaco || monaco.editor.getModels().length === 0) return;
+
+  console.log(previousDecorationsRef.current, "before");
+  console.log(monaco.editor.getModels());
 
   const matches = monaco.editor
     .getModels()[0]
-    .findMatches(searchedText, false, false, false, null, false);
+    .findMatches(searchedText, true, false, false, null, false);
+
+  // if matches are not found or the string is empty then we remove all the previous highlighting
+  if (searchedText.length === 0 || matches.length === 0) {
+    monaco.editor
+      .getModels()[0]
+      .deltaDecorations(
+        previousDecorationsRef.current ? previousDecorationsRef.current : [],
+        []
+      );
+    previousDecorationsRef.current?.splice(
+      0,
+      previousDecorationsRef.current.length
+    );
+    return;
+  }
+
+  // storing the new decorations so that when we apply another one we can remove this one
+  const newDecorations = Array<string>();
+
+  // iterate over all the matches found and apply the decorations
   matches.forEach((match) => {
-    console.log(match);
-    monaco.editor.getModels()[0].deltaDecorations(
-      [],
-      [
-        {
-          range: match.range,
-          options: {
-            isWholeLine: false,
-            inlineClassName: "highlights",
-            // its used to avoid the change of the background of the unwanted text read about the prop in detail in doc
-            stickiness:
-              monaco.editor.TrackedRangeStickiness.NeverGrowsWhenTypingAtEdges,
-          },
-        },
-      ]
+    // store the new decorations
+    newDecorations.push(
+      monaco.editor
+        .getModels()[0]
+        .deltaDecorations(
+          previousDecorationsRef.current ? previousDecorationsRef.current : [],
+          [
+            {
+              range: match.range,
+              options: {
+                isWholeLine: false,
+                inlineClassName: "highlights",
+                // its used to avoid the change of the background of the unwanted text read about the prop in detail in doc
+                stickiness:
+                  monaco.editor.TrackedRangeStickiness
+                    .NeverGrowsWhenTypingAtEdges,
+              },
+            },
+          ]
+        )[0]
     );
   });
-};
+
+  // removing the prev decorations from the ref
+  previousDecorationsRef.current?.splice(
+    0,
+    previousDecorationsRef.current.length
+  );
+  
+  // now storing the new decoration in the ref
+  for (const decor of newDecorations) {
+    previousDecorationsRef.current?.push(decor);
+  }
+}
 
 export default Editor;

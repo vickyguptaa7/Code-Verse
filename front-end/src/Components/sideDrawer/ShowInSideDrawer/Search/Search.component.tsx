@@ -21,12 +21,12 @@ const Search = () => {
   const initialSearchedText = useAppSelector(
     (state) => state.sideDrawer.searchedText
   );
-  console.log(initialSearchedText);
 
   const [searchedText, setSearchedText] = useState(initialSearchedText);
   const dispatch = useAppDispatch();
   const { findSearchedTextInFiles } = useSearch();
-  let data = findSearchedTextInFiles(filesInformation, searchedText);
+  // to avoid redundant space on start and end
+  let data = findSearchedTextInFiles(filesInformation, searchedText.trim());
 
   const toggleSearchHandler = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -43,8 +43,8 @@ const Search = () => {
   }, []);
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchedText(event.currentTarget.value.trim());
-    debouncedFunc(event.currentTarget.value.trim());
+    setSearchedText(event.currentTarget.value);
+    debouncedFunc(event.currentTarget.value);
     console.log("changeInput");
   };
 
