@@ -20,24 +20,30 @@ const Editor: React.FC<IPROPS> = ({
   currentWorkingFileId,
   editorHeight,
 }) => {
+  const monaco = useMonaco();
   // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
   let isUpdateStoreRef = useRef(true);
+
+  let previousDecorationsRef = useRef<{
+    [key: string]: Array<string>;
+  }>({});
   const dispatch = useAppDispatch();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
-  let previousDecorationsRef = useRef<Array<string>>(Array<string>());
-  const monaco = useMonaco();
   const searchedText = useAppSelector((state) => state.sideDrawer.searchedText);
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
-
+  if (previousDecorationsRef.current[currentWorkingFileId] === undefined) {
+    previousDecorationsRef.current[currentWorkingFileId] = Array<string>();
+  }
   const updateStore = (content: string) => {
     // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
     dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
   };
 
-  const debouncedFunc = useDebounce(updateStore, 500);
+  const debouncedUpdateSearchedText = useDebounce(updateStore, 500);
+  const debouncedUpdateHightlightText = useDebounce(highlight, 500);
 
   const onChangeHandler = (value: string | undefined) => {
     // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
@@ -50,7 +56,7 @@ const Editor: React.FC<IPROPS> = ({
     if (value === undefined) return;
     console.log(value);
     setEditorContent(value);
-    debouncedFunc(value);
+    debouncedUpdateSearchedText(value);
   };
 
   useEffect(() => {
@@ -63,12 +69,14 @@ const Editor: React.FC<IPROPS> = ({
   useSetEditorTheme(setIsEditorReady);
 
   useEffect(() => {
-    if (!isEditorReady || showInSideDrawer !== "search") return;
-    console.log(previousDecorationsRef);
-    setTimeout(() => {
-      highlight(monaco, previousDecorationsRef, searchedText, showInSideDrawer);
-    }, 100);
-  });
+    debouncedUpdateHightlightText(
+      monaco,
+      previousDecorationsRef,
+      searchedText,
+      showInSideDrawer,
+      currentWorkingFileId
+    );
+  }, [showInSideDrawer, monaco, searchedText, currentWorkingFileId]);
 
   return (
     <div
@@ -94,7 +102,6 @@ const Editor: React.FC<IPROPS> = ({
               alwaysConsumeMouseWheel: false,
             },
           }}
-          className=""
           value={editorContent}
           onChange={onChangeHandler}
           onMount={() => {
@@ -102,7 +109,8 @@ const Editor: React.FC<IPROPS> = ({
               monaco,
               previousDecorationsRef,
               searchedText,
-              showInSideDrawer
+              showInSideDrawer,
+              currentWorkingFileId
             );
           }}
         ></MonacoEditor>
@@ -136,15 +144,17 @@ const useSetEditorTheme = (setIsEditorReady: Function) => {
 
 function highlight(
   monaco: typeof import("monaco-editor/esm/vs/editor/editor.api") | null,
-  previousDecorationsRef: React.RefObject<Array<string>>,
+  previousDecorationsRef: React.RefObject<{
+    [key: string]: Array<string>;
+  }>,
   searchedText: string,
-  showInSideDrawer: drawerContent
+  showInSideDrawer: drawerContent,
+  currentWorkingFileId: string
 ) {
   console.log("update highlight");
-  if (showInSideDrawer !== "search") return;
   if (!monaco || monaco.editor.getModels().length === 0) return;
 
-  console.log(previousDecorationsRef.current, "before");
+  console.log(previousDecorationsRef.current![currentWorkingFileId], "before");
   console.log(monaco.editor.getModels());
 
   const matches = monaco.editor
@@ -152,57 +162,62 @@ function highlight(
     .findMatches(searchedText, true, false, false, null, false);
 
   // if matches are not found or the string is empty then we remove all the previous highlighting
-  if (searchedText.length === 0 || matches.length === 0) {
-    monaco.editor
-      .getModels()[0]
-      .deltaDecorations(
-        previousDecorationsRef.current ? previousDecorationsRef.current : [],
-        []
-      );
-    previousDecorationsRef.current?.splice(
+  const previousDecor: Array<string> = previousDecorationsRef.current![
+    currentWorkingFileId
+  ]
+    ? previousDecorationsRef.current![currentWorkingFileId]
+    : [];
+
+  monaco.editor.getModels()[0].deltaDecorations(previousDecor, []);
+  if (
+    searchedText.length === 0 ||
+    matches.length === 0 ||
+    showInSideDrawer !== "search"
+  ) {
+    previousDecorationsRef.current![currentWorkingFileId]?.splice(
       0,
-      previousDecorationsRef.current.length
+      previousDecorationsRef.current![currentWorkingFileId].length
     );
     return;
   }
 
   // storing the new decorations so that when we apply another one we can remove this one
   const newDecorations = Array<string>();
+  console.log(matches);
 
   // iterate over all the matches found and apply the decorations
   matches.forEach((match) => {
     // store the new decorations
     newDecorations.push(
-      monaco.editor
-        .getModels()[0]
-        .deltaDecorations(
-          previousDecorationsRef.current ? previousDecorationsRef.current : [],
-          [
-            {
-              range: match.range,
-              options: {
-                isWholeLine: false,
-                inlineClassName: "highlights",
-                // its used to avoid the change of the background of the unwanted text read about the prop in detail in doc
-                stickiness:
-                  monaco.editor.TrackedRangeStickiness
-                    .NeverGrowsWhenTypingAtEdges,
-              },
+      monaco.editor.getModels()[0].deltaDecorations(
+        [],
+        [
+          {
+            range: match.range,
+            options: {
+              isWholeLine: false,
+              inlineClassName: "highlights",
+              // its used to avoid the change of the background of the unwanted text read about the prop in detail in doc
+              stickiness:
+                monaco.editor.TrackedRangeStickiness
+                  .NeverGrowsWhenTypingAtEdges,
             },
-          ]
-        )[0]
+          },
+        ]
+      )[0]
     );
   });
 
   // removing the prev decorations from the ref
-  previousDecorationsRef.current?.splice(
+  previousDecorationsRef.current![currentWorkingFileId].splice(
     0,
-    previousDecorationsRef.current.length
+    previousDecorationsRef.current![currentWorkingFileId].length
   );
-  
+  console.log(newDecorations);
+
   // now storing the new decoration in the ref
   for (const decor of newDecorations) {
-    previousDecorationsRef.current?.push(decor);
+    previousDecorationsRef.current![currentWorkingFileId].push(decor);
   }
 }
 
