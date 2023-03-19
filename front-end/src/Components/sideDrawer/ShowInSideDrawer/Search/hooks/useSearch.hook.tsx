@@ -10,7 +10,7 @@ const useSearch = () => {
     const matchingFiles = new Array<INavFile>();
     for (const key in filesInformation) {
       if (key === "settings" || key === "extension") continue;
-      if (filesInformation[key].body.includes(searchedText)) {
+      if (filesInformation[key].body.toLocaleLowerCase().includes(searchedText.toLowerCase())) {
         matchingFiles.push({ id: key, type: "file" });
       }
     }

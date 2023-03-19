@@ -6,6 +6,8 @@ import useDebounce from "../../hooks/useDebounce.hook";
 import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
 import "./editor.component.css";
 import { drawerContent } from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
+import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
+import useHighlightText from "./hooks/useHighlightText.hook";
 
 interface IPROPS {
   content: string;
@@ -36,26 +38,31 @@ const Editor: React.FC<IPROPS> = ({
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
-
+  const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
   if (previousDecorationsRef.current[currentWorkingFileId] === undefined) {
     previousDecorationsRef.current[currentWorkingFileId] = Array<string>();
   }
 
+  useSetEditorTheme(monaco, setIsEditorReady);
+  const { highlightText } = useHighlightText();
+  
+  // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
   const updateStore = (content: string) => {
-    // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
     dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
   };
 
   const debouncedUpdateSearchedText = useDebounce(updateStore, 500);
-  const debouncedUpdateHightlightText = useDebounce(highlight, 250);
+  const debouncedUpdateHightlightText = useDebounce(highlightText, 250);
 
   const onChangeHandler = (value: string | undefined) => {
+
     // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
     // as currentWorkingFileId changes use effect will update with initial value
     if (!isUpdateStoreRef.current.valueOf()) {
       isUpdateStoreRef.current = true;
       return;
     }
+    
     // if it returns undefined then we don't do any changes
     if (value === undefined) return;
     console.log(value);
@@ -70,17 +77,22 @@ const Editor: React.FC<IPROPS> = ({
     // eslint-disable-next-line
   }, [currentWorkingFileId]);
 
-  useSetEditorTheme(setIsEditorReady);
-
   useEffect(() => {
     debouncedUpdateHightlightText(
       monaco,
       previousDecorationsRef,
       searchedText,
       showInSideDrawer,
+      isDrawerOpen,
       currentWorkingFileId
     );
-  }, [showInSideDrawer, monaco, searchedText, currentWorkingFileId]);
+  }, [
+    showInSideDrawer,
+    monaco,
+    searchedText,
+    currentWorkingFileId,
+    isDrawerOpen,
+  ]);
 
   return (
     <div
@@ -109,11 +121,12 @@ const Editor: React.FC<IPROPS> = ({
           value={editorContent}
           onChange={onChangeHandler}
           onMount={() => {
-            highlight(
+            highlightText(
               monaco,
               previousDecorationsRef,
               searchedText,
               showInSideDrawer,
+              isDrawerOpen,
               currentWorkingFileId
             );
           }}
@@ -122,107 +135,5 @@ const Editor: React.FC<IPROPS> = ({
     </div>
   );
 };
-
-const useSetEditorTheme = (setIsEditorReady: Function) => {
-  const monaco = useMonaco();
-  useEffect(() => {
-    if (monaco) {
-      try {
-        const defineTheme = async () => {
-          const theme = await import("monaco-themes/themes/Night Owl.json");
-          monaco.editor.defineTheme("Blackboard", {
-            base: theme.base ? "vs-dark" : "vs",
-            rules: theme.rules,
-            inherit: theme.inherit,
-            colors: theme.colors,
-          });
-          setIsEditorReady(true);
-        };
-        defineTheme();
-      } catch (error) {
-        console.log("error : ", error);
-      }
-    }
-  }, [monaco, setIsEditorReady]);
-};
-
-function highlight(
-  monaco: typeof import("monaco-editor/esm/vs/editor/editor.api") | null,
-  previousDecorationsRef: React.RefObject<{
-    [key: string]: Array<string>;
-  }>,
-  searchedText: string,
-  showInSideDrawer: drawerContent,
-  currentWorkingFileId: string
-) {
-  console.log("update highlight");
-  if (!monaco || monaco.editor.getModels().length === 0) return;
-
-  console.log(previousDecorationsRef.current![currentWorkingFileId], "before");
-  console.log(monaco.editor.getModels());
-
-  const matches = monaco.editor
-    .getModels()[0]
-    .findMatches(searchedText, true, false, false, null, false);
-
-  // if matches are not found or the string is empty then we remove all the previous highlighting
-  const previousDecor: Array<string> = previousDecorationsRef.current![
-    currentWorkingFileId
-  ]
-    ? previousDecorationsRef.current![currentWorkingFileId]
-    : [];
-  // first removing all the previouse decorations
-  monaco.editor.getModels()[0].deltaDecorations(previousDecor, []);
-  if (
-    searchedText.length === 0 ||
-    matches.length === 0 ||
-    showInSideDrawer !== "search"
-  ) {
-    previousDecorationsRef.current![currentWorkingFileId]?.splice(
-      0,
-      previousDecorationsRef.current![currentWorkingFileId].length
-    );
-    return;
-  }
-
-  // storing the new decorations so that when we apply another one we can remove this one
-  const newDecorations = Array<string>();
-  console.log(matches);
-
-  // iterate over all the matches found and apply the decorations
-  matches.forEach((match) => {
-    // store the new decorations
-    newDecorations.push(
-      monaco.editor.getModels()[0].deltaDecorations(
-        [],
-        [
-          {
-            range: match.range,
-            options: {
-              isWholeLine: false,
-              inlineClassName: "highlights",
-              // its used to avoid the change of the background of the unwanted text read about the prop in detail in doc
-              stickiness:
-                monaco.editor.TrackedRangeStickiness
-                  .NeverGrowsWhenTypingAtEdges,
-            },
-          },
-        ]
-      )[0]
-    );
-  });
-
-  // removing the prev decorations from the ref
-  previousDecorationsRef.current![currentWorkingFileId].splice(
-    0,
-    previousDecorationsRef.current![currentWorkingFileId].length
-  );
-  console.log(newDecorations);
-
-  // now storing the new decoration in the ref
-  for (const decor of newDecorations) {
-    previousDecorationsRef.current![currentWorkingFileId].push(decor);
-  }
-}
 
 export default Editor;
