@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   IFilesInforation,
-  INavFile,
 } from "../../../../Interface/file.interface";
 import { addFileToNavigation } from "../../../../Store/reducres/Navigation/FileNavigation.reducer";
-import { useAppDispatch } from "../../../../Store/store";
+import { setSearchedResultFiles } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
+import { useAppDispatch, useAppSelector } from "../../../../Store/store";
 import SearchedFileCard from "./Basic/SearchedFileCard.component";
 
 interface IPROPS {
-  searchedResult: Array<INavFile>;
   filesInformation: IFilesInforation;
 }
 
 const SearchResult: React.FC<IPROPS> = ({
-  searchedResult,
   filesInformation,
 }) => {
-  const [searchedResultState, setSearchedResultState] =
-    useState(searchedResult);
+  const searchedResultFiles = useAppSelector(
+    (state) => state.search.searchedResultFiles
+  );
+  
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    setSearchedResultState(searchedResult);
-  }, [searchedResult]);
 
   const removeFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();
-    setSearchedResultState(searchedResultState.filter((file) => id !== file.id));
+    dispatch(
+      setSearchedResultFiles(
+        searchedResultFiles.filter((file) => id !== file.id)
+      )
+    );
   };
   const openFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();
     dispatch(addFileToNavigation({ id: id, type: "file" }));
   };
 
-  let results = searchedResultState.map((file) => (
+  let results = searchedResultFiles.map((file) => (
     <SearchedFileCard
       key={file.id}
       iconUrls={filesInformation[file.id].iconUrls}

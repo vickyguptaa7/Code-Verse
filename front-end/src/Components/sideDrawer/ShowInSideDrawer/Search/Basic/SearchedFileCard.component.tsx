@@ -1,7 +1,9 @@
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
-import { VscFile } from "react-icons/vsc";
+import { VscFile, VscReplace } from "react-icons/vsc";
+import { useAppSelector } from "../../../../../Store/store";
 import Button from "../../../../UI/Button.component";
+import useSearch from "../hooks/useSearch.hook";
 
 interface IPROPS {
   id: string;
@@ -18,6 +20,8 @@ const SearchedFileCard: React.FC<IPROPS> = ({
   removeHandler,
   openFileHandler,
 }) => {
+  const isReplaceOpen = useAppSelector((state) => state.search.isReplaceOpen);
+  const { replaceTextInFiles } = useSearch();
   let languageLogo: JSX.Element;
 
   if (iconUrls.length === 0)
@@ -46,9 +50,22 @@ const SearchedFileCard: React.FC<IPROPS> = ({
           </h1>
         </div>
       </div>
-      <div className="close-logo pt-[2px] text-[color:var(--primary-text-color)] group-hover:visible invisible">
+      <div className="close-logo pt-[2px] text-[color:var(--primary-text-color)] group-hover:visible invisible flex">
+        {isReplaceOpen ? (
+          <Button
+            onClick={(event) => {
+              event.stopPropagation();
+              replaceTextInFiles([{ id: id, type: "file" }]);
+            }}
+            className="flex items-center justify-start"
+            title="Replace"
+          >
+            <VscReplace className="text-lg hover:text-[color:var(--highlight-text-color)] rounded-md duration-100 p-[2px] flex" />
+          </Button>
+        ) : null}
         <Button
           onClick={(event) => removeHandler(event, id)}
+          title="Remove"
           className="flex items-center justify-start"
         >
           <RxCross2 className="text-lg hover:text-[color:var(--highlight-text-color)] rounded-md duration-100 p-[2px] flex" />

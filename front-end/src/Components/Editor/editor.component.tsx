@@ -33,7 +33,7 @@ const Editor: React.FC<IPROPS> = ({
   const dispatch = useAppDispatch();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
-  const searchedText = useAppSelector((state) => state.sideDrawer.searchedText);
+  const searchedText = useAppSelector((state) => state.search.searchedText);
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
@@ -44,7 +44,7 @@ const Editor: React.FC<IPROPS> = ({
 
   useSetEditorTheme(monaco, setIsEditorReady);
   const { highlightText } = useHighlightText();
-  
+
   // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
   const updateStore = (content: string) => {
     dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
@@ -54,14 +54,13 @@ const Editor: React.FC<IPROPS> = ({
   const debouncedUpdateHightlightText = useDebounce(highlightText, 250);
 
   const onChangeHandler = (value: string | undefined) => {
-
     // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
     // as currentWorkingFileId changes use effect will update with initial value
     if (!isUpdateStoreRef.current.valueOf()) {
       isUpdateStoreRef.current = true;
       return;
     }
-    
+
     // if it returns undefined then we don't do any changes
     if (value === undefined) return;
     console.log(value);
@@ -74,7 +73,7 @@ const Editor: React.FC<IPROPS> = ({
     isUpdateStoreRef.current = false;
     // as we don't want to update with the content as it changes frequently we update only when the current working file id's change so there will be less rerenders
     // eslint-disable-next-line
-  }, [currentWorkingFileId]);
+  }, [currentWorkingFileId,content]);
 
   useEffect(() => {
     debouncedUpdateHightlightText(

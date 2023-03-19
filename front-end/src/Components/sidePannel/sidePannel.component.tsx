@@ -30,6 +30,7 @@ const Pannel = () => {
   );
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
   const sideDrawerHandler = (showDrawer: boolean) => {
+    if (isDrawerOpen === showDrawer) return;
     dispatch(setIsDrawerOpen(showDrawer));
   };
 
