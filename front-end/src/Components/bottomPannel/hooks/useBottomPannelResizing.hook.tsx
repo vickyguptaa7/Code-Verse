@@ -4,12 +4,12 @@ import {
   BOTTOM_PANNEL_MIN_SIZE_PX,
   FOOTER_HIGHT,
   HEIGHT_OF_FILENAVIGATION_AND_FOOTER,
-} from "../Components/bottomPannel/BottomPannel.Constant";
+} from "../BottomPannel.Constant";
 import {
   setBottomPannelHeight,
   setIsMinimizeBottomPannel,
-} from "../Store/reducres/BottomPannel/BottomPannel.reducer";
-import { useAppDispatch, useAppSelector } from "../Store/store";
+} from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import { useAppDispatch, useAppSelector } from "../../../Store/store";
 
 const EDITOR_MIN_HEIGHT = 480;
 

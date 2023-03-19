@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { VscChevronRight } from "react-icons/vsc";
+import useInputFocus from "../../../hooks/useInputFocus.hook";
 import { useAppSelector } from "../../../Store/store";
 import Input from "../../UI/Input.component";
 
@@ -9,9 +10,7 @@ const Debug = () => {
     (state) => state.bottomPannel.debugContent
   );
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [inputRef]);
+  useInputFocus(inputRef);
 
   return (
     <div className="flex flex-col justify-between w-full h-full">

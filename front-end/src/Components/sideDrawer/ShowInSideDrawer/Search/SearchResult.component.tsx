@@ -8,13 +8,11 @@ import { useAppDispatch } from "../../../../Store/store";
 import SearchedFileCard from "./Basic/SearchedFileCard.component";
 
 interface IPROPS {
-  searchedText: string;
   searchedResult: Array<INavFile>;
   filesInformation: IFilesInforation;
 }
 
 const SearchResult: React.FC<IPROPS> = ({
-  searchedText,
   searchedResult,
   filesInformation,
 }) => {

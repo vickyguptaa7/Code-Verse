@@ -15,7 +15,7 @@ const ExtensionsContainer = () => {
             menuName="INSTALLED"
             children={null}
             sibbling={
-              <div className="bg-[color:var(--accent-color)] mr-2 px-1.5 rounded-full">
+              <div className="bg-[color:var(--accent-color)] mr-2 px-1.5 rounded-full flex items-center justify-center text-xs">
                 46
               </div>
             }
@@ -24,7 +24,7 @@ const ExtensionsContainer = () => {
             menuName="RECOMMENDED"
             children={null}
             sibbling={
-              <div className="bg-[color:var(--accent-color)] mr-2 px-1.5 rounded-full">
+              <div className="bg-[color:var(--accent-color)] mr-2 px-1.5 rounded-full flex items-center justify-center text-xs">
                 6
               </div>
             }

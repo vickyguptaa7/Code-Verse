@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../Store/store";
 import BottomPannelNavigation from "./BottomPannelNavigation/BottomPannelNavigation.component";
 import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.component";
-import useBottomPannelResizing from "../../hooks/useBottomPannelResizing.hook";
+import useBottomPannelResizing from "./hooks/useBottomPannelResizing.hook";
 
 const BottomPannelContainer = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);

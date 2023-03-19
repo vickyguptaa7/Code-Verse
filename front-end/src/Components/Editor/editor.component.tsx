@@ -24,9 +24,11 @@ const Editor: React.FC<IPROPS> = ({
   // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
   let isUpdateStoreRef = useRef(true);
 
+  // storing the prev decorations of all the files if they are used in search so that we can remove the prev change and apply the new one
   let previousDecorationsRef = useRef<{
     [key: string]: Array<string>;
   }>({});
+
   const dispatch = useAppDispatch();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
@@ -34,16 +36,18 @@ const Editor: React.FC<IPROPS> = ({
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
+
   if (previousDecorationsRef.current[currentWorkingFileId] === undefined) {
     previousDecorationsRef.current[currentWorkingFileId] = Array<string>();
   }
+
   const updateStore = (content: string) => {
     // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
     dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
   };
 
   const debouncedUpdateSearchedText = useDebounce(updateStore, 500);
-  const debouncedUpdateHightlightText = useDebounce(highlight, 500);
+  const debouncedUpdateHightlightText = useDebounce(highlight, 250);
 
   const onChangeHandler = (value: string | undefined) => {
     // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
@@ -167,7 +171,7 @@ function highlight(
   ]
     ? previousDecorationsRef.current![currentWorkingFileId]
     : [];
-
+  // first removing all the previouse decorations
   monaco.editor.getModels()[0].deltaDecorations(previousDecor, []);
   if (
     searchedText.length === 0 ||

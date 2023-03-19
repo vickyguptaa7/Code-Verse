@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import useInputFocus from "../../../../hooks/useInputFocus.hook";
 import Input from "../../../UI/Input.component";
 
 const SearchExtension = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isSearchInFocus, setIsSearchInFocus] = useState(true);
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+  useInputFocus(inputRef);
 
   return (
     <div className="flex cursor-pointer  py-0.5 pl-5 gap-1">

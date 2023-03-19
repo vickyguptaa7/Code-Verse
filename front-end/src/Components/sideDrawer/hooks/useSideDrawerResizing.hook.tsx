@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import {
   MAX_DRAWER_SIZE_IN_PERCENT,
   MIN_DRAWER_SIZE_PX,
-} from "../Components/sideDrawer/sideDrawer.Constant";
-import { SIDE_PANNEL_WIDTH } from "../Components/sidePannel/SidePannel.constants";
-import { setSideDrawerWidth } from "../Store/reducres/SideDrawer/SideDrawer.reducer";
-import { useAppDispatch, useAppSelector } from "../Store/store";
+} from "../sideDrawer.Constant";
+import { SIDE_PANNEL_WIDTH } from "../../sidePannel/SidePannel.constants";
+import { setSideDrawerWidth } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
+import { useAppDispatch, useAppSelector } from "../../../Store/store";
 
 const useSideDrawerResizing = (
   setIsDrawerResizing: Function,

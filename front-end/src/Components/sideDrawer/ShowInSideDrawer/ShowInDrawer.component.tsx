@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../../Store/store";
 import { ErrorBoundary } from "react-error-boundary";
 
-import useSideDrawerResizing from "../../../hooks/useSideDrawerResizing.hook";
+import useSideDrawerResizing from "../hooks/useSideDrawerResizing.hook";
 import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
 
 import ExplorerContainer from "./Explorer/ExplorerContainer.component";
@@ -17,7 +17,9 @@ const ExtensionsContainer = lazy(
 const SourceControlContainer = lazy(
   () => import("./SourceControl/SourceControlContainer.component")
 );
-const SearchContainer = lazy(() => import("./Search/searchContainer.component"));
+const SearchContainer = lazy(
+  () => import("./Search/searchContainer.component")
+);
 
 const Drawer = () => {
   const refDrawer = useRef<HTMLDivElement>(null);
@@ -36,7 +38,8 @@ const Drawer = () => {
   useSideDrawerResizing(setIsDrawerResizing, refResizer, refDrawer);
 
   let showComponentInDrawer = <ExplorerContainer />;
-  if (showInSideDrawer === "search") showComponentInDrawer = <SearchContainer />;
+  if (showInSideDrawer === "search")
+    showComponentInDrawer = <SearchContainer />;
   else if (showInSideDrawer === "git")
     showComponentInDrawer = <SourceControlContainer />;
   else if (showInSideDrawer === "debug")
