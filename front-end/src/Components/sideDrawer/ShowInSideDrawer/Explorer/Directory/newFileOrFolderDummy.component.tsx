@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { FaFolder } from "react-icons/fa";
 import { VscChevronRight, VscFile } from "react-icons/vsc";
+
+import { v4 as uuid4 } from "uuid";
 import { twMerge } from "tailwind-merge";
+
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/Directory/Directory.reducer";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
+
 import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
@@ -70,15 +74,20 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
       setIsFileOrFolder("none");
       // Added timeout so that there is setFileOrFolder will update and the dummyfileorfolder get removed first and then our new folder or file gets added to directory
       // if its not done then it will add file or folder to directory first and then dummyfileorfolder gets removed so there is wierd ui change
+      const newId = uuid4();
       setTimeout(() => {
         dispatch(
           addFileOrFolderToDirectory({
+            id: newId,
             parentId,
             name: childName,
             isFolder: isFileOrFolder === "folder",
           })
         );
         //TODO: Add file to navigation after it's been added to directory
+        if (isFileOrFolder === "file") {
+          dispatch(addFileToNavigation({ id: newId, type: "file" }));
+        }
       }, 20);
       setIsExistAlready(false);
     }, 160);
@@ -102,15 +111,20 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
       setIsFileOrFolder("none");
       // Added timeout so that there is setFileOrFolder will update and the dummyfileorfolder get removed first and then our new folder or file gets added to directory
       // if its not done then it will add file or folder to directory first and then dummyfileorfolder gets removed so there is wierd ui change
+      const newId = uuid4();
       setTimeout(() => {
         dispatch(
           addFileOrFolderToDirectory({
+            id: newId,
             parentId,
             name: childName,
             isFolder: isFileOrFolder === "folder",
           })
         );
         //TODO: Add file to navigation after it's been added to directory
+        if (isFileOrFolder === "file") {
+          dispatch(addFileToNavigation({ id: newId, type: "file" }));
+        }
       }, 0);
       setIsExistAlready(false);
     }

@@ -45,6 +45,7 @@ const traverseInDirectoryForAdd = (
   directories: Array<IDirectory>,
   iconList: iconObject,
   info: {
+    id: string;
     parentId: string;
     name: string;
     isFolder: boolean;
@@ -204,14 +205,14 @@ function addFileOrFolder(
   directories: Array<IDirectory>,
   iconList: iconObject,
   info: {
+    id: string;
     parentId: string;
     name: string;
     isFolder: boolean;
   }
 ) {
-  const id = new Date().getTime().toString();
   const newItem = {
-    id: id,
+    id: info.id,
     parentId: info.parentId,
     name: info.name.trim(),
     iconUrls: findIconUrl(info.name, info.isFolder, iconList),
@@ -221,8 +222,8 @@ function addFileOrFolder(
   directories.unshift(newItem);
 
   if (!info.isFolder) {
-    filesInformation[id] = {
-      id: id,
+    filesInformation[info.id] = {
+      id: info.id,
       name: newItem.name,
       iconUrls: newItem.iconUrls,
       body: "",

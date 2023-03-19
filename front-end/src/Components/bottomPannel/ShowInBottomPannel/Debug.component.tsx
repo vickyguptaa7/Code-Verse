@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { VscChevronRight } from "react-icons/vsc";
 import useInputFocus from "../../../hooks/useInputFocus.hook";
 import { useAppSelector } from "../../../Store/store";

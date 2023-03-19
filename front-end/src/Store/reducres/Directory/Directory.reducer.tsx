@@ -69,6 +69,7 @@ const directorySlice = createSlice({
     addFileOrFolderToDirectory(
       state,
       action: PayloadAction<{
+        id:string,
         parentId: string;
         name: string;
         isFolder: boolean;

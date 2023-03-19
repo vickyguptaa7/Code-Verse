@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import useInputFocus from "../../../../hooks/useInputFocus.hook";
 import Input from "../../../UI/Input.component";
