@@ -84,7 +84,6 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
             isFolder: isFileOrFolder === "folder",
           })
         );
-        //TODO: Add file to navigation after it's been added to directory
         if (isFileOrFolder === "file") {
           dispatch(addFileToNavigation({ id: newId, type: "file" }));
         }
@@ -121,7 +120,6 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
             isFolder: isFileOrFolder === "folder",
           })
         );
-        //TODO: Add file to navigation after it's been added to directory
         if (isFileOrFolder === "file") {
           dispatch(addFileToNavigation({ id: newId, type: "file" }));
         }
