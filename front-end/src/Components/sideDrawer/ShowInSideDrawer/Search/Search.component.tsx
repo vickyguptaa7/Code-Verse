@@ -13,10 +13,10 @@ import { setSearchedText as updateSearchedText } from "../../../../Store/reducre
 
 import useDebounce from "../../../../hooks/useDebounce.hook";
 import useSearch from "./hooks/useSearch.hook";
-import useInputFocus from "../../../../hooks/useInputFocus.hook";
 
 const Search = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const replaceRef = useRef<HTMLInputElement>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
@@ -37,9 +37,6 @@ const Search = () => {
       findSearchedTextInFiles(filesInformation, initialSearchedText.trim())
     );
   }, [initialSearchedText, filesInformation]);
-
-  // for the initial focus on the search input
-  useInputFocus(inputRef);
 
   const updateSearcheTextInStore = (searchedText: string) => {
     dispatch(updateSearchedText(searchedText));
@@ -73,16 +70,20 @@ const Search = () => {
         </div>
         <div className="flex flex-col items-center justify-center w-full gap-2">
           <SearchInput
-            inputRef={inputRef}
+            inputRef={searchRef}
             name="Search"
             onChangeHandler={onChangeHandler}
             value={searchedText}
           />
           {isSearchOpen ? (
             <div className="flex items-center justify-center w-full gap-2">
-              <SearchInput name="Replace" onChangeHandler={() => {}} />
+              <SearchInput
+                inputRef={replaceRef}
+                name="Replace"
+                onChangeHandler={() => {}}
+              />
               <Button
-                className="hover:bg-[color:var(--hover-text-color)] p-1 rounded-md"
+                className="hover:bg-[color:var(--hover-text-color)] p-1 text-xl rounded-md"
                 title="Replace All"
               >
                 <VscReplaceAll />

@@ -5,7 +5,6 @@ import { twMerge } from "tailwind-merge";
 import useDebounce from "../../hooks/useDebounce.hook";
 import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
 import "./editor.component.css";
-import { drawerContent } from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
 import useHighlightText from "./hooks/useHighlightText.hook";
 

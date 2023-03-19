@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import useInputFocus from "../../../../../hooks/useInputFocus.hook";
 import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
-  inputRef?: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLInputElement>;
   onChangeHandler: React.ChangeEventHandler;
   name: string;
-  value?:string
+  value?: string;
 }
 
 const SearchInput: React.FC<IPROPS> = ({
@@ -16,6 +17,8 @@ const SearchInput: React.FC<IPROPS> = ({
   value,
 }) => {
   const [isInputInFocus, setIsInputInFocus] = useState(true);
+  // for the initial focus on the search input
+  useInputFocus(inputRef);
   return (
     <Input
       autoComplete="off"
