@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import IDirectory from "../../../Interface/directory.interface";
-import { IFilesInforation } from "../../../Interface/file.interface";
-import { iconObject } from "../../../Interface/iconObject.interface";
+import IDirectory from "../../../../Interface/directory.interface";
+import { IFilesInforation } from "../../../../Interface/file.interface";
+import { iconObject } from "../../../../Interface/iconObject.interface";
 import {
   traverseInDirectoryForDelete,
   traverseInDirectoryForRename,

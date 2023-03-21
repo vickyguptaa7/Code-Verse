@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import IDirectory from "../../../../../Interface/directory.interface";
-import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/Directory/Directory.reducer";
+import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Input from "../../../../UI/Input.component";
 

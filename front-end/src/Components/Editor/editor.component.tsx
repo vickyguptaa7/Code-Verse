@@ -3,7 +3,7 @@ import MonacoEditor, { useMonaco } from "@monaco-editor/react";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
 import useDebounce from "../../hooks/useDebounce.hook";
-import { updateFileBody } from "../../Store/reducres/Directory/Directory.reducer";
+import { updateFileBody } from "../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import "./editor.component.css";
 import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
 import useHighlightText from "./hooks/useHighlightText.hook";

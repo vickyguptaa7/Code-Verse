@@ -1,6 +1,6 @@
-import IDirectory from "../../../Interface/directory.interface";
-import { IFilesInforation } from "../../../Interface/file.interface";
-import { iconObject } from "../../../Interface/iconObject.interface";
+import IDirectory from "../../../../Interface/directory.interface";
+import { IFilesInforation } from "../../../../Interface/file.interface";
+import { iconObject } from "../../../../Interface/iconObject.interface";
 
 const findExtension = (name: string) => {
   let extension = "";

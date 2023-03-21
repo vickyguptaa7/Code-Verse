@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { VscChevronRight } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
+import { useAppDispatch } from "../../Store/store";
 
 interface IPROPS {
   menuName: string;
   children: React.ReactNode;
   initialState?: boolean;
   sibbling?: React.ReactNode;
+  setIsCollpaisibleHandler?:Function;
 }
 
 const CollapsibleMenu: React.FC<IPROPS> = ({
@@ -14,12 +16,16 @@ const CollapsibleMenu: React.FC<IPROPS> = ({
   children,
   initialState = false,
   sibbling,
+  setIsCollpaisibleHandler,
 }) => {
+  const dispatch=useAppDispatch();
   const [isCollapsibleMenuOpen, setIsCollapsibleMenuOpen] =
     useState(initialState);
 
   const toggleCollapsibleMenuHandler = () => {
     setIsCollapsibleMenuOpen(!isCollapsibleMenuOpen);
+    if(setIsCollpaisibleHandler)
+      dispatch(setIsCollpaisibleHandler(!isCollapsibleMenuOpen));
   };
 
   return (

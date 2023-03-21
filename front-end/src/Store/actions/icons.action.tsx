@@ -3,7 +3,7 @@ import { fetchFileIcons, fetchFolderIcons } from "../../firebase/firebase";
 import {
   setFileIcons,
   setFolderIcons,
-} from "../reducres/Directory/Directory.reducer";
+} from "../reducres/SideDrawer/Directory/Directory.reducer";
 import { Dispatch } from "react";
 
 export const fetchFileIconsAction = () => {

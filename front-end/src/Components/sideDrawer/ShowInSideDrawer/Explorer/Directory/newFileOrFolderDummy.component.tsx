@@ -6,7 +6,7 @@ import { v4 as uuid4 } from "uuid";
 import { twMerge } from "tailwind-merge";
 
 import useDirectory from "../../../../../hooks/useDirectory.hook";
-import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/Directory/Directory.reducer";
+import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 

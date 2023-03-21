@@ -1,7 +1,7 @@
 import {
   INavFile,
 } from "../../../../../Interface/file.interface";
-import { updateFileBody } from "../../../../../Store/reducres/Directory/Directory.reducer";
+import { updateFileBody } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 
 const useSearch = () => {

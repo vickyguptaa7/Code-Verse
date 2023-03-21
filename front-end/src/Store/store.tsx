@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import BottomPannelReducer from "./reducres/BottomPannel/BottomPannel.reducer";
-import DirectoryReducer from "./reducres/Directory/Directory.reducer";
+import DirectoryReducer from "./reducres/SideDrawer/Directory/Directory.reducer";
 import fileNavigationReducer from "./reducres/Navigation/FileNavigation.reducer";
 import SearchReducer from "./reducres/SideDrawer/Search/Search.reducer";
 import SideDrawerReducer from "./reducres/SideDrawer/SideDrawer.reducer";
+import ExtensionsReducer from "./reducres/SideDrawer/Extensions/Extensions.reducer";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     bottomPannel: BottomPannelReducer,
     Directory: DirectoryReducer,
     search: SearchReducer,
+    extension:ExtensionsReducer
   },
 });
 
