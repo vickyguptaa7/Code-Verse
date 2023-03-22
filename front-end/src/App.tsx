@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router";
 import "./App.css";
 import Login from "./Pages/Login.page";
+import { fetchExtensionsListAction } from "./Store/actions/extensions.action";
 import {
   fetchFileIconsAction,
   fetchFolderIconsAction,
@@ -14,7 +15,7 @@ const App = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     console.log("call for icons firebase");
-
+    dispatch(fetchExtensionsListAction());
     dispatch(fetchFileIconsAction());
     dispatch(fetchFolderIconsAction());
   }, [dispatch]);

@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IExtensionInfo } from "../../../../Interface/Extension.interface";
+import { IFilesInforation } from "../../../../Interface/file.interface";
 
 const extensionInitialState = {
   extensionSearchedText: "",
-  extensionsList:[],
+  extensionsList:[] as IExtensionInfo[],
   isInstalledExtensionOpen:true,
   isRecommendedExtensionOpen:false,
 };
@@ -19,10 +21,13 @@ const exntensionSlice = createSlice({
     },
     setIsRecommendedExtensionOpen(state, action: PayloadAction<boolean>){
         state.isRecommendedExtensionOpen = action.payload;
+    },
+    setExtensionsList(state, action: PayloadAction<IExtensionInfo[]>){
+      state.extensionsList = action.payload;
     }
   },
 });
 
-export const { updateExtensionSearchedText,setIsInstalledExtensionOpen,setIsRecommendedExtensionOpen } = exntensionSlice.actions;
+export const { updateExtensionSearchedText,setIsInstalledExtensionOpen,setIsRecommendedExtensionOpen,setExtensionsList } = exntensionSlice.actions;
 
 export default exntensionSlice.reducer;
