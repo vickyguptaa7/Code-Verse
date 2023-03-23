@@ -7,10 +7,10 @@ import {
   VscStarFull,
 } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
-import { IExtensionInfo } from "../../../../Interface/Extension.interface";
-import { useAppSelector } from "../../../../Store/store";
-import Button from "../../../UI/Button.component";
-import { MIN_DRAWER_SIZE_PX } from "../../sideDrawer.Constant";
+import { IExtensionInfo } from "../../../../../Interface/Extension.interface";
+import { useAppSelector } from "../../../../../Store/store";
+import Button from "../../../../UI/Button.component";
+import { MIN_DRAWER_SIZE_PX } from "../../../sideDrawer.Constant";
 
 interface IPROPS {
   info: IExtensionInfo;

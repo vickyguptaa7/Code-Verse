@@ -5,7 +5,7 @@ import {
 } from "../../../../Store/reducres/SideDrawer/Extensions/Extensions.reducer";
 import { useAppSelector } from "../../../../Store/store";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
-import ExtensionCard from "./ExtensionCard.component";
+import ExtensionCard from "./Basic/ExtensionCard.component";
 const EDITOR_MIN_HEIGHT = 480;
 const InstalledAndRecommended = () => {
   const isInstalledExtensionOpen = useAppSelector(

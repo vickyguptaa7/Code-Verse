@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IExtensionInfo } from "../../../../Interface/Extension.interface";
-import { IFilesInforation } from "../../../../Interface/file.interface";
 
 const extensionInitialState = {
   extensionSearchedText: "",
