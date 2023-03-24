@@ -3,6 +3,7 @@ import { useAppSelector } from "../../Store/store";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
 
 import EditorContainer from "../Editor/EditorContainer.component";
+import ExtensionDetails from "../ExtensionDetails/ExtensionDetails.component";
 const EDITOR_MIN_HEIGHT = 480;
 const MainView = () => {
   const currentNavFile = useAppSelector(
@@ -32,10 +33,17 @@ const MainView = () => {
     );
   }
   if (currentNavFile.type === "extension") {
-    return <div style={{ height: height }}></div>;
+    return <ExtensionDetails height={height} />;
   }
   if (currentNavFile.type === "setting") {
-    return <div style={{ height: height }}></div>;
+    return (
+      <div
+        className="text-[color:var(--highlight-text-color)] items-center justify-center flex"
+        style={{ height: height }}
+      >
+        Settings
+      </div>
+    );
   }
 
   return (

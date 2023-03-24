@@ -8,7 +8,9 @@ import {
 } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
 import { IExtensionInfo } from "../../../../../Interface/Extension.interface";
-import { useAppSelector } from "../../../../../Store/store";
+import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
+import { updateFileBody } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
+import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Button from "../../../../UI/Button.component";
 import { MIN_DRAWER_SIZE_PX } from "../../../sideDrawer.Constant";
 
@@ -26,11 +28,19 @@ const ExtensionCard: React.FC<IPROPS> = ({
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
+  const dispatch = useAppDispatch();
   const isVerified = info.verified.length !== 0;
-  const ratingsStar=info.ratings.split(' ')[2];
+  const ratingsStar = info.ratings.split(" ")[2];
   const isImageVisible = Math.abs(MIN_DRAWER_SIZE_PX - sideDrawerWidth) > 30;
+  const addExtensionToNavigation = () => {
+    dispatch(updateFileBody({id:"extension",body:JSON.stringify(info)}))
+    dispatch(addFileToNavigation({ id: "extension", type: "extension" }));
+  };
   return (
-    <div className="relative flex gap-2 hover:bg-[color:var(--hover-text-color)] px-4 py-3 w-full">
+    <div
+      className="cursor-pointer relative flex gap-2 hover:bg-[color:var(--hover-text-color)] px-4 py-3 w-full"
+      onClick={addExtensionToNavigation}
+    >
       {isRecommended ? (
         <>
           <div className="absolute top-0 left-0 w-0 h-0 border-[color:var(--accent-color)] border-b-[28px] border-l-[28px] border-r-8 border-r-transparent border-b-transparent"></div>
@@ -57,18 +67,25 @@ const ExtensionCard: React.FC<IPROPS> = ({
           <h2 className="font-semibold text-[1rem] text-[color:var(--highlight-text-color)] text-ellipsis overflow-hidden">
             {info.extensionName}
           </h2>
-          {!isInstalled?<div className="flex items-center justify-start gap-1.5" title={info.ratings}>
-            <div className="flex items-center justify-start gap-1">
-              <VscCloudDownload className="text-[color:var(--primary-text-color)]" />{" "}
-              <span className="text-xs text-[color:(--highlight-text-color)]">
-                {info.downloadCount}
-              </span>
+          {!isInstalled ? (
+            <div
+              className="flex items-center justify-start gap-1.5"
+              title={info.ratings}
+            >
+              <div className="flex items-center justify-start gap-1">
+                <VscCloudDownload className="text-[color:var(--primary-text-color)]" />{" "}
+                <span className="text-xs text-[color:(--highlight-text-color)]">
+                  {info.downloadCount}
+                </span>
+              </div>
+              <div className="flex items-center justify-center gap-1">
+                <VscStarFull className="text-xs text-orange-400" />
+                <span className="text-xs text-[color:(--highlight-text-color)]">
+                  {ratingsStar}
+                </span>
+              </div>
             </div>
-            <div className="flex items-center justify-center gap-1">
-                <VscStarFull className="text-xs text-orange-400"/>
-                <span className="text-xs text-[color:(--highlight-text-color)]">{ratingsStar}</span>
-            </div>
-          </div>:null}
+          ) : null}
         </div>
         <h3 className="text-[color:var(--primary-text-color)] text-ellipsis overflow-hidden mt-0.5">
           {info.description}

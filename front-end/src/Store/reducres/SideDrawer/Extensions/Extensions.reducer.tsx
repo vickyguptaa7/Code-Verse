@@ -3,9 +3,9 @@ import { IExtensionInfo } from "../../../../Interface/Extension.interface";
 
 const extensionInitialState = {
   extensionSearchedText: "",
-  extensionsList:[] as IExtensionInfo[],
-  isInstalledExtensionOpen:true,
-  isRecommendedExtensionOpen:false,
+  extensionsList: [] as IExtensionInfo[],
+  isInstalledExtensionOpen: true,
+  isRecommendedExtensionOpen: false,
 };
 
 const exntensionSlice = createSlice({
@@ -15,18 +15,23 @@ const exntensionSlice = createSlice({
     updateExtensionSearchedText(state, action: PayloadAction<string>) {
       state.extensionSearchedText = action.payload;
     },
-    setIsInstalledExtensionOpen(state, action: PayloadAction<boolean>){
-        state.isInstalledExtensionOpen = action.payload;
+    setIsInstalledExtensionOpen(state, action: PayloadAction<boolean>) {
+      state.isInstalledExtensionOpen = action.payload;
     },
-    setIsRecommendedExtensionOpen(state, action: PayloadAction<boolean>){
-        state.isRecommendedExtensionOpen = action.payload;
+    setIsRecommendedExtensionOpen(state, action: PayloadAction<boolean>) {
+      state.isRecommendedExtensionOpen = action.payload;
     },
-    setExtensionsList(state, action: PayloadAction<IExtensionInfo[]>){
+    setExtensionsList(state, action: PayloadAction<IExtensionInfo[]>) {
       state.extensionsList = action.payload;
-    }
+    },
   },
 });
 
-export const { updateExtensionSearchedText,setIsInstalledExtensionOpen,setIsRecommendedExtensionOpen,setExtensionsList } = exntensionSlice.actions;
+export const {
+  updateExtensionSearchedText,
+  setIsInstalledExtensionOpen,
+  setIsRecommendedExtensionOpen,
+  setExtensionsList,
+} = exntensionSlice.actions;
 
 export default exntensionSlice.reducer;
