@@ -8,6 +8,7 @@ interface IPROPS {
   title?: string;
   onClickHandler: React.MouseEventHandler;
   buttonName: string;
+  isActive?: boolean;
 }
 
 const PannelButtons: React.FC<IPROPS> = ({
@@ -15,8 +16,8 @@ const PannelButtons: React.FC<IPROPS> = ({
   title,
   onClickHandler,
   buttonName,
+  isActive = false,
 }) => {
-
   const isSidePannelPositionOnLeft = useAppSelector(
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
   );
@@ -31,23 +32,27 @@ const PannelButtons: React.FC<IPROPS> = ({
     "text-[color:var(--highlight-text-color)] border-[color:var(--highlight-text-color)]",
     !isSidePannelPositionOnLeft ? "border-r-[3px] mr-0" : "border-l-[3px] ml-0"
   );
-  if(Icon)
-  return (
-    <div className="mb-2">
-      <Button
-        onClick={onClickHandler}
-        className={twMerge(
-          "flex items-center justify-center p-3 hover:text-[color:var(--highlight-text-color)] mx-[3px]",
-          showInSideDrawer === buttonName && isDrawerOpen ? activeClassName : ""
-        )}
-        title={title}
-        data-name={buttonName}
-      >
-        <Icon className="text-3xl" />
-      </Button>
-    </div>
-  );
-  return <div></div>
+  if (Icon)
+    return (
+      <div className="mb-2">
+        <Button
+          onClick={onClickHandler}
+          className={twMerge(
+            "flex items-center justify-center p-3 hover:text-[color:var(--highlight-text-color)] mx-[3px]",
+            showInSideDrawer === buttonName && isDrawerOpen
+              ? activeClassName
+              : isActive
+              ? "text-[color:var(--highlight-text-color)]"
+              : ""
+          )}
+          title={title}
+          data-name={buttonName}
+        >
+          <Icon className="text-2xl" />
+        </Button>
+      </div>
+    );
+  return <div></div>;
 };
 
 export default PannelButtons;
