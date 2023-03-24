@@ -18,17 +18,17 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
   return (
     <div className="overflow-scroll">
       <div
-        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto py-6"
+        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto py-6 px-3 min-w-[16rem]"
         style={{ height: height }}
       >
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col items-center justify-center gap-2">
           <div className="min-w-[160px] max-w-[160px] aspect-square flex items-center justify-center">
             <img
               src={info.imageUrl.replace("Small", "Default")}
               alt={info.extensionName}
             />
           </div>
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col items-center justify-center">
             <h1 className="text-3xl font-semibold">{info.extensionName}</h1>
             <div className="flex items-center">
               <h3 className="font-semibold text-md">{info.publisher}</h3>
