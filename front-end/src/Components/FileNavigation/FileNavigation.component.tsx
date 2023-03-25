@@ -90,7 +90,7 @@ function dropMenu(
   };
   // TODO: fix the horizontal scrolling issue of the drop down menu
   return (
-    <DropMenu className="right-2.5 top-6">
+    <DropMenu className="right-2.5 top-6 w-36">
       <DropMenuButton name="Close All" onClickHandler={closeAllFilesHandler} />
       <DropMenuButton
         name="Run Active File"

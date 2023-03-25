@@ -77,7 +77,7 @@ function dropMenu(
   };
 
   return (
-    <DropMenu className="-left-6 top-4">
+    <DropMenu className="-left-6 top-4 w-28">
       <DropMenuButton name="Input" onClickHandler={onClickHandler} />
       <DropMenuButton name="Output" onClickHandler={onClickHandler} />
       <DropMenuButton name="Debug" onClickHandler={onClickHandler} />

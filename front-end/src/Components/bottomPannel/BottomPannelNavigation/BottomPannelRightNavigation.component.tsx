@@ -110,7 +110,7 @@ function dropMenu(
   };
 
   return (
-    <DropMenu className="-right-0 top-8">
+    <DropMenu className="-right-0 top-8 w-36">
       <DropMenuButton name="Clear Output" onClickHandler={clearOutputHandler} />
       <DropMenuButton
         name="Clear Terminal"

@@ -19,8 +19,24 @@ const useDirectory = () => {
     return false;
   };
 
+  const folderContent = (
+    directories: Array<IDirectory>,
+    folderName: string
+  ) => {
+    let children: Array<IDirectory> = [];
+    for (const directory of directories) {
+      if (directory.isFolder && directory.name === folderName) {
+        return directory.children;
+      } else {
+        children = folderContent(directory.children, folderName);
+        if (children.length > 0) return children;
+      }
+    }
+    return [] as Array<IDirectory>;
+  };
+
   return {
-    isFileOrFolderAlreadyExists,
+    isFileOrFolderAlreadyExists,folderContent
   };
 };
 
