@@ -71,6 +71,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
         "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px] border-r border-r-black group",
         activeClassName
       )}
+      id={fileInfo.id}
       onClick={changeCurrentFileInNavigationHandler}
     >
       <div className="flex items-center justify-center w-full h-full language-logo">

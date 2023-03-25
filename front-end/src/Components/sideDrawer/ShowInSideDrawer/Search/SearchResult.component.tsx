@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  IFilesInforation,
-} from "../../../../Interface/file.interface";
+import { IFilesInforation } from "../../../../Interface/file.interface";
 import { addFileToNavigation } from "../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { setSearchedResultFiles } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../Store/store";
@@ -11,13 +9,11 @@ interface IPROPS {
   filesInformation: IFilesInforation;
 }
 
-const SearchResult: React.FC<IPROPS> = ({
-  filesInformation,
-}) => {
+const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
   const searchedResultFiles = useAppSelector(
     (state) => state.search.searchedResultFiles
   );
-  
+
   const dispatch = useAppDispatch();
 
   const removeFileHandler = (event: React.MouseEvent, id: string) => {
@@ -31,6 +27,18 @@ const SearchResult: React.FC<IPROPS> = ({
   const openFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();
     dispatch(addFileToNavigation({ id: id, type: "file" }));
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      console.log(element, "element by id");
+      element?.scrollIntoView();
+      element?.scrollIntoView(false);
+      element?.scrollIntoView({ block: "end" });
+      element?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }, 10);
   };
 
   let results = searchedResultFiles.map((file) => (

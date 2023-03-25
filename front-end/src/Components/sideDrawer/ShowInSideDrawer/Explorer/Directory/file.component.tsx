@@ -14,10 +14,18 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   const [isInputInFocus, setIsInputInFocus] = useState(false);
   const dispatch = useAppDispatch();
 
-  const addToFileNavigationHandler = (event:React.MouseEvent) => {
+  const addToFileNavigationHandler = (event: React.MouseEvent) => {
     if (isInputInFocus) return;
     dispatch(addFileToNavigation({ id: fileInfo.id, type: "file" }));
-    
+    // first the element should be added to the navigation asynchronously and then we scroll to that locationß
+    setTimeout(() => {
+      const element = document.getElementById(fileInfo.id);
+      console.log(element, "element by id");
+      element?.scrollIntoView();
+      element?.scrollIntoView(false);
+      element?.scrollIntoView({ block: "end" });
+      element?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }, 10);
   };
   // TODO: Do something for the large names of files
 
