@@ -15,10 +15,9 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   const dispatch = useAppDispatch();
 
   const addToFileNavigationHandler = (event:React.MouseEvent) => {
-    console.log(event.target,"auto");
-    
     if (isInputInFocus) return;
     dispatch(addFileToNavigation({ id: fileInfo.id, type: "file" }));
+    
   };
   // TODO: Do something for the large names of files
 

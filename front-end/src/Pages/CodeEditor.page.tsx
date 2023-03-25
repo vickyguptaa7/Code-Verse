@@ -3,6 +3,7 @@ import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
 import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../Store/store";
 import Main from "../Components/Layout/Main.component";
+import { SIDE_PANNEL_WIDTH } from "../Components/sidePannel/SidePannel.constants";
 
 const EDITOR_MIN_WIDTH = 320;
 const EDITOR_MIN_HEIGHT = 480;
@@ -19,7 +20,7 @@ const CodeEditor = () => {
 
   // 60px is for the side pannel and 4  px for the side pannel resizer
   let remainingWidth =
-    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) - 60;
+    Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) - SIDE_PANNEL_WIDTH;
   remainingWidth -= isDrawerOpen ? sideDrawerWidth + 4 : 0;
 
   useEffect(() => {
