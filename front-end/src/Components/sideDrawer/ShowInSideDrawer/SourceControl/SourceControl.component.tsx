@@ -5,21 +5,6 @@ const EDITOR_MIN_HEIGHT = 480;
 const SourceControl = () => {
   const height = Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 100;
 
-  // TODO : Add local files
-  const openFileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files
-      ? e.target.files[0]
-      : new File(["Something went wrong while opening the file"], "error.text");
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = () => {
-      console.log(reader.result);
-    };
-    reader.onerror = () => {
-      console.log("file error", reader.error);
-    };
-  };
-
   return (
     <div className="flex flex-col">
       <CollapsibleMenu menuName="SOURCE CONTROL" initialState={true}>
@@ -27,18 +12,7 @@ const SourceControl = () => {
           className="flex flex-col justify-start overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4 text-[color:var(--highlight-text)]"
           style={{ height: height }}
         >
-          <label htmlFor="file" title="Add local files">
-            <div className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 flex justify-center items-center max-w-xs">
-              <h1>Open File</h1>
-            </div>
-          </label>
-          <input
-            type="file"
-            id="file"
-            name="file"
-            className="hidden"
-            onChange={openFileHandler}
-          />
+          
           <div className="flex flex-col gap-4 text-[0.85rem] ">
             <p>
               In order to use git features, you can open a folder containing a

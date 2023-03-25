@@ -60,6 +60,8 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
             ? "setting"
             : fileInfo.id === "extension"
             ? "extension"
+            : fileInfo.id === "welcome"
+            ? "welcome"
             : "file",
       })
     );

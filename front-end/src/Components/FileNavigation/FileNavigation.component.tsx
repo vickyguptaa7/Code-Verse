@@ -21,6 +21,9 @@ const FileNavigation = () => {
   const navFilesList = useAppSelector(
     (state) => state.fileNavigation.navFilesList
   );
+  const currentNavFile = useAppSelector(
+    (state) => state.fileNavigation.currentNavFile
+  );
   const isNavListEmpty = navFilesList.length === 0;
   const dispatch = useAppDispatch();
 
@@ -31,10 +34,12 @@ const FileNavigation = () => {
   const openDropMenuHandler = () => {
     setIsDropMenuOpen(true);
   };
+
+  const isCurrentNavFileIsExecutable = currentNavFile.type === "file";
   if (isNavListEmpty) {
     return <></>;
   }
-  
+
   return (
     <>
       {isDropMenuOpen && (
@@ -43,9 +48,11 @@ const FileNavigation = () => {
       <div className="flex justify-between bg-[color:var(--sidepannel-color)]">
         <FileContainer navFilesList={navFilesList} />
         <div className="flex items-center justify-center p-2 text-[color:var(--highlight-text-color)]">
-          <Button className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]">
-            <VscDebugStart className="text-2xl p-0.5" />
-          </Button>
+          {isCurrentNavFileIsExecutable ? (
+            <Button className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]">
+              <VscDebugStart className="text-2xl p-0.5" />
+            </Button>
+          ) : null}
           <Button
             className={twMerge(
               "flex items-center justify-center rounded-lg p-0.5 hover:bg-[color:var(--hover-text-color)] mr-2",
