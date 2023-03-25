@@ -5,6 +5,8 @@ import RenameInput from "./renameInput.component";
 import { VscFile } from "react-icons/vsc";
 import { useAppDispatch } from "../../../../../Store/store";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
+import useScroll from "../../../../../hooks/useScroll.hook";
+
 interface IPROPS {
   fileInfo: IDirectory;
   shiftAmount: number;
@@ -13,19 +15,12 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
   const dispatch = useAppDispatch();
-
+  const { scrollToTarget } = useScroll();
   const addToFileNavigationHandler = (event: React.MouseEvent) => {
     if (isInputInFocus) return;
     dispatch(addFileToNavigation({ id: fileInfo.id, type: "file" }));
     // first the element should be added to the navigation asynchronously and then we scroll to that locationß
-    setTimeout(() => {
-      const element = document.getElementById(fileInfo.id);
-      console.log(element, "element by id");
-      element?.scrollIntoView();
-      element?.scrollIntoView(false);
-      element?.scrollIntoView({ block: "end" });
-      element?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-    }, 10);
+    scrollToTarget(fileInfo.id);
   };
   // TODO: Do something for the large names of files
 

@@ -1,4 +1,5 @@
 import React from "react";
+import useScroll from "../../../../hooks/useScroll.hook";
 import { IFilesInforation } from "../../../../Interface/file.interface";
 import { addFileToNavigation } from "../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { setSearchedResultFiles } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
@@ -15,7 +16,7 @@ const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
   );
 
   const dispatch = useAppDispatch();
-
+  const { scrollToTarget } = useScroll();
   const removeFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();
     dispatch(
@@ -27,18 +28,7 @@ const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
   const openFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();
     dispatch(addFileToNavigation({ id: id, type: "file" }));
-    setTimeout(() => {
-      const element = document.getElementById(id);
-      console.log(element, "element by id");
-      element?.scrollIntoView();
-      element?.scrollIntoView(false);
-      element?.scrollIntoView({ block: "end" });
-      element?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
-      });
-    }, 10);
+    scrollToTarget(id);
   };
 
   let results = searchedResultFiles.map((file) => (
