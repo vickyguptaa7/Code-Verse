@@ -3,7 +3,7 @@ import { INavFile } from "../../../Interface/file.interface";
 
 let DUMMY_FILES: Array<INavFile> = [
   {
-    id: "welcome",
+    id: "welcomelop",
     type: "file",
   },
   {

@@ -9,17 +9,17 @@ import {
   VscDebugAlt,
   VscExtensions,
 } from "react-icons/vsc";
-import { addFileToNavigation } from "../../Store/reducres/Navigation/FileNavigation.reducer";
+
 import {
   setIsDrawerOpen,
   setShowInSideDrawer,
 } from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import Backdrop from "../UI/Backdrop.component";
-import DropMenu from "../UI/DropMenu.component";
-import DropMenuButton from "../UI/DropMenuButton.component";
+import { DropMenuFile } from "./DropMenu/DropMenuFile.component";
+import { DropMenuSetting } from "./DropMenu/DropMenuSetting.component";
+
 import PannelButtons from "./pannelButtons.component";
-import { whiteBoardUrl } from "./SidePannel.constants";
 
 type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
 
@@ -89,8 +89,9 @@ const Pannel = () => {
             onClickHandler={openDropMenuFileHandler}
           />
           <div className="relative overflow-visible">
-            {isDropMenuFileOpen &&
-              dropMenuFile(dispatch, closeDropMenuFileHandler)}
+            {isDropMenuFileOpen && (
+              <DropMenuFile closeDropMenuHandler={closeDropMenuFileHandler} />
+            )}
           </div>
           <PannelButtons
             title="Files Explorer"
@@ -138,79 +139,16 @@ const Pannel = () => {
             onClickHandler={openDropMenuSettingHandler}
           />
           <div className="relative overflow-visible">
-            {isDropMenuSettingOpen &&
-              dropMenuSetting(dispatch, closeDropMenuSettingHandler)}
+            {isDropMenuSettingOpen && (
+              <DropMenuSetting
+                closeDropMenuHandler={closeDropMenuSettingHandler}
+              />
+            )}
           </div>
         </nav>
       </div>
     </>
   );
 };
-
-function dropMenuSetting(
-  dispatch: Function,
-  closeDropMenuHandler: React.MouseEventHandler
-) {
-  const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    closeDropMenuHandler(event);
-  };
-  // TODO: Add the functionality of each buttons
-
-  const openToWhiteboardHandler = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    window.open(whiteBoardUrl, "_blank");
-    closeDropMenuHandler(event);
-  };
-
-  const openSettingHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(addFileToNavigation({ id: "setting", type: "setting" }));
-    closeDropMenuHandler(event);
-  };
-  return (
-    <DropMenu className=" bottom-5 left-14">
-      <DropMenuButton name="Settings" onClickHandler={openSettingHandler} />
-      <DropMenuButton name="Extensions" onClickHandler={onClickHandler} />
-      <DropMenuButton name="Themes" onClickHandler={onClickHandler} />
-      <DropMenuButton
-        name="White Board"
-        onClickHandler={openToWhiteboardHandler}
-      />
-    </DropMenu>
-  );
-}
-
-function dropMenuFile(
-  dispatch: Function,
-  closeDropMenuHandler: React.MouseEventHandler
-) {
-  const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    closeDropMenuHandler(event);
-  };
-  // TODO: Add the functionality of each buttons
-
-  const openToWhiteboardHandler = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    window.open(whiteBoardUrl, "_blank");
-    closeDropMenuHandler(event);
-  };
-
-  const openSettingHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(addFileToNavigation({ id: "setting", type: "setting" }));
-    closeDropMenuHandler(event);
-  };
-  return (
-    <DropMenu className="left-14 -top-14">
-      <DropMenuButton name="Settings" onClickHandler={openSettingHandler} />
-      <DropMenuButton name="Extensions" onClickHandler={onClickHandler} />
-      <DropMenuButton name="Themes" onClickHandler={onClickHandler} />
-      <DropMenuButton
-        name="White Board"
-        onClickHandler={openToWhiteboardHandler}
-      />
-    </DropMenu>
-  );
-}
 
 export default Pannel;

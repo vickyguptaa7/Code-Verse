@@ -7,7 +7,7 @@ export interface IFile {
 }
 export interface INavFile {
   id: string;
-  type: "file" | "extension" | "setting";
+  type: "file" | "extension" | "setting" | "welcome";
 }
 
 export interface IFilesInforation {

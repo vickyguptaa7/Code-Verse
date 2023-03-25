@@ -1,5 +1,5 @@
 import React from "react";
-import { drawerContent } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
+import { DrawerContent } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 
 const useHighlightText = () => {
   function highlightText(
@@ -8,7 +8,7 @@ const useHighlightText = () => {
       [key: string]: Array<string>;
     }>,
     searchedText: string,
-    showInSideDrawer: drawerContent,
+    showInSideDrawer: DrawerContent,
     isDrawerOpen: boolean,
     currentWorkingFileId: string
   ) {

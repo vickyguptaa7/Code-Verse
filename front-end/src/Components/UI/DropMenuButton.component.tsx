@@ -16,7 +16,7 @@ const DropMenuButton: React.FC<PROPS_INTERFACE> = ({
   return (
     <Button
       className={twMerge(
-        "whitespace-nowrap block px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]",
+        "whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]",
         className
       )}
       onClick={onClickHandler}

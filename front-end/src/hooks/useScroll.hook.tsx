@@ -1,7 +1,6 @@
-import React from "react";
 
 const useScroll = () => {
-  const scrollToTarget = (id) => {
+  const scrollToTarget = (id:string) => {
     setTimeout(() => {
       const element = document.getElementById(id);
       console.log(element, "element by id");

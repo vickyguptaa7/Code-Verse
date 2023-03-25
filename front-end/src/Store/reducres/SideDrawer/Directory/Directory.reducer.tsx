@@ -11,8 +11,8 @@ import {
 
 let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
   {
-    id: "welcome",
-    name: "welcome",
+    id: "welcomelop",
+    name: "welcomelop",
     iconUrls: [
       "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fc.svg?alt=media&token=3bd3d797-69a3-4150-9f5b-07ec4757bb5f",
     ],
@@ -23,9 +23,9 @@ let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
 ];
 
 let DUMMY_FILE_INFORMATION: IFilesInforation = {
-  welcome: {
-    id: "welcome",
-    name: "welcome",
+  welcomelop: {
+    id: "welcomelop",
+    name: "welcomelop",
     iconUrls: [
       "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fc.svg?alt=media&token=3bd3d797-69a3-4150-9f5b-07ec4757bb5f",
     ],
@@ -46,6 +46,13 @@ let DUMMY_FILE_INFORMATION: IFilesInforation = {
     name: "extension",
     iconUrls: [],
     language: "extension",
+    body: "",
+  },
+  welcome: {
+    id: "welcome",
+    name: "welcome",
+    iconUrls: [],
+    language: "welcome",
     body: "",
   },
 };

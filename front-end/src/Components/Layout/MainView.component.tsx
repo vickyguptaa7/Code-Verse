@@ -45,7 +45,16 @@ const MainView = () => {
       </div>
     );
   }
-
+  if (currentNavFile.type === "welcome") {
+    return (
+      <div
+        className="text-[color:var(--highlight-text-color)] items-center justify-center flex"
+        style={{ height: height }}
+      >
+        Welcome
+      </div>
+    );
+  }
   return (
     <EditorContainer
       editorHeight={height}
