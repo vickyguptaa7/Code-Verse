@@ -8,7 +8,7 @@ const bottomPannelInitialState = {
   terminalContent: "",
   inputContent: "",
   outputContent: "",
-  debugContent: "This feature is comming soon...",
+  debugContent: "",
 };
 
 type bottomPannelContent = "input" | "output" | "terminal" | "debug";

@@ -12,7 +12,13 @@ const SourceControl = () => {
           className="flex flex-col justify-start overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4 text-[color:var(--highlight-text)]"
           style={{ height: height }}
         >
-          
+          <Button
+            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
+            onClick={() => window.open("http://github.com/", "_blank")}
+            title="comming soon..."
+          >
+            Open Folder
+          </Button>
           <div className="flex flex-col gap-4 text-[0.85rem] ">
             <p>
               In order to use git features, you can open a folder containing a
@@ -21,14 +27,7 @@ const SourceControl = () => {
           </div>
           <Button
             className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
-            onClick={() => {}}
-            title="comming soon..."
-          >
-            Open Folder
-          </Button>
-          <Button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
-            onClick={() => {}}
+            onClick={() => window.open("http://github.com/", "_blank")}
             title="comming soon..."
           >
             Clone Repository
