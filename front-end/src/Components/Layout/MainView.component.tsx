@@ -19,7 +19,7 @@ const MainView = () => {
     Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) -
     HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
   height -= isBottomPannelOpen ? bottomPannelHeight : 0;
-  console.log(currentNavFile);
+
   if (currentNavFile.id === "null") {
     return (
       <>

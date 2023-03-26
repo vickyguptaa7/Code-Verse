@@ -8,11 +8,14 @@ import {
   setShowInSideDrawer,
   setIsDrawerOpen,
 } from "./../../../Store/reducres/SideDrawer/SideDrawer.reducer";
-import { v4 as uuid4 } from "uuid";
 import {
-  addFileOrFolderToDirectory,
-  updateFileBody,
+  addExternalFileOrFolderToDirectory,
+  setFilesInformation,
 } from "../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
+import IDirectory from "../../../Interface/directory.interface";
+import useDirectory from "../../../hooks/useDirectory.hook";
+import { IFile } from "../../../Interface/file.interface";
+
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
     // extends React's HTMLAttributes
@@ -32,6 +35,13 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   const onClickHandler = () => {
     closeDropMenuHandler();
   };
+  const {
+    externalFileGenerator,
+    uniqueFileFolderNameGenerator,
+    externalFolderGenerator,
+    sortTheExternalDirectory
+  } = useDirectory();
+
   // TODO: Add the functionality of each buttons
 
   const showInSideDrawerHandler = (view: DrawerContent) => {
@@ -46,55 +56,57 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     closeDropMenuHandler();
   };
 
-  const fileNameGenerator = (name: string) => {
-    const fileName = name.split("\\").pop()?.split(".");
-    const extension = fileName ? fileName.pop() : "";
-    const id: string = uuid4();
-    fileName?.push(id);
-    fileName?.push(extension ? extension : "");
-    const newFileName = fileName ? fileName.join(".") : id;
-    return { fileName: newFileName, id };
-  };
-
   // TODO : Add local files
-  const openFileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const openFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
     closeDropMenuHandler();
     const files = e.target.files;
+    const tempDirectory: Array<IDirectory> = [];
+    const tempFilesInformation: Array<IFile> = [];
     for (const fileKey in files) {
       if (isNaN(parseInt(fileKey))) continue;
-      const { fileName, id } = fileNameGenerator(files[parseInt(fileKey)].name);
-      console.log(files[parseInt(fileKey)]);
-      const reader = new FileReader();
-      reader.readAsText(files[parseInt(fileKey)]);
-      reader.onload = () => {
-        dispatch(
-          addFileOrFolderToDirectory({
-            id: id,
-            parentId: "root",
-            name: fileName,
-            isFolder: false,
-          })
-        );
-        dispatch(
-          updateFileBody({
-            id: id,
-            body: reader.result ? reader.result.toString() : "",
-          })
-        );
-        dispatch(addFileToNavigation({ id: id, type: "file" }));
-        // console.log(reader.result?.toString());
-      };
-      reader.onerror = () => {
-        console.log("file error", reader.error);
-      };
+      await externalFileGenerator(
+        files[parseInt(fileKey)],
+        tempDirectory,
+        tempFilesInformation
+      );
     }
+    dispatch(addExternalFileOrFolderToDirectory(tempDirectory));
+    dispatch(setFilesInformation(tempFilesInformation));
   };
 
-  const openFolderHandler=(e:React.ChangeEvent<HTMLInputElement>)=>{
-    console.log(e.target.files);
-    
-  }
+  const openFolderHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files, e.target.value);
+    closeDropMenuHandler();
+    let files = e.target.files;
+    if (!files) return;
+    const { name: folderName, id: folderId } = uniqueFileFolderNameGenerator(
+      files[0].webkitRelativePath.split("/")[0],
+      true,true
+    );
+    const newDirectory: IDirectory = {
+      id: folderId,
+      parentId: "root",
+      name: folderName,
+      iconUrls: [],
+      isFolder: true,
+      children: [],
+    };
+    const tempFilesInformation: Array<IFile> = [];
+    for (const fileKey in files) {
+      if (isNaN(parseInt(fileKey))) continue;
+      const currFile = files[parseInt(fileKey)];
+      await externalFolderGenerator(
+        currFile,
+        newDirectory,
+        tempFilesInformation
+      );
+    }
+    sortTheExternalDirectory(newDirectory)
+    dispatch(addExternalFileOrFolderToDirectory([newDirectory]));
+    dispatch(setFilesInformation(tempFilesInformation));
+    console.log(newDirectory);
+  };
 
   return (
     <DropMenu className="w-36 -top-[54px] left-14">
@@ -111,7 +123,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         className="hidden"
         onChange={openFileHandler}
       />
-      
+
       <label htmlFor="folder" title="Add local files">
         <div className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]">
           <h1>Open Folder</h1>
@@ -126,7 +138,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         className="hidden"
         onChange={openFolderHandler}
       />
-      
+
       <DropMenuButton name="Save Files" onClickHandler={onClickHandler} />
       <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
       <DropMenuButton

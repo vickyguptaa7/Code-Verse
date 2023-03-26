@@ -197,7 +197,7 @@ function renameOfFileOrFolder(
     };
   }
   // sort to organize the files or folders of that directory with respect to name and type ie file or folder
-  directories.sort(mycomparator);
+  directories.sort(directoryComparator);
 }
 
 function addFileOrFolder(
@@ -230,18 +230,20 @@ function addFileOrFolder(
       language: findExtension(newItem.name).extName,
     };
   }
-  directories.sort(mycomparator);
+  directories.sort(directoryComparator);
 }
 
-function mycomparator(d1: IDirectory, d2: IDirectory) {
+function directoryComparator(d1: IDirectory, d2: IDirectory) {
   if (d1.isFolder && !d2.isFolder) return -1; // if d1 is folder then it must be above d2
   if (!d1.isFolder && d2.isFolder) return 1; // vice versa
   return d1.name.toLowerCase() > d2.name.toLowerCase() ? 1 : -1; // otherwise sort on the basis of the name
 }
 
 export {
+  findExtension,
   findIconUrl,
   traverseInDirectoryForAdd,
   traverseInDirectoryForRename,
   traverseInDirectoryForDelete,
+  directoryComparator,
 };

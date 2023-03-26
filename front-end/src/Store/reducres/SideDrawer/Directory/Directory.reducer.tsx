@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import IDirectory from "../../../../Interface/directory.interface";
-import { IFilesInforation } from "../../../../Interface/file.interface";
+import { IFile, IFilesInforation } from "../../../../Interface/file.interface";
 import { iconObject } from "../../../../Interface/iconObject.interface";
 import {
   traverseInDirectoryForDelete,
@@ -143,8 +143,24 @@ const directorySlice = createSlice({
     ) {
       state.infoOfCurrentWorkingFileOrFolder = action.payload;
     },
+
     updateFileBody(state, action: PayloadAction<{ id: string; body: string }>) {
       state.filesInformation[action.payload.id].body = action.payload.body;
+    },
+
+    setFilesInformation(state, action: PayloadAction<Array<IFile>>) {
+      for (const file of action.payload) {
+        state.filesInformation[file.id] = file;
+      }
+    },
+
+    addExternalFileOrFolderToDirectory(
+      state,
+      action: PayloadAction<Array<IDirectory>>
+    ) {
+      for (const directory of action.payload) {
+        state.directories.push(directory);
+      }
     },
   },
 });
@@ -156,6 +172,8 @@ export const {
   setFileIcons,
   setFolderIcons,
   updateFileBody,
+  addExternalFileOrFolderToDirectory,
+  setFilesInformation,
 } = directorySlice.actions;
 
 export default directorySlice.reducer;
