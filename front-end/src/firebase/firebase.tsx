@@ -1,11 +1,16 @@
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "./firebaseConfig";
 
-import { getDoc, getFirestore, doc, collection, getDocs } from "firebase/firestore";
+import {
+  getDoc,
+  getFirestore,
+  doc,
+  // setDoc
+} from "firebase/firestore";
 import { IExtensionInfo } from "../Interface/Extension.interface";
 
-// import { extensions } from "./../Extra/Extensions_Details";
-// import {v4 as uuid4} from "uuid";
+// import { extensions } from "../Extra/Extensions_Details";
+// import { v4 as uuid4 } from "uuid";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
@@ -25,25 +30,33 @@ export const fetchFileIcons = async () => {
 };
 
 export const fetchExtensionsList = async () => {
-  const extesnionListCollection = collection(db, "extensionsList");
-  const list: IExtensionInfo[]=[];
-  const  extensionListData= await getDocs(extesnionListCollection);
-  extensionListData.forEach((extension)=>{
-    const newExtension={...extension.data(),id:extension.id} as IExtensionInfo;
-    list.push(newExtension);
-  })
+  const extensionsRef = doc(db, "extensions", "trbZnRBND1bNh3ohhcG0");
+  const list: IExtensionInfo[] = [];
+  const extensionsObj = (await getDoc(extensionsRef)).data();
+  for (const key in extensionsObj) {
+    list.push({
+      ...extensionsObj[key],
+      id: key,
+    });
+  }
+  console.log(list);
+
   return list;
-}
+};
 
 // # make firebase rules for read and write true for the accessing the files
 // Used for adding the file icons to the firestore from the stored images of the google storage
 
-// export const addDataToFireStore = async (list: Array<{ extensionName: string, imageUrl: string, verified: string, publisher: string, downloadCount: string, description: string, ratings: string, extensionUrl: string }>) => {
-//   console.log(list);
+// export const addDataToFireStore = async () => {
+//   const extensionObj: { [key: string]: IExtensionInfo } = {};
 //   for (const ext of extensions) {
-//     const fileIconsRef = doc(db, "extensionsList",uuid4());
-//     await setDoc(fileIconsRef, ext);
+//     const id = uuid4();
+//     extensionObj[id] = { ...ext, id: id };
 //   }
+//   console.log(extensionObj);
+//   // return;
+//   const extensionsRef = doc(db, "extensions", "trbZnRBND1bNh3ohhcG0");
+//   await setDoc(extensionsRef, extensionObj);
 // };
 
 // const storage = getStorage();
@@ -91,5 +104,3 @@ export const fetchExtensionsList = async () => {
 //   console.log(error);
 // });
 // };
-
-
