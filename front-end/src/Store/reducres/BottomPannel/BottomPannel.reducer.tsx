@@ -9,7 +9,7 @@ const bottomPannelInitialState = {
   inputContent: "",
   outputContent: "",
   debugContent: "",
-  currentDirectory: "root",
+  terminalsCurrentDirectoryId: "root",
 };
 
 type bottomPannelContent = "input" | "output" | "terminal" | "debug";
@@ -50,8 +50,8 @@ const bottomPannelSlice = createSlice({
     setOutputContent(state, action: PayloadAction<string>) {
       state.outputContent = action.payload;
     },
-    setCurrentDirectory(state, action: PayloadAction<string>) {
-      state.currentDirectory = action.payload;
+    setCurrentDirectoryId(state, action: PayloadAction<string>) {
+      state.terminalsCurrentDirectoryId = action.payload;
     },
   },
 });
@@ -65,6 +65,7 @@ export const {
   setInputContent,
   setTerminalContent,
   setOutputContent,
+  setCurrentDirectoryId,
 } = bottomPannelSlice.actions;
 
 export default bottomPannelSlice.reducer;

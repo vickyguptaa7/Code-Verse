@@ -36,10 +36,10 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     closeDropMenuHandler();
   };
   const {
-    externalFileGenerator,
+    processFileUpload,
     uniqueFileFolderNameGenerator,
-    externalFolderGenerator,
-    sortTheExternalDirectory
+    processFolderUpload,
+    sortTheProcessedDirectory,
   } = useDirectory();
 
   // TODO: Add the functionality of each buttons
@@ -65,7 +65,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     const tempFilesInformation: Array<IFile> = [];
     for (const fileKey in files) {
       if (isNaN(parseInt(fileKey))) continue;
-      await externalFileGenerator(
+      await processFileUpload(
         files[parseInt(fileKey)],
         tempDirectory,
         tempFilesInformation
@@ -82,7 +82,8 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     if (!files) return;
     const { name: folderName, id: folderId } = uniqueFileFolderNameGenerator(
       files[0].webkitRelativePath.split("/")[0],
-      true,true
+      true,
+      true
     );
     const newDirectory: IDirectory = {
       id: folderId,
@@ -96,13 +97,13 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     for (const fileKey in files) {
       if (isNaN(parseInt(fileKey))) continue;
       const currFile = files[parseInt(fileKey)];
-      await externalFolderGenerator(
+      await processFolderUpload(
         currFile,
         newDirectory,
         tempFilesInformation
       );
     }
-    sortTheExternalDirectory(newDirectory)
+    sortTheProcessedDirectory(newDirectory);
     dispatch(addExternalFileOrFolderToDirectory([newDirectory]));
     dispatch(setFilesInformation(tempFilesInformation));
     console.log(newDirectory);

@@ -11,11 +11,12 @@ export const useTerminal = () => {
   const terminalContent = useAppSelector(
     (state) => state.bottomPannel.terminalContent
   );
-  const currentDirectory = useAppSelector(
-    (state) => state.bottomPannel.currentDirectory
+  const terminalsCurrentDirectoryId = useAppSelector(
+    (state) => state.bottomPannel.terminalsCurrentDirectoryId
   );
   const directories = useAppSelector((state) => state.Directory.directories);
-  const { folderContent } = useDirectory();
+  const { findDirectoryChildren, findDirectoryPath } = useDirectory();
+
   const clearTerminalContent = () => {
     dispatch(setTerminalContent(""));
   };
@@ -31,22 +32,30 @@ export const useTerminal = () => {
   };
   const listCurrentDirectoryContent = () => {
     let contents: Array<IDirectory> = directories;
-    if (currentDirectory !== "root") {
-      contents = folderContent(directories, currentDirectory);
+    if (terminalsCurrentDirectoryId !== "root") {
+      contents = findDirectoryChildren(directories, terminalsCurrentDirectoryId);
     }
-    console.log(contents);
 
     let output = "";
     for (const content of contents) {
       output += content.isFolder ? "/" + content.name : content.name;
-      output +=  "\t\t";
+      output += "\t\t";
     }
     addToTerminalContent("ls\n" + output);
   };
+  const printWorkingDirectory = () => {
+    let path = "/root";
+    if (terminalsCurrentDirectoryId !== "root") {
+      path = findDirectoryPath(directories, terminalsCurrentDirectoryId, path);
+    }
+    addToTerminalContent("pwd\n" + path);
+  };
+
   return {
     clearTerminalContent,
     addToTerminalContent,
     closeTerminal,
     listCurrentDirectoryContent,
+    printWorkingDirectory,
   };
 };

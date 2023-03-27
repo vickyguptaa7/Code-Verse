@@ -30,20 +30,40 @@ const useDirectory = () => {
     return false;
   };
 
-  const folderContent = (
+  const findDirectoryChildren = (
     directories: Array<IDirectory>,
-    folderName: string
+    directoryId: string
   ) => {
     let children: Array<IDirectory> = [];
     for (const directory of directories) {
-      if (directory.isFolder && directory.name === folderName) {
-        return directory.children;
-      } else {
-        children = folderContent(directory.children, folderName);
+      if (directory.isFolder) {
+        if (directoryId === directory.id) return directory.children;
+        children = findDirectoryChildren(directory.children, directoryId);
         if (children.length > 0) return children;
       }
     }
     return [] as Array<IDirectory>;
+  };
+
+  const findDirectoryPath = (
+    directories: Array<IDirectory>,
+    directoryId: string,
+    directoryPath: string
+  ) => {
+    let path = "";
+    for (const directory of directories) {
+      if (directory.isFolder) {
+        if (directory.id === directoryId)
+          return directoryPath + "/" + directory.name;
+        path = findDirectoryPath(
+          directory.children,
+          directoryId,
+          directoryPath + "/" + directory.name
+        );
+        if (path.length > 0) return path;
+      }
+    }
+    return path;
   };
 
   const uniqueFileFolderNameGenerator = (
@@ -65,11 +85,12 @@ const useDirectory = () => {
     return { name: newFileName, id };
   };
 
-  const externalFileGenerator = async (
+  const processFileUpload = async (
     file: File,
     externalDirectory: Array<IDirectory>,
     externalFilesInformation: Array<IFile>,
-    isNameUnqique = true
+    isNameUnqique = true,
+    parentId = "root"
   ) => {
     const { name, id } = uniqueFileFolderNameGenerator(
       file.name,
@@ -90,7 +111,7 @@ const useDirectory = () => {
 
     const fileForDirectory = {
       id,
-      parentId: "root",
+      parentId,
       name,
       isFolder: false,
       iconUrls: findIconUrl(name, false, fileIcons),
@@ -108,7 +129,7 @@ const useDirectory = () => {
     externalFilesInformation.push(fileInformation);
   };
 
-  const externalFolderGenerator = async (
+  const processFolderUpload = async (
     file: File,
     currentDirectory: IDirectory,
     tempFilesInformation: Array<IFile>
@@ -135,27 +156,30 @@ const useDirectory = () => {
         currentDirectory = currentDirectory.children[targetIndx];
       }
     }
-    await externalFileGenerator(
+    await processFileUpload(
       file,
       currentDirectory.children,
-      tempFilesInformation,false
+      tempFilesInformation,
+      false,
+      currentDirectory.id
     );
   };
 
-  const sortTheExternalDirectory = (externalDirectory: IDirectory) => {
+  const sortTheProcessedDirectory = (externalDirectory: IDirectory) => {
     for (const directory of externalDirectory.children) {
-      sortTheExternalDirectory(directory);
+      sortTheProcessedDirectory(directory);
     }
     externalDirectory.children.sort(directoryComparator);
   };
 
   return {
     isFileOrFolderAlreadyExists,
-    folderContent,
-    externalFileGenerator,
+    findDirectoryChildren,
+    processFileUpload,
     uniqueFileFolderNameGenerator,
-    externalFolderGenerator,
-    sortTheExternalDirectory,
+    processFolderUpload,
+    findDirectoryPath,
+    sortTheProcessedDirectory,
   };
 };
 

@@ -7,7 +7,7 @@ import {
   traverseInDirectoryForRename,
   traverseInDirectoryForAdd,
 } from "./DirectoryOperations";
-// TODO:Central file state
+import { directoryComparator } from "./DirectoryOperations";
 
 let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
   {
@@ -161,6 +161,7 @@ const directorySlice = createSlice({
       for (const directory of action.payload) {
         state.directories.push(directory);
       }
+      state.directories.sort(directoryComparator);
     },
   },
 });

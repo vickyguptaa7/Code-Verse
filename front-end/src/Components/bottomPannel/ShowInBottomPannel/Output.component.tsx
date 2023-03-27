@@ -20,7 +20,7 @@ const Output: React.FC<PROPS_INTEFACE> = ({ mainDivHeight }) => {
         // here 18px subtracted as the parent div have margins and padding so to remove scrolling
         style={{ height: mainDivHeight - 18 }}
         disabled
-        placeholder="output will be displayed here..."
+        placeholder=""
         value={outputContent}
       />
     </div>

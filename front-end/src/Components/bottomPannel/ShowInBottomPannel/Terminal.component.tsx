@@ -19,18 +19,35 @@ const Terminal = () => {
   useEffect(() => {
     setFocusHandler();
   }, [setFocusHandler]);
-  const {clearTerminalContent,addToTerminalContent,closeTerminal,listCurrentDirectoryContent}=useTerminal();
+  const {
+    clearTerminalContent,
+    addToTerminalContent,
+    closeTerminal,
+    listCurrentDirectoryContent,
+    printWorkingDirectory,
+  } = useTerminal();
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
-      if(terminalInput.toLowerCase()==="clear"){
+      const input = terminalInput.trim().toLowerCase();
+      if (input === "clear") {
         clearTerminalContent();
-      }else if(terminalInput.toLowerCase()==="exit"){
+      } else if (input === "exit") {
         closeTerminal();
-      }else if(terminalInput.toLowerCase()==="ls"){
+      } else if (input === "ls") {
         listCurrentDirectoryContent();
-      }
-      else{
-        addToTerminalContent(terminalInput);
+      } else if (input === "pwd") {
+        printWorkingDirectory();
+      }else if(input==="cd"){
+        //TODO:assign currentDirectoryId To root directory
+      } else if (input.split(" ").length === 2) {
+        const inputs=input.split(" ");
+        if(inputs[0]==="cd"){
+          //TODO:
+        }
+      } else {
+        addToTerminalContent(
+          `${terminalInput}\nbash: ${terminalInput}: command not found`
+        );
       }
       setTerminalInput("");
     }
