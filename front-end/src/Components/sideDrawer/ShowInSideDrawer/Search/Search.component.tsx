@@ -53,6 +53,7 @@ const Search = () => {
         )
       );
     else onMountRef.current = false;
+    // eslint-disable-next-line 
   }, [initialSearchedText, filesInformation]);
 
   const updateSearcheTextInStore = (searchedText: string) => {

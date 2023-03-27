@@ -39,8 +39,6 @@ export const fetchExtensionsList = async () => {
       id: key,
     });
   }
-  console.log(list);
-
   return list;
 };
 

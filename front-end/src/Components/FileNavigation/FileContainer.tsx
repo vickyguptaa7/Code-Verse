@@ -38,10 +38,10 @@ const FileContainer: React.FC<IPROPS> = ({ navFilesList }) => {
       dispatch(setCurrentNavFile({ id: "null", type: "file" }));
       return;
     }
-
     if (filesInformation[currentNavFile.id] === undefined) {
       dispatch(setCurrentNavFile(newNavList[newNavList.length - 1]));
     }
+    // eslint-disable-next-line 
   }, [filesInformation, dispatch]);
 
   const removeFileHandler = (id: string) => {

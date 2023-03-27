@@ -84,6 +84,7 @@ const Editor: React.FC<IPROPS> = ({
       isDrawerOpen,
       currentWorkingFileId
     );
+    // eslint-disable-next-line
   }, [
     showInSideDrawer,
     monaco,

@@ -25,7 +25,8 @@ const VirtualizedList = () => {
           ext.publisher.toLowerCase().includes(extensionSearchedText)
       )
     );
-  }, [extensionSearchedText]);
+    
+  }, [extensionSearchedText,extensionList]);
   const Row = ({ index, style }: { index: any; style: any }) => (
     <div style={style}>
       <ExtensionCard info={extensions[index]} isInstalled={false} />
