@@ -7,6 +7,9 @@ const Terminal = () => {
   const terminalContent = useAppSelector(
     (state) => state.bottomPannel.terminalContent
   );
+  const terminalsCurrentDirectoryInfo = useAppSelector(
+    (state) => state.bottomPannel.terminalsCurrentDirectoryInfo
+  );
   const [terminalInput, setTerminalInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,6 +28,8 @@ const Terminal = () => {
     closeTerminal,
     listCurrentDirectoryContent,
     printWorkingDirectory,
+    changeDirectoryToRoot,
+    changeDirectory,
   } = useTerminal();
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
@@ -38,11 +43,11 @@ const Terminal = () => {
       } else if (input === "pwd") {
         printWorkingDirectory();
       } else if (input === "cd") {
-        //TODO:assign currentDirectoryId To root directory
+        changeDirectoryToRoot();
       } else if (input.split(" ").length === 2) {
         const inputs = input.split(" ");
         if (inputs[0] === "cd") {
-          //TODO: change directory 
+          changeDirectory(inputs[1]);
         } else if (input[0] === "touch") {
           // TODO: create a file
         } else if (input[0] === "mkdir") {
@@ -73,7 +78,9 @@ const Terminal = () => {
         {terminalContent}
       </div>
       <div className="flex w-full">
-        <span className="whitespace-pre-wrap">user{"$ "}</span>
+        <span className="whitespace-pre-wrap">
+          {terminalsCurrentDirectoryInfo.name}:user{"$ "}
+        </span>
         <Input
           inputRef={inputRef}
           type="text"

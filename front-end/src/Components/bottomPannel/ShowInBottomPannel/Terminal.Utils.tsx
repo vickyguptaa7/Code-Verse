@@ -3,6 +3,7 @@ import IDirectory from "../../../Interface/directory.interface";
 import {
   setIsBottomPannelOpen,
   setTerminalContent,
+  setTerminalsCurrentDirectoryInfo,
 } from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 
@@ -11,11 +12,11 @@ export const useTerminal = () => {
   const terminalContent = useAppSelector(
     (state) => state.bottomPannel.terminalContent
   );
-  const terminalsCurrentDirectoryId = useAppSelector(
-    (state) => state.bottomPannel.terminalsCurrentDirectoryId
+  const terminalsCurrentDirectoryInfo = useAppSelector(
+    (state) => state.bottomPannel.terminalsCurrentDirectoryInfo
   );
   const directories = useAppSelector((state) => state.Directory.directories);
-  const { findDirectoryChildren, findDirectoryPath } = useDirectory();
+  const { findDirectory, findDirectoryPath } = useDirectory();
 
   const clearTerminalContent = () => {
     dispatch(setTerminalContent(""));
@@ -24,7 +25,9 @@ export const useTerminal = () => {
     console.log(terminalContent);
 
     dispatch(
-      setTerminalContent(terminalContent + "user$ " + terminalInput + "\n")
+      setTerminalContent(
+        `${terminalContent}${terminalsCurrentDirectoryInfo.name}:user$ ${terminalInput}\n`
+      )
     );
   };
   const closeTerminal = () => {
@@ -32,8 +35,9 @@ export const useTerminal = () => {
   };
   const listCurrentDirectoryContent = () => {
     let contents: Array<IDirectory> = directories;
-    if (terminalsCurrentDirectoryId !== "root") {
-      contents = findDirectoryChildren(directories, terminalsCurrentDirectoryId);
+    if (terminalsCurrentDirectoryInfo.id !== "root") {
+      const dir = findDirectory(directories, terminalsCurrentDirectoryInfo.id);
+      contents = dir.children ? dir.children : [];
     }
 
     let output = "";
@@ -45,10 +49,69 @@ export const useTerminal = () => {
   };
   const printWorkingDirectory = () => {
     let path = "/root";
-    if (terminalsCurrentDirectoryId !== "root") {
-      path = findDirectoryPath(directories, terminalsCurrentDirectoryId, path);
+    if (terminalsCurrentDirectoryInfo.id !== "root") {
+      path = findDirectoryPath(
+        directories,
+        terminalsCurrentDirectoryInfo.id,
+        path
+      );
     }
     addToTerminalContent("pwd\n" + path);
+  };
+
+  const changeDirectoryToRoot = () => {
+    dispatch(setTerminalsCurrentDirectoryInfo({ id: "root", name: "root" }));
+    addToTerminalContent("cd");
+  };
+
+  const changeDirectory = (target: string) => {
+    let directory = findDirectory(
+      directories,
+      terminalsCurrentDirectoryInfo.id
+    );
+    addToTerminalContent("cd " + target+"\ncurrent directory does not exist");
+    if (!directory.id) return;
+    if (target === "..") {
+      addToTerminalContent("cd ..");
+      if (terminalsCurrentDirectoryInfo.id === "root") return;
+      dispatch(
+        setTerminalsCurrentDirectoryInfo({
+          id: directory.parentId,
+          name: directory.name,
+        })
+      );
+    } else {
+      let targetIndx;
+      if (terminalsCurrentDirectoryInfo.id === "root") {
+        targetIndx = directories.findIndex((dir) => dir.name === target);
+      } else {
+        targetIndx = directory.children.findIndex((dir) => dir.name === target);
+      }
+      console.log(targetIndx);
+
+      if (targetIndx !== -1) {
+        dispatch(
+          setTerminalsCurrentDirectoryInfo(
+            terminalsCurrentDirectoryInfo.id === "root"
+              ? {
+                  id: directories[targetIndx].id,
+                  name: directories[targetIndx].name,
+                }
+              : {
+                  id: directory.children[targetIndx].id,
+                  name: directory.children[targetIndx].name,
+                }
+          )
+        );
+        addToTerminalContent("cd " + target);
+      } else {
+        addToTerminalContent(
+          "cd " +
+            target +
+            `\nbash: ${"cd " + target}: target location not found`
+        );
+      }
+    }
   };
 
   return {
@@ -57,5 +120,7 @@ export const useTerminal = () => {
     closeTerminal,
     listCurrentDirectoryContent,
     printWorkingDirectory,
+    changeDirectoryToRoot,
+    changeDirectory,
   };
 };

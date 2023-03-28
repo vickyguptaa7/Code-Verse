@@ -56,9 +56,9 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     closeDropMenuHandler();
   };
 
-  // TODO : Add local files
   const openFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
+    //TODO: Add Middleware to redux to close this container if poosible 
     closeDropMenuHandler();
     const files = e.target.files;
     const tempDirectory: Array<IDirectory> = [];

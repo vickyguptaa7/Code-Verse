@@ -30,19 +30,19 @@ const useDirectory = () => {
     return false;
   };
 
-  const findDirectoryChildren = (
+  const findDirectory = (
     directories: Array<IDirectory>,
     directoryId: string
   ) => {
-    let children: Array<IDirectory> = [];
+    let dir: IDirectory ;
     for (const directory of directories) {
       if (directory.isFolder) {
-        if (directoryId === directory.id) return directory.children;
-        children = findDirectoryChildren(directory.children, directoryId);
-        if (children.length > 0) return children;
+        if (directoryId === directory.id) return directory;
+        dir = findDirectory(directory.children, directoryId);
+        if (dir) return dir;
       }
     }
-    return [] as Array<IDirectory>;
+    return {} as IDirectory;
   };
 
   const findDirectoryPath = (
@@ -174,7 +174,7 @@ const useDirectory = () => {
 
   return {
     isFileOrFolderAlreadyExists,
-    findDirectoryChildren,
+    findDirectory,
     processFileUpload,
     uniqueFileFolderNameGenerator,
     processFolderUpload,
