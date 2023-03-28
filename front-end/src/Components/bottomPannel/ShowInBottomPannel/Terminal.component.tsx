@@ -37,12 +37,18 @@ const Terminal = () => {
         listCurrentDirectoryContent();
       } else if (input === "pwd") {
         printWorkingDirectory();
-      }else if(input==="cd"){
+      } else if (input === "cd") {
         //TODO:assign currentDirectoryId To root directory
       } else if (input.split(" ").length === 2) {
-        const inputs=input.split(" ");
-        if(inputs[0]==="cd"){
-          //TODO:
+        const inputs = input.split(" ");
+        if (inputs[0] === "cd") {
+          //TODO: change directory 
+        } else if (input[0] === "touch") {
+          // TODO: create a file
+        } else if (input[0] === "mkdir") {
+          // TODO: create a folder
+        } else if (input[0] === "rm") {
+          // TODO: remove the file from the directory if exists
         }
       } else {
         addToTerminalContent(
