@@ -6,8 +6,8 @@ import {
   traverseInDirectoryForDelete,
   traverseInDirectoryForRename,
   traverseInDirectoryForAdd,
-} from "./DirectoryOperations";
-import { directoryComparator } from "./DirectoryOperations";
+} from "./DirectoryOperations.utils";
+import { directoryComparator } from "./DirectoryOperations.utils";
 
 let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
   {

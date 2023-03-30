@@ -5,7 +5,7 @@ import {
   directoryComparator,
   findExtension,
   findIconUrl,
-} from "../Store/reducres/SideDrawer/Directory/DirectoryOperations";
+} from "../Store/reducres/SideDrawer/Directory/DirectoryOperations.utils";
 import { useAppSelector } from "../Store/store";
 
 const useDirectory = () => {

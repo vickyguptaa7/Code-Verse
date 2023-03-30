@@ -72,8 +72,6 @@ const useUndoRedo = (
       () => {
         if (historyRef.current[currFile.id].pointer > 1) {
           historyRef.current[currFile.id].pointer--;
-          console.log(historyRef.current[currFile.id]);
-
           setEditorContent(
             historyRef.current[currFile.id].stack[
               historyRef.current[currFile.id].pointer - 1
@@ -81,10 +79,11 @@ const useUndoRedo = (
           );
           isUndoRedoRef.current = true;
         }
+        console.log(historyRef.current[currFile.id]);
         console.log("Undo");
       }
     );
-  }, [monacoRef, monaco, currFile.id, isEditorMounted,setEditorContent]);
+  }, [monacoRef, monaco, currFile.id, isEditorMounted, setEditorContent]);
 
   const updateUndoRedoStack = (value: string) => {
     if (

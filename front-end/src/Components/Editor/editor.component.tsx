@@ -60,10 +60,10 @@ const Editor: React.FC<IPROPS> = ({
       isUpdateStoreRef.current = true;
       return;
     }
-
+    
     // if it returns undefined then we don't do any changes
+    console.log(value);
     if (value === undefined) return;
-    console.log(editorContent);
     setEditorContent(value);
     debounceUpdateSearchedText(value);
     if (!isUndoRedoRef.current) {
