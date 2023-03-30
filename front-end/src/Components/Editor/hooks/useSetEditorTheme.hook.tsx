@@ -1,9 +1,10 @@
+import { useMonaco } from "@monaco-editor/react";
 import { useEffect } from "react";
 
 const useSetEditorTheme = (
-  monaco: typeof import("monaco-editor/esm/vs/editor/editor.api") | null,
   setIsEditorReady: Function
 ) => {
+  const monaco=useMonaco();
   useEffect(() => {
     if (monaco) {
       try {

@@ -10,7 +10,6 @@ let DUMMY_FILES: Array<INavFile> = [
     id: "setting",
     type: "setting",
   },
-  
 ];
 
 const emptyFile: INavFile = {
@@ -21,6 +20,7 @@ const emptyFile: INavFile = {
 const navigationFilesInitialState = {
   navFilesList: DUMMY_FILES,
   currentNavFile: DUMMY_FILES[1],
+  undoRedoStack: {} as { [key: string]: { stack: string[]; pointer: number } },
 };
 
 const navigationFilesSlice = createSlice({
@@ -69,6 +69,9 @@ const navigationFilesSlice = createSlice({
     updateNavFileList(state, action: PayloadAction<Array<INavFile>>) {
       state.navFilesList = action.payload;
     },
+    setUndoRedoStack(state, action: PayloadAction<{}>){
+      
+    }
   },
 });
 

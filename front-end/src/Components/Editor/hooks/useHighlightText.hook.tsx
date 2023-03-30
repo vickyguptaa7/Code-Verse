@@ -1,25 +1,32 @@
-import React from "react";
+import  { useRef } from "react";
+import { useMonaco } from "@monaco-editor/react";
 import { DrawerContent } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
+import { useAppSelector } from "../../../Store/store";
 
 const useHighlightText = () => {
+  const monaco=useMonaco();
+  const currFile = useAppSelector(
+    (state) => state.fileNavigation.currentNavFile
+  );
+  let previousDecorationsRef = useRef<{
+    [key: string]: Array<string>;
+  }>({});
+
+  if (!previousDecorationsRef.current[currFile.id]) {
+    previousDecorationsRef.current[currFile.id] = Array<string>();
+  }
   function highlightText(
-    monaco: typeof import("monaco-editor/esm/vs/editor/editor.api") | null,
-    previousDecorationsRef: React.RefObject<{
-      [key: string]: Array<string>;
-    }>,
     searchedText: string,
     showInSideDrawer: DrawerContent,
     isDrawerOpen: boolean,
-    currentWorkingFileId: string
   ) {
-    console.log("update highlight");
+
     if (!monaco || monaco.editor.getModels().length === 0) return;
 
     console.log(
-      previousDecorationsRef.current![currentWorkingFileId],
+      previousDecorationsRef.current![currFile.id],
       "before"
     );
-    
     
     const matches = monaco.editor
       .getModels()[0]
@@ -27,9 +34,9 @@ const useHighlightText = () => {
 
     // if matches are not found or the string is empty then we remove all the previous highlighting
     const previousDecor: Array<string> = previousDecorationsRef.current![
-      currentWorkingFileId
+      currFile.id
     ]
-      ? previousDecorationsRef.current![currentWorkingFileId]
+      ? previousDecorationsRef.current![currFile.id]
       : [];
     // first removing all the previouse decorations
     monaco.editor.getModels()[0].deltaDecorations(previousDecor, []);
@@ -39,9 +46,9 @@ const useHighlightText = () => {
       !isDrawerOpen ||
       showInSideDrawer !== "search"
     ) {
-      previousDecorationsRef.current![currentWorkingFileId]?.splice(
+      previousDecorationsRef.current![currFile.id]?.splice(
         0,
-        previousDecorationsRef.current![currentWorkingFileId].length
+        previousDecorationsRef.current![currFile.id].length
       );
       return;
     }
@@ -82,15 +89,14 @@ const useHighlightText = () => {
     });
 
     // removing the prev decorations from the ref
-    previousDecorationsRef.current![currentWorkingFileId].splice(
+    previousDecorationsRef.current![currFile.id].splice(
       0,
-      previousDecorationsRef.current![currentWorkingFileId].length
+      previousDecorationsRef.current![currFile.id].length
     );
-    console.log(newDecorations);
 
     // now storing the new decoration in the ref
     for (const decor of newDecorations) {
-      previousDecorationsRef.current![currentWorkingFileId].push(decor);
+      previousDecorationsRef.current![currFile.id].push(decor);
     }
   }
   return {

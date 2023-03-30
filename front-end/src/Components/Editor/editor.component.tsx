@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import MonacoEditor, { useMonaco } from "@monaco-editor/react";
+import MonacoEditor from "@monaco-editor/react";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { twMerge } from "tailwind-merge";
 import useDebounce from "../../hooks/useDebounce.hook";
@@ -8,6 +8,7 @@ import "./editor.component.css";
 import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
 import useHighlightText from "./hooks/useHighlightText.hook";
 import { editor } from "monaco-editor";
+import useUndoRedo from "./hooks/useUndoRedo.hook";
 
 interface IPROPS {
   content: string;
@@ -22,42 +23,26 @@ const Editor: React.FC<IPROPS> = ({
   currentWorkingFileId,
   editorHeight,
 }) => {
-  const monaco = useMonaco();
-  // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
-  let isUpdateStoreRef = useRef(true);
-  let monacoRef = useRef<null | editor.IStandaloneCodeEditor>(null);
-
-  // storing the prev decorations of all the files if they are used in search so that we can remove the prev change and apply the new one
-  let previousDecorationsRef = useRef<{
-    [key: string]: Array<string>;
-  }>({});
-
-  useEffect(() => {
-    if (!monacoRef.current||!monaco) return;
-    console.log("render monaco ref");
-    monacoRef.current.addCommand(monaco.KeyMod.CtrlCmd|monaco.KeyMod.Shift|monaco.KeyCode.KeyZ, ()=> {
-      console.log('Redo')
-  });
-  
-    monacoRef.current.addCommand(monaco.KeyMod.CtrlCmd|monaco.KeyCode.KeyZ, ()=> {
-      console.log('Undo')
-  });
-
-  },[monacoRef,monaco] );
-
   const dispatch = useAppDispatch();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [editorContent, setEditorContent] = useState(content);
+  const [isEditorMounted, setIsEditorMounted] = useState(false);
   const searchedText = useAppSelector((state) => state.search.searchedText);
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
-  if (previousDecorationsRef.current[currentWorkingFileId] === undefined) {
-    previousDecorationsRef.current[currentWorkingFileId] = Array<string>();
-  }
+  // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
+  let isUpdateStoreRef = useRef(true);
+  let monacoRef = useRef<null | editor.IStandaloneCodeEditor>(null);
+  // storing the prev decorations of all the files if they are used in search so that we can remove the prev change and apply the new one
 
-  useSetEditorTheme(monaco, setIsEditorReady);
+  const { isUndoRedoRef, updateUndoRedoStack } = useUndoRedo(
+    monacoRef,
+    setEditorContent,
+    isEditorMounted
+  );
+  useSetEditorTheme(setIsEditorReady);
   const { highlightText } = useHighlightText();
 
   // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
@@ -65,9 +50,9 @@ const Editor: React.FC<IPROPS> = ({
     dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
   };
 
-  const debouncedUpdateSearchedText = useDebounce(updateStore, 500);
-  const debouncedUpdateHightlightText = useDebounce(highlightText, 250);
-
+  const debounceUpdateSearchedText = useDebounce(updateStore, 800);
+  const debounceUpdateHightlightText = useDebounce(highlightText, 500);
+  const debounceUpdateUndoRedoStack = useDebounce(updateUndoRedoStack, 300);
   const onChangeHandler = (value: string | undefined) => {
     // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
     // as currentWorkingFileId changes use effect will update with initial value
@@ -78,9 +63,12 @@ const Editor: React.FC<IPROPS> = ({
 
     // if it returns undefined then we don't do any changes
     if (value === undefined) return;
-    console.log(value);
+    console.log(editorContent);
     setEditorContent(value);
-    debouncedUpdateSearchedText(value);
+    debounceUpdateSearchedText(value);
+    if (!isUndoRedoRef.current) {
+      debounceUpdateUndoRedoStack(value);
+    } else isUndoRedoRef.current = false;
   };
 
   useEffect(() => {
@@ -91,18 +79,16 @@ const Editor: React.FC<IPROPS> = ({
   }, [currentWorkingFileId, content]);
 
   useEffect(() => {
-    debouncedUpdateHightlightText(
-      monaco,
-      previousDecorationsRef,
+    debounceUpdateHightlightText(
       searchedText,
       showInSideDrawer,
       isDrawerOpen,
       currentWorkingFileId
     );
-    // eslint-disable-next-line
+    // eslint-disable-next-line 
   }, [
+    isEditorMounted,
     showInSideDrawer,
-    monaco,
     searchedText,
     currentWorkingFileId,
     isDrawerOpen,
@@ -134,16 +120,9 @@ const Editor: React.FC<IPROPS> = ({
           }}
           value={editorContent}
           onChange={onChangeHandler}
-          onMount={(editor, monaco) => {
-            highlightText(
-              monaco,
-              previousDecorationsRef,
-              searchedText,
-              showInSideDrawer,
-              isDrawerOpen,
-              currentWorkingFileId
-            );
+          onMount={(editor) => {
             monacoRef.current = editor;
+            setIsEditorMounted(true);
           }}
         ></MonacoEditor>
       )}
