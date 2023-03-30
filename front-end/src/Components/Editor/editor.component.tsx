@@ -60,7 +60,7 @@ const Editor: React.FC<IPROPS> = ({
       isUpdateStoreRef.current = true;
       return;
     }
-    
+
     // if it returns undefined then we don't do any changes
     console.log(value);
     if (value === undefined) return;
@@ -85,7 +85,7 @@ const Editor: React.FC<IPROPS> = ({
       isDrawerOpen,
       currentWorkingFileId
     );
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [
     isEditorMounted,
     showInSideDrawer,
@@ -122,6 +122,7 @@ const Editor: React.FC<IPROPS> = ({
           onChange={onChangeHandler}
           onMount={(editor) => {
             monacoRef.current = editor;
+            isUpdateStoreRef.current = true;
             setIsEditorMounted(true);
           }}
         ></MonacoEditor>

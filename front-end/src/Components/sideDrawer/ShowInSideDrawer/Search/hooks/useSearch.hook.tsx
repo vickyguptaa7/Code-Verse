@@ -21,6 +21,7 @@ const useSearch = () => {
     for (const key in filesInformation) {
       const getResult = async (file: IFile) => {
         return new Promise((resolve, reject) => {
+          setTimeout(() => {
             if (file.id === "settings" || file.id === "extension")
               resolve(null);
             if (
@@ -30,7 +31,7 @@ const useSearch = () => {
               matchingFiles.push({ id: file.id, type: "file" });
             }
             resolve(null);
-
+          });
         });
       };
       await getResult(filesInformation[key]);
