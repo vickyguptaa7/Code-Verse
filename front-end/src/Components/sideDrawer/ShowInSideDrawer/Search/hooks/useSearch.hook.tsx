@@ -1,7 +1,6 @@
-import {
-  INavFile,
-} from "../../../../../Interface/file.interface";
+import { IFile, INavFile } from "../../../../../Interface/file.interface";
 import { updateFileBody } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
+import { setSearchedResultFiles } from "../../../../../Store/reducres/SideDrawer/Search/Search.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 
 const useSearch = () => {
@@ -15,23 +14,31 @@ const useSearch = () => {
     (state) => state.search.searchedResultFiles
   );
 
-  const findSearchedTextInFiles = (searchedText: string) => {
+  const findSearchedTextInFiles = async () => {
     console.log("find", searchedText);
     if (searchedText.length === 0) return [];
     const matchingFiles = new Array<INavFile>();
     for (const key in filesInformation) {
-      if (key === "settings" || key === "extension") continue;
-      if (
-        filesInformation[key].body
-          .toLocaleLowerCase()
-          .includes(searchedText.toLowerCase())
-      ) {
-        matchingFiles.push({ id: key, type: "file" });
-      }
+      const getResult = async (file: IFile) => {
+        return new Promise((resolve, reject) => {
+            if (file.id === "settings" || file.id === "extension")
+              resolve(null);
+            if (
+              file.body.toLocaleLowerCase().includes(searchedText.toLowerCase())
+            ) {
+              console.log(file.id);
+              matchingFiles.push({ id: file.id, type: "file" });
+            }
+            resolve(null);
+
+        });
+      };
+      await getResult(filesInformation[key]);
     }
-    return matchingFiles;
+    console.log("dis", matchingFiles);
+    dispatch(setSearchedResultFiles(matchingFiles));
   };
-  const replaceTextInFiles = (targetFiles=searchedResultFiles) => {
+  const replaceTextInFiles = (targetFiles = searchedResultFiles) => {
     for (const file of targetFiles) {
       if (filesInformation[file.id] === undefined) continue;
       const newString = filesInformation[file.id].body.replaceAll(

@@ -7,6 +7,7 @@ import { updateFileBody } from "../../Store/reducres/SideDrawer/Directory/Direct
 import "./editor.component.css";
 import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
 import useHighlightText from "./hooks/useHighlightText.hook";
+import { editor } from "monaco-editor";
 
 interface IPROPS {
   content: string;
@@ -24,11 +25,25 @@ const Editor: React.FC<IPROPS> = ({
   const monaco = useMonaco();
   // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
   let isUpdateStoreRef = useRef(true);
+  let monacoRef = useRef<null | editor.IStandaloneCodeEditor>(null);
 
   // storing the prev decorations of all the files if they are used in search so that we can remove the prev change and apply the new one
   let previousDecorationsRef = useRef<{
     [key: string]: Array<string>;
   }>({});
+
+  useEffect(() => {
+    if (!monacoRef.current||!monaco) return;
+    console.log("render monaco ref");
+    monacoRef.current.addCommand(monaco.KeyMod.CtrlCmd|monaco.KeyMod.Shift|monaco.KeyCode.KeyZ, ()=> {
+      console.log('Redo')
+  });
+  
+    monacoRef.current.addCommand(monaco.KeyMod.CtrlCmd|monaco.KeyCode.KeyZ, ()=> {
+      console.log('Undo')
+  });
+
+  },[monacoRef,monaco] );
 
   const dispatch = useAppDispatch();
   const [isEditorReady, setIsEditorReady] = useState(false);
@@ -73,7 +88,7 @@ const Editor: React.FC<IPROPS> = ({
     isUpdateStoreRef.current = false;
     // as we don't want to update with the content as it changes frequently we update only when the current working file id's change so there will be less rerenders
     // eslint-disable-next-line
-  }, [currentWorkingFileId,content]);
+  }, [currentWorkingFileId, content]);
 
   useEffect(() => {
     debouncedUpdateHightlightText(
@@ -119,7 +134,7 @@ const Editor: React.FC<IPROPS> = ({
           }}
           value={editorContent}
           onChange={onChangeHandler}
-          onMount={() => {
+          onMount={(editor, monaco) => {
             highlightText(
               monaco,
               previousDecorationsRef,
@@ -128,6 +143,7 @@ const Editor: React.FC<IPROPS> = ({
               isDrawerOpen,
               currentWorkingFileId
             );
+            monacoRef.current = editor;
           }}
         ></MonacoEditor>
       )}

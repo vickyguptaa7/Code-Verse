@@ -1,22 +1,41 @@
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import useDebounce from "../../../../../hooks/useDebounce.hook";
 import useInputFocus from "../../../../../hooks/useInputFocus.hook";
 import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
   inputRef: React.RefObject<HTMLInputElement>;
-  onChangeHandler: React.ChangeEventHandler;
   name: string;
+  initialInput: string;
   value?: string;
+  durationForDebounce: number;
+  updateInStoreText: Function;
 }
 
 const SearchInput: React.FC<IPROPS> = ({
+  initialInput,
   inputRef,
-  onChangeHandler,
   name,
-  value,
+  durationForDebounce,
+  updateInStoreText,
 }) => {
   const [isInputInFocus, setIsInputInFocus] = useState(true);
+  const [inputText, setInputText] = useState(initialInput);
+
+  const debouncedUpdateSearchedTextInStore = useDebounce(
+    updateInStoreText,
+    durationForDebounce
+  );
+
+  const onChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setInputText(event.currentTarget.value);
+    debouncedUpdateSearchedTextInStore(event.currentTarget.value);
+    console.log("changeInput");
+  };
+
   // for the initial focus on the search input
   useInputFocus(inputRef);
   return (
@@ -33,7 +52,7 @@ const SearchInput: React.FC<IPROPS> = ({
       )}
       onChange={onChangeHandler}
       placeholder={name}
-      value={value}
+      value={inputText}
     />
   );
 };

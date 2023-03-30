@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../Store/store";
 import { VscChevronRight, VscReplaceAll } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
@@ -7,12 +7,10 @@ import Button from "../../../UI/Button.component";
 import SearchInput from "./Basic/SearchInput.component";
 import SearchResult from "./SearchResult.component";
 
-import useDebounce from "../../../../hooks/useDebounce.hook";
 import useSearch from "./hooks/useSearch.hook";
 import {
   setIsReplaceOpen,
   updateReplacementText,
-  setSearchedResultFiles,
   updateSearchedText,
 } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
 
@@ -35,25 +33,21 @@ const Search = () => {
     (state) => state.search.searchedResultFiles
   );
   const isReplaceButtonDisable = searchedResultFiles.length === 0;
-  const [searchedText, setSearchedText] = useState(initialSearchedText);
-  const [replaceText, setReplaceText] = useState(initialReplaceText);
 
   const dispatch = useAppDispatch();
   const { findSearchedTextInFiles, replaceTextInFiles } = useSearch();
+  console.log("Search");
+
   // to avoid redundant space on start and end
 
   // updating the search results as store searchtext changes as store search text changes with some delay so we reduce the no of find calls
   useEffect(() => {
     // onMountRef is used to avoid the onMount calling dispatch as we have to display the previous stuff
-    console.log(onMountRef);
-    if (!onMountRef.current)
-      dispatch(
-        setSearchedResultFiles(
-          findSearchedTextInFiles(initialSearchedText.trim())
-        )
-      );
-    else onMountRef.current = false;
-    // eslint-disable-next-line 
+    console.log(onMountRef, "Rerender");
+    if (!onMountRef.current) {
+      findSearchedTextInFiles();
+    } else onMountRef.current = false;
+    // eslint-disable-next-line
   }, [initialSearchedText, filesInformation]);
 
   const updateSearcheTextInStore = (searchedText: string) => {
@@ -63,32 +57,8 @@ const Search = () => {
     dispatch(updateReplacementText(searchedText));
   };
 
-  const debouncedUpdateSearchedTextInStore = useDebounce(
-    updateSearcheTextInStore,
-    200
-  );
-  const debouncedUpdateReplaceTextInStore = useDebounce(
-    updateReplaceTextInStore,
-    200
-  );
-
   const toggleSearchHandler = () => {
     dispatch(setIsReplaceOpen(!isReplaceOpen));
-  };
-
-  const onSearchChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSearchedText(event.currentTarget.value);
-    debouncedUpdateSearchedTextInStore(event.currentTarget.value);
-    console.log("changeInput");
-  };
-  const onReplaceChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setReplaceText(event.currentTarget.value);
-    debouncedUpdateReplaceTextInStore(event.currentTarget.value);
-    console.log("changeInput");
   };
 
   return (
@@ -104,18 +74,20 @@ const Search = () => {
         </div>
         <div className="flex flex-col items-center justify-center w-full gap-2">
           <SearchInput
+            initialInput={initialSearchedText}
+            durationForDebounce={800}
+            updateInStoreText={updateSearcheTextInStore}
             inputRef={searchRef}
             name="Search"
-            onChangeHandler={onSearchChangeHandler}
-            value={searchedText}
           />
           {isReplaceOpen ? (
             <div className="flex items-center justify-center w-full gap-2">
               <SearchInput
+                initialInput={initialReplaceText}
+                durationForDebounce={600}
+                updateInStoreText={updateReplaceTextInStore}
                 inputRef={replaceRef}
                 name="Replace"
-                onChangeHandler={onReplaceChangeHandler}
-                value={replaceText}
               />
               <Button
                 className={twMerge(
@@ -134,7 +106,7 @@ const Search = () => {
           ) : null}
         </div>
       </div>
-      {searchedText.length > 0 ? (
+      {initialSearchedText.length > 0 ? (
         <SearchResult filesInformation={filesInformation} />
       ) : null}
     </>

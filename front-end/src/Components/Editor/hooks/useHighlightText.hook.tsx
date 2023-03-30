@@ -19,8 +19,8 @@ const useHighlightText = () => {
       previousDecorationsRef.current![currentWorkingFileId],
       "before"
     );
-    console.log(monaco.editor.getModels());
-
+    
+    
     const matches = monaco.editor
       .getModels()[0]
       .findMatches(searchedText, true, false, false, null, false);
@@ -62,13 +62,13 @@ const useHighlightText = () => {
               options: {
                 isWholeLine: false,
                 inlineClassName: "highlights",
-                minimap:{
-                  position:1,
-                  color:"red"
+                minimap: {
+                  position: 1,
+                  color: "red",
                 },
-                overviewRuler:{
-                  position:1,
-                  color:"red"
+                overviewRuler: {
+                  position: 1,
+                  color: "red",
                 },
                 // its used to avoid the change of the background of the unwanted text read about the prop in detail in doc
                 stickiness:

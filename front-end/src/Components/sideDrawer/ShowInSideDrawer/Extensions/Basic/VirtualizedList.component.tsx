@@ -27,7 +27,7 @@ const VirtualizedList = () => {
     );
     
   }, [extensionSearchedText,extensionList]);
-  const Row = ({ index, style }: { index: any; style: any }) => (
+  const results = ({ index, style }: { index: any; style: any }) => (
     <div style={style}>
       <ExtensionCard info={extensions[index]} isInstalled={false} />
     </div>
@@ -42,7 +42,7 @@ const VirtualizedList = () => {
           itemSize={EXTENSIONS_CARD_HEIGHT}
           width={width}
         >
-          {Row}
+          {results}
         </List>
       )}
     </AutoSizer>
