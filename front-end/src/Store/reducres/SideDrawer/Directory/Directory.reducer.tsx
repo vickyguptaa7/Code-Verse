@@ -18,7 +18,7 @@ let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
     ],
     isFolder: false,
     parentId: "root",
-    path: "welcomelop",
+    path: "root/welcomelop",
     children: [],
   },
 ];
@@ -98,14 +98,14 @@ const directorySlice = createSlice({
 
     renameFileOrFolderOfDirectory(
       state,
-      action: PayloadAction<{ id: string; name: string; isFolder: boolean }>
+      action: PayloadAction<{ id: string; name: string; isFolder: boolean,path:Array<string> }>
     ) {
-      traverseInDirectoryForRename(
+      console.log(traverseInDirectoryForRename(
         state.filesInformation,
         state.directories,
         action.payload.isFolder ? state.folderIcons : state.fileIcons,
         action.payload
-      );
+      ));
       state.infoOfCurrentWorkingFileOrFolder = {
         isActive: false,
         id: "",

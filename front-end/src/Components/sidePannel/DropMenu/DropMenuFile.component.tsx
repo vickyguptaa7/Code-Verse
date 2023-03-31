@@ -71,7 +71,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         tempFilesInformation,
         false,
         "root",
-        ""
+        "root"
       );
     }
     dispatch(addExternalFileOrFolderToDirectory(tempDirectory));
@@ -95,7 +95,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
       iconUrls: [],
       isFolder: true,
       children: [],
-      path: folderId,
+      path: "root/"+folderId,
     };
     const tempFilesInformation: Array<IFile> = [];
     for (const fileKey in files) {
@@ -105,7 +105,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         currFile,
         newDirectory,
         tempFilesInformation,
-        folderId
+        "root/" + folderId
       );
     }
     sortTheProcessedDirectory(newDirectory);

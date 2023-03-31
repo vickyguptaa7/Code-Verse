@@ -16,10 +16,12 @@ const useDirectory = () => {
     directories: Array<IDirectory>,
     path: Array<string>,
     name: string,
-    indx: number = 0
+    isRenameCheck: boolean = false,
+    indx: number = 1
   ) => {
-    console.log("Path:", path);
-    if (path.length === indx) {
+    console.log("Path : ", path);
+    const baseCheck=(isRenameCheck)?indx+1:indx;
+    if (path.length === baseCheck) {
       const targetIndx = directories.findIndex(
         (directory) =>
           directory.name.trim().toLowerCase() === name.trim().toLowerCase()
@@ -29,13 +31,14 @@ const useDirectory = () => {
     const childIndx = directories.findIndex(
       (directory) => directory.id === path[indx]
     );
-    console.log("childIndx:", childIndx);
     if (childIndx === -1) return false;
     if (
+      directories[childIndx].isFolder &&
       isFileOrFolderAlreadyExists(
         directories[childIndx].children,
         path,
         name,
+        isRenameCheck,
         indx + 1
       )
     )

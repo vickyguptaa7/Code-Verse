@@ -50,14 +50,14 @@ const traverseInDirectoryForAdd = (
     name: string;
     isFolder: boolean;
   },
-  path: string = ""
+  path: string = "root"
 ) => {
   // for root directory we dont need to traverse to the the child directory (root directory is the main menu where we can just add file or folder)
   if (info.parentId === "root") {
     addFileOrFolder(filesInformation, directories, iconList, info, path);
     return true;
   }
-  
+
   for (const directory of directories) {
     console.log(directory.name, "add");
     // we can add files or folder in folder only not in file :)
@@ -68,7 +68,7 @@ const traverseInDirectoryForAdd = (
         directory.children,
         iconList,
         info,
-        path.length ? path + "/" + directory.id : directory.id,
+        path + "/" + directory.id
       );
       return true;
     }
@@ -79,7 +79,7 @@ const traverseInDirectoryForAdd = (
           directory.children,
           iconList,
           info,
-          path.length ? path + "/" + directory.id : directory.id,
+          path + "/" + directory.id
         )
       )
         return true;
@@ -94,35 +94,39 @@ const traverseInDirectoryForRename = (
   info: {
     id: string;
     name: string;
-  }
+    path: Array<string>;
+  },
+  pathIndx: number = 1
 ) => {
-  for (const directoryIndx in directories) {
-    // if id matches we rename the file or folder
-    console.log(directories[directoryIndx].name, "rename");
 
-    if (directories[directoryIndx].id === info.id) {
-      renameOfFileOrFolder(
-        filesInformation,
-        directories,
-        iconList,
-        parseInt(directoryIndx),
-        info
-      );
-      return true;
-    }
-    // if its folder then we search in childrens if we have not found it yet
-    if (directories[directoryIndx].isFolder) {
-      if (
-        traverseInDirectoryForRename(
-          filesInformation,
-          directories[directoryIndx].children,
-          iconList,
-          info
-        )
-      )
-        return true;
-    }
+  const childIndx = directories.findIndex(
+    (directory) => directory.id === info.path[pathIndx]
+  );
+
+  if (childIndx === -1) return false;
+
+  if (info.path.length === pathIndx + 1) {
+    renameOfFileOrFolder(
+      filesInformation,
+      directories,
+      iconList,
+      childIndx,
+      info
+    );
+    return true;
   }
+  if (
+    directories[childIndx].isFolder &&
+    traverseInDirectoryForRename(
+      filesInformation,
+      directories[childIndx].children,
+      iconList,
+      info,
+      pathIndx + 1
+    )
+  )
+    return true;
+
   return false;
 };
 
@@ -220,7 +224,7 @@ function addFileOrFolder(
   },
   path: string
 ) {
-  console.log(path.length ? path + "/" + info.id : info.id);
+  console.log(path + "/" + info.id);
   const newItem = {
     id: info.id,
     parentId: info.parentId,
@@ -228,7 +232,7 @@ function addFileOrFolder(
     iconUrls: findIconUrl(info.name, info.isFolder, iconList),
     isFolder: info.isFolder,
     children: [],
-    path: path.length ? path + "/" + info.id : info.id,
+    path: path + "/" + info.id,
   };
   directories.unshift(newItem);
 

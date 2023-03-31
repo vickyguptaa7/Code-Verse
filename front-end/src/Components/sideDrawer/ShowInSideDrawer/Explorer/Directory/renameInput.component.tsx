@@ -66,7 +66,7 @@ const RenameInput: React.FC<IPROPS> = ({
       isFileOrFolderAlreadyExists(
         directories,
         directoryInfo.path.split("/"),
-        fileName
+        fileName,true
       )
     ) {
       setIsFileNameExistAlready(true);
@@ -77,6 +77,7 @@ const RenameInput: React.FC<IPROPS> = ({
         id: directoryInfo.id,
         name: fileName,
         isFolder: directoryInfo.isFolder,
+        path: directoryInfo.path.split('/'),
       })
     );
     setIsInputInFocus(false);
@@ -91,13 +92,14 @@ const RenameInput: React.FC<IPROPS> = ({
       }
       // check if the file with same name does'nt exist already and filename not empty
       if (
+        !fileName.trim().length||
         isFileOrFolderAlreadyExists(
           directories,
           directoryInfo.path.split("/"),
-          fileName
-        ) ||
-        !fileName.trim().length
+          fileName,true
+        ) 
       ) {
+        console.log('existed');
         setIsFileNameExistAlready(true);
         return;
       }
@@ -106,6 +108,7 @@ const RenameInput: React.FC<IPROPS> = ({
           id: directoryInfo.id,
           name: fileName,
           isFolder: directoryInfo.isFolder,
+          path: directoryInfo.path.split('/')
         })
       );
       setIsInputInFocus(false);
