@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { VscChevronRight } from "react-icons/vsc";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
 
 const Breakpoints = () => {
   const [isBreakpointsOpen, setIsBreakpointsOpen] = useState(false);
@@ -16,7 +16,7 @@ const Breakpoints = () => {
     >
       <div className="flex items-center justify-center p-1">
         <VscChevronRight
-          className={twMerge(isBreakpointsOpen ? "rotate-90" : "")}
+          className={mergeClass([isBreakpointsOpen ? "rotate-90" : ""])}
         />
       </div>
       <div className="flex items-center justify-center">

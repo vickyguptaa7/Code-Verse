@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
 import useDebounce from "../../../../../hooks/useDebounce.hook";
 import useInputFocus from "../../../../../hooks/useInputFocus.hook";
+import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
@@ -46,10 +46,10 @@ const SearchInput: React.FC<IPROPS> = ({
       type="text"
       onFocus={() => setIsInputInFocus(true)}
       onBlur={() => setIsInputInFocus(false)}
-      className={twMerge(
+      className={mergeClass([
         "w-full px-2 py-1 bg-[color:var(--sidepannel-color)] border border-transparent selection:bg-[color:var(--accent-color)]",
         isInputInFocus ? " border-red-900" : ""
-      )}
+      ])}
       onChange={onChangeHandler}
       placeholder={name}
       value={inputText}

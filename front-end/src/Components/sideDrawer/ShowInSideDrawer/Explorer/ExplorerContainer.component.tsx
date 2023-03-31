@@ -1,7 +1,7 @@
 import ExplorerFolder from "./explorerFolder.component";
 
-import { twMerge } from "tailwind-merge";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
+import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
 
 const Explorer = () => {
   return (
@@ -9,7 +9,7 @@ const Explorer = () => {
       <div className="pl-5 mt-1.5 mb-2">
         <h2>EXPLORER</h2>
       </div>
-      <div className={twMerge("flex flex-col h-full")}>
+      <div className={mergeClass(["flex flex-col h-full"])}>
         <ExplorerFolder />
         <CollapsibleMenu menuName="OUTLINE" children={null}/>
         <CollapsibleMenu menuName="TIMELINE" children={null}/>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import { twMerge } from "tailwind-merge";
 import { VscDebugStart, VscEllipsis } from "react-icons/vsc";
 
 import FileContainer from "./FileContainer";
@@ -12,6 +11,7 @@ import Button from "../UI/Button.component";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { removeAllFilesFromNavigation } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 const FileNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -54,10 +54,10 @@ const FileNavigation = () => {
             </Button>
           ) : null}
           <Button
-            className={twMerge(
+            className={mergeClass([
               "flex items-center justify-center rounded-lg p-0.5 hover:bg-[color:var(--hover-text-color)] mr-2",
               isDropMenuOpen && "bg-[color:var(--hover-text-color)]"
-            )}
+            ])}
             onClick={openDropMenuHandler}
           >
             <VscEllipsis className="text-xl" />

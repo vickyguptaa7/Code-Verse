@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
-import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../Store/store";
 import Main from "../Components/Layout/Main.component";
 import { SIDE_PANNEL_WIDTH } from "../Components/sidePannel/SidePannel.constants";
+import { mergeClass } from "../library/tailwindMerge/tailwindMerge.lib";
 
 const EDITOR_MIN_WIDTH = 320;
 const EDITOR_MIN_HEIGHT = 480;
@@ -41,10 +41,10 @@ const CodeEditor = () => {
   return (
     <div className="flex flex-col w-full h-full">
       <div
-        className={twMerge(
+        className={mergeClass([
           "flex h-full",
           !isSidePannelPositionOnLeft && "flex-row-reverse"
-        )}
+        ])}
       >
         <div className="right w-fit">
           <SideDrawer />

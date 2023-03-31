@@ -28,7 +28,7 @@ const Directory: React.FC<IPROPS> = ({ directoryInfo, shiftAmount }) => {
       <File fileInfo={document} shiftAmount={shiftAmount} key={document.id} />
     );
   });
-  return <>{directoryList};</>;
+  return <>{directoryList}</>;
 };
 
 export default Directory;

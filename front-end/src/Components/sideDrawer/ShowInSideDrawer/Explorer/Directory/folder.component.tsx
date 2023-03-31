@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { VscChevronRight } from "react-icons/vsc";
 
-import { twMerge } from "tailwind-merge";
 import IDirectory from "../../../../../Interface/directory.interface";
 import RenameInput from "./renameInput.component";
 import ExplorerButtons from "./explorerButtons.component";
@@ -9,6 +8,7 @@ import NewFileOrFolderDummy from "./newFileOrFolderDummy.component";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { FaFolder, FaFolderOpen } from "react-icons/fa";
+import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 
 interface IPROPS {
   folderInfo: IDirectory;
@@ -45,7 +45,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
         onClick={toggleChildrenVisibilityHandler}
       >
         <div className="flex items-center justify-center">
-          <VscChevronRight className={twMerge(isFolderOpen && "rotate-90")} />
+          <VscChevronRight className={mergeClass([isFolderOpen && "rotate-90"])} />
         </div>
         <div className="flex justify-between w-full gap-3 pr-4">
           <div className="flex items-center justify-center gap-1.5 w-full min-w-[6rem]">

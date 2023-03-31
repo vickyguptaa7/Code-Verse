@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { VscChevronUp, VscClose, VscEllipsis, VscTrash } from "react-icons/vsc";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 import {
   resetBottomPannel,
   setBottomPannelHeight,
@@ -69,10 +69,10 @@ const BottomPannelRightNavigation = () => {
           onClickHandler={resetBottomPannelHandler}
         />
         <BottomPannelButton
-          className={twMerge(
+          className={mergeClass([
             "flex items-start justify-center",
             isDropMenuOpen && "bg-[color:var(--hover-text-color)]"
-          )}
+          ])}
           Icon={VscEllipsis}
           onClickHandler={openDropMenuHandler}
         />
@@ -81,7 +81,7 @@ const BottomPannelRightNavigation = () => {
         </div>
         <BottomPannelButton
           Icon={VscChevronUp}
-          className={twMerge(isMinimizeBottomPannel && "rotate-180")}
+          className={mergeClass([isMinimizeBottomPannel && "rotate-180"])}
           onClickHandler={minMaxBottomPannelHandler}
         />
         <BottomPannelButton

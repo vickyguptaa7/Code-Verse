@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { useAppSelector } from "../../Store/store";
 import Button from "../UI/Button.component";
 
@@ -28,23 +28,23 @@ const PannelButtons: React.FC<IPROPS> = ({
     (state) => state.sideDrawer.showInSideDrawer
   );
 
-  let activeClassName = twMerge(
+  let activeClassName = mergeClass([
     "text-[color:var(--highlight-text-color)] border-[color:var(--highlight-text-color)]",
     !isSidePannelPositionOnLeft ? "border-r-[3px] mr-0" : "border-l-[3px] ml-0"
-  );
+  ]);
   if (Icon)
     return (
       <div className="mb-2">
         <Button
           onClick={onClickHandler}
-          className={twMerge(
+          className={mergeClass([
             "flex items-center justify-center p-3 hover:text-[color:var(--highlight-text-color)] mx-[3px]",
             showInSideDrawer === buttonName && isDrawerOpen
               ? activeClassName
               : isActive
               ? "text-[color:var(--highlight-text-color)]"
               : ""
-          )}
+          ])}
           title={title}
           data-name={buttonName}
         >

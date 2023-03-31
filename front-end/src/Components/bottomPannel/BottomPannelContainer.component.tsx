@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../Store/store";
 import BottomPannelNavigation from "./BottomPannelNavigation/BottomPannelNavigation.component";
 import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.component";
 import useBottomPannelResizing from "./hooks/useBottomPannelResizing.hook";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 const BottomPannelContainer = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);
@@ -28,10 +28,10 @@ const BottomPannelContainer = () => {
     >
       <div
         ref={refResizer}
-        className={twMerge(
+        className={mergeClass([
           "w-full h-1 duration-300 hover:bg-[color:var(--accent-color)] hover:cursor-move touch-none",
           isBottomPannelResizing && "bg-[color:var(--accent-color)]"
-        )}
+        ])}
       ></div>
       <BottomPannelNavigation />
       <ShowInBottomPannel />

@@ -1,5 +1,5 @@
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 interface IPROPS extends React.InputHTMLAttributes<HTMLInputElement> {
   className: string;
@@ -11,7 +11,7 @@ const Input: React.FC<IPROPS> = ({ className, inputRef, ...props }) => {
   return (
     <input
       ref={inputRef}
-      className={twMerge("outline-none bg-inherit", className)}
+      className={mergeClass(["outline-none bg-inherit", className])}
       {...props}
     />
   );

@@ -7,7 +7,7 @@ import Directory from "./Directory/Directory.compoent";
 
 import { VscChevronRight } from "react-icons/vsc";
 import { AnimatePresence, motion } from "framer-motion";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
 
 const EDITOR_MIN_HEIGHT = 480;
 
@@ -39,7 +39,7 @@ const ExplorerFolder = () => {
         >
           <div className="flex items-center justify-center p-1">
             <VscChevronRight
-              className={twMerge(isExplorerFolderOpen ? "rotate-90" : "")}
+              className={mergeClass([isExplorerFolderOpen ? "rotate-90" : ""])}
             />
           </div>
           <div className="flex items-center justify-center">

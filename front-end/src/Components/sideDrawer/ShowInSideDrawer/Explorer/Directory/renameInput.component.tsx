@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import IDirectory from "../../../../../Interface/directory.interface";
+import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Input from "../../../../UI/Input.component";
@@ -113,10 +113,10 @@ const RenameInput: React.FC<IPROPS> = ({
     <div className="relative w-full">
       <Input
         inputRef={inputRef}
-        className={twMerge(
+        className={mergeClass([
           "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent border-red-900 selection:bg-[color:var(--accent-color)]",
           isFileNameExistAlready && "border-red-600"
-        )}
+        ])}
         onKeyDown={onKeyDownHandler}
         onChange={inputChangeHandler}
         onBlur={inputBlurHandler}

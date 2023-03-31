@@ -1,5 +1,4 @@
 import React, { lazy, Suspense, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import { useAppSelector } from "../../../Store/store";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -7,6 +6,7 @@ import useSideDrawerResizing from "../hooks/useSideDrawerResizing.hook";
 import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
 
 import ExplorerContainer from "./Explorer/ExplorerContainer.component";
+import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 
 const DebugContainer = lazy(() => import("./Debug/debugContainer.component"));
 
@@ -51,10 +51,10 @@ const Drawer = () => {
     <>
       <div
         ref={refDrawer}
-        className={twMerge(
+        className={mergeClass([
           "flex text-white w-52 justify-between",
           isSidePannelPositionOnLeft && "flex-row-reverse"
-        )}
+        ])}
         style={{ width: sideDrawerWidth }}
       >
         <div className="flex flex-col w-full">
@@ -69,10 +69,10 @@ const Drawer = () => {
       <div className="touch-none">
         <div
           ref={refResizer}
-          className={twMerge(
+          className={mergeClass([
             "w-1 h-full duration-300 cursor-move hover:bg-[color:var(--accent-color)] resizable-div-left-right",
             isDrawerResizing && "bg-[color:var(--accent-color)]"
-          )}
+          ])}
         ></div>
       </div>
     </>

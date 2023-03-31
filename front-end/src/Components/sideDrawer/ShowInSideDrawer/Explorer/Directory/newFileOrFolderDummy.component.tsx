@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { FaFolder } from "react-icons/fa";
 import { VscChevronRight, VscFile } from "react-icons/vsc";
 
-import { twMerge } from "tailwind-merge";
-
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
@@ -11,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 
 import Input from "../../../../UI/Input.component";
 import { uniqueIdGenerator } from "../../../../../library/uuid/uuid.lib";
+import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 
 interface IPROPS {
   isFileOrFolder: "file" | "folder" | "none";
@@ -143,10 +142,10 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
       <div className="relative w-full">
         <Input
           inputRef={childRef}
-          className={twMerge(
+          className={mergeClass([
             "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border  border-red-900  selection:bg-[color:var(--accent-color)]",
             isExistAlready ? "border-red-600" : ""
-          )}
+          ])}
           onKeyDown={onKeyDownHandler}
           onChange={inputChangeHandler}
           onBlur={inputBlurHandler}

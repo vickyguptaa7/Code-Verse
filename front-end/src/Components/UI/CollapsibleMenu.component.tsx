@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { VscChevronRight } from "react-icons/vsc";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { useAppDispatch } from "../../Store/store";
 
 interface IPROPS {
@@ -37,7 +37,7 @@ const CollapsibleMenu: React.FC<IPROPS> = ({
         <div className="flex">
           <div className="flex items-center justify-center p-1">
             <VscChevronRight
-              className={twMerge(isCollapsibleMenuOpen ? "rotate-90" : "")}
+              className={mergeClass([isCollapsibleMenuOpen ? "rotate-90" : ""])}
             />
           </div>
           <div className="flex items-center justify-center">

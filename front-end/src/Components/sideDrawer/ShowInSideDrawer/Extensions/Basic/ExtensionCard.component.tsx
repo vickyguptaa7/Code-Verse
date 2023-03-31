@@ -6,9 +6,9 @@ import {
   VscStarEmpty,
   VscStarFull,
 } from "react-icons/vsc";
-import { twMerge } from "tailwind-merge";
 import useScroll from "../../../../../hooks/useScroll.hook";
 import { IExtensionInfo } from "../../../../../Interface/Extension.interface";
+import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { updateFileBody } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
@@ -61,10 +61,10 @@ const ExtensionCard: React.FC<IPROPS> = ({
       ) : null}
 
       <div
-        className={twMerge(
+        className={mergeClass([
           "flex flex-col w-[calc(100%-70px)]",
           !isImageVisible ? "w-full" : ""
-        )}
+        ])}
       >
         <div className="flex justify-between">
           <h2 className="font-semibold text-[1rem] text-[color:var(--highlight-text-color)] text-ellipsis overflow-hidden">

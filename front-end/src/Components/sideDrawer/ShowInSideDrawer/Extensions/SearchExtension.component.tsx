@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import useDebounce from "../../../../hooks/useDebounce.hook";
 import useInputFocus from "../../../../hooks/useInputFocus.hook";
 import { useAppDispatch, useAppSelector } from "../../../../Store/store";
 import { updateExtensionSearchedText } from "../../../../Store/reducres/SideDrawer/Extensions/Extensions.reducer";
 import Input from "../../../UI/Input.component";
+import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
 
 const SearchExtension = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -39,10 +39,10 @@ const SearchExtension = () => {
           type=""
           value={searchedText}
           onChange={onChangeHandler}
-          className={twMerge(
+          className={mergeClass([
             "w-full px-2 py-1.5 bg-[color:var(--sidepannel-color)] border border-transparent selection:bg-[color:var(--accent-color)]",
             isSearchInFocus ? " border-red-900" : ""
-          )}
+          ])}
           placeholder="Search Extensions In Marketplace"
         />
       </div>

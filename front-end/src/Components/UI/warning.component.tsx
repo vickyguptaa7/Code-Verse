@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { setIsDeleteWarningEnable } from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import Button from "./Button.component";
@@ -58,19 +58,19 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
           </div>
           <div className="flex items-center gap-6 mt-6 justify-evenly md:justify-end">
             <Button
-              className={twMerge(
+              className={mergeClass([
                 "px-4 rounded-md border-2 border-[color:var(--accent-color)] bg-[color:var(--accent-color)] text-[color:var(--highlight-text-color)]",
                 "hover:bg-transparent hover:text-[color:var(--accent-color)]"
-              )}
+              ])}
               onClick={onCancel}
             >
               Cancel
             </Button>
             <Button
-              className={twMerge(
+              className={mergeClass([
                 "px-4 rounded-md border-2 text-[color:var(--accent-color)] border-[color:var(--accent-color)] ",
                 "hover:bg-[color:var(--accent-color)] hover:text-[color:var(--highlight-text-color)]"
-              )}
+              ])}
               onClick={onDelete}
             >
               Delete

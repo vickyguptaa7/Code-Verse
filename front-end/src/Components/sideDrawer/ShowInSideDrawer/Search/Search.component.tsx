@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../Store/store";
 import { VscChevronRight, VscReplaceAll } from "react-icons/vsc";
-import { twMerge } from "tailwind-merge";
 
 import Button from "../../../UI/Button.component";
 import SearchInput from "./Basic/SearchInput.component";
@@ -13,6 +12,7 @@ import {
   updateReplacementText,
   updateSearchedText,
 } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
+import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
 
 const Search = () => {
   const searchRef = useRef<HTMLInputElement>(null);
@@ -69,7 +69,7 @@ const Search = () => {
           onClick={toggleSearchHandler}
         >
           <VscChevronRight
-            className={twMerge(isReplaceOpen ? "rotate-90" : "")}
+            className={mergeClass([isReplaceOpen ? "rotate-90" : ""])}
           />
         </div>
         <div className="flex flex-col items-center justify-center w-full gap-2">
@@ -90,12 +90,12 @@ const Search = () => {
                 name="Replace"
               />
               <Button
-                className={twMerge(
+                className={mergeClass([
                   "hover:bg-[color:var(--hover-text-color)] p-1 text-[1.2rem] rounded-md",
                   isReplaceButtonDisable
                     ? "hover:bg-transparent text-[color:var(--primary-text-color)]"
                     : ""
-                )}
+                ])}
                 title="Replace All"
                 disabled={isReplaceButtonDisable}
                 onClick={() => replaceTextInFiles()}

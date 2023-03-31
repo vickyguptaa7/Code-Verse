@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { twMerge } from "tailwind-merge";
 import useDebounce from "../../hooks/useDebounce.hook";
 import { updateFileBody } from "../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import "./editor.component.css";
@@ -9,6 +8,7 @@ import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
 import useHighlightText from "./hooks/useHighlightText.hook";
 import { editor } from "monaco-editor";
 import useUndoRedo from "./hooks/useUndoRedo.hook";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 interface IPROPS {
   content: string;
@@ -96,11 +96,11 @@ const Editor: React.FC<IPROPS> = ({
 
   return (
     <div
-      className={twMerge(
+      className={mergeClass([
         "bg-[color:var(--codeeditor-color)]  code-here",
         // there is issue of not getting to exact zero due to which there is gap btw bottom pannel and file nav pannel while doing manually this will avoid this situation
         editorHeight < 2 && "hidden"
-      )}
+      ])}
       style={{ height: editorHeight }}
     >
       {isEditorReady && (

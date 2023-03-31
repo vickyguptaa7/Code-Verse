@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 interface IPROPS extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className: string;
@@ -9,7 +9,7 @@ interface IPROPS extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<IPROPS> = ({ className, children,dataNode, ...props }) => {
   return (
-    <button className={twMerge("", className)} data-node={dataNode} {...props}>
+    <button className={mergeClass(["", className])} data-node={dataNode} {...props}>
       {children}
     </button>
   );

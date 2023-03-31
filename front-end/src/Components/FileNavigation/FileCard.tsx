@@ -5,12 +5,12 @@ import { VscFile } from "react-icons/vsc";
 
 import { IFile } from "../../Interface/file.interface";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { twMerge } from "tailwind-merge";
 import { setCurrentNavFile } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import Button from "../UI/Button.component";
 
 // constant
 import { MAX_FILE_LENGTH } from "./FileNavigation.Constant";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 interface IPROPS {
   fileInfo: IFile;
@@ -69,10 +69,10 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
 
   return (
     <div
-      className={twMerge(
+      className={mergeClass([
         "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px] border-r border-r-black group",
         activeClassName
-      )}
+      ])}
       id={fileInfo.id}
       onClick={changeCurrentFileInNavigationHandler}
     >
@@ -81,21 +81,21 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       </div>
       <div className="text-start whitespace-nowrap">
         <h1
-          className={twMerge(
+          className={mergeClass([
             "pr-3 text-[color:var(--primary-text-color)]",
             isThisActiveNavFile
               ? "text-[color:var(--highlight-text-color)]"
               : ""
-          )}
+          ])}
         >
           {fileName}
         </h1>
       </div>
       <div
-        className={twMerge(
+        className={mergeClass([
           "close-logo pt-[2px] text-[color:var(--highlight-text-color)] group-hover:visible",
           isThisActiveNavFile ? "" : "invisible"
-        )}
+        ])}
       >
         <Button
           onClick={removeHandler}
