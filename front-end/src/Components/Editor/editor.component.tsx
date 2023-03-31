@@ -9,7 +9,7 @@ import useHighlightText from "./hooks/useHighlightText.hook";
 import { editor } from "monaco-editor";
 import useUndoRedo from "./hooks/useUndoRedo.hook";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
-
+import { editorLanguage } from "../../Assets/Data/editorLanguages";
 interface IPROPS {
   content: string;
   language: string | undefined;
@@ -99,13 +99,19 @@ const Editor: React.FC<IPROPS> = ({
       className={mergeClass([
         "bg-[color:var(--codeeditor-color)]  code-here",
         // there is issue of not getting to exact zero due to which there is gap btw bottom pannel and file nav pannel while doing manually this will avoid this situation
-        editorHeight < 2 && "hidden"
+        editorHeight < 2 && "hidden",
       ])}
       style={{ height: editorHeight }}
     >
       {isEditorReady && (
         <MonacoEditor
-          language={language}
+          language={
+            !language
+              ? "plaintext"
+              : editorLanguage[language]
+              ? editorLanguage[language]
+              : "plaintext"
+          }
           theme="Blackboard"
           options={{
             wordWrap: "on",
