@@ -1,4 +1,4 @@
-import { fetchFileIcons, fetchFolderIcons } from "../../firebase/firebase";
+import { fetchFileIcons, fetchFolderIcons } from "../../library/firebase/firebase.lib";
 
 import {
   setFileIcons,

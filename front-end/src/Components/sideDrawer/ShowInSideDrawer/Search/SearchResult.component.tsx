@@ -4,11 +4,12 @@ import { IFilesInforation } from "../../../../Interface/file.interface";
 import { addFileToNavigation } from "../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { setSearchedResultFiles } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../Store/store";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { FixedSizeList as List } from "react-window";
 
 import SearchedFileCard from "./Basic/SearchedFileCard.component";
+import VirtualList from "../../../../library/reactWindow/virtualList.lib";
+
 const EDITOR_MIN_HEIGHT = 480;
+const SEARCHED_FILE_CARD_HIGHT = 28;
 interface IPROPS {
   filesInformation: IFilesInforation;
 }
@@ -37,18 +38,18 @@ const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
     scrollToTarget(id);
   };
   console.log(searchedResultFiles);
-  let searchedResults = ({ index, style }: { index: any; style: any }) => (
-    <div style={style}>
+  const list = searchedResultFiles.map((file) => {
+    return (
       <SearchedFileCard
-        key={searchedResultFiles[index].id}
-        iconUrls={filesInformation[searchedResultFiles[index].id].iconUrls}
-        name={filesInformation[searchedResultFiles[index].id].name}
-        id={searchedResultFiles[index].id}
+        key={file.id}
+        iconUrls={filesInformation[file.id].iconUrls}
+        name={filesInformation[file.id].name}
+        id={file.id}
         openFileHandler={openFileHandler}
         removeHandler={removeFileHandler}
       />
-    </div>
-  );
+    );
+  });
   return (
     <div
       className="flex flex-col gap-2 mt-3 overflow-scroll"
@@ -61,19 +62,11 @@ const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
       </div>
       <div className="h-full">
         {searchedResultFiles.length ? (
-          <AutoSizer>
-            {({ height, width }) => (
-              <List
-                className="List"
-                height={height}
-                itemCount={searchedResultFiles.length}
-                itemSize={28}
-                width={width}
-              >
-                {searchedResults}
-              </List>
-            )}
-          </AutoSizer>
+          <VirtualList
+            itemCount={searchedResultFiles.length}
+            itemSize={SEARCHED_FILE_CARD_HIGHT}
+            list={list}
+          />
         ) : null}
       </div>
     </div>

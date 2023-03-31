@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FixedSizeList as List } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
 import { useAppSelector } from "../../../../../Store/store";
 import ExtensionCard from "./ExtensionCard.component";
+import VirtualList from "../../../../../library/reactWindow/virtualList.lib";
 
 const EXTENSIONS_CARD_HEIGHT = 88;
 
-const VirtualizedList = () => {
+const ExtensionCardContainer = () => {
   const extensionList = useAppSelector(
     (state) => state.extension.extensionsList
   );
@@ -25,30 +24,20 @@ const VirtualizedList = () => {
           ext.publisher.toLowerCase().includes(extensionSearchedText)
       )
     );
-    
-  }, [extensionSearchedText,extensionList]);
-  const results = ({ index, style }: { index: any; style: any }) => (
-    <div style={style}>
-      <ExtensionCard info={extensions[index]} isInstalled={false} />
-    </div>
-  );
+  }, [extensionSearchedText, extensionList]);
+
+  const list = extensions.map((ext) => {
+    return <ExtensionCard info={ext} isInstalled={false} />;
+  });
   return extensions.length !== 0 ? (
-    <AutoSizer>
-      {({ height, width }) => (
-        <List
-          className="List"
-          height={height}
-          itemCount={extensions.length}
-          itemSize={EXTENSIONS_CARD_HEIGHT}
-          width={width}
-        >
-          {results}
-        </List>
-      )}
-    </AutoSizer>
+    <VirtualList
+      itemCount={list.length}
+      itemSize={EXTENSIONS_CARD_HEIGHT}
+      list={list}
+    />
   ) : (
     <h3 className="flex items-center pl-5">No extensions found.</h3>
   );
 };
 
-export default VirtualizedList;
+export default ExtensionCardContainer;

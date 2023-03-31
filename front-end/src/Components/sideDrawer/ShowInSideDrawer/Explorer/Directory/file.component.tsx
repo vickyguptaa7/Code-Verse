@@ -27,7 +27,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   return (
     <div
       title="Open"
-      className="flex group justify-between gap-3 cursor-pointer  hover:bg-[color:var(--hover-text-color)] pr-4 w-full min-w-fit"
+      className="flex group justify-between gap-3 cursor-pointer py-[1px]  hover:bg-[color:var(--hover-text-color)] pr-4 w-full min-w-fit"
       onClick={addToFileNavigationHandler}
       // extra padding to align the folder and file name
       style={{ paddingLeft: shiftAmount + 26 }}
@@ -53,7 +53,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
             setIsInputInFocus={setIsInputInFocus}
           />
         ) : (
-          <h3 className="cursor-pointer w-full overflow-clip p-[2px] select-none border border-transparent selection:bg-transparent">
+          <h3 className="w-full p-0.5 border border-transparent cursor-pointer select-none overflow-clip selection:bg-transparent">
             {fileInfo.name}
           </h3>
         )}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../../../Store/store";
-import VirtualizedList from "./Basic/VirtualizedList.component";
+import ExtensionCardContainer from "./Basic/ExtensionCardContainer.component";
 import InstalledAndRecommended from "./InstalledAndRecommended.component";
 import SearchExtension from "./SearchExtension.component";
 
@@ -24,7 +24,7 @@ const ExtensionsContainer = () => {
           </div>
         ) : (
           <div className="overflow-y-scroll" style={{ height: height }}>
-            <VirtualizedList />
+            <ExtensionCardContainer />
           </div>
         )}
       </div>

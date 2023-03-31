@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import firebaseConfig from "./firebaseConfig";
+import firebaseConfig from "./firebaseConfig.lib";
 
 import {
   getDoc,
@@ -7,10 +7,9 @@ import {
   doc,
   // setDoc
 } from "firebase/firestore";
-import { IExtensionInfo } from "../Interface/Extension.interface";
+import { IExtensionInfo } from "../../Interface/Extension.interface";
 
 // import { extensions } from "../Extra/Extensions_Details";
-// import { v4 as uuid4 } from "uuid";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
@@ -48,7 +47,7 @@ export const fetchExtensionsList = async () => {
 // export const addDataToFireStore = async () => {
 //   const extensionObj: { [key: string]: IExtensionInfo } = {};
 //   for (const ext of extensions) {
-//     const id = uuid4();
+//     const id = uniqueIdGenerator();
 //     extensionObj[id] = { ...ext, id: id };
 //   }
 //   console.log(extensionObj);

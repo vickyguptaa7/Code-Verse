@@ -39,7 +39,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
   return (
     <div className="">
       <div
-        className="flex gap-1 hover:bg-[color:var(--hover-text-color)] group cursor-pointer w-full min-w-fit "
+        className="flex gap-1 hover:bg-[color:var(--hover-text-color)] group cursor-pointer w-full min-w-fit py-[1px] "
         title={`${isFolderOpen ? "Hide" : "Show"} Content`}
         style={{ paddingLeft: shiftAmount + 8 }}
         onClick={toggleChildrenVisibilityHandler}
