@@ -33,11 +33,11 @@ const ExtensionCard: React.FC<IPROPS> = ({
   const isVerified = info.verified.length !== 0;
   const ratingsStar = info.ratings.split(" ")[2];
   const isImageVisible = Math.abs(MIN_DRAWER_SIZE_PX - sideDrawerWidth) > 30;
-  const {scrollToTarget}=useScroll();
+  const { scrollToTarget } = useScroll();
   const addExtensionToNavigation = () => {
-    dispatch(updateFileBody({id:"extension",body:JSON.stringify(info)}))
+    dispatch(updateFileBody([{ id: "extension", body: JSON.stringify(info) }]));
     dispatch(addFileToNavigation({ id: "extension", type: "extension" }));
-    scrollToTarget('extension');
+    scrollToTarget("extension");
   };
   return (
     <div
@@ -63,7 +63,7 @@ const ExtensionCard: React.FC<IPROPS> = ({
       <div
         className={mergeClass([
           "flex flex-col w-[calc(100%-70px)]",
-          !isImageVisible ? "w-full" : ""
+          !isImageVisible ? "w-full" : "",
         ])}
       >
         <div className="flex justify-between">

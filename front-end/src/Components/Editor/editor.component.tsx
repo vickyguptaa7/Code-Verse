@@ -47,7 +47,7 @@ const Editor: React.FC<IPROPS> = ({
 
   // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
   const updateStore = (content: string) => {
-    dispatch(updateFileBody({ id: currentWorkingFileId, body: content }));
+    dispatch(updateFileBody([{ id: currentWorkingFileId, body: content }]));
   };
 
   const debounceUpdateSearchedText = useDebounce(updateStore, 800);

@@ -154,8 +154,13 @@ const directorySlice = createSlice({
       state.infoOfCurrentWorkingFileOrFolder = action.payload;
     },
 
-    updateFileBody(state, action: PayloadAction<{ id: string; body: string }>) {
-      state.filesInformation[action.payload.id].body = action.payload.body;
+    updateFileBody(
+      state,
+      action: PayloadAction<Array<{ id: string; body: string }>>
+    ) {
+      for (const fileInfo of action.payload) {
+        state.filesInformation[fileInfo.id].body = fileInfo.body;
+      }
     },
 
     setFilesInformation(state, action: PayloadAction<Array<IFile>>) {

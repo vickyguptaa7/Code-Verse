@@ -31,23 +31,33 @@ const useSearch = () => {
               matchingFiles.push({ id: file.id, type: "file" });
             }
             resolve(null);
-          });
+          }, 0);
         });
       };
       await getResult(filesInformation[key]);
     }
-    console.log("dis", matchingFiles);
     dispatch(setSearchedResultFiles(matchingFiles));
   };
-  const replaceTextInFiles = (targetFiles = searchedResultFiles) => {
+  const replaceTextInFiles = async (targetFiles = searchedResultFiles) => {
+    const updatedFilesInfo: Array<{ id: string; body: string }> = [];
     for (const file of targetFiles) {
-      if (filesInformation[file.id] === undefined) continue;
-      const newString = filesInformation[file.id].body.replaceAll(
-        searchedText,
-        replacedText
-      );
-      dispatch(updateFileBody({ id: file.id, body: newString }));
+      const getResult = async (file: INavFile) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (filesInformation[file.id] === undefined) resolve(null);
+            console.log("replace");
+            const newString = filesInformation[file.id].body.replaceAll(
+              new RegExp(searchedText, "ig"),
+              replacedText
+            );
+            updatedFilesInfo.push({ id: file.id, body: newString });
+            resolve(null);
+          }, 0);
+        });
+      };
+      await getResult(file);
     }
+    dispatch(updateFileBody(updatedFilesInfo));
   };
   return {
     findSearchedTextInFiles,
