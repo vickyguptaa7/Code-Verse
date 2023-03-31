@@ -49,20 +49,27 @@ const traverseInDirectoryForAdd = (
     parentId: string;
     name: string;
     isFolder: boolean;
-  }
+  },
+  path: string = ""
 ) => {
   // for root directory we dont need to traverse to the the child directory (root directory is the main menu where we can just add file or folder)
   if (info.parentId === "root") {
-    addFileOrFolder(filesInformation, directories, iconList, info);
+    addFileOrFolder(filesInformation, directories, iconList, info, path);
     return true;
   }
-
+  
   for (const directory of directories) {
     console.log(directory.name, "add");
     // we can add files or folder in folder only not in file :)
     // and we should know the parent id of the directory where we have to add the file or folder
     if (directory.isFolder && directory.id === info.parentId) {
-      addFileOrFolder(filesInformation, directory.children, iconList, info);
+      addFileOrFolder(
+        filesInformation,
+        directory.children,
+        iconList,
+        info,
+        path.length ? path + "/" + directory.id : directory.id,
+      );
       return true;
     }
     if (directory.isFolder)
@@ -71,7 +78,8 @@ const traverseInDirectoryForAdd = (
           filesInformation,
           directory.children,
           iconList,
-          info
+          info,
+          path.length ? path + "/" + directory.id : directory.id,
         )
       )
         return true;
@@ -209,8 +217,10 @@ function addFileOrFolder(
     parentId: string;
     name: string;
     isFolder: boolean;
-  }
+  },
+  path: string
 ) {
+  console.log(path.length ? path + "/" + info.id : info.id);
   const newItem = {
     id: info.id,
     parentId: info.parentId,
@@ -218,6 +228,7 @@ function addFileOrFolder(
     iconUrls: findIconUrl(info.name, info.isFolder, iconList),
     isFolder: info.isFolder,
     children: [],
+    path: path.length ? path + "/" + info.id : info.id,
   };
   directories.unshift(newItem);
 

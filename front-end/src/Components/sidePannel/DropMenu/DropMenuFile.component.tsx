@@ -58,7 +58,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
 
   const openFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
-    //TODO: Add Middleware to redux to close this container if poosible 
+    //TODO: Add Middleware to redux to close this container if poosible
     closeDropMenuHandler();
     const files = e.target.files;
     const tempDirectory: Array<IDirectory> = [];
@@ -68,7 +68,10 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
       await processFileUpload(
         files[parseInt(fileKey)],
         tempDirectory,
-        tempFilesInformation
+        tempFilesInformation,
+        false,
+        "root",
+        ""
       );
     }
     dispatch(addExternalFileOrFolderToDirectory(tempDirectory));
@@ -92,6 +95,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
       iconUrls: [],
       isFolder: true,
       children: [],
+      path: folderId,
     };
     const tempFilesInformation: Array<IFile> = [];
     for (const fileKey in files) {
@@ -100,7 +104,8 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
       await processFolderUpload(
         currFile,
         newDirectory,
-        tempFilesInformation
+        tempFilesInformation,
+        folderId
       );
     }
     sortTheProcessedDirectory(newDirectory);

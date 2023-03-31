@@ -94,6 +94,7 @@ const ExplorerFolder = () => {
                 isFileOrFolder={isFileOrFolder}
                 setIsFileOrFolder={setIsFileOrFolder}
                 setNewFileOrFolderDummyTimerId={setNewFileOrFolderDummyTimerId}
+                path={[]}
                 parentId={"root"}
                 childRef={childRef}
               />

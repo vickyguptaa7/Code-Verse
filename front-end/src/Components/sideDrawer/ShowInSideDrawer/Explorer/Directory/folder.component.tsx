@@ -122,6 +122,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
             <NewFileOrFolderDummy
               isFileOrFolder={isFileOrFolder}
               setIsFileOrFolder={setIsFileOrFolder}
+              path={folderInfo.path.split('/')}
               parentId={folderInfo.id}
               setNewFileOrFolderDummyTimerId={setNewFileOrFolderDummyTimerId}
               childRef={childRef}

@@ -14,6 +14,7 @@ import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.l
 interface IPROPS {
   isFileOrFolder: "file" | "folder" | "none";
   setIsFileOrFolder: Function;
+  path:Array<string>;
   parentId: string;
   setNewFileOrFolderDummyTimerId?: (val: {
     isTimer: boolean;
@@ -25,6 +26,7 @@ interface IPROPS {
 const NewFileOrFolderDummy: React.FC<IPROPS> = ({
   isFileOrFolder,
   setIsFileOrFolder,
+  path,
   parentId,
   setNewFileOrFolderDummyTimerId,
   childRef,
@@ -65,7 +67,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         setIsFileOrFolder("none");
         return;
       }
-      if (isFileOrFolderAlreadyExists(directories, parentId, childName)) {
+      if (isFileOrFolderAlreadyExists(directories, path, childName)) {
         console.log("File already exists!");
         setIsExistAlready(true);
         return;
@@ -99,7 +101,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       if (
-        isFileOrFolderAlreadyExists(directories, parentId, childName) ||
+        isFileOrFolderAlreadyExists(directories, path, childName) ||
         !childName.trim().length
       ) {
         console.log("File already exists! key");

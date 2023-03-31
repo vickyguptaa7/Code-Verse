@@ -1,12 +1,12 @@
-import { uuidv4 } from "@firebase/util";
 import IDirectory from "../Interface/directory.interface";
 import { IFile } from "../Interface/file.interface";
 import {
   directoryComparator,
   findExtension,
   findIconUrl,
-} from "../Store/reducres/SideDrawer/Directory/DirectoryOperations.utils";
+} from "../Store/reducres/SideDrawer/Directory/DirectoryOperations";
 import { useAppSelector } from "../Store/store";
+import { uniqueIdGenerator } from "../library/uuid/uuid.lib";
 
 const useDirectory = () => {
   const folderIcons = useAppSelector((state) => state.Directory.folderIcons);
@@ -14,19 +14,33 @@ const useDirectory = () => {
 
   const isFileOrFolderAlreadyExists = (
     directories: Array<IDirectory>,
-    parentId: string,
-    name: string
+    path: Array<string>,
+    name: string,
+    indx: number = 0
   ) => {
-    for (const directory of directories) {
-      if (
-        (directory.parentId === parentId &&
-          directory.name.toLowerCase() === name.trim().toLowerCase()) ||
-        (directory.isFolder &&
-          isFileOrFolderAlreadyExists(directory.children, parentId, name))
-      ) {
-        return true;
-      }
+    console.log("Path:", path);
+    if (path.length === indx) {
+      const targetIndx = directories.findIndex(
+        (directory) =>
+          directory.name.trim().toLowerCase() === name.trim().toLowerCase()
+      );
+      return targetIndx !== -1;
     }
+    const childIndx = directories.findIndex(
+      (directory) => directory.id === path[indx]
+    );
+    console.log("childIndx:", childIndx);
+    if (childIndx === -1) return false;
+    if (
+      isFileOrFolderAlreadyExists(
+        directories[childIndx].children,
+        path,
+        name,
+        indx + 1
+      )
+    )
+      return true;
+
     return false;
   };
 
@@ -34,7 +48,7 @@ const useDirectory = () => {
     directories: Array<IDirectory>,
     directoryId: string
   ) => {
-    let dir: IDirectory ;
+    let dir: IDirectory;
     for (const directory of directories) {
       if (directory.isFolder) {
         if (directoryId === directory.id) return directory;
@@ -72,7 +86,7 @@ const useDirectory = () => {
     isNameUnqique: boolean
   ) => {
     const fileName = name.split("\\").pop()?.split(".");
-    const id: string = uuidv4();
+    const id: string = uniqueIdGenerator();
     if (isFolder)
       return {
         name: fileName ? fileName.join(".") + "." + id : id,
@@ -90,13 +104,19 @@ const useDirectory = () => {
     externalDirectory: Array<IDirectory>,
     externalFilesInformation: Array<IFile>,
     isNameUnqique = true,
-    parentId = "root"
+    parentId = "root",
+    dirPath: string
   ) => {
     const { name, id } = uniqueFileFolderNameGenerator(
       file.name,
       false,
       isNameUnqique
     );
+    if (parentId === "root") {
+      dirPath = id;
+    } else {
+      dirPath += "/" + id;
+    }
     const reader = new FileReader();
     reader.readAsText(file);
     const result = await new Promise((resolve, reject) => {
@@ -116,6 +136,7 @@ const useDirectory = () => {
       isFolder: false,
       iconUrls: findIconUrl(name, false, fileIcons),
       children: [],
+      path: dirPath,
     };
     const fileInformation = {
       id: id,
@@ -132,27 +153,32 @@ const useDirectory = () => {
   const processFolderUpload = async (
     file: File,
     currentDirectory: IDirectory,
-    tempFilesInformation: Array<IFile>
+    tempFilesInformation: Array<IFile>,
+    dirPath: string
   ) => {
-    const path = file.webkitRelativePath.split("/");
-    let pathIndx = 1;
-    for (pathIndx; pathIndx < path.length - 1; pathIndx++) {
-      const currPathName = path[pathIndx];
+    const localPath = file.webkitRelativePath.split("/");
+    let localPathIndx = 1;
+    for (localPathIndx; localPathIndx < localPath.length - 1; localPathIndx++) {
+      const currLocalPathName = localPath[localPathIndx];
       const targetIndx = currentDirectory.children.findIndex(
-        (dir) => dir.name.toLowerCase() === currPathName.toLowerCase()
+        (dir) => dir.name.toLowerCase() === currLocalPathName.toLowerCase()
       );
       if (targetIndx === -1) {
+        const uniqueId = uniqueIdGenerator();
+        dirPath += "/" + uniqueId;
         currentDirectory.children.push({
-          id: uuidv4(),
+          id: uniqueId,
           parentId: currentDirectory.id,
-          name: currPathName,
-          iconUrls: findIconUrl(currPathName, true, folderIcons),
+          name: currLocalPathName,
+          iconUrls: findIconUrl(currLocalPathName, true, folderIcons),
           isFolder: true,
           children: [],
+          path: dirPath,
         });
         currentDirectory =
           currentDirectory.children[currentDirectory.children.length - 1];
       } else {
+        dirPath += "/" + currentDirectory.children[targetIndx].id;
         currentDirectory = currentDirectory.children[targetIndx];
       }
     }
@@ -161,7 +187,8 @@ const useDirectory = () => {
       currentDirectory.children,
       tempFilesInformation,
       false,
-      currentDirectory.id
+      currentDirectory.id,
+      dirPath
     );
   };
 

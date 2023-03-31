@@ -6,8 +6,8 @@ import {
   traverseInDirectoryForDelete,
   traverseInDirectoryForRename,
   traverseInDirectoryForAdd,
-} from "./DirectoryOperations.utils";
-import { directoryComparator } from "./DirectoryOperations.utils";
+} from "./DirectoryOperations";
+import { directoryComparator } from "./DirectoryOperations";
 
 let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
   {
@@ -18,6 +18,7 @@ let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
     ],
     isFolder: false,
     parentId: "root",
+    path: "welcomelop",
     children: [],
   },
 ];

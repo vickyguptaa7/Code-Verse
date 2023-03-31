@@ -63,7 +63,11 @@ const RenameInput: React.FC<IPROPS> = ({
     }
     // check if the file with same name does'nt exist already and filename not empty
     if (
-      isFileOrFolderAlreadyExists(directories, directoryInfo.parentId, fileName)
+      isFileOrFolderAlreadyExists(
+        directories,
+        directoryInfo.path.split("/"),
+        fileName
+      )
     ) {
       setIsFileNameExistAlready(true);
       return;
@@ -89,7 +93,7 @@ const RenameInput: React.FC<IPROPS> = ({
       if (
         isFileOrFolderAlreadyExists(
           directories,
-          directoryInfo.parentId,
+          directoryInfo.path.split("/"),
           fileName
         ) ||
         !fileName.trim().length
@@ -115,7 +119,7 @@ const RenameInput: React.FC<IPROPS> = ({
         inputRef={inputRef}
         className={mergeClass([
           "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent border-red-900 selection:bg-[color:var(--accent-color)]",
-          isFileNameExistAlready && "border-red-600"
+          isFileNameExistAlready && "border-red-600",
         ])}
         onKeyDown={onKeyDownHandler}
         onChange={inputChangeHandler}
