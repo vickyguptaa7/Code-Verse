@@ -12,6 +12,7 @@ import Warning from "../../../../UI/warning.component";
 interface IPROPS {
   id?: string;
   name?: string;
+  path: Array<string>;
   isInputInFocus: boolean;
   setIsInputInFocus: Function;
   setIsFolderOpen?: (val: boolean) => void;
@@ -32,6 +33,7 @@ interface IPROPS {
 const ExplorerButtons: React.FC<IPROPS> = ({
   id,
   name,
+  path,
   isInputInFocus,
   setIsInputInFocus,
   setIsFolderOpen,
@@ -64,14 +66,15 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   const closeDeleteWarningHandler = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
-    console.log(event.currentTarget,'close');
+    console.log(event.currentTarget, "close");
     event.stopPropagation();
     setIsDeleteWarningOpen(false);
   };
 
   const deleteFileOrFolder = (event: React.MouseEvent) => {
     event.stopPropagation();
-    if (id && id.trim().length) dispatch(deleteFileOrFolderOfDirectory({ id }));
+    if (id && id.trim().length)
+      dispatch(deleteFileOrFolderOfDirectory({ id, path  }));
   };
 
   const deleteHandler = (event: React.MouseEvent) => {

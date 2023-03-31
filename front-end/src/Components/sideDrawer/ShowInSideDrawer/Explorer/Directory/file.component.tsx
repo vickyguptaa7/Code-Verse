@@ -62,6 +62,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
         <ExplorerButtons
           id={fileInfo.id}
           name={fileInfo.name}
+          path={fileInfo.path.split('/')}
           isInputInFocus={isInputInFocus}
           setIsInputInFocus={setIsInputInFocus}
           from="file"

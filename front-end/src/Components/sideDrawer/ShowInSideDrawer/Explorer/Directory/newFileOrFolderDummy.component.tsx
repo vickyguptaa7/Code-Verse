@@ -14,7 +14,7 @@ import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.l
 interface IPROPS {
   isFileOrFolder: "file" | "folder" | "none";
   setIsFileOrFolder: Function;
-  path:Array<string>;
+  path: Array<string>;
   parentId: string;
   setNewFileOrFolderDummyTimerId?: (val: {
     isTimer: boolean;
@@ -35,7 +35,6 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
   const [isExistAlready, setIsExistAlready] = useState(false);
   const dispatch = useAppDispatch();
   const directories = useAppSelector((state) => state.Directory.directories);
-
   const infoOfCurrentWorkingFileOrFolder = useAppSelector(
     (state) => state.Directory.infoOfCurrentWorkingFileOrFolder
   );
@@ -83,6 +82,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
             parentId,
             name: childName,
             isFolder: isFileOrFolder === "folder",
+            path: path,
           })
         );
         if (isFileOrFolder === "file") {
@@ -119,6 +119,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
             parentId,
             name: childName,
             isFolder: isFileOrFolder === "folder",
+            path: path,
           })
         );
         if (isFileOrFolder === "file") {
@@ -146,7 +147,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
           inputRef={childRef}
           className={mergeClass([
             "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border  border-red-900  selection:bg-[color:var(--accent-color)]",
-            isExistAlready ? "border-red-600" : ""
+            isExistAlready ? "border-red-600" : "",
           ])}
           onKeyDown={onKeyDownHandler}
           onChange={inputChangeHandler}

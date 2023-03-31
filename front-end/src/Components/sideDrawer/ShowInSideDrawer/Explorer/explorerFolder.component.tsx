@@ -20,9 +20,7 @@ const ExplorerFolder = () => {
       isTimer: boolean;
       id: ReturnType<typeof setTimeout> | null;
     }>({ isTimer: false, id: null });
-  const directories = useAppSelector(
-    (state) => state.Directory.directories
-  );
+  const directories = useAppSelector((state) => state.Directory.directories);
   const [isFileOrFolder, setIsFileOrFolder] = useState<
     "file" | "folder" | "none"
   >("none");
@@ -47,6 +45,7 @@ const ExplorerFolder = () => {
           </div>
         </div>
         <ExplorerButtons
+          path={["root"]}
           isInputInFocus={isInputInFocus}
           setIsInputInFocus={setIsInputInFocus}
           setIsFileOrFolder={setIsFileOrFolder}
@@ -94,7 +93,7 @@ const ExplorerFolder = () => {
                 isFileOrFolder={isFileOrFolder}
                 setIsFileOrFolder={setIsFileOrFolder}
                 setNewFileOrFolderDummyTimerId={setNewFileOrFolderDummyTimerId}
-                path={['root']}
+                path={["root"]}
                 parentId={"root"}
                 childRef={childRef}
               />

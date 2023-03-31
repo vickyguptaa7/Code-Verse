@@ -49,41 +49,37 @@ const traverseInDirectoryForAdd = (
     parentId: string;
     name: string;
     isFolder: boolean;
+    path: Array<string>;
   },
-  path: string = "root"
+  currDirPath: string = "root",
+  pathIndx: number = 1
 ) => {
   // for root directory we dont need to traverse to the the child directory (root directory is the main menu where we can just add file or folder)
-  if (info.parentId === "root") {
-    addFileOrFolder(filesInformation, directories, iconList, info, path);
+  if (
+    info.path.length === pathIndx &&
+    info.path[pathIndx - 1] === info.parentId
+  ) {
+    addFileOrFolder(filesInformation, directories, iconList, info, currDirPath);
     return true;
   }
+  const childIndx = directories.findIndex(
+    (directory) => directory.id === info.path[pathIndx]
+  );
+  if (childIndx === -1) return false;
+  console.log(directories[childIndx], childIndx);
+  if (
+    directories[childIndx].isFolder &&
+    traverseInDirectoryForAdd(
+      filesInformation,
+      directories[childIndx].children,
+      iconList,
+      info,
+      currDirPath + "/" + directories[childIndx].id,
+      pathIndx + 1
+    )
+  )
+    return true;
 
-  for (const directory of directories) {
-    console.log(directory.name, "add");
-    // we can add files or folder in folder only not in file :)
-    // and we should know the parent id of the directory where we have to add the file or folder
-    if (directory.isFolder && directory.id === info.parentId) {
-      addFileOrFolder(
-        filesInformation,
-        directory.children,
-        iconList,
-        info,
-        path + "/" + directory.id
-      );
-      return true;
-    }
-    if (directory.isFolder)
-      if (
-        traverseInDirectoryForAdd(
-          filesInformation,
-          directory.children,
-          iconList,
-          info,
-          path + "/" + directory.id
-        )
-      )
-        return true;
-  }
   return false;
 };
 
@@ -98,7 +94,6 @@ const traverseInDirectoryForRename = (
   },
   pathIndx: number = 1
 ) => {
-
   const childIndx = directories.findIndex(
     (directory) => directory.id === info.path[pathIndx]
   );
@@ -133,33 +128,37 @@ const traverseInDirectoryForRename = (
 const traverseInDirectoryForDelete = (
   filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
-  id: string
+  id: string,
+  path: Array<string>,
+  pathIndx: number = 1
 ) => {
-  for (const directoryIndx in directories) {
-    // if id matches remove that directory from the list and just dont traverse the other nested directories as our task is done
-    console.log(directories[directoryIndx].name, "delete");
-
-    if (directories[directoryIndx].id === id) {
-      if (directories[directoryIndx].isFolder)
-        deleteAllChildFiles(
-          filesInformation,
-          directories[directoryIndx].children
-        );
-      else delete filesInformation[directories[directoryIndx].id];
-      directories.splice(parseInt(directoryIndx), 1);
+  const childIndx = directories.findIndex((directory) => {
+    return directory.id === path[pathIndx];
+  });
+  if (childIndx === -1) return false;
+  console.log("Path : ", path, pathIndx);
+  if (path.length === pathIndx + 1 && path[pathIndx] === id) {
+    if (directories[childIndx].id === id) {
+      if (directories[childIndx].isFolder)
+        deleteAllChildFiles(filesInformation, directories[childIndx].children);
+      else delete filesInformation[directories[childIndx].id];
+      directories.splice(childIndx, 1);
       return true;
-    }
-    if (directories[directoryIndx].isFolder) {
-      if (
-        traverseInDirectoryForDelete(
-          filesInformation,
-          directories[directoryIndx].children,
-          id
-        )
-      )
-        return true;
-    }
+    } else return false;
   }
+
+  if (
+    directories[childIndx].isFolder &&
+    traverseInDirectoryForDelete(
+      filesInformation,
+      directories[childIndx].children,
+      id,
+      path,
+      pathIndx + 1
+    )
+  )
+    return true;
+
   return false;
 };
 

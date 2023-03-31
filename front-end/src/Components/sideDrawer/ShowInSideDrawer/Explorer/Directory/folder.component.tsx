@@ -83,6 +83,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
           <ExplorerButtons
             id={folderInfo.id}
             name={folderInfo.name}
+            path={folderInfo.path.split('/')}
             isInputInFocus={isInputInFocus}
             setIsInputInFocus={setIsInputInFocus}
             setIsFolderOpen={setIsFolderOpen}

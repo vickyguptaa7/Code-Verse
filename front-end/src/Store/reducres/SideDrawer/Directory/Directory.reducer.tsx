@@ -81,6 +81,7 @@ const directorySlice = createSlice({
         parentId: string;
         name: string;
         isFolder: boolean;
+        path: Array<string>;
       }>
     ) {
       traverseInDirectoryForAdd(
@@ -98,14 +99,21 @@ const directorySlice = createSlice({
 
     renameFileOrFolderOfDirectory(
       state,
-      action: PayloadAction<{ id: string; name: string; isFolder: boolean,path:Array<string> }>
+      action: PayloadAction<{
+        id: string;
+        name: string;
+        isFolder: boolean;
+        path: Array<string>;
+      }>
     ) {
-      console.log(traverseInDirectoryForRename(
-        state.filesInformation,
-        state.directories,
-        action.payload.isFolder ? state.folderIcons : state.fileIcons,
-        action.payload
-      ));
+      console.log(
+        traverseInDirectoryForRename(
+          state.filesInformation,
+          state.directories,
+          action.payload.isFolder ? state.folderIcons : state.fileIcons,
+          action.payload
+        )
+      );
       state.infoOfCurrentWorkingFileOrFolder = {
         isActive: false,
         id: "",
@@ -115,12 +123,13 @@ const directorySlice = createSlice({
 
     deleteFileOrFolderOfDirectory(
       state,
-      action: PayloadAction<{ id: string }>
+      action: PayloadAction<{ id: string; path: Array<string> }>
     ) {
       traverseInDirectoryForDelete(
         state.filesInformation,
         state.directories,
-        action.payload.id
+        action.payload.id,
+        action.payload.path
       );
     },
 
