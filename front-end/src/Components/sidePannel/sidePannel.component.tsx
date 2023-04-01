@@ -20,6 +20,7 @@ import { DropMenuFile } from "./DropMenu/DropMenuFile.component";
 import { DropMenuSetting } from "./DropMenu/DropMenuSetting.component";
 
 import PannelButtons from "./pannelButtons.component";
+import FileFolderInput from "./FileFolderInput.component";
 
 type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
 
@@ -79,6 +80,7 @@ const Pannel = () => {
           className="bg-transparent"
         />
       )}
+      <FileFolderInput />
       <div className="flex flex-col justify-between h-full bg-[color:var(--sidepannel-color)] text-[color:var(--primary-text-color)]">
         <nav className="flex flex-col ">
           <PannelButtons

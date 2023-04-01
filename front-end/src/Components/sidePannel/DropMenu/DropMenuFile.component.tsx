@@ -1,6 +1,6 @@
 import useScroll from "../../../hooks/useScroll.hook";
 import { addFileToNavigation } from "../../../Store/reducres/Navigation/FileNavigation.reducer";
-import { useAppDispatch } from "../../../Store/store";
+import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
 import {
@@ -8,39 +8,31 @@ import {
   setShowInSideDrawer,
   setIsDrawerOpen,
 } from "./../../../Store/reducres/SideDrawer/SideDrawer.reducer";
-import {
-  addExternalFileOrFolderToDirectory,
-  setFilesInformation,
-} from "../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
-import IDirectory from "../../../Interface/directory.interface";
-import useDirectory from "../../../hooks/useDirectory.hook";
-import { IFile } from "../../../Interface/file.interface";
 
-declare module "react" {
-  interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
-    // extends React's HTMLAttributes
-    directory?: string;
-    webkitdirectory?: string;
-    mozdirectory?: string;
-  }
-}
 interface IPROPS {
   closeDropMenuHandler: Function;
 }
 
 export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   const dispatch = useAppDispatch();
+  const currFile = useAppSelector(
+    (state) => state.fileNavigation.currentNavFile
+  );
+  const filesInformation = useAppSelector(
+    (state) => state.Directory.filesInformation
+  );
   const { scrollToTarget } = useScroll();
 
-  const onClickHandler = () => {
+  const onSaveFileHandler = () => {
     closeDropMenuHandler();
+    const link = document.createElement("a");
+    const file = new Blob([filesInformation[currFile.id].body]);
+    link.href = URL.createObjectURL(file);
+    link.download = filesInformation[currFile.id].name;
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode?.removeChild(link);
   };
-  const {
-    processFileUpload,
-    uniqueFileFolderNameGenerator,
-    processFolderUpload,
-    sortTheProcessedDirectory,
-  } = useDirectory();
 
   // TODO: Add the functionality of each buttons
 
@@ -56,96 +48,33 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     closeDropMenuHandler();
   };
 
-  const openFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-    //TODO: Add Middleware to redux to close this container if poosible
-    closeDropMenuHandler();
-    const files = e.target.files;
-    const tempDirectory: Array<IDirectory> = [];
-    const tempFilesInformation: Array<IFile> = [];
-    for (const fileKey in files) {
-      if (isNaN(parseInt(fileKey))) continue;
-      await processFileUpload(
-        files[parseInt(fileKey)],
-        tempDirectory,
-        tempFilesInformation,
-        false,
-        "root",
-        "root"
-      );
-    }
-    dispatch(addExternalFileOrFolderToDirectory(tempDirectory));
-    dispatch(setFilesInformation(tempFilesInformation));
-  };
-
-  const openFolderHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files, e.target.value);
-    closeDropMenuHandler();
-    let files = e.target.files;
-    if (!files) return;
-    const { name: folderName, id: folderId } = uniqueFileFolderNameGenerator(
-      files[0].webkitRelativePath.split("/")[0],
-      true,
-      true
-    );
-    const newDirectory: IDirectory = {
-      id: folderId,
-      parentId: "root",
-      name: folderName,
-      iconUrls: [],
-      isFolder: true,
-      children: [],
-      path: "root/"+folderId,
-    };
-    const tempFilesInformation: Array<IFile> = [];
-    for (const fileKey in files) {
-      if (isNaN(parseInt(fileKey))) continue;
-      const currFile = files[parseInt(fileKey)];
-      await processFolderUpload(
-        currFile,
-        newDirectory,
-        tempFilesInformation,
-        "root/" + folderId
-      );
-    }
-    sortTheProcessedDirectory(newDirectory);
-    dispatch(addExternalFileOrFolderToDirectory([newDirectory]));
-    dispatch(setFilesInformation(tempFilesInformation));
-    console.log(newDirectory);
-  };
-
   return (
     <DropMenu className="w-36 -top-[54px] left-14">
       <label htmlFor="file" title="Add local files">
-        <div className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]">
+        <div
+          className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]"
+          onClick={() => {
+            // give time out to perform the task of label so that file selection popup will appear
+            setTimeout(closeDropMenuHandler, 0);
+          }}
+        >
           <h1>Open Files</h1>
         </div>
       </label>
-      <input
-        type="file"
-        id="file"
-        name="file"
-        multiple
-        className="hidden"
-        onChange={openFileHandler}
-      />
 
       <label htmlFor="folder" title="Add local files">
-        <div className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]">
+        <div
+          className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]"
+          onClick={() => {
+            setTimeout(closeDropMenuHandler, 0);
+          }}
+        >
           <h1>Open Folder</h1>
         </div>
       </label>
-      <input
-        type="file"
-        id="folder"
-        name="folder"
-        directory=""
-        webkitdirectory=""
-        className="hidden"
-        onChange={openFolderHandler}
-      />
-
-      <DropMenuButton name="Save Files" onClickHandler={onClickHandler} />
+      {currFile.type === "file" && currFile.id !== "null" && (
+        <DropMenuButton name="Save File" onClickHandler={onSaveFileHandler} />
+      )}
       <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
       <DropMenuButton
         name="Explorer"

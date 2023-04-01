@@ -1,3 +1,4 @@
+import { supportedFileTypes } from "../Assets/Data/editorLanguages";
 import IDirectory from "../Interface/directory.interface";
 import { IFile } from "../Interface/file.interface";
 import {
@@ -20,7 +21,7 @@ const useDirectory = () => {
     indx: number = 1
   ) => {
     console.log("Path : ", path);
-    const baseCheck=(isRenameCheck)?indx+1:indx;
+    const baseCheck = isRenameCheck ? indx + 1 : indx;
     if (path.length === baseCheck) {
       const targetIndx = directories.findIndex(
         (directory) =>
@@ -86,7 +87,7 @@ const useDirectory = () => {
   const uniqueFileFolderNameGenerator = (
     name: string,
     isFolder: boolean,
-    isNameUnqique: boolean
+    isNameUnique: boolean
   ) => {
     const fileName = name.split("\\").pop()?.split(".");
     const id: string = uniqueIdGenerator();
@@ -96,30 +97,33 @@ const useDirectory = () => {
         id,
       };
     const extension = fileName ? fileName.pop() : "";
-    if (isNameUnqique) fileName?.push(id);
+    if (isNameUnique) fileName?.push(id);
     fileName?.push(extension ? extension : "");
     const newFileName = fileName ? fileName.join(".") : id;
     return { name: newFileName, id };
+  };
+
+  const isFileQualifyForUpload = (name: string) => {
+    const arr = name.split(".");
+    if (arr.length === 1) return true;
+    return supportedFileTypes[arr[arr.length - 1]] ? true : false;
   };
 
   const processFileUpload = async (
     file: File,
     externalDirectory: Array<IDirectory>,
     externalFilesInformation: Array<IFile>,
-    isNameUnqique = true,
+    isNameUnique = true,
     parentId = "root",
     dirPath: string
   ) => {
+    if (!isFileQualifyForUpload(file.name)) return;
     const { name, id } = uniqueFileFolderNameGenerator(
       file.name,
       false,
-      isNameUnqique
+      isNameUnique
     );
-    if (parentId === "root") {
-      dirPath = id;
-    } else {
-      dirPath += "/" + id;
-    }
+    dirPath += "/" + id;
     const reader = new FileReader();
     reader.readAsText(file);
     const result = await new Promise((resolve, reject) => {

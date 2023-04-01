@@ -52,7 +52,7 @@ const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
   });
   return (
     <div
-      className="flex flex-col gap-2 mt-3 overflow-scroll"
+      className="flex flex-col gap-2 mt-3"
       style={{ height: height }}
     >
       <div className="pl-8">
