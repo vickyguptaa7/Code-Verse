@@ -1,5 +1,4 @@
 import React from "react";
-import useDirectory from "../../hooks/useDirectory.hook";
 import IDirectory from "../../Interface/directory.interface";
 import { IFile } from "../../Interface/file.interface";
 import {
@@ -7,6 +6,7 @@ import {
   setFilesInformation,
 } from "../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch } from "../../Store/store";
+import useUpload from "./hook/useUpload.hook";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -26,8 +26,8 @@ const FileFolderInput = () => {
     processFileUpload,
     uniqueFileFolderNameGenerator,
     processFolderUpload,
-    sortTheProcessedDirectory,
-  } = useDirectory();
+    sortTheProcessedUploadedDirectory,
+  } = useUpload();
   const openFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
     //TODO: Add Middleware to redux to close this container if poosible
@@ -79,7 +79,7 @@ const FileFolderInput = () => {
         "root/" + folderId
       );
     }
-    sortTheProcessedDirectory(newDirectory);
+    sortTheProcessedUploadedDirectory(newDirectory);
     dispatch(addExternalFileOrFolderToDirectory([newDirectory]));
     dispatch(setFilesInformation(tempFilesInformation));
     console.log(newDirectory);
