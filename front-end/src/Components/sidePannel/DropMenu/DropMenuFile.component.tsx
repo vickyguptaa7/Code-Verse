@@ -1,3 +1,4 @@
+import JSZip from "jszip";
 import useScroll from "../../../hooks/useScroll.hook";
 import { addFileToNavigation } from "../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
@@ -8,6 +9,8 @@ import {
   setShowInSideDrawer,
   setIsDrawerOpen,
 } from "./../../../Store/reducres/SideDrawer/SideDrawer.reducer";
+import IDirectory from "../../../Interface/directory.interface";
+import { fileDownloader } from "../../../utils/fileFolder.utils";
 
 interface IPROPS {
   closeDropMenuHandler: Function;
@@ -21,20 +24,44 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
   );
+  const directories = useAppSelector((state) => state.Directory.directories);
   const { scrollToTarget } = useScroll();
 
   const onSaveFileHandler = () => {
     closeDropMenuHandler();
-    const link = document.createElement("a");
     const file = new Blob([filesInformation[currFile.id].body]);
-    link.href = URL.createObjectURL(file);
-    link.download = filesInformation[currFile.id].name;
-    document.body.appendChild(link);
-    link.click();
-    link.parentNode?.removeChild(link);
+    fileDownloader(file, filesInformation[currFile.id].name);
   };
 
-  // TODO: Add the functionality of each buttons
+  const addAllFilesAndFolderToZip = async (
+    zip: JSZip,
+    directories: Array<IDirectory>,
+    dirPath: string
+  ) => {
+    for (const directory of directories) {
+      if (directory.isFolder) {
+        await addAllFilesAndFolderToZip(
+          zip,
+          directory.children,
+          dirPath + "/" + directory.name
+        );
+      } else {
+        zip.file(
+          dirPath + "/" + directory.name,
+          new Blob([filesInformation[directory.id].body])
+        );
+      }
+    }
+  };
+
+  const onSaveAllFileAndFolderHandler = async () => {
+    console.log("Save all files and folders");
+    closeDropMenuHandler();
+    const zip = new JSZip();
+    await addAllFilesAndFolderToZip(zip, directories, "root");
+    const file = await zip.generateAsync({ type: "blob" });
+    fileDownloader(file, "All File And Folder");
+  };
 
   const showInSideDrawerHandler = (view: DrawerContent) => {
     dispatch(setIsDrawerOpen(true));
@@ -72,6 +99,11 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
           <h1>Open Folder</h1>
         </div>
       </label>
+      <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
+      <DropMenuButton
+        name="Save All"
+        onClickHandler={onSaveAllFileAndFolderHandler}
+      />
       {currFile.type === "file" && currFile.id !== "null" && (
         <DropMenuButton name="Save File" onClickHandler={onSaveFileHandler} />
       )}

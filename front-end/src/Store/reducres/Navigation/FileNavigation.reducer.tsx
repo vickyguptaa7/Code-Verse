@@ -1,21 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INavFile } from "../../../Interface/file.interface";
-
-let DUMMY_FILES: Array<INavFile> = [
-  {
-    id: "welcomelop",
-    type: "file",
-  },
-  {
-    id: "setting",
-    type: "setting",
-  },
-];
-
-const emptyFile: INavFile = {
-  id: "null",
-  type: "file",
-};
+import { DUMMY_FILES, EMPTY_FILE } from "../../../Assets/Data/fileNavigation";
 
 const navigationFilesInitialState = {
   navFilesList: DUMMY_FILES,
@@ -52,7 +37,7 @@ const navigationFilesSlice = createSlice({
           state.currentNavFile = state.navFilesList[removefileIndx + 1];
         } else {
           // only one file left
-          state.currentNavFile = emptyFile;
+          state.currentNavFile = EMPTY_FILE;
         }
       }
       state.navFilesList = state.navFilesList.filter(
@@ -61,7 +46,7 @@ const navigationFilesSlice = createSlice({
     },
     removeAllFilesFromNavigation(state) {
       state.navFilesList = [];
-      state.currentNavFile = emptyFile;
+      state.currentNavFile = EMPTY_FILE;
     },
     setCurrentNavFile(state, action: PayloadAction<INavFile>) {
       state.currentNavFile = action.payload;

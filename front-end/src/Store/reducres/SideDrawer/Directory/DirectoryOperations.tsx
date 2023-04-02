@@ -1,44 +1,11 @@
 import IDirectory from "../../../../Interface/directory.interface";
 import { IFilesInforation } from "../../../../Interface/file.interface";
 import { iconObject } from "../../../../Interface/iconObject.interface";
-
-const findExtension = (name: string) => {
-  let extension = "";
-  let isDotPresent = false;
-  for (let i = name.length - 1; i >= 0; i--) {
-    if (name[i] === ".") {
-      isDotPresent = true;
-      break;
-    }
-    extension += name[i];
-  }
-  extension = extension.split("").reverse().join("");
-  return { extName: extension, isDotPresent };
-};
-
-const findIconUrl = (name: string, isFolder: boolean, iconList: iconObject) => {
-  name = name.toLowerCase();
-  if (isFolder) {
-    if (
-      !iconList.hasOwnProperty("folder-" + name) ||
-      !iconList.hasOwnProperty("folder-" + name + "-open")
-    ) {
-      return [];
-    }
-    return [iconList["folder-" + name], iconList["folder-" + name + "-open"]];
-  }
-  const extensionInfo = findExtension(name);
-  if (
-    !extensionInfo.isDotPresent ||
-    !iconList.hasOwnProperty(extensionInfo.extName)
-  ) {
-    return [];
-  }
-  return [iconList[extensionInfo.extName]];
-};
-
-// Note : if we performed the targeted operation on the file or folder then we don't visit further child directory we just come out from the recursive traversal
-// otherwise we visit the child directory until we have not performed the targeted operation
+import {
+  directoryComparator,
+  findFileExtension,
+  findFileFolderIconUrl,
+} from "../../../../utils/fileFolder.utils";
 
 const traverseInDirectoryForAdd = (
   filesInformation: IFilesInforation,
@@ -188,7 +155,7 @@ function renameOfFileOrFolder(
   }
 ) {
   // updating the name and icon url
-  const newIconUrl = findIconUrl(
+  const newIconUrl = findFileFolderIconUrl(
     info.name,
     directories[directoryIndx].isFolder,
     iconList
@@ -204,7 +171,7 @@ function renameOfFileOrFolder(
       ...filesInformation[info.id],
       name: info.name,
       iconUrls: newIconUrl,
-      language: findExtension(info.name).extName,
+      language: findFileExtension(info.name).extName,
     };
   }
   // sort to organize the files or folders of that directory with respect to name and type ie file or folder
@@ -228,7 +195,7 @@ function addFileOrFolder(
     id: info.id,
     parentId: info.parentId,
     name: info.name.trim(),
-    iconUrls: findIconUrl(info.name, info.isFolder, iconList),
+    iconUrls: findFileFolderIconUrl(info.name, info.isFolder, iconList),
     isFolder: info.isFolder,
     children: [],
     path: path + "/" + info.id,
@@ -241,23 +208,14 @@ function addFileOrFolder(
       name: newItem.name,
       iconUrls: newItem.iconUrls,
       body: "",
-      language: findExtension(newItem.name).extName,
+      language: findFileExtension(newItem.name).extName,
     };
   }
   directories.sort(directoryComparator);
 }
 
-function directoryComparator(d1: IDirectory, d2: IDirectory) {
-  if (d1.isFolder && !d2.isFolder) return -1; // if d1 is folder then it must be above d2
-  if (!d1.isFolder && d2.isFolder) return 1; // vice versa
-  return d1.name.toLowerCase() > d2.name.toLowerCase() ? 1 : -1; // otherwise sort on the basis of the name
-}
-
 export {
-  findExtension,
-  findIconUrl,
   traverseInDirectoryForAdd,
   traverseInDirectoryForRename,
   traverseInDirectoryForDelete,
-  directoryComparator,
 };

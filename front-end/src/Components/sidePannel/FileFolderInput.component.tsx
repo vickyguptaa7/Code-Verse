@@ -7,6 +7,7 @@ import {
 } from "../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch } from "../../Store/store";
 import useUpload from "./hook/useUpload.hook";
+import { sortDirectory, findUniqueFileFolderName } from "../../utils/fileFolder.utils";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -24,9 +25,7 @@ const FileFolderInput = () => {
   const dispatch = useAppDispatch();
   const {
     processFileUpload,
-    uniqueFileFolderNameGenerator,
     processFolderUpload,
-    sortTheProcessedUploadedDirectory,
   } = useUpload();
   const openFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
@@ -54,7 +53,7 @@ const FileFolderInput = () => {
     console.log(e.target.files, e.target.value);
     let files = e.target.files;
     if (!files) return;
-    const { name: folderName, id: folderId } = uniqueFileFolderNameGenerator(
+    const { name: folderName, id: folderId } = findUniqueFileFolderName(
       files[0].webkitRelativePath.split("/")[0],
       true,
       true
@@ -79,7 +78,7 @@ const FileFolderInput = () => {
         "root/" + folderId
       );
     }
-    sortTheProcessedUploadedDirectory(newDirectory);
+    sortDirectory(newDirectory);
     dispatch(addExternalFileOrFolderToDirectory([newDirectory]));
     dispatch(setFilesInformation(tempFilesInformation));
     console.log(newDirectory);

@@ -1,35 +1,17 @@
-import {
-  directoryComparator,
-  findExtension,
-  findIconUrl,
-} from "../../../Store/reducres/SideDrawer/Directory/DirectoryOperations";
 import IDirectory from "../../../Interface/directory.interface";
 import { uniqueIdGenerator } from "../../../library/uuid/uuid.lib";
 import { IFile } from "../../../Interface/file.interface";
 import { supportedFileTypes } from "../../../Assets/Data/editorLanguages";
 import { useAppSelector } from "../../../Store/store";
+import {
+  findFileExtension,
+  findFileFolderIconUrl,
+  findUniqueFileFolderName,
+} from "../../../utils/fileFolder.utils";
 
 const useUpload = () => {
   const folderIcons = useAppSelector((state) => state.Directory.folderIcons);
   const fileIcons = useAppSelector((state) => state.Directory.fileIcons);
-  const uniqueFileFolderNameGenerator = (
-    name: string,
-    isFolder: boolean,
-    isNameUnique: boolean
-  ) => {
-    const fileName = name.split("\\").pop()?.split(".");
-    const id: string = uniqueIdGenerator();
-    if (isFolder)
-      return {
-        name: fileName ? fileName.join(".") + "." + id : id,
-        id,
-      };
-    const extension = fileName ? fileName.pop() : "";
-    if (isNameUnique) fileName?.push(id);
-    fileName?.push(extension ? extension : "");
-    const newFileName = fileName ? fileName.join(".") : id;
-    return { name: newFileName, id };
-  };
 
   const isFileQualifyForUpload = (name: string) => {
     const arr = name.split(".");
@@ -46,7 +28,7 @@ const useUpload = () => {
     dirPath: string
   ) => {
     if (!isFileQualifyForUpload(file.name)) return;
-    const { name, id } = uniqueFileFolderNameGenerator(
+    const { name, id } = findUniqueFileFolderName(
       file.name,
       false,
       isNameUnique
@@ -69,7 +51,7 @@ const useUpload = () => {
       parentId,
       name,
       isFolder: false,
-      iconUrls: findIconUrl(name, false, fileIcons),
+      iconUrls: findFileFolderIconUrl(name, false, fileIcons),
       children: [],
       path: dirPath,
     };
@@ -77,8 +59,8 @@ const useUpload = () => {
       id: id,
       name,
       body: result as string,
-      language: findExtension(name).extName,
-      iconUrls: findIconUrl(name, false, fileIcons),
+      language: findFileExtension(name).extName,
+      iconUrls: findFileFolderIconUrl(name, false, fileIcons),
     };
     // add to the dummy external file that we are creating
     externalDirectory.push(fileForDirectory);
@@ -105,7 +87,7 @@ const useUpload = () => {
           id: uniqueId,
           parentId: currentDirectory.id,
           name: currLocalPathName,
-          iconUrls: findIconUrl(currLocalPathName, true, folderIcons),
+          iconUrls: findFileFolderIconUrl(currLocalPathName, true, folderIcons),
           isFolder: true,
           children: [],
           path: dirPath,
@@ -127,18 +109,9 @@ const useUpload = () => {
     );
   };
 
-  const sortTheProcessedUploadedDirectory = (externalDirectory: IDirectory) => {
-    for (const directory of externalDirectory.children) {
-      sortTheProcessedUploadedDirectory(directory);
-    }
-    externalDirectory.children.sort(directoryComparator);
-  };
-
   return {
     processFileUpload,
-    uniqueFileFolderNameGenerator,
     processFolderUpload,
-    sortTheProcessedUploadedDirectory,
   };
 };
 
