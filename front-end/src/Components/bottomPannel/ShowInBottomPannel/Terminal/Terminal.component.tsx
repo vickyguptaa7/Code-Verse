@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useAppSelector } from "../../../Store/store";
-import Input from "../../UI/Input.component";
+import { useAppSelector } from "../../../../Store/store";
+import Input from "../../../UI/Input.component";
 import { useTerminal } from "./Terminal.Utils";
+import { scrollToTarget } from "../../../../utils/scrollToTargetId.util";
 
 const Terminal = () => {
   const terminalContent = useAppSelector(
@@ -31,6 +32,7 @@ const Terminal = () => {
     changeDirectoryToRoot,
     changeDirectory,
   } = useTerminal();
+
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       const input = terminalInput.trim().toLowerCase();
@@ -60,6 +62,7 @@ const Terminal = () => {
           `${terminalInput}\nbash: ${terminalInput}: command not found`
         );
       }
+      scrollToTarget("terminalInput");
       setTerminalInput("");
     }
   };
@@ -82,12 +85,14 @@ const Terminal = () => {
           {terminalsCurrentDirectoryInfo.name}:user{"$ "}
         </span>
         <Input
+          id="terminalInput"
           inputRef={inputRef}
           type="text"
           className="w-full outline-none bg-inherit"
           value={terminalInput}
           onChange={onChangeHandler}
           onKeyDown={onKeyDownHandler}
+          autoComplete="off"
         />
       </div>
     </div>

@@ -5,7 +5,7 @@ import RenameInput from "./renameInput.component";
 import { VscFile } from "react-icons/vsc";
 import { useAppDispatch } from "../../../../../Store/store";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
-import useScroll from "../../../../../hooks/useScroll.hook";
+import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
 
 interface IPROPS {
   fileInfo: IDirectory;
@@ -15,7 +15,6 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
   const dispatch = useAppDispatch();
-  const { scrollToTarget } = useScroll();
   const addToFileNavigationHandler = (event: React.MouseEvent) => {
     if (isInputInFocus) return;
     dispatch(addFileToNavigation({ id: fileInfo.id, type: "file" }));

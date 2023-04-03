@@ -1,5 +1,4 @@
 import JSZip from "jszip";
-import useScroll from "../../../hooks/useScroll.hook";
 import { addFileToNavigation } from "../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import DropMenu from "../../UI/DropMenu.component";
@@ -11,6 +10,7 @@ import {
 } from "./../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import IDirectory from "../../../Interface/directory.interface";
 import { fileDownloader } from "../../../utils/fileFolder.utils";
+import { scrollToTarget } from "../../../utils/scrollToTargetId.util";
 
 interface IPROPS {
   closeDropMenuHandler: Function;
@@ -25,7 +25,6 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     (state) => state.Directory.filesInformation
   );
   const directories = useAppSelector((state) => state.Directory.directories);
-  const { scrollToTarget } = useScroll();
 
   const onSaveFileHandler = () => {
     closeDropMenuHandler();

@@ -1,3 +1,4 @@
+import { supportedFileTypes } from "../Assets/Data/editorLanguages";
 import IDirectory from "../Interface/directory.interface";
 import { iconObject } from "../Interface/iconObject.interface";
 import { uniqueIdGenerator } from "../library/uuid/uuid.lib";
@@ -75,6 +76,12 @@ const findUniqueFileFolderName = (
   return { name: newFileName, id };
 };
 
+const isFileQualifyForUpload = (name: string) => {
+  const arr = name.split(".");
+  if (arr.length === 1) return true;
+  return supportedFileTypes[arr[arr.length - 1]] ? true : false;
+};
+
 const sortDirectory = (directory: IDirectory) => {
   for (const childDir of directory.children) {
     sortDirectory(childDir);
@@ -89,4 +96,5 @@ export {
   directoryComparator,
   findUniqueFileFolderName,
   sortDirectory,
+  isFileQualifyForUpload
 };

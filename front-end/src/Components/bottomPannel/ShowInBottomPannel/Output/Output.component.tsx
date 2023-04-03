@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppSelector } from "../../../Store/store";
-import TextArea from "../../UI/TextArea.component";
+import { useAppSelector } from "../../../../Store/store";
+import TextArea from "../../../UI/TextArea.component";
 
 interface PROPS_INTEFACE {
   mainDivHeight: number;

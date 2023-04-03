@@ -1,5 +1,4 @@
 import React from "react";
-import useScroll from "../../../../hooks/useScroll.hook";
 import { IFilesInforation } from "../../../../Interface/file.interface";
 import { addFileToNavigation } from "../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { setSearchedResultFiles } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
@@ -7,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../../Store/store";
 
 import SearchedFileCard from "./Basic/SearchedFileCard.component";
 import VirtualList from "../../../../library/reactWindow/virtualList.lib";
+import { scrollToTarget } from "../../../../utils/scrollToTargetId.util";
 
 const EDITOR_MIN_HEIGHT = 480;
 const SEARCHED_FILE_CARD_HIGHT = 28;
@@ -23,7 +23,6 @@ const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
   height -= isReplaceOpen ? 40 : 0;
 
   const dispatch = useAppDispatch();
-  const { scrollToTarget } = useScroll();
   const removeFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();
     dispatch(

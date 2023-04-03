@@ -11,7 +11,8 @@ const TextArea: React.FC<IPROPS> = ({ className, inputRef, ...props }) => {
   return (
     <textarea
       ref={inputRef}
-      className={mergeClass(["outline-none bg-inherit", className])}
+      className={mergeClass(["outline-none bg-inherit", className]
+      )}
       {...props}
     ></textarea>
   );

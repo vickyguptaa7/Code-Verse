@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import { setInputContent } from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
-import { useAppDispatch, useAppSelector } from "../../../Store/store";
-import TextArea from "../../UI/TextArea.component";
+import { setInputContent } from "../../../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import { useAppDispatch, useAppSelector } from "../../../../Store/store";
+import TextArea from "../../../UI/TextArea.component";
 
 interface PROPS_INTEFACE {
   mainDivHeight: number;

@@ -9,7 +9,7 @@ const bottomPannelInitialState = {
   inputContent: "",
   outputContent: "",
   debugContent: "",
-  terminalsCurrentDirectoryInfo: { id: "root", name: "root" },
+  terminalsCurrentDirectoryInfo: { id: "root", name: "root", path: "root" },
 };
 
 type bottomPannelContent = "input" | "output" | "terminal" | "debug";
@@ -50,7 +50,10 @@ const bottomPannelSlice = createSlice({
     setOutputContent(state, action: PayloadAction<string>) {
       state.outputContent = action.payload;
     },
-    setTerminalsCurrentDirectoryInfo(state, action: PayloadAction<{id:string,name:string}>) {
+    setTerminalsCurrentDirectoryInfo(
+      state,
+      action: PayloadAction<{ id: string; name: string; path: string }>
+    ) {
       state.terminalsCurrentDirectoryInfo = action.payload;
     },
   },

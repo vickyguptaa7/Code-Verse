@@ -3,13 +3,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useAppSelector } from "../../../Store/store";
 import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
 
-import Debug from "./Debug.component";
-import Input from "./Input.component";
-import Output from "./Output.component";
+import Debug from "./Debug/Debug.component";
+import Input from "./Input/Input.component";
+import Output from "./Output/Output.component";
 
 import { BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX } from "../BottomPannel.Constant";
 
-const Terminal = lazy(() => import("./Terminal.component"));
+const Terminal = lazy(() => import("./Terminal/Terminal.component"));
 
 //constant
 

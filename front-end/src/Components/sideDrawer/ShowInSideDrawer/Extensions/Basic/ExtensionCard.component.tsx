@@ -6,7 +6,6 @@ import {
   VscStarEmpty,
   VscStarFull,
 } from "react-icons/vsc";
-import useScroll from "../../../../../hooks/useScroll.hook";
 import { IExtensionInfo } from "../../../../../Interface/Extension.interface";
 import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
@@ -14,6 +13,7 @@ import { updateFileBody } from "../../../../../Store/reducres/SideDrawer/Directo
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Button from "../../../../UI/Button.component";
 import { MIN_DRAWER_SIZE_PX } from "../../../sideDrawer.Constant";
+import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
 
 interface IPROPS {
   info: IExtensionInfo;
@@ -33,7 +33,6 @@ const ExtensionCard: React.FC<IPROPS> = ({
   const isVerified = info.verified.length !== 0;
   const ratingsStar = info.ratings.split(" ")[2];
   const isImageVisible = Math.abs(MIN_DRAWER_SIZE_PX - sideDrawerWidth) > 30;
-  const { scrollToTarget } = useScroll();
   const addExtensionToNavigation = () => {
     dispatch(updateFileBody([{ id: "extension", body: JSON.stringify(info) }]));
     dispatch(addFileToNavigation({ id: "extension", type: "extension" }));

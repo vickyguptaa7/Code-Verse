@@ -1,23 +1,17 @@
 import IDirectory from "../../../Interface/directory.interface";
 import { uniqueIdGenerator } from "../../../library/uuid/uuid.lib";
 import { IFile } from "../../../Interface/file.interface";
-import { supportedFileTypes } from "../../../Assets/Data/editorLanguages";
 import { useAppSelector } from "../../../Store/store";
 import {
   findFileExtension,
   findFileFolderIconUrl,
   findUniqueFileFolderName,
+  isFileQualifyForUpload,
 } from "../../../utils/fileFolder.utils";
 
 const useUpload = () => {
   const folderIcons = useAppSelector((state) => state.Directory.folderIcons);
   const fileIcons = useAppSelector((state) => state.Directory.fileIcons);
-
-  const isFileQualifyForUpload = (name: string) => {
-    const arr = name.split(".");
-    if (arr.length === 1) return true;
-    return supportedFileTypes[arr[arr.length - 1]] ? true : false;
-  };
 
   const processFileUpload = async (
     file: File,
