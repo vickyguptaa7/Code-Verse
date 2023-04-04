@@ -46,11 +46,6 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
     console.log("Remove", fileInfo.id);
   };
 
-  const fileName =
-    fileInfo.name.length < MAX_FILE_LENGTH
-      ? fileInfo.name
-      : fileInfo.name.substring(0, MAX_FILE_LENGTH - 3) + "...";
-
   const changeCurrentFileInNavigationHandler = (event: React.MouseEvent) => {
     dispatch(
       setCurrentNavFile({
@@ -70,7 +65,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   return (
     <div
       className={mergeClass([
-        "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px] border-r border-r-black group",
+        "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px] border-r border-r-black group ",
         activeClassName
       ])}
       id={fileInfo.id}
@@ -79,16 +74,16 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       <div className="flex items-center justify-center w-full h-full language-logo">
         {languageLogo}
       </div>
-      <div className="text-start whitespace-nowrap">
+      <div className="text-start whitespace-nowrap max-w-[10rem]">
         <h1
           className={mergeClass([
-            "pr-3 text-[color:var(--primary-text-color)]",
+            "pr-3 text-[color:var(--primary-text-color)] text-ellipsis overflow-hidden",
             isThisActiveNavFile
               ? "text-[color:var(--highlight-text-color)]"
               : ""
           ])}
         >
-          {fileName}
+          {fileInfo.name}
         </h1>
       </div>
       <div

@@ -9,6 +9,7 @@ import NewFileOrFolderDummy from "./newFileOrFolderDummy.component";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaFolder, FaFolderOpen } from "react-icons/fa";
 import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
+import { useAppSelector } from "../../../../../Store/store";
 
 interface IPROPS {
   folderInfo: IDirectory;
@@ -23,6 +24,9 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
   const [isFileOrFolder, setIsFileOrFolder] = useState<
     "file" | "folder" | "none"
   >("none");
+  const sideDrawerWidth = useAppSelector(
+    (state) => state.sideDrawer.sideDrawerWidth
+  );
   const [newFileOrFolderDummyTimerId, setNewFileOrFolderDummyTimerId] =
     useState<{
       isTimer: boolean;
@@ -33,22 +37,24 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
     console.log("hide/show children visibility");
     setIsFolderOpen((state) => !state);
   };
-  
+
   // TODO: Do something for the large names of folder
 
   return (
-    <div className="">
+    <>
       <div
         className="flex gap-1 hover:bg-[color:var(--hover-text-color)] group cursor-pointer w-full min-w-fit py-[1px] "
         title={`${isFolderOpen ? "Hide" : "Show"} Content`}
-        style={{ paddingLeft: shiftAmount + 8 }}
+        style={{ paddingLeft: shiftAmount + 8, width: sideDrawerWidth }}
         onClick={toggleChildrenVisibilityHandler}
       >
         <div className="flex items-center justify-center">
-          <VscChevronRight className={mergeClass([isFolderOpen && "rotate-90"])} />
+          <VscChevronRight
+            className={mergeClass([isFolderOpen && "rotate-90"])}
+          />
         </div>
-        <div className="flex justify-between w-full gap-3 pr-4">
-          <div className="flex items-center justify-center gap-1.5 w-full min-w-[6rem]">
+        <div className="flex justify-between gap-3">
+          <div className="flex items-center gap-1.5">
             <div className="min-w-[18px] max-w-[18px]">
               {folderInfo.iconUrls.length ? (
                 <img
@@ -62,7 +68,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
                 <FaFolder className="text-[15px]" />
               )}
             </div>
-            <div className="flex items-center justify-center w-full ">
+            <div className="flex items-center">
               {isInputInFocus ? (
                 <RenameInput
                   inputRef={inputRef}
@@ -72,7 +78,15 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
                   setIsInputInFocus={setIsInputInFocus}
                 />
               ) : (
-                <h3 className="cursor-pointer w-full overflow-clip p-[2px] select-none border border-transparent selection:bg-transparent">
+                <h3
+                  className="cursor-pointer  overflow-hidden text-ellipsis p-[2px] select-none border border-transparent selection:bg-transparent"
+                  style={{
+                    width: Math.max(
+                      sideDrawerWidth - shiftAmount - 8 - 135,
+                      40
+                    ),
+                  }}
+                >
                   {folderInfo.name}
                 </h3>
               )}
@@ -83,7 +97,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
           <ExplorerButtons
             id={folderInfo.id}
             name={folderInfo.name}
-            path={folderInfo.path.split('/')}
+            path={folderInfo.path.split("/")}
             isInputInFocus={isInputInFocus}
             setIsInputInFocus={setIsInputInFocus}
             setIsFolderOpen={setIsFolderOpen}
@@ -123,7 +137,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
             <NewFileOrFolderDummy
               isFileOrFolder={isFileOrFolder}
               setIsFileOrFolder={setIsFileOrFolder}
-              path={folderInfo.path.split('/')}
+              path={folderInfo.path.split("/")}
               parentId={folderInfo.id}
               setNewFileOrFolderDummyTimerId={setNewFileOrFolderDummyTimerId}
               childRef={childRef}
@@ -132,7 +146,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
         )}
       </AnimatePresence>
       {isFolderOpen && children}
-    </div>
+    </>
   );
 };
 
