@@ -131,6 +131,7 @@ const Editor: React.FC<IPROPS> = ({
             isUpdateStoreRef.current = true;
             setIsEditorMounted(true);
           }}
+          
         ></MonacoEditor>
       )}
     </div>

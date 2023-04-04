@@ -78,7 +78,7 @@ export const useTerminal = () => {
     addToTerminalContent("cd");
   };
 
-  const changeDirectory = (target: string) => {
+  const changeDirectory = (targetPath: string) => {
     let currentDirectory = findDirectory(
       rootDirectory,
       terminalsCurrentDirectoryInfo.path.split("/")
@@ -86,18 +86,20 @@ export const useTerminal = () => {
     if (!currentDirectory) {
       // if the terminal points to the deleted directory
       addToTerminalContent(
-        "cd " + target + "\ncurrent directory does not exist"
+        "cd " + targetPath + "\ncurrent directory does not exist"
       );
     }
     let currentDirectoryPath = terminalsCurrentDirectoryInfo.path;
     console.log(currentDirectory);
-    const targetArr = target.split("/");
-    let targetIndx = 0;
-    while (targetIndx < targetArr.length && currentDirectory) {
-      if (targetArr[targetIndx] === "..") {
+    const targetPathArr = targetPath.split("/");
+    let targetPathIndx = 0;
+    while (targetPathIndx < targetPathArr.length && currentDirectory) {
+      if (targetPathArr[targetPathIndx] === "..") {
         if (currentDirectoryPath === "root") {
           // there is no parent of the root directory
-          addToTerminalContent("cd " + target + "\ndirectory does not exist");
+          addToTerminalContent(
+            "cd " + targetPath + "\ndirectory does not exist"
+          );
           return;
         }
         //move back to the parent directory
@@ -110,30 +112,30 @@ export const useTerminal = () => {
           currentDirectoryPath.split("/")
         );
       } else {
-        const nextSmallerTarget = currentDirectory.children.findIndex(
-          (directory) =>
-            directory.name.trim().toLowerCase() ===
-            targetArr[targetIndx].trim().toLowerCase()
+        const nextTargetName = targetPathArr[targetPathIndx].trim().toLowerCase();
+        const nextTarget = currentDirectory.children.findIndex(
+          (directory) => directory.name.trim().toLowerCase() === nextTargetName
         );
-        if (nextSmallerTarget === -1) {
-          addToTerminalContent("cd " + target + "\ndirectory does not exist");
+        if (nextTarget === -1) {
+          addToTerminalContent(
+            "cd " + targetPath + "\ndirectory does not exist"
+          );
           return;
         }
         // move to the child directory
-        currentDirectoryPath =
-          currentDirectory.children[nextSmallerTarget].path;
+        currentDirectoryPath = currentDirectory.children[nextTarget].path;
         currentDirectory = findDirectory(
           rootDirectory,
           currentDirectoryPath.split("/")
         );
       }
-      targetIndx++;
+      targetPathIndx++;
     }
     if (!currentDirectory) {
-      addToTerminalContent("cd " + target + "\ndirectory does not exist");
+      addToTerminalContent("cd " + targetPath + "\ndirectory does not exist");
       return;
     }
-    addToTerminalContent("cd " + target);
+    addToTerminalContent("cd " + targetPath);
     dispatch(
       setTerminalsCurrentDirectoryInfo({
         id: currentDirectory.id,

@@ -8,13 +8,19 @@ import {
   traverseInDirectoryForAdd,
 } from "./DirectoryOperations";
 import { directoryComparator } from "../../../../utils/fileFolder.utils";
-import { DUMMY_FILE_DIRECTORY, DUMMY_FILE_INFORMATION } from "../../../../Assets/Data/FileFolder";
+import {
+  DUMMY_FILE_DIRECTORY,
+  DUMMY_FILE_INFORMATION,
+} from "../../../../Assets/Data/FileFolder";
 
 const directoryInitialState = {
   directories: DUMMY_FILE_DIRECTORY,
   fileIcons: {} as iconObject,
   folderIcons: {} as iconObject,
   filesInformation: DUMMY_FILE_INFORMATION,
+  undoRedoHistoryInfo: {} as {
+    [key: string]: { stack: Array<string>; pointer: number };
+  },
   infoOfCurrentWorkingFileOrFolder: {
     isActive: false,
     operation: "",
@@ -130,6 +136,14 @@ const directorySlice = createSlice({
       }
       state.directories.sort(directoryComparator);
     },
+    setUndoRedoHistoryInfo(
+      state,
+      action: PayloadAction<{
+        [key: string]: { stack: Array<string>; pointer: number };
+      }>
+    ) {
+      state.undoRedoHistoryInfo = action.payload;
+    },
   },
 });
 export const {
@@ -142,6 +156,7 @@ export const {
   updateFileBody,
   addExternalFileOrFolderToDirectory,
   setFilesInformation,
+  setUndoRedoHistoryInfo
 } = directorySlice.actions;
 
 export default directorySlice.reducer;
