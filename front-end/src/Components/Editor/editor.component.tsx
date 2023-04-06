@@ -32,40 +32,45 @@ const Editor: React.FC<IPROPS> = ({
     (state) => state.sideDrawer.showInSideDrawer
   );
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
+
   // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
   let isUpdateStoreRef = useRef(true);
   let monacoRef = useRef<null | editor.IStandaloneCodeEditor>(null);
   // storing the prev decorations of all the files if they are used in search so that we can remove the prev change and apply the new one
-
   const { isUndoRedoRef, updateUndoRedoStack } = useUndoRedo(
     monacoRef,
     setEditorContent,
-    isEditorMounted
+    isEditorMounted,
+    editorContent
   );
   useSetEditorTheme(setIsEditorReady);
   const { highlightText } = useHighlightText();
 
   // if we use editorContent its one state prev value to get the current updated value we need to pass it from the debounced function
-  const updateStore = (content: string) => {
+  const updateFileBodyStore = (content: string) => {    
     dispatch(updateFileBody([{ id: currentWorkingFileId, body: content }]));
   };
 
-  const debounceUpdateSearchedText = useDebounce(updateStore, 800);
-  const debounceUpdateHightlightText = useDebounce(highlightText, 500);
-  const debounceUpdateUndoRedoStack = useDebounce(updateUndoRedoStack, 300);
+  const debounceUpdateFileBodyText = useDebounce(updateFileBodyStore, 600);
+  const debounceUpdateHightlightText = useDebounce(highlightText, 400);
+  const debounceUpdateUndoRedoStack = useDebounce(updateUndoRedoStack, 50);
   const onChangeHandler = (value: string | undefined) => {
     // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
     // as currentWorkingFileId changes use effect will update with initial value
-    if (!isUpdateStoreRef.current.valueOf()) {
+    // if it returns undefined then we don't do any changes
+    if (
+      !isUpdateStoreRef.current ||
+      value === undefined
+    ) {
       isUpdateStoreRef.current = true;
+      isUndoRedoRef.current = false;
       return;
     }
+    console.log("undoredocheck");
 
-    // if it returns undefined then we don't do any changes
-    console.log(value);
-    if (value === undefined) return;
+    // console.log(value);
     setEditorContent(value);
-    debounceUpdateSearchedText(value);
+    debounceUpdateFileBodyText(value);
     if (!isUndoRedoRef.current) {
       debounceUpdateUndoRedoStack(value);
     } else isUndoRedoRef.current = false;
@@ -76,7 +81,7 @@ const Editor: React.FC<IPROPS> = ({
     isUpdateStoreRef.current = false;
     // as we don't want to update with the content as it changes frequently we update only when the current working file id's change so there will be less rerenders
     // eslint-disable-next-line
-  }, [currentWorkingFileId, content]);
+  }, [currentWorkingFileId]);
 
   useEffect(() => {
     debounceUpdateHightlightText(
@@ -131,7 +136,6 @@ const Editor: React.FC<IPROPS> = ({
             isUpdateStoreRef.current = true;
             setIsEditorMounted(true);
           }}
-          
         ></MonacoEditor>
       )}
     </div>

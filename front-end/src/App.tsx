@@ -8,6 +8,7 @@ import {
   fetchFolderIconsAction,
 } from "./Store/actions/icons.action";
 import { useAppDispatch } from "./Store/store";
+import { removeFromLocalStorage } from "./utils/localStorage.utils";
 
 const CodeEditor = lazy(() => import("./Pages/CodeEditor.page"));
 
@@ -18,6 +19,10 @@ const App = () => {
     dispatch(fetchExtensionsListAction());
     dispatch(fetchFileIconsAction());
     dispatch(fetchFolderIconsAction());
+    return () => {
+      // clear the local storage when the app is unmounted historyInfo of the files
+      removeFromLocalStorage("historyInfo");
+    };
   }, [dispatch]);
   return (
     <Suspense
