@@ -1,7 +1,10 @@
+import React, { useEffect, useRef } from "react";
+
 import { useMonaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
-import React, { useEffect, useRef } from "react";
+
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
+
 import {
   getFromLocalStorage,
   storeToLocalStorage,
@@ -16,7 +19,7 @@ const useUndoRedo = (
   const dispatch = useAppDispatch();
 
   // using the local storage for storing the history of undo redo of the files
-  let undoRedoHistoryInfoRef = useRef<{
+  let undoRedoHistoryInfo = useRef<{
     [key: string]: {
       stack: Array<{
         cursorPosition: { lineNumber: number; column: number };
@@ -26,8 +29,8 @@ const useUndoRedo = (
     };
   }>(getFromLocalStorage("historyInfo") || {});
 
-  // to identify this is undo operation right now happenning so that we can avoid some operations which are redundant
-  let isUndoRedoRef = useRef<boolean>(false);
+
+  let isUndoRedoOperation = useRef<boolean>(false);
 
   const currFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
@@ -37,12 +40,12 @@ const useUndoRedo = (
     (state) => state.Directory.filesInformation
   );
 
-  const undoRedoHistory = undoRedoHistoryInfoRef.current;
+  const undoRedoHistory = undoRedoHistoryInfo.current;
   const monaco = useMonaco();
 
   // if the file is not present in the history then we add it to the history
-  if (!undoRedoHistoryInfoRef.current[currFile.id]) {
-    undoRedoHistoryInfoRef.current[currFile.id] = {
+  if (!undoRedoHistoryInfo.current[currFile.id]) {
+    undoRedoHistoryInfo.current[currFile.id] = {
       stack: [
         {
           cursorPosition: { lineNumber: 0, column: 0 },
@@ -61,13 +64,13 @@ const useUndoRedo = (
       monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyZ,
       () => {
         console.log("Redo");
-        const currentFileUndoRedo = undoRedoHistoryInfoRef.current[currFile.id];
+        const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
 
         // if the pointer is at the end of the stack then we don't do anything
         // otherwise we increment the pointer and set the content of the editor to the content of the stack at the pointer
         if (currentFileUndoRedo.pointer < currentFileUndoRedo.stack.length) {
           currentFileUndoRedo.pointer++;
-          isUndoRedoRef.current = true;
+          isUndoRedoOperation.current = true;
 
           // as pointer is 1 based indexing so we need to decrement it by 1 to get the correct index of the stack
           setEditorContent(
@@ -97,13 +100,13 @@ const useUndoRedo = (
       monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyY,
       () => {
         console.log("Redo");
-        const currentFileUndoRedo = undoRedoHistoryInfoRef.current[currFile.id];
+        const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
 
         // if the pointer is at the end of the stack then we don't do anything
         // otherwise we increment the pointer and set the content of the editor to the content of the stack at the pointer
         if (currentFileUndoRedo.pointer < currentFileUndoRedo.stack.length) {
           currentFileUndoRedo.pointer++;
-          isUndoRedoRef.current = true;
+          isUndoRedoOperation.current = true;
 
           // as pointer is 1 based indexing so we need to decrement it by 1 to get the correct index of the stack
           setEditorContent(
@@ -133,13 +136,13 @@ const useUndoRedo = (
       monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyZ,
       () => {
         console.log("Undo");
-        const currentFileUndoRedo = undoRedoHistoryInfoRef.current[currFile.id];
+        const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
 
         // if the pointer is at the beginning of the stack then we don't do anything
         // otherwise we decrement the pointer and set the content of the editor to the content of the stack at the pointer
         if (currentFileUndoRedo.pointer > 1) {
           currentFileUndoRedo.pointer--;
-          isUndoRedoRef.current = true;
+          isUndoRedoOperation.current = true;
 
           // as pointer is 1 based indexing so we need to decrement it by 1 to get the correct index of the stack
           setEditorContent(
@@ -179,7 +182,7 @@ const useUndoRedo = (
 
   const updateUndoRedoStack = (value: string) => {
     let cursorPosition = monacoRef.current?.getPosition();
-    const currentFileUndoRedo = undoRedoHistoryInfoRef.current[currFile.id];
+    const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
 
     // if the pointer is not at the end of the stack then we remove the elements after the pointer
     if (currentFileUndoRedo.pointer !== currentFileUndoRedo.stack.length) {
@@ -204,8 +207,8 @@ const useUndoRedo = (
   };
 
   return {
-    undoRedoHistoryInfoRef,
-    isUndoRedoRef,
+    undoRedoHistoryInfo,
+    isUndoRedoOperation,
     updateUndoRedoStack,
   };
 };

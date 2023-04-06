@@ -1,29 +1,37 @@
-import { useMonaco } from "@monaco-editor/react";
 import { useEffect } from "react";
 
+import { useMonaco } from "@monaco-editor/react";
+
 const useSetEditorTheme = (
-  setIsEditorReady: Function
+  setIsEditorThemeReady: Function
 ) => {
   const monaco=useMonaco();
+
   useEffect(() => {
+  
     if (monaco) {
       try {
         const defineTheme = async () => {
+          
           const theme = await import("monaco-themes/themes/Night Owl.json");
+
           monaco.editor.defineTheme("Blackboard", {
             base: theme.base ? "vs-dark" : "vs",
             rules: theme.rules,
             inherit: theme.inherit,
             colors: theme.colors,
           });
-          setIsEditorReady(true);
+
+          setIsEditorThemeReady(true);
         };
+
         defineTheme();
+    
       } catch (error) {
         console.log("error : ", error);
       }
     }
-  }, [monaco, setIsEditorReady]);
+  }, [monaco, setIsEditorThemeReady]);
 };
 
 export default useSetEditorTheme;
