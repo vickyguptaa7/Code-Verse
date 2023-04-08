@@ -1,6 +1,9 @@
 import React from "react";
-import { INavFile } from "../../Interface/file.interface";
+
 import { useAppSelector } from "../../Store/store";
+
+import { INavFile } from "../../Interface/file.interface";
+
 import Editor from "./editor.component";
 
 interface IPROPS {

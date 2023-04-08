@@ -10,7 +10,10 @@ import Button from "../UI/Button.component";
 
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { removeAllFilesFromNavigation } from "../../Store/reducres/Navigation/FileNavigation.reducer";
-import { setIsBottomPannelOpen } from "../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import {
+  setIsBottomPannelOpen,
+  setShowInBottomPannel,
+} from "../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 const FileNavigation = () => {
@@ -56,7 +59,7 @@ const FileNavigation = () => {
           <Button
             className={mergeClass([
               "flex items-center justify-center rounded-lg p-0.5 hover:bg-[color:var(--hover-text-color)] mr-2",
-              isDropMenuOpen && "bg-[color:var(--hover-text-color)]"
+              isDropMenuOpen && "bg-[color:var(--hover-text-color)]",
             ])}
             onClick={openDropMenuHandler}
           >
@@ -86,6 +89,7 @@ function dropMenu(
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     dispatch(setIsBottomPannelOpen(!isBottomPannelOpen));
+    dispatch(setShowInBottomPannel("terminal"));
     closeDropMenuHandler(event);
   };
   // TODO: fix the horizontal scrolling issue of the drop down menu
