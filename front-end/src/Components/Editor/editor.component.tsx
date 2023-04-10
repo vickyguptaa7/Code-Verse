@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-
 import MonacoEditor from "@monaco-editor/react";
 import { editor } from "monaco-editor";
 
@@ -40,6 +39,11 @@ const Editor: React.FC<IPROPS> = ({
   );
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
 
+  // used to track the cursor position tracking while removing and adding the character as we have used the debounce so it will store all the changes until function runs
+  // for remove we +1 and for add we -1
+  const characterAddRemoveCountDebounce = useRef<{ count: 0 }>({
+    count: 0,
+  });
   // used this bcoz of we know the whether there is change in the current nav file if its then we avoid to update the file information of the store
   let isCurrentWorkingFileChanged = useRef(true);
   let monacoRef = useRef<null | editor.IStandaloneCodeEditor>(null);
@@ -48,7 +52,8 @@ const Editor: React.FC<IPROPS> = ({
     monacoRef,
     setEditorContent,
     isEditorMounted,
-    editorContent
+    editorContent,
+    characterAddRemoveCountDebounce
   );
 
   const { highlightText } = useHighlightText();
@@ -64,7 +69,7 @@ const Editor: React.FC<IPROPS> = ({
 
   const debounceUpdateHightlightText = useDebounce(highlightText, 400);
 
-  const debounceUpdateUndoRedoStack = useDebounce(updateUndoRedoStack, 50);
+  const debounceUpdateUndoRedoStack = useDebounce(updateUndoRedoStack, 200);
 
   const onChangeHandler = (value: string | undefined) => {
     // this is to avoid the store updation when we navigate as this onchange handler is called this is the only way i can think of to avoid this right now
@@ -83,10 +88,13 @@ const Editor: React.FC<IPROPS> = ({
     // else we don't update the undo redo stack as we are doing undo redo operation and we don't want to update the stack with the same value again
     // so we set the isUndoRedoOperation to false so that the next time we can update the stack
     if (!isUndoRedoOperation.current) {
+      if (!characterAddRemoveCountDebounce.current.count)
+      characterAddRemoveCountDebounce.current.count = 0;
+      characterAddRemoveCountDebounce.current.count +=
+        editorContent.length - value.length;
       debounceUpdateUndoRedoStack(value);
     } else isUndoRedoOperation.current = false;
   };
-
 
   useEffect(() => {
     // as the current working file changes we set the isCurrentWorkingFileChanged to false so that we can avoid the store updation
@@ -95,10 +103,10 @@ const Editor: React.FC<IPROPS> = ({
     // eslint-disable-next-line
   }, [currentWorkingFileId]);
 
-  useEffect(()=>{
+  useEffect(() => {
     // when content is changed from the replace we update the editor content also
     setEditorContent(content);
-  },[content])
+  }, [content]);
 
   useEffect(() => {
     debounceUpdateHightlightText(

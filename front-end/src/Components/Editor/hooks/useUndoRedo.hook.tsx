@@ -14,7 +14,8 @@ const useUndoRedo = (
   monacoRef: React.RefObject<editor.IStandaloneCodeEditor>,
   setEditorContent: Function,
   isEditorMounted: boolean,
-  content: string
+  content: string,
+  countOfCharacterRemoved: React.RefObject<{ count: number }>
 ) => {
   const dispatch = useAppDispatch();
 
@@ -28,7 +29,6 @@ const useUndoRedo = (
       pointer: number;
     };
   }>(getFromLocalStorage("historyInfo") || {});
-
 
   let isUndoRedoOperation = useRef<boolean>(false);
 
@@ -196,12 +196,12 @@ const useUndoRedo = (
       cursorPosition: {
         lineNumber: cursorPosition ? cursorPosition.lineNumber : 0,
         column: cursorPosition
-          ? cursorPosition.column + Math.abs(content.length - value.length)
+          ? cursorPosition.column + countOfCharacterRemoved.current?.count!
           : 0,
       },
       content: value,
     });
-
+    if(countOfCharacterRemoved.current)countOfCharacterRemoved.current.count=0;
     // increment the pointer
     currentFileUndoRedo.pointer++;
   };
