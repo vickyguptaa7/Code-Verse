@@ -1,30 +1,31 @@
 import IDirectory from "../../Interface/directory.interface";
 import { IFilesInforation } from "../../Interface/file.interface";
+import vscodeImage from "../../Assets/images/visual-studio-code-icons/vscode.svg";
 
 let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
-  {
-    id: "welcomelop",
-    name: "welcomelop",
-    iconUrls: [
-      "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fc.svg?alt=media&token=3bd3d797-69a3-4150-9f5b-07ec4757bb5f",
-    ],
-    isFolder: false,
-    parentId: "root",
-    path: "root/welcomelop",
-    children: [],
-  },
+  // {
+  //   id: "welcomelop",
+  //   name: "welcomelop",
+  //   iconUrls: [
+  //     "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fc.svg?alt=media&token=3bd3d797-69a3-4150-9f5b-07ec4757bb5f",
+  //   ],
+  //   isFolder: false,
+  //   parentId: "root",
+  //   path: "root/welcomelop",
+  //   children: [],
+  // },
 ];
 
 let DUMMY_FILE_INFORMATION: IFilesInforation = {
-  welcomelop: {
-    id: "welcomelop",
-    name: "welcomelop",
-    iconUrls: [
-      "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fc.svg?alt=media&token=3bd3d797-69a3-4150-9f5b-07ec4757bb5f",
-    ],
-    language: "txt",
-    body: "welcome you all!",
-  },
+  // welcomelop: {
+  //   id: "welcomelop",
+  //   name: "welcomelop",
+  //   iconUrls: [
+  //     "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fc.svg?alt=media&token=3bd3d797-69a3-4150-9f5b-07ec4757bb5f",
+  //   ],
+  //   language: "txt",
+  //   body: "welcome you all!",
+  // },
   setting: {
     id: "setting",
     name: "setting",
@@ -43,8 +44,8 @@ let DUMMY_FILE_INFORMATION: IFilesInforation = {
   },
   welcome: {
     id: "welcome",
-    name: "welcome",
-    iconUrls: [],
+    name: "Welcome",
+    iconUrls: [vscodeImage],
     language: "welcome",
     body: "",
   },

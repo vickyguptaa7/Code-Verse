@@ -2,12 +2,8 @@ import { INavFile } from "../../Interface/file.interface";
 
 let DUMMY_FILES: Array<INavFile> = [
   {
-    id: "welcomelop",
-    type: "file",
-  },
-  {
-    id: "setting",
-    type: "setting",
+    id: "welcome",
+    type: "welcome",
   },
 ];
 

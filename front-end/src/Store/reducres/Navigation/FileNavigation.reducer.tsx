@@ -4,7 +4,7 @@ import { DUMMY_FILES, EMPTY_FILE } from "../../../Assets/Data/fileNavigation";
 
 const navigationFilesInitialState = {
   navFilesList: DUMMY_FILES,
-  currentNavFile: DUMMY_FILES[1],
+  currentNavFile: DUMMY_FILES[0],
   undoRedoStack: {} as { [key: string]: { stack: string[]; pointer: number } },
 };
 
@@ -54,9 +54,7 @@ const navigationFilesSlice = createSlice({
     updateNavFileList(state, action: PayloadAction<Array<INavFile>>) {
       state.navFilesList = action.payload;
     },
-    setUndoRedoStack(state, action: PayloadAction<{}>){
-      
-    }
+    setUndoRedoStack(state, action: PayloadAction<{}>) {},
   },
 });
 
