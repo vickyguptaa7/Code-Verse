@@ -5,6 +5,7 @@ import { setIsDeleteWarningEnable } from "../../Store/reducres/SideDrawer/SideDr
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import Button from "./Button.component";
 
+import vscodeImage from "../../Assets/images/visual-studio-code-icons/vscode.svg";
 interface IPROPS {
   name: string;
   onCancel: React.MouseEventHandler<HTMLButtonElement>;
@@ -30,7 +31,7 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
       <div className="flex flex-col gap-4 p-6 bg-[color:var(--highlight-text-color)] rounded-md md:flex-row">
         <div className="flex items-center justify-center md:block ">
           <img
-            src="https://www.svgrepo.com/show/303535/visual-studio-code-logo.svg"
+            src={vscodeImage}
             className="w-16 md:w-20 aspect-square"
             alt=""
           />

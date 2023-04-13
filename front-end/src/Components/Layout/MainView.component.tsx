@@ -4,6 +4,9 @@ import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPanne
 
 import EditorContainer from "../Editor/EditorContainer.component";
 import ExtensionDetails from "../ExtensionDetails/ExtensionDetails.component";
+
+import Home from "./Home.component";
+
 const EDITOR_MIN_HEIGHT = 480;
 const MainView = () => {
   const currentNavFile = useAppSelector(
@@ -21,16 +24,7 @@ const MainView = () => {
   height -= isBottomPannelOpen ? bottomPannelHeight : 0;
 
   if (currentNavFile.id === "null") {
-    return (
-      <>
-        <div
-          style={{ height: height + 40 }}
-          className="flex items-center justify-center text-white"
-        >
-          HOME
-        </div>
-      </>
-    );
+    return <Home height={height} />;
   }
   if (currentNavFile.type === "extension") {
     return <ExtensionDetails height={height} />;
