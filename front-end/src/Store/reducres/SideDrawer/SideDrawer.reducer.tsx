@@ -32,6 +32,9 @@ const sideDrawerSlice = createSlice({
     setIsDeleteWarningEnable(state, action: PayloadAction<boolean>) {
       state.isDeleteWarningEnable = action.payload;
     },
+    toggleIsDrawerOpen(state) {
+      state.isDrawerOpen = !state.isDrawerOpen;
+    },
   },
 });
 
@@ -41,6 +44,7 @@ export const {
   setSideDrawerWidth,
   setShowInSideDrawer,
   setIsDeleteWarningEnable,
+  toggleIsDrawerOpen,
 } = sideDrawerSlice.actions;
 
 export default sideDrawerSlice.reducer;

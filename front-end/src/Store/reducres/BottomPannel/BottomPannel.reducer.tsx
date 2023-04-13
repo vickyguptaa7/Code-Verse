@@ -30,6 +30,9 @@ const bottomPannelSlice = createSlice({
     setShowInBottomPannel(state, action: PayloadAction<bottomPannelContent>) {
       state.showInBottomPannel = action.payload;
     },
+    toggleIsBottomPannelOpen(state) {
+      state.isBottomPannelOpen = !state.isBottomPannelOpen;
+    },
     resetBottomPannel(state) {
       state.bottomPannelHeight = bottomPannelInitialState.bottomPannelHeight;
       state.isBottomPannelOpen = false;
@@ -64,6 +67,7 @@ export const {
   setBottomPannelHeight,
   setIsMinimizeBottomPannel,
   setShowInBottomPannel,
+  toggleIsBottomPannelOpen,
   resetBottomPannel,
   setInputContent,
   setTerminalContent,

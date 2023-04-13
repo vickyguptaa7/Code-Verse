@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
 import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
-import { useAppSelector } from "../Store/store";
+import { useAppDispatch, useAppSelector } from "../Store/store";
 import Main from "../Components/Layout/Main.component";
 import { SIDE_PANNEL_WIDTH } from "../Components/sidePannel/SidePannel.constants";
 import { mergeClass } from "../library/tailwindMerge/tailwindMerge.lib";
+import {
+  setShowInBottomPannel,
+  toggleIsBottomPannelOpen,
+} from "../Store/reducres/BottomPannel/BottomPannel.reducer";
+import {
+  setShowInSideDrawer,
+  toggleIsDrawerOpen,
+} from "../Store/reducres/SideDrawer/SideDrawer.reducer";
+import { addFileToNavigation } from "../Store/reducres/Navigation/FileNavigation.reducer";
 
 const EDITOR_MIN_WIDTH = 320;
 const EDITOR_MIN_HEIGHT = 480;
@@ -17,7 +26,7 @@ const CodeEditor = () => {
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
-
+  const dispatch = useAppDispatch();
   // 60px is for the side pannel and 4  px for the side pannel resizer
   let remainingWidth =
     Math.max(document.body.clientWidth, EDITOR_MIN_WIDTH) - SIDE_PANNEL_WIDTH;
@@ -37,13 +46,50 @@ const CodeEditor = () => {
       window.removeEventListener("resize", manageEditorWidthAndHeight);
     };
   }, []);
-  // TODO:Refactor this to avoid unnecessary rerendering due isBottomPannelOpen and IsSidePannelOpen
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.repeat) return;
+
+      // toggle Bottom Pannel
+      if (e.key === "`" && e.ctrlKey) {
+        dispatch(toggleIsBottomPannelOpen());
+        dispatch(setShowInBottomPannel("terminal"));
+        return;
+      }
+
+      // toggle Side Drawer
+      if (e.key === "b" && e.metaKey) {
+        e.preventDefault();
+        dispatch(toggleIsDrawerOpen());
+        return;
+      }
+
+      // toggle file directory side Drawer
+      if (e.key === "p" && e.metaKey && e.shiftKey) {
+        dispatch(toggleIsDrawerOpen());
+        dispatch(setShowInSideDrawer("file"));
+        return;
+      }
+
+      // open setting
+      if (e.key === "," && e.metaKey) {
+        e.preventDefault();
+        dispatch(addFileToNavigation({ id: "setting", type: "setting" }));
+        return;
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [dispatch]);
+
   return (
     <div className="flex flex-col w-full h-full">
       <div
         className={mergeClass([
           "flex h-full",
-          !isSidePannelPositionOnLeft && "flex-row-reverse"
+          !isSidePannelPositionOnLeft && "flex-row-reverse",
         ])}
       >
         <div className="right w-fit">
