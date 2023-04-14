@@ -32,14 +32,14 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     fileDownloader(file, filesInformation[currFile.id].name);
   };
 
-  const addAllFilesAndFolderToZip = async (
+  const addAllFilesAndFolderToZipHelper = async (
     zip: JSZip,
     directories: Array<IDirectory>,
     dirPath: string
   ) => {
     for (const directory of directories) {
       if (directory.isFolder) {
-        await addAllFilesAndFolderToZip(
+        await addAllFilesAndFolderToZipHelper(
           zip,
           directory.children,
           dirPath + "/" + directory.name
@@ -57,7 +57,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     console.log("Save all files and folders");
     closeDropMenuHandler();
     const zip = new JSZip();
-    await addAllFilesAndFolderToZip(zip, directories, "root");
+    await addAllFilesAndFolderToZipHelper(zip, directories, "root");
     const file = await zip.generateAsync({ type: "blob" });
     fileDownloader(file, "All File And Folder");
   };
@@ -76,28 +76,9 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
 
   return (
     <DropMenu className="w-36 -top-[54px] left-14">
-      <label htmlFor="file" title="Add local files">
-        <div
-          className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]"
-          onClick={() => {
-            // give time out to perform the task of label so that file selection popup will appear
-            setTimeout(closeDropMenuHandler, 0);
-          }}
-        >
-          <h1>Open Files</h1>
-        </div>
-      </label>
-
-      <label htmlFor="folder" title="Add local files">
-        <div
-          className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]"
-          onClick={() => {
-            setTimeout(closeDropMenuHandler, 0);
-          }}
-        >
-          <h1>Open Folder</h1>
-        </div>
-      </label>
+      <OpenFileFolderDropMenuButtons
+        closeDropMenuHandler={closeDropMenuHandler}
+      />
       <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
       <DropMenuButton
         name="Save All"
@@ -132,3 +113,34 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     </DropMenu>
   );
 };
+
+function OpenFileFolderDropMenuButtons(props: {
+  closeDropMenuHandler: Function;
+}) {
+  return (
+    <>
+      <label htmlFor="file" title="Add local files">
+        <div
+          className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]"
+          onClick={() => {
+            // give time out to perform the task of label so that file selection popup will appear
+            setTimeout(props.closeDropMenuHandler, 0);
+          }}
+        >
+          <h1>Open Files</h1>
+        </div>
+      </label>
+
+      <label htmlFor="folder" title="Add local files">
+        <div
+          className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]"
+          onClick={() => {
+            setTimeout(props.closeDropMenuHandler, 0);
+          }}
+        >
+          <h1>Open Folder</h1>
+        </div>
+      </label>
+    </>
+  );
+}
