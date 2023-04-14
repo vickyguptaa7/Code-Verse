@@ -28,10 +28,11 @@ const Welcome: React.FC<IPROPS> = ({ height }) => {
   return (
     <div className="overflow-scroll">
       <div
-        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto py-12 px-3 min-w-[16rem] flex flex-col"
+        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto px-3 min-w-[16rem] flex flex-col"
         style={{ height: height }}
       >
         <div className="">
+          <div className="h-12"></div>
           <h1 className="text-4xl text-[color:var(--highlight-text-color)]">
             Visual Studio Code
           </h1>

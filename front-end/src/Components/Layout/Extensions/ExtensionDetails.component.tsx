@@ -19,9 +19,11 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
   return (
     <div className="overflow-scroll">
       <div
-        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto py-6 px-3 min-w-[16rem]"
+        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto px-3 min-w-[16rem]"
         style={{ height: height }}
       >
+        {/* use this div for just vertical spacing using margin or padding wont allow to fully expand the bottomPannel */}
+        <div className="h-6"></div>
         <div className="flex flex-col items-center justify-center gap-2">
           <div className="min-w-[160px] max-w-[160px] aspect-square flex items-center justify-center">
             <img

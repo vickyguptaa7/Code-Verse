@@ -58,21 +58,21 @@ const CodeEditor = () => {
       }
 
       // toggle Side Drawer
-      if (e.key === "b" && e.metaKey) {
+      if (e.key === "b" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         dispatch(toggleIsDrawerOpen());
         return;
       }
 
       // toggle file directory side Drawer
-      if (e.key === "p" && e.metaKey && e.shiftKey) {
+      if (e.key === "p" && (e.metaKey || e.ctrlKey) && e.shiftKey) {
         dispatch(toggleIsDrawerOpen());
         dispatch(setShowInSideDrawer("file"));
         return;
       }
 
       // open setting
-      if (e.key === "," && e.metaKey) {
+      if (e.key === "," && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         dispatch(addFileToNavigation({ id: "setting", type: "setting" }));
         return;
