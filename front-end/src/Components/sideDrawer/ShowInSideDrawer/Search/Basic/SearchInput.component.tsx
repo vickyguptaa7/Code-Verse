@@ -11,6 +11,7 @@ interface IPROPS {
   value?: string;
   durationForDebounce: number;
   updateInStoreText: Function;
+  className?: string;
 }
 
 const SearchInput: React.FC<IPROPS> = ({
@@ -19,6 +20,7 @@ const SearchInput: React.FC<IPROPS> = ({
   name,
   durationForDebounce,
   updateInStoreText,
+  className,
 }) => {
   const [isInputInFocus, setIsInputInFocus] = useState(true);
   const [inputText, setInputText] = useState(initialInput);
@@ -28,9 +30,7 @@ const SearchInput: React.FC<IPROPS> = ({
     durationForDebounce
   );
 
-  const onChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.currentTarget.value);
     debouncedUpdateSearchedTextInStore(event.currentTarget.value);
     console.log("changeInput");
@@ -48,7 +48,8 @@ const SearchInput: React.FC<IPROPS> = ({
       onBlur={() => setIsInputInFocus(false)}
       className={mergeClass([
         "w-full px-2 py-1 bg-[color:var(--sidepannel-color)] border border-transparent selection:bg-[color:var(--accent-color)]",
-        isInputInFocus ? " border-red-900" : ""
+        isInputInFocus ? " border-red-900" : "",
+        className,
       ])}
       onChange={onChangeHandler}
       placeholder={name}

@@ -8,12 +8,12 @@ import {
   VscStarEmpty,
 } from "react-icons/vsc";
 import { IoSchoolOutline } from "react-icons/io5";
-import Button from "../UI/Button.component";
-import { useAppDispatch } from "../../Store/store";
+import Button from "../../UI/Button.component";
+import { useAppDispatch } from "../../../Store/store";
 import {
   setIsDrawerOpen,
   setShowInSideDrawer,
-} from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
+} from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 
 const VSCODE_BASIC_URL =
   "https://code.visualstudio.com/docs/introvideos/basics";
@@ -28,7 +28,7 @@ const Welcome: React.FC<IPROPS> = ({ height }) => {
   return (
     <div className="overflow-scroll">
       <div
-        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto py-12 px-3 min-w-[16rem] gap-12 flex flex-col"
+        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto py-12 px-3 min-w-[16rem] flex flex-col"
         style={{ height: height }}
       >
         <div className="">
@@ -39,7 +39,7 @@ const Welcome: React.FC<IPROPS> = ({ height }) => {
             Editing evolved
           </h3>
         </div>
-        <div className="flex justify-between text-[color:var(--highlight-text-color)] flex-wrap gap-8">
+        <div className="flex justify-between text-[color:var(--highlight-text-color)] flex-wrap">
           <StartsAndRecent />
           <Walkthroughs />
         </div>
@@ -59,7 +59,7 @@ function StartsAndRecent() {
     dispatch(setShowInSideDrawer("git"));
   };
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 mt-8">
       <h4 className="text-lg">Start</h4>
       <div className="flex flex-col gap-2 ">
         <Button
@@ -121,14 +121,14 @@ function Walkthroughs() {
     window.open(VSCODE_TIPS_AND_TRICKS_URL, "_blank");
   };
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 my-8">
       <h4 className="text-lg">Walkthroughs</h4>
       <div className="flex flex-col gap-5">
         <Button
-          className="bg-[color:var(--hover-text-color)] px-8 py-4 rounded-md relative border-b-[5px] border-[color:var(--accent-color)]"
+          className="bg-[color:var(--hover-text-color)] px-8 py-4 rounded-md relative border-b-[5px] border-[color:var(--accent-color)] overflow-hidden"
           onClick={basicIntroHandler}
         >
-          <div className="absolute top-0 left-0 w-0 h-0 border-[color:var(--accent-color)] border-b-[36px] border-l-[36px] border-r-8 border-r-transparent border-b-transparent rounded-tl-md"></div>
+          <div className="absolute top-0 left-0 w-0 h-0 border-[color:var(--accent-color)] border-b-[36px] border-l-[36px] border-r-8 border-r-transparent border-b-transparent "></div>
           <VscStarEmpty className="absolute left-[3px] text-sm top-[3px]" />
           <h5 className="text-left">Get Started with VS Code</h5>
           <p className="mt-1 text-sm text-left">

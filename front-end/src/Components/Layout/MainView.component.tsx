@@ -3,11 +3,11 @@ import { useAppSelector } from "../../Store/store";
 import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
 
 import EditorContainer from "../Editor/EditorContainer.component";
-import ExtensionDetails from "./ExtensionDetails.component";
+import ExtensionDetails from "./Extensions/ExtensionDetails.component";
 
-import Home from "./Home.component";
-import Welcome from "./Welcome.component";
-import Setting from "./Setting.component";
+import Home from "./Home/Home.component";
+import Welcome from "./Welcome/Welcome.component";
+import Setting from "./Settings/Setting.component";
 
 const EDITOR_MIN_HEIGHT = 480;
 const MainView = () => {
@@ -28,7 +28,7 @@ const MainView = () => {
   if (currentNavFile.id === "null") {
     return <Home height={height} />;
   }
-  
+
   if (currentNavFile.type === "extension") {
     return <ExtensionDetails height={height} />;
   }

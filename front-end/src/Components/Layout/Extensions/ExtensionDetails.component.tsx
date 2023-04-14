@@ -1,13 +1,14 @@
 import React from "react";
 import { MdVerified } from "react-icons/md";
 import { VscCloudDownload, VscStarFull } from "react-icons/vsc";
-import { IExtensionInfo } from "../../Interface/Extension.interface";
-import { useAppSelector } from "../../Store/store";
-import Button from "../UI/Button.component";
+import { IExtensionInfo } from "../../../Interface/Extension.interface";
+import { useAppSelector } from "../../../Store/store";
+import Button from "../../UI/Button.component";
 interface IPROPS {
   height: number;
 }
 const VSCODE_MARKETPLACE_INITIAL_URL = "https://marketplace.visualstudio.com";
+
 const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
   const fileInformations = useAppSelector(
     (state) => state.Directory.filesInformation

@@ -117,6 +117,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
 function OpenFileFolderDropMenuButtons(props: {
   closeDropMenuHandler: Function;
 }) {
+  const { closeDropMenuHandler } = props;
   return (
     <>
       <label htmlFor="file" title="Add local files">
@@ -124,7 +125,7 @@ function OpenFileFolderDropMenuButtons(props: {
           className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]"
           onClick={() => {
             // give time out to perform the task of label so that file selection popup will appear
-            setTimeout(props.closeDropMenuHandler, 0);
+            setTimeout(closeDropMenuHandler, 0);
           }}
         >
           <h1>Open Files</h1>
@@ -135,7 +136,7 @@ function OpenFileFolderDropMenuButtons(props: {
         <div
           className="cursor-pointer whitespace-nowrap block mx-1 my-0.5 px-4 py-0.5 text-sm text-start rounded-md hover:bg-[color:var(--hover-text-color)]"
           onClick={() => {
-            setTimeout(props.closeDropMenuHandler, 0);
+            setTimeout(closeDropMenuHandler, 0);
           }}
         >
           <h1>Open Folder</h1>
