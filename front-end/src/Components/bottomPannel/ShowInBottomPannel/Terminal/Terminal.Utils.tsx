@@ -1,19 +1,16 @@
 import useDirectory from "../../../../hooks/useDirectory.hook";
 import IDirectory from "../../../../Interface/directory.interface";
-import {
-  setIsBottomPannelOpen,
-  setTerminalContent,
-  setTerminalsCurrentDirectoryInfo,
-} from "../../../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import { setIsBottomPannelOpen } from "../../../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import { setTerminalContent, setTerminalsCurrentDirectoryInfo } from "../../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../Store/store";
 
 export const useTerminal = () => {
   const dispatch = useAppDispatch();
   const terminalContent = useAppSelector(
-    (state) => state.bottomPannel.terminalContent
+    (state) => state.terminal.terminalContent
   );
   const terminalsCurrentDirectoryInfo = useAppSelector(
-    (state) => state.bottomPannel.terminalsCurrentDirectoryInfo
+    (state) => state.terminal.terminalsCurrentDirectoryInfo
   );
   const directories = useAppSelector((state) => state.Directory.directories);
   const rootDirectory: IDirectory = {
@@ -112,7 +109,9 @@ export const useTerminal = () => {
           currentDirectoryPath.split("/")
         );
       } else {
-        const nextTargetName = targetPathArr[targetPathIndx].trim().toLowerCase();
+        const nextTargetName = targetPathArr[targetPathIndx]
+          .trim()
+          .toLowerCase();
         const nextTarget = currentDirectory.children.findIndex(
           (directory) => directory.name.trim().toLowerCase() === nextTargetName
         );

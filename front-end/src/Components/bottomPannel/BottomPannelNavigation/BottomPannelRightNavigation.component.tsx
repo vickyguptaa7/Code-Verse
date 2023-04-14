@@ -8,7 +8,6 @@ import {
   setIsMinimizeBottomPannel,
   setOutputContent,
   setShowInBottomPannel,
-  setTerminalContent,
 } from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import Backdrop from "../../UI/Backdrop.component";
@@ -19,6 +18,7 @@ import {
   BOTTOM_PANNEL_MIN_SIZE_PX,
 } from "../BottomPannel.Constant";
 import BottomPannelButton from "../bottomPannelButtons.component";
+import { setTerminalContent } from "../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
 
 const BottomPannelRightNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);

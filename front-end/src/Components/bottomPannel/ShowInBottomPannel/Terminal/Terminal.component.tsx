@@ -6,10 +6,10 @@ import { scrollToTarget } from "../../../../utils/scrollToTargetId.util";
 
 const Terminal = () => {
   const terminalContent = useAppSelector(
-    (state) => state.bottomPannel.terminalContent
+    (state) => state.terminal.terminalContent
   );
   const terminalsCurrentDirectoryInfo = useAppSelector(
-    (state) => state.bottomPannel.terminalsCurrentDirectoryInfo
+    (state) => state.terminal.terminalsCurrentDirectoryInfo
   );
   const [terminalInput, setTerminalInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
