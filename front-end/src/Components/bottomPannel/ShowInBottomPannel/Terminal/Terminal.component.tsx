@@ -74,7 +74,7 @@ const Terminal = () => {
   return (
     <div
       ref={containerRef}
-      className="flex flex-col h-full items-start text-[0.9rem] overflow-y-scroll "
+      className="flex flex-col h-full items-start text-[0.9rem] overflow-y-auto "
       onClick={setFocusHandler}
     >
       <div className="w-full text-left break-words whitespace-pre-wrap terminal-output ">

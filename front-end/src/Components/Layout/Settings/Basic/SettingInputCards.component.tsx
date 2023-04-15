@@ -18,15 +18,9 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
       <select
         name={name}
         onChange={(e) => {
-          e.currentTarget.size = 1;
-          e.currentTarget.blur();
           setInputText(e.target.value);
           updateInStore(dispatch, e.target.value);
         }}
-        onFocus={(e) =>
-          (e.currentTarget.size = Math.min(5, listOptions?.length!))
-        }
-        onBlur={(e) => (e.currentTarget.size = 1)}
         value={inputText as string}
         className="w-48 bg-[color:var(--sidepannel-color)] mt-2 outline-none px-1.5 py-1.5 rounded-sm"
       >

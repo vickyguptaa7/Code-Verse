@@ -23,7 +23,7 @@ const ExtensionsContainer = () => {
             <InstalledAndRecommended />
           </div>
         ) : (
-          <div className="overflow-y-scroll" style={{ height: height }}>
+          <div className="overflow-y-auto" style={{ height: height }}>
             <ExtensionCardContainer />
           </div>
         )}

@@ -2,15 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
-                
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
 
-:root{
+:root {
   --accent-color: hsl(204, 100%, 40%);
-  --primary-text-color: hsl(220,9%,50%);
-  --highlight-text-color: hsl(220,9%,92%);
-  --tertiary-text-color: hsl(220,9%,92%);
-  --hover-text-color:hsl(217, 19%, 27%);
+  --primary-text-color: hsl(220, 9%, 50%);
+  --highlight-text-color: hsl(220, 9%, 92%);
+  --tertiary-text-color: hsl(220, 9%, 92%);
+  --hover-text-color: hsl(217, 19%, 27%);
   --sidepannel-color: hsl(221, 39%, 11%);
   --bottompannel-color: hsl(221, 39%, 11%);
   --sidedrawer-color: hsl(221, 39%, 8%);
@@ -34,7 +33,6 @@ body {
   box-sizing: border-box;
 }
 
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hidescrollbar1::-webkit-scrollbar {
   display: none;
@@ -43,6 +41,5 @@ body {
 /* Hide scrollbar for IE, Edge and Firefox */
 .hidescrollbar2 {
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; /*Firefox */
 }
-

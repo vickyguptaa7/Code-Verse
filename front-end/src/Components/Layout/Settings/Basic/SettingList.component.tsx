@@ -12,7 +12,7 @@ interface IPROPS {
 const SettingList: React.FC<IPROPS> = ({ height, settingOptions }) => {
   return (
     <div
-      className="flex flex-col my-4 overflow-scroll"
+      className="flex flex-col my-4 overflow-auto"
       style={{ height: height - HEIGHT_OF_ABOVE_CONTENTS }}
     >
       {settingOptions.map((option) => {

@@ -17,7 +17,7 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
   console.log();
   const ratingsStar = info.ratings.split(" ")[2];
   return (
-    <div className="overflow-scroll">
+    <div className="overflow-auto">
       <div
         className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto px-3 min-w-[16rem]"
         style={{ height: height }}
@@ -82,7 +82,7 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
             </Button>
           </div>
         </div>
-        <div className="w-full h-full mt-4">
+        <div className="w-full mt-4">
           <div className="flex">
             <h3 className="px-1 pb-1 text-sm border-b-2 border-b-[color:var(--highlight-text-color)]">
               DETAILS

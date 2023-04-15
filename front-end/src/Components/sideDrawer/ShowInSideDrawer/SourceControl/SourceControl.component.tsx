@@ -14,7 +14,7 @@ const SourceControl = () => {
     <div className="flex flex-col">
       <CollapsibleMenu menuName="SOURCE CONTROL" initialState={true}>
         <div
-          className="flex flex-col justify-start overflow-y-scroll gap-6 break-words whitespace-normal px-4 py-4 text-[color:var(--highlight-text)]"
+          className="flex flex-col justify-start overflow-y-auto gap-6 break-words whitespace-normal px-4 py-4 text-[color:var(--highlight-text)]"
           style={{ height: height }}
         >
           <Button

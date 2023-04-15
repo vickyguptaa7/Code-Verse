@@ -30,7 +30,7 @@ const InstalledAndRecommended = () => {
         menuName="INSTALLED"
         children={
           <div
-            className="overflow-y-scroll"
+            className="overflow-y-auto"
             style={{ height: installedHeight }}
           >
             {INSTALLED_EXTENSIONS.map((extension) => {
@@ -55,7 +55,7 @@ const InstalledAndRecommended = () => {
         menuName="RECOMMENDED"
         children={
           <div
-            className="h-64 overflow-y-scroll "
+            className="h-64 overflow-y-auto "
             style={{ height: recommendedHeight }}
           >
             {INSTALLED_EXTENSIONS.map((extension) => {

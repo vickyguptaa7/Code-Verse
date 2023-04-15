@@ -1,5 +1,3 @@
-import { Dispatch } from "react";
-
 export interface ISettingOption {
   name: string;
   type: string;
