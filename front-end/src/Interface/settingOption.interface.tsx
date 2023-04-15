@@ -6,6 +6,6 @@ export interface ISettingOption {
   inputType: "number" | "checkbox" | "list";
   info: string;
   initialValue: string | number | boolean | string;
-  listOptions?: string[];
+  listOptions?: string[]|number[];
   updateInStore: Function;
 }

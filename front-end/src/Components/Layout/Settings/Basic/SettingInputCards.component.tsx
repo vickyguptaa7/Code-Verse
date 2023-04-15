@@ -18,15 +18,21 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
       <select
         name={name}
         onChange={(e) => {
+          e.currentTarget.size = 1;
+          e.currentTarget.blur();
           setInputText(e.target.value);
           updateInStore(dispatch, e.target.value);
         }}
+        onFocus={(e) =>
+          (e.currentTarget.size = Math.min(5, listOptions?.length!))
+        }
+        onBlur={(e) => (e.currentTarget.size = 1)}
         value={inputText as string}
-        className="w-48 h-7 bg-[color:var(--sidepannel-color)] mt-2 outline-none px-1.5 py-0.5"
+        className="w-48 bg-[color:var(--sidepannel-color)] mt-2 outline-none px-1.5 py-1.5 rounded-sm"
       >
         {listOptions
           ? listOptions.map((opt) => (
-              <option value={opt} key={opt}>
+              <option value={opt} key={opt} className="px-1.5 py-1 rounded-sm">
                 {opt}
               </option>
             ))
@@ -55,7 +61,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
           inputRef={null}
           onChange={(e) => {
             setInputText(e.target.checked);
-            updateInStore(dispatch, e.target.value);
+            updateInStore(dispatch, e.target.checked);
           }}
           checked={inputText as boolean}
         />

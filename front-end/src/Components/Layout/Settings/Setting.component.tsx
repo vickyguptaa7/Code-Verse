@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import SearchInput from "../../sideDrawer/ShowInSideDrawer/Search/Basic/SearchInput.component";
 
-import { settingOptions } from "../../../Assets/Data/SettingOptions.data";
+import { useSettingData } from "./hooks/useSettingData.hook";
 
 import "./Setting.component.css";
 import SettingList from "./Basic/SettingList.component";
@@ -13,7 +13,7 @@ interface IPROPS {
 const Setting: React.FC<IPROPS> = ({ height }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState("");
-  const settingResult = settingOptions.filter(
+  const settingResult = useSettingData().filter(
     (settingOption) =>
       settingOption.info.toLowerCase().includes(searchText.toLowerCase()) ||
       settingOption.type.toLowerCase().includes(searchText.toLowerCase())

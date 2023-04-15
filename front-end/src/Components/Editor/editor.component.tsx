@@ -29,11 +29,25 @@ const Editor: React.FC<IPROPS> = ({
   currentWorkingFileId,
   editorHeight,
 }) => {
-  const dispatch = useAppDispatch();
   const [isEditorThemeReady, setIsEditorThemeReady] = useState(false);
-  const [editorContent, setEditorContent] = useState(content);
   const [isEditorMounted, setIsEditorMounted] = useState(false);
+
+  const [editorContent, setEditorContent] = useState(content);
+
+  const dispatch = useAppDispatch();
+
+  const fontSize = useAppSelector((state) => state.editor.fontSize);
+  const tabSize = useAppSelector((state) => state.editor.tabSize);
+  const wordWrap = useAppSelector((state) => state.editor.wordWrap);
+  const isScrollBeyondLastLine = useAppSelector(
+    (state) => state.editor.isScrollBeyondLastLine
+  );
+  const isMinimapEnabled = useAppSelector(
+    (state) => state.editor.isMinimapEnabled
+  );
+
   const searchedText = useAppSelector((state) => state.search.searchedText);
+
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
@@ -144,10 +158,14 @@ const Editor: React.FC<IPROPS> = ({
           }
           theme="Blackboard"
           options={{
-            wordWrap: "on",
+            wordWrap: wordWrap,
             lineNumbersMinChars: 3, // for the line numbers at the left
-            fontSize: 16,
-            scrollBeyondLastLine: false,
+            fontSize: fontSize,
+            tabSize: tabSize,
+            minimap:{
+              enabled: isMinimapEnabled,
+            },
+            scrollBeyondLastLine: isScrollBeyondLastLine,
             automaticLayout: true,
             scrollbar: {
               // this option is to scroll the page when editor reaches at the bottom so we can scroll to the end from the editor also

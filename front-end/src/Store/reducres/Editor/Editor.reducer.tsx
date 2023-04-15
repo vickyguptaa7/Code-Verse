@@ -3,9 +3,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const editorInitialState = {
   tabSize: 4,
   fontSize: 16,
-  wordWrap: "on",
-  scrollBeyondLastLine: true,
-  minimapEnabled: true,
+  wordWrap: "on" as "on" | "off" | "wordWrapColumn" | "bounded",
+  isScrollBeyondLastLine: true,
+  isMinimapEnabled: true,
 };
 
 const editorSlice = createSlice({
@@ -25,10 +25,10 @@ const editorSlice = createSlice({
       state.wordWrap = action.payload;
     },
     setScrollBeyondLastLine(state, action: PayloadAction<boolean>) {
-      state.scrollBeyondLastLine = action.payload;
+      state.isScrollBeyondLastLine = action.payload;
     },
     setMinimapEnabled(state, action: PayloadAction<boolean>) {
-      state.minimapEnabled = action.payload;
+      state.isMinimapEnabled = action.payload;
     },
   },
 });
