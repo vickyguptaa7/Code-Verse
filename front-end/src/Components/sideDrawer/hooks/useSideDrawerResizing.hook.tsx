@@ -16,6 +16,9 @@ const useSideDrawerResizing = (
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
+  const isSidePannelPositionOnLeft = useAppSelector(
+    (state) => state.sideDrawer.isSidePannelPositionOnLeft
+  );
   useEffect(() => {
     // when the screen size changes it manages the drawer size such that drawer is not on the full screen
     const manageDrawerWidth = () => {
@@ -46,7 +49,9 @@ const useSideDrawerResizing = (
 
     let x_cord = 0;
     const onPointerMoveSideResize = (event: PointerEvent) => {
-      const change_x = event.clientX - x_cord;
+      const change_x = isSidePannelPositionOnLeft
+        ? event.clientX - x_cord
+        : x_cord - event.clientX;
       const percentChange =
         ((change_x + width) / document.body.clientWidth) * 100;
 
@@ -59,12 +64,12 @@ const useSideDrawerResizing = (
         x_cord = event.clientX;
       } else if (change_x + width < MIN_DRAWER_SIZE_PX) {
         width = MIN_DRAWER_SIZE_PX;
-        x_cord = SIDE_PANNEL_WIDTH + MIN_DRAWER_SIZE_PX;
+        x_cord =
+          document.body.clientWidth - (SIDE_PANNEL_WIDTH + MIN_DRAWER_SIZE_PX);
       } else if (MAX_DRAWER_SIZE_IN_PERCENT < percentChange) {
         width = (document.body.clientWidth * MAX_DRAWER_SIZE_IN_PERCENT) / 100;
-        x_cord = SIDE_PANNEL_WIDTH + width;
+        x_cord = document.body.clientWidth - (SIDE_PANNEL_WIDTH + width);
       }
-
       resizableDrawer.style.width = `${width}px`;
       // update the new widht in the store so that we open the drawer again we get the prev width
       dispatch(setSideDrawerWidth(width));
@@ -91,7 +96,13 @@ const useSideDrawerResizing = (
         onPointerDownSideResize
       );
     };
-  }, [dispatch, refDrawer, refResizer, setIsDrawerResizing]);
+  }, [
+    dispatch,
+    refDrawer,
+    refResizer,
+    setIsDrawerResizing,
+    isSidePannelPositionOnLeft,
+  ]);
 };
 
 export default useSideDrawerResizing;

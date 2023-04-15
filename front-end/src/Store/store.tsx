@@ -7,6 +7,7 @@ import SearchReducer from "./reducres/SideDrawer/Search/Search.reducer";
 import SideDrawerReducer from "./reducres/SideDrawer/SideDrawer.reducer";
 import ExtensionsReducer from "./reducres/SideDrawer/Extensions/Extensions.reducer";
 import TerminalReducer from "./reducres/BottomPannel/Terminal/Terminal.reducer";
+import EditorReducer from "./reducres/Editor/Editor.reducer";
 
 const store = configureStore({
   reducer: {
@@ -16,7 +17,8 @@ const store = configureStore({
     Directory: DirectoryReducer,
     search: SearchReducer,
     extension:ExtensionsReducer,
-    terminal:TerminalReducer
+    terminal:TerminalReducer,
+    editor:EditorReducer
   },
 });
 

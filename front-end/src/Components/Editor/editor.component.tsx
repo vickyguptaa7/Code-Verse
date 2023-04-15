@@ -13,7 +13,7 @@ import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
 import useHighlightText from "./hooks/useHighlightText.hook";
 import useUndoRedo from "./hooks/useUndoRedo.hook";
 
-import { editorLanguage } from "../../Assets/Data/editorLanguages";
+import { editorLanguage } from "../../Assets/Data/editorLanguages.data";
 import "./editor.component.css";
 
 interface IPROPS {
@@ -89,7 +89,7 @@ const Editor: React.FC<IPROPS> = ({
     // so we set the isUndoRedoOperation to false so that the next time we can update the stack
     if (!isUndoRedoOperation.current) {
       if (!characterAddRemoveCountDebounce.current.count)
-      characterAddRemoveCountDebounce.current.count = 0;
+        characterAddRemoveCountDebounce.current.count = 0;
       characterAddRemoveCountDebounce.current.count +=
         editorContent.length - value.length;
       debounceUpdateUndoRedoStack(value);

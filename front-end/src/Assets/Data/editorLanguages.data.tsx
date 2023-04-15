@@ -170,7 +170,7 @@ export const editorLanguage: { [key: string]: string } = {
   typescript: "typescript",
 };
 
-export const supportedFileTypes:{ [key: string]: string } = {
+export const supportedFileTypes: { [key: string]: string } = {
   abap: "abap",
   aes: "aes",
   apex: "apex",

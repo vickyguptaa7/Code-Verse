@@ -6,7 +6,7 @@ import {
 import { useAppSelector } from "../../../../Store/store";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 import ExtensionCard from "./Basic/ExtensionCard.component";
-import { INSTALLED_EXTENSIONS } from "../../../../Assets/Data/extensions";
+import { INSTALLED_EXTENSIONS } from "../../../../Assets/Data/extensions.data";
 const EDITOR_MIN_HEIGHT = 480;
 
 const InstalledAndRecommended = () => {

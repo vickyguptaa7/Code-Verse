@@ -1,4 +1,4 @@
-import { supportedFileTypes } from "../Assets/Data/editorLanguages";
+import { supportedFileTypes } from "../Assets/Data/editorLanguages.data";
 import IDirectory from "../Interface/directory.interface";
 import { iconObject } from "../Interface/iconObject.interface";
 import { uniqueIdGenerator } from "../library/uuid/uuid.lib";
@@ -96,5 +96,5 @@ export {
   directoryComparator,
   findUniqueFileFolderName,
   sortDirectory,
-  isFileQualifyForUpload
+  isFileQualifyForUpload,
 };

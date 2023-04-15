@@ -11,7 +11,7 @@ import { directoryComparator } from "../../../../utils/fileFolder.utils";
 import {
   DUMMY_FILE_DIRECTORY,
   DUMMY_FILE_INFORMATION,
-} from "../../../../Assets/Data/FileFolder";
+} from "../../../../Assets/Data/FileFolder.data";
 
 const directoryInitialState = {
   directories: DUMMY_FILE_DIRECTORY,
