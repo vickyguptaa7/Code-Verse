@@ -64,11 +64,15 @@ const useSideDrawerResizing = (
         x_cord = event.clientX;
       } else if (change_x + width < MIN_DRAWER_SIZE_PX) {
         width = MIN_DRAWER_SIZE_PX;
-        x_cord =
-          document.body.clientWidth - (SIDE_PANNEL_WIDTH + MIN_DRAWER_SIZE_PX);
+        x_cord = isSidePannelPositionOnLeft
+          ? SIDE_PANNEL_WIDTH + MIN_DRAWER_SIZE_PX
+          : document.body.clientWidth -
+            (SIDE_PANNEL_WIDTH + MIN_DRAWER_SIZE_PX);
       } else if (MAX_DRAWER_SIZE_IN_PERCENT < percentChange) {
         width = (document.body.clientWidth * MAX_DRAWER_SIZE_IN_PERCENT) / 100;
-        x_cord = document.body.clientWidth - (SIDE_PANNEL_WIDTH + width);
+        x_cord = isSidePannelPositionOnLeft
+          ? SIDE_PANNEL_WIDTH + width
+          : document.body.clientWidth - (SIDE_PANNEL_WIDTH + width);
       }
       resizableDrawer.style.width = `${width}px`;
       // update the new widht in the store so that we open the drawer again we get the prev width
