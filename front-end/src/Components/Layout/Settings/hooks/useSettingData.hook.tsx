@@ -75,7 +75,7 @@ export const useSettingData = () => {
       name: "Editor",
       type: "Tab Size",
       inputType: "list",
-      info: "Controls the number of spaces a tab is equal to. This setting is overridden based on the file contents when `#editor.detectIndentation#` is on.",
+      info: "Controls the number of spaces a tab is equal to. This setting is overridden based on the file contents when #editor.detectIndentation# is on.",
       listOptions: [1, 2, 3, 4, 5, 6, 7, 8],
       initialValue: useAppSelector((state) => state.editor.tabSize),
       updateInStore: (dispatch: Dispatch<Object>, tabSize: number) => {

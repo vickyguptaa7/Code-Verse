@@ -24,7 +24,6 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
     // first the element should be added to the navigation asynchronously and then we scroll to that locationß
     scrollToTarget(fileInfo.id);
   };
-  // TODO: Do something for the large names of files
 
   return (
     <div
