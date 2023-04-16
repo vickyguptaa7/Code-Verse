@@ -19,10 +19,16 @@ const terminalSlice = createSlice({
     ) {
       state.terminalsCurrentDirectoryInfo = action.payload;
     },
+    setTerminalCommandHistory(state, action: PayloadAction<string>) {
+      state.terminalCommandHistory += action.payload + "\n";
+    },
   },
 });
 
-export const { setTerminalContent, setTerminalsCurrentDirectoryInfo } =
-  terminalSlice.actions;
+export const {
+  setTerminalContent,
+  setTerminalsCurrentDirectoryInfo,
+  setTerminalCommandHistory,
+} = terminalSlice.actions;
 
 export default terminalSlice.reducer;

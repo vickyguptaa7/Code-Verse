@@ -1,27 +1,31 @@
-import useDirectory from "../../../../hooks/useDirectory.hook";
-import IDirectory from "../../../../Interface/directory.interface";
-import { setIsBottomPannelOpen } from "../../../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import useDirectory from "../../../../../hooks/useDirectory.hook";
+import IDirectory from "../../../../../Interface/directory.interface";
+import { setIsBottomPannelOpen } from "../../../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import {
   setTerminalContent,
   setTerminalsCurrentDirectoryInfo,
-} from "../../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
+  setTerminalCommandHistory,
+} from "../../../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
 import {
   addFileOrFolderToDirectory,
   deleteFileOrFolderOfDirectory,
-} from "../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
-import { useAppDispatch, useAppSelector } from "../../../../Store/store";
+} from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
+import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 
-import { uniqueIdGenerator } from "../../../../library/uuid/uuid.lib";
-import { addFileToNavigation } from "../../../../Store/reducres/Navigation/FileNavigation.reducer";
-import { terminalHelpInfo } from "../../../../Assets/Data/terminal.data";
+import { uniqueIdGenerator } from "../../../../../library/uuid/uuid.lib";
+import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
+import { terminalHelpInfo } from "../../../../../Assets/Data/terminal.data";
 
-export const useTerminal = (terminalInput: string) => {
+export const useTerminal = () => {
   const dispatch = useAppDispatch();
   const terminalContent = useAppSelector(
     (state) => state.terminal.terminalContent
   );
   const terminalsCurrentDirectoryInfo = useAppSelector(
     (state) => state.terminal.terminalsCurrentDirectoryInfo
+  );
+  const terminalCommandHistory = useAppSelector(
+    (state) => state.terminal.terminalCommandHistory
   );
   const directories = useAppSelector((state) => state.Directory.directories);
   const rootDirectory: IDirectory = {
@@ -35,7 +39,12 @@ export const useTerminal = (terminalInput: string) => {
   };
   const { findDirectory, findDirectoryPath } = useDirectory();
 
-  const terminalActions = () => {
+  const terminalActions = (terminalInput: string) => {
+    if (!terminalInput.length) {
+      addToTerminalContent("");
+      return;
+    }
+    addCommandToHistory(terminalInput);
     const input = terminalInput.trim().toLowerCase();
     switch (input) {
       case "clear":
@@ -45,16 +54,19 @@ export const useTerminal = (terminalInput: string) => {
         closeTerminal();
         return;
       case "ls":
-        listCurrentDirectoryContent();
+        listCurrentDirectoryContent(terminalInput);
         return;
       case "pwd":
-        printWorkingDirectory();
+        printWorkingDirectory(terminalInput);
         return;
       case "cd":
-        changeDirectoryToRoot();
+        changeDirectoryToRoot(terminalInput);
         return;
       case "help":
         addToTerminalContent(terminalInput + "\n" + terminalHelpInfo);
+        return;
+      case "history":
+        showCommandHistory(terminalInput);
         return;
       default:
         break;
@@ -63,16 +75,16 @@ export const useTerminal = (terminalInput: string) => {
       const twoArgInput = input.split(" ");
       switch (twoArgInput[0]) {
         case "cd":
-          changeDirectory(twoArgInput[1]);
+          changeDirectory(twoArgInput[1], terminalInput);
           return;
         case "touch":
-          createFile(twoArgInput[1]);
+          createFile(twoArgInput[1], terminalInput);
           return;
         case "mkdir":
-          createDirectory(twoArgInput[1]);
+          createDirectory(twoArgInput[1], terminalInput);
           return;
         case "rm":
-          deleteFileOrDirectory(twoArgInput[1]);
+          deleteFileOrDirectory(twoArgInput[1], terminalInput);
           return;
         default:
           break;
@@ -85,7 +97,6 @@ export const useTerminal = (terminalInput: string) => {
   };
 
   const clearTerminalContent = () => {
-    console.log("HElO");
     dispatch(setTerminalContent(""));
   };
   const addToTerminalContent = (terminalInput: string) => {
@@ -98,7 +109,16 @@ export const useTerminal = (terminalInput: string) => {
   const closeTerminal = () => {
     dispatch(setIsBottomPannelOpen(false));
   };
-  const listCurrentDirectoryContent = () => {
+
+  const addCommandToHistory = (command: string) => {
+    dispatch(setTerminalCommandHistory(command));
+  };
+
+  const showCommandHistory = (terminalInput: string) => {
+    addToTerminalContent(terminalInput + "\n" + terminalCommandHistory);
+  };
+
+  const listCurrentDirectoryContent = (terminalInput: string) => {
     let contents: Array<IDirectory> = directories;
     if (terminalsCurrentDirectoryInfo.id !== "root") {
       const dir = findDirectory(
@@ -115,7 +135,7 @@ export const useTerminal = (terminalInput: string) => {
     }
     addToTerminalContent(terminalInput + "\n" + output);
   };
-  const printWorkingDirectory = () => {
+  const printWorkingDirectory = (terminalInput: string) => {
     let path = findDirectoryPath(
       rootDirectory,
       terminalsCurrentDirectoryInfo.path.split("/")
@@ -123,7 +143,7 @@ export const useTerminal = (terminalInput: string) => {
     addToTerminalContent(terminalInput + "\n" + path);
   };
 
-  const changeDirectoryToRoot = () => {
+  const changeDirectoryToRoot = (terminalInput: string) => {
     dispatch(
       setTerminalsCurrentDirectoryInfo({
         id: "root",
@@ -134,7 +154,7 @@ export const useTerminal = (terminalInput: string) => {
     addToTerminalContent(terminalInput);
   };
 
-  const changeDirectory = (targetPath: string) => {
+  const changeDirectory = (targetPath: string, terminalInput: string) => {
     let currentDirectory = findDirectory(
       rootDirectory,
       terminalsCurrentDirectoryInfo.path.split("/")
@@ -199,7 +219,7 @@ export const useTerminal = (terminalInput: string) => {
     );
   };
 
-  const createFile = (fileName: string) => {
+  const createFile = (fileName: string, terminalInput: string) => {
     let currentDirectory = findDirectory(
       rootDirectory,
       terminalsCurrentDirectoryInfo.path.split("/")
@@ -232,7 +252,7 @@ export const useTerminal = (terminalInput: string) => {
     addToTerminalContent(terminalInput);
     dispatch(addFileToNavigation({ id: fileId, type: "file" }));
   };
-  const createDirectory = (directoryName: string) => {
+  const createDirectory = (directoryName: string, terminalInput: string) => {
     let currentDirectory = findDirectory(
       rootDirectory,
       terminalsCurrentDirectoryInfo.path.split("/")
@@ -264,7 +284,7 @@ export const useTerminal = (terminalInput: string) => {
     );
     addToTerminalContent(terminalInput);
   };
-  const deleteFileOrDirectory = (name: string) => {
+  const deleteFileOrDirectory = (name: string, terminalInput: string) => {
     let currentDirectory = findDirectory(
       rootDirectory,
       terminalsCurrentDirectoryInfo.path.split("/")

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 
 import { useMonaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
@@ -80,6 +80,10 @@ const useUndoRedo = (
           // we set the timeout to 0 so that the content is set to the editor before we set the cursor position
           setTimeout(() => {
             // we set the cursor position to the cursor position of the stack at the pointer
+            if (
+              currentFileUndoRedo.stack.length === currentFileUndoRedo.pointer
+            )
+              return;
             monacoRef.current?.setPosition(
               currentFileUndoRedo.stack[currentFileUndoRedo.pointer]
                 .cursorPosition
@@ -180,31 +184,35 @@ const useUndoRedo = (
     dispatch,
   ]);
 
-  const updateUndoRedoStack = (value: string) => {
-    let cursorPosition = monacoRef.current?.getPosition();
-    const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
+  const updateUndoRedoStack = useMemo(
+    () => (value: string) => {
+      let cursorPosition = monacoRef.current?.getPosition();
+      const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
 
-    // if the pointer is not at the end of the stack then we remove the elements after the pointer
-    if (currentFileUndoRedo.pointer !== currentFileUndoRedo.stack.length) {
-      currentFileUndoRedo.stack = currentFileUndoRedo.stack.slice(
-        0,
-        currentFileUndoRedo.pointer
-      );
-    }
-    // add the new content to the end of the stack
-    currentFileUndoRedo.stack.push({
-      cursorPosition: {
-        lineNumber: cursorPosition ? cursorPosition.lineNumber : 0,
-        column: cursorPosition
-          ? cursorPosition.column + countOfCharacterRemoved.current?.count!
-          : 0,
-      },
-      content: value,
-    });
-    if(countOfCharacterRemoved.current)countOfCharacterRemoved.current.count=0;
-    // increment the pointer
-    currentFileUndoRedo.pointer++;
-  };
+      // if the pointer is not at the end of the stack then we remove the elements after the pointer
+      if (currentFileUndoRedo.pointer !== currentFileUndoRedo.stack.length) {
+        currentFileUndoRedo.stack = currentFileUndoRedo.stack.slice(
+          0,
+          currentFileUndoRedo.pointer
+        );
+      }
+      // add the new content to the end of the stack
+      currentFileUndoRedo.stack.push({
+        cursorPosition: {
+          lineNumber: cursorPosition ? cursorPosition.lineNumber : 0,
+          column: cursorPosition
+            ? cursorPosition.column + countOfCharacterRemoved.current?.count!
+            : 0,
+        },
+        content: value,
+      });
+      if (countOfCharacterRemoved.current)
+        countOfCharacterRemoved.current.count = 0;
+      // increment the pointer
+      currentFileUndoRedo.pointer++;
+    },
+    []
+  );
 
   return {
     undoRedoHistoryInfo,

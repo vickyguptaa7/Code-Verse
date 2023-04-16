@@ -162,7 +162,7 @@ const Editor: React.FC<IPROPS> = ({
             lineNumbersMinChars: 3, // for the line numbers at the left
             fontSize: fontSize,
             tabSize: tabSize,
-            minimap:{
+            minimap: {
               enabled: isMinimapEnabled,
             },
             scrollBeyondLastLine: isScrollBeyondLastLine,

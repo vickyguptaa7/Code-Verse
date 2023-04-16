@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../../../Store/store";
 import Input from "../../../UI/Input.component";
-import { useTerminal } from "./Terminal.Utils";
 import { scrollToTarget } from "../../../../utils/scrollToTargetId.util";
 
-const Terminal = () => {
+interface IPROPS {
+  terminalActions: (terminalInput: string) => void;
+}
+
+const Terminal: React.FC<IPROPS> = ({ terminalActions }) => {
   const terminalContent = useAppSelector(
     (state) => state.terminal.terminalContent
   );
@@ -13,7 +16,6 @@ const Terminal = () => {
   );
   const [terminalInput, setTerminalInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const setFocusHandler = useCallback(() => {
     inputRef.current?.blur();
@@ -24,13 +26,9 @@ const Terminal = () => {
     setFocusHandler();
   }, [setFocusHandler]);
 
-  const { terminalActions } = useTerminal(terminalInput);
-
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
-      console.log('before');
-      terminalActions();
-      console.log('after');
+      terminalActions(terminalInput);
       scrollToTarget("terminalInput");
       setTerminalInput("");
     }
@@ -42,7 +40,6 @@ const Terminal = () => {
 
   return (
     <div
-      ref={containerRef}
       className="flex flex-col h-full items-start text-[0.9rem] overflow-y-auto "
       onClick={setFocusHandler}
     >

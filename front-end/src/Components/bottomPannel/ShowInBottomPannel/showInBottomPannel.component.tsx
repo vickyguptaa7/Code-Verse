@@ -8,6 +8,7 @@ import Input from "./Input/Input.component";
 import Output from "./Output/Output.component";
 
 import { BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX } from "../BottomPannel.Constant";
+import { useTerminal } from "./Terminal/hook/useTerminal.hook";
 
 const Terminal = lazy(() => import("./Terminal/Terminal.component"));
 
@@ -22,12 +23,16 @@ const ShowInBottomPannel = () => {
   );
   const contentShowInBottomPannelHeight =
     bottomPannelHeight - BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX;
+
+  const { terminalActions } = useTerminal();
+
   let show = <Debug />;
   if (showInBottomPannel === "input")
     show = <Input mainDivHeight={contentShowInBottomPannelHeight} />;
   if (showInBottomPannel === "output")
     show = <Output mainDivHeight={contentShowInBottomPannelHeight} />;
-  if (showInBottomPannel === "terminal") show = <Terminal />;
+  if (showInBottomPannel === "terminal")
+    show = <Terminal terminalActions={terminalActions} />;
 
   return (
     <div

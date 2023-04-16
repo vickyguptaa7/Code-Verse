@@ -9,7 +9,6 @@ import { setCurrentNavFile } from "../../Store/reducres/Navigation/FileNavigatio
 import Button from "../UI/Button.component";
 
 // constant
-import { MAX_FILE_LENGTH } from "./FileNavigation.Constant";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 interface IPROPS {
