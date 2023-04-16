@@ -26,7 +26,7 @@ interface IPROPS {
 
 const Welcome: React.FC<IPROPS> = ({ height }) => {
   return (
-    <div className="overflow-auto">
+    <div className="overflow-auto hidescrollbar1 hidescrollbar2">
       <div
         className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto px-3 min-w-[16rem] flex flex-col"
         style={{ height: height }}

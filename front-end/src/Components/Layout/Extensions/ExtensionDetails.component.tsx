@@ -17,7 +17,7 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
   console.log();
   const ratingsStar = info.ratings.split(" ")[2];
   return (
-    <div className="overflow-auto">
+    <div className="overflow-auto hidescrollbar1 hidescrollbar2">
       <div
         className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto px-3 min-w-[16rem]"
         style={{ height: height }}

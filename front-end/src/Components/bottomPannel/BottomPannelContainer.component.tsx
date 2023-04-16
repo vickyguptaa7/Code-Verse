@@ -23,7 +23,7 @@ const BottomPannelContainer = () => {
   return (
     <div
       ref={refBottomPannel}
-      className="flex flex-col bg-[color:var(--bottompannel-color)] border-t border-t-[color:var(--primary-text-color)] z-10"
+      className="flex flex-col bg-[color:var(--bottompannel-color)] border-t border-t-[color:var(--primary-text-color)] z-[5]"
       style={{ height: bottomPannelHeight }}
     >
       <div
