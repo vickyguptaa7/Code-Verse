@@ -22,7 +22,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
           updateInStore(dispatch, e.target.value);
         }}
         value={inputText as string}
-        className="w-48 bg-[color:var(--sidepannel-color)] mt-2 outline-none px-1.5 py-1.5 rounded-sm"
+        className=" bg-[color:var(--sidepannel-color)] mt-2 outline-none px-1.5 py-1.5 rounded-sm"
       >
         {listOptions
           ? listOptions.map((opt) => (

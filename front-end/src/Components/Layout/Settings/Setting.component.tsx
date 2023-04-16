@@ -19,10 +19,10 @@ const Setting: React.FC<IPROPS> = ({ height }) => {
       settingOption.type.toLowerCase().includes(searchText.toLowerCase())
   );
   return (
-    <div className="oveflow-auto hidescrollbar1 hidescrollbar2">
+    <div className="oveflow-auto">
       <div
-        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto px-3 min-w-[16rem] gap-12"
-        style={{ height: height }}
+        className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto px-3"
+        style={{ height: height}}
       >
         <div className="h-12"></div>
         <SearchInput
@@ -38,7 +38,7 @@ const Setting: React.FC<IPROPS> = ({ height }) => {
             &nbsp;User&nbsp;
           </h3>
         </div>
-        <div className="w-full h-[1px] bg-[color:var(--primary-text-color)]"></div>
+        <div className="h-[1px] bg-[color:var(--primary-text-color)]"></div>
         <SettingList height={height} settingOptions={settingResult} />
       </div>
     </div>
