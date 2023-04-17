@@ -10,12 +10,13 @@ import {
 import { useAppDispatch } from "./Store/store";
 import { removeFromLocalStorage } from "./utils/localStorage.utils";
 
+import Loader from "./Components/UI/Loader/Loader.component";
+
 const CodeEditor = lazy(() => import("./Pages/CodeEditor.page"));
 
 const App = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log("call for icons firebase");
     dispatch(fetchExtensionsListAction());
     dispatch(fetchFileIconsAction());
     dispatch(fetchFolderIconsAction());
@@ -27,9 +28,7 @@ const App = () => {
   return (
     <Suspense
       fallback={
-        <div className="flex items-center justify-center w-screen h-screen animate-bounce">
-          Loading...
-        </div>
+        <Loader type="loading" />
       }
     >
       <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none font-sans">

@@ -13,6 +13,7 @@ import {
   updateSearchedText,
 } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
 import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
+import Loader from "../../../UI/Loader/Loader.component";
 
 const Search = () => {
   const searchRef = useRef<HTMLInputElement>(null);
@@ -109,7 +110,7 @@ const Search = () => {
       </div>
       {initialSearchedText.length > 0 ? (
         isSearching ? (
-          "Loading..."
+          <Loader type={"spinner"} />
         ) : (
           <SearchResult filesInformation={filesInformation} />
         )
