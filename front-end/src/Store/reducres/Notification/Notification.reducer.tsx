@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const notificationInitialState = {
-  notifications: [] as Array<{ id: string; description: string }>,
+  notifications: [] as Array<{
+    id: string;
+    description: string;
+    isWaitUntilComplete: boolean;
+  }>,
 };
 
 const notificationSlice = createSlice({
@@ -10,7 +14,11 @@ const notificationSlice = createSlice({
   reducers: {
     addNotification(
       state,
-      action: PayloadAction<{ id: string; description: string }>
+      action: PayloadAction<{
+        id: string;
+        description: string;
+        isWaitUntilComplete: boolean;
+      }>
     ) {
       state.notifications.push(action.payload);
     },

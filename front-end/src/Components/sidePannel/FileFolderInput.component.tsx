@@ -7,7 +7,15 @@ import {
 } from "../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch } from "../../Store/store";
 import useUpload from "./hook/useUpload.hook";
-import { sortDirectory, findUniqueFileFolderName } from "../../utils/fileFolder.utils";
+import {
+  sortDirectory,
+  findUniqueFileFolderName,
+} from "../../utils/fileFolder.utils";
+import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
+import {
+  addNotification,
+  removeNotification,
+} from "../../Store/reducres/Notification/Notification.reducer";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -23,11 +31,18 @@ const ACCEPTED_FILES =
 
 const FileFolderInput = () => {
   const dispatch = useAppDispatch();
-  const {
-    processFileUpload,
-    processFolderUpload,
-  } = useUpload();
+
+  const { processFileUpload, processFolderUpload } = useUpload();
+
   const openFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const notificationId = uniqueIdGenerator();
+    dispatch(
+      addNotification({
+        id: notificationId,
+        description: "Please wait files are uploading...",
+        isWaitUntilComplete: true,
+      })
+    );
     console.log(e.target.files);
     const files = e.target.files;
     const tempDirectory: Array<IDirectory> = [];
@@ -43,13 +58,34 @@ const FileFolderInput = () => {
         "root"
       );
     }
+
     dispatch(addExternalFileOrFolderToDirectory(tempDirectory));
     dispatch(setFilesInformation(tempFilesInformation));
     e.target.value = "";
+    dispatch(
+      addNotification({
+        id: uniqueIdGenerator(),
+        description: "Files uploaded successfully",
+        isWaitUntilComplete: false,
+      })
+    );
+    dispatch(
+      removeNotification({
+        id: notificationId,
+      })
+    );
   };
 
   const openFolderHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files, e.target.value);
+    const notificationId = uniqueIdGenerator();
+    dispatch(
+      addNotification({
+        id: notificationId,
+        description: "Please wait folder is uploading...",
+        isWaitUntilComplete: true,
+      })
+    );
+
     let files = e.target.files;
     if (!files) return;
     const { name: folderName, id: folderId } = findUniqueFileFolderName(
@@ -66,6 +102,7 @@ const FileFolderInput = () => {
       children: [],
       path: "root/" + folderId,
     };
+
     const tempFilesInformation: Array<IFile> = [];
     for (const fileKey in files) {
       if (isNaN(parseInt(fileKey))) continue;
@@ -77,11 +114,24 @@ const FileFolderInput = () => {
         "root/" + folderId
       );
     }
+
     sortDirectory(newDirectory);
     dispatch(addExternalFileOrFolderToDirectory([newDirectory]));
     dispatch(setFilesInformation(tempFilesInformation));
-    console.log(newDirectory);
+
     e.target.value = "";
+    dispatch(
+      addNotification({
+        id: uniqueIdGenerator(),
+        description: "Folder uploaded successfully",
+        isWaitUntilComplete: false,
+      })
+    );
+    dispatch(
+      removeNotification({
+        id: notificationId,
+      })
+    );
   };
 
   return (

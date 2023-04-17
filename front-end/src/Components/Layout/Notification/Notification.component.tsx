@@ -1,18 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect } from "react";
 
-import { VscClose, VscInfo, VscSettingsGear } from "react-icons/vsc";
+import { VscClose, VscInfo } from "react-icons/vsc";
 import Button from "../../UI/Button.component";
 import "./Notification.component.css";
 import {
-  addNotification,
   removeNotification,
 } from "../../../Store/reducres/Notification/Notification.reducer";
 import { useAppDispatch } from "../../../Store/store";
-import { uniqueIdGenerator } from "../../../library/uuid/uuid.lib";
 
 interface IPROPS {
-  info: { id: string; description: string };
+  info: { id: string; description: string; isWaitUntilComplete: boolean };
 }
 
 const Notification: React.FC<IPROPS> = ({ info }) => {
@@ -20,6 +17,13 @@ const Notification: React.FC<IPROPS> = ({ info }) => {
   const onCloseHandler = () => {
     dispatch(removeNotification({ id: info.id }));
   };
+  useEffect(() => {
+    if (info.isWaitUntilComplete) return;
+    const timerId = setTimeout(() => {
+      dispatch(removeNotification({ id: info.id }));
+    }, 3000);
+    return () => clearTimeout(timerId);
+  }, []);
   return (
     <div className="overflow-hidden hover:brightness-90 w-fit notification">
       <div className="text-[color:var(--highlight-text-color)] py-3 px-2 shadow-md rouned-sm bg-slate-800 shadow-slate-900 flex text-sm items-center gap-1">
@@ -29,19 +33,6 @@ const Notification: React.FC<IPROPS> = ({ info }) => {
         </p>
         <div className="flex items-center justify-center gap-1 mx-1">
           <Button
-            className=""
-            onClick={() =>
-              dispatch(
-                addNotification({
-                  id: uniqueIdGenerator(),
-                  description: uniqueIdGenerator(),
-                })
-              )
-            }
-          >
-            Add
-          </Button>
-          <Button
             className="hover:bg-[color:var(--hover-text-color)] p-1 rounded-md"
             onClick={onCloseHandler}
           >
@@ -49,9 +40,10 @@ const Notification: React.FC<IPROPS> = ({ info }) => {
           </Button>
         </div>
       </div>
-      <div className="moving-div"></div>
+      {info.isWaitUntilComplete ? <div className="moving-div"></div> : null}
     </div>
   );
 };
 
 export default Notification;
+// please wait folder is uploading...
