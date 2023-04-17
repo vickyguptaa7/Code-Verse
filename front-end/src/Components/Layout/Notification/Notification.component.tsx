@@ -23,7 +23,7 @@ const Notification: React.FC<IPROPS> = ({ info }) => {
       dispatch(removeNotification({ id: info.id }));
     }, 3000);
     return () => clearTimeout(timerId);
-  }, []);
+  }, [dispatch,info]);
   return (
     <div className="overflow-hidden hover:brightness-90 w-fit notification">
       <div className="text-[color:var(--highlight-text-color)] py-3 px-2 shadow-md rouned-sm bg-slate-800 shadow-slate-900 flex text-sm items-center gap-1">

@@ -6,6 +6,7 @@ const searchInitialState = {
   searchedText: "",
   isReplaceOpen: false,
   searchedResultFiles: [] as INavFile[],
+  isSearching: false,
 };
 
 const searchSlice = createSlice({
@@ -24,9 +25,18 @@ const searchSlice = createSlice({
     setIsReplaceOpen(state, action: PayloadAction<boolean>) {
       state.isReplaceOpen = action.payload;
     },
+    setIsSearching(state, action: PayloadAction<boolean>) {
+      state.isSearching = action.payload;
+    }
   },
 });
 
-export const { updateSearchedText,updateReplacementText,setSearchedResultFiles,setIsReplaceOpen } = searchSlice.actions;
+export const {
+  updateSearchedText,
+  updateReplacementText,
+  setSearchedResultFiles,
+  setIsReplaceOpen,
+  setIsSearching
+} = searchSlice.actions;
 
 export default searchSlice.reducer;

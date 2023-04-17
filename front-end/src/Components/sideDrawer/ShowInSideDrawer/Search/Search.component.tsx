@@ -32,6 +32,7 @@ const Search = () => {
   const searchedResultFiles = useAppSelector(
     (state) => state.search.searchedResultFiles
   );
+  const isSearching = useAppSelector((state) => state.search.isSearching);
   const isReplaceButtonDisable = searchedResultFiles.length === 0;
 
   const dispatch = useAppDispatch();
@@ -94,7 +95,7 @@ const Search = () => {
                   "hover:bg-[color:var(--hover-text-color)] p-1 text-[1.2rem] rounded-md",
                   isReplaceButtonDisable
                     ? "hover:bg-transparent text-[color:var(--primary-text-color)]"
-                    : ""
+                    : "",
                 ])}
                 title="Replace All"
                 disabled={isReplaceButtonDisable}
@@ -107,7 +108,11 @@ const Search = () => {
         </div>
       </div>
       {initialSearchedText.length > 0 ? (
-        <SearchResult filesInformation={filesInformation} />
+        isSearching ? (
+          "Loading..."
+        ) : (
+          <SearchResult filesInformation={filesInformation} />
+        )
       ) : null}
     </>
   );
