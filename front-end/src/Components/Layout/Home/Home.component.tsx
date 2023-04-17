@@ -43,6 +43,7 @@ function ShortcutCard(props: { title: string; shortcutKeys: Array<string> }) {
           return (
             <span
               id={key}
+              key={key}
               className="ml-0.5 bg-[color:var(--hover-text-color)] py-1 px-1.5 text-xs rounded-sm text-[color:var(--highlight-text-color)] shadow-sm shadow-[color:var(--primary-text-color)]"
             >
               {key}

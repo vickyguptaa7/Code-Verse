@@ -8,6 +8,7 @@ import SideDrawerReducer from "./reducres/SideDrawer/SideDrawer.reducer";
 import ExtensionsReducer from "./reducres/SideDrawer/Extensions/Extensions.reducer";
 import TerminalReducer from "./reducres/BottomPannel/Terminal/Terminal.reducer";
 import EditorReducer from "./reducres/Editor/Editor.reducer";
+import NotificationReducer from "./reducres/Notification/Notification.reducer";
 
 const store = configureStore({
   reducer: {
@@ -18,7 +19,8 @@ const store = configureStore({
     search: SearchReducer,
     extension:ExtensionsReducer,
     terminal:TerminalReducer,
-    editor:EditorReducer
+    editor:EditorReducer,
+    notification: NotificationReducer,
   },
 });
 
