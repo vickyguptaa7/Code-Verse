@@ -8,7 +8,7 @@ const Footer = () => {
   const currentNavFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
   );
-  const cursorPosition = useAppSelector((state) => state.editor.cursorPosition);
+
   const tabSize = useAppSelector((state) => state.editor.tabSize);
   console.log(currentNavFile);
   const fileInformation = useAppSelector(
@@ -38,14 +38,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex h-full gap-1 mr-2 right-container ">
-        {currentNavFile.id && currentNavFile.type === "file" ? (
+        {currentNavFile.id!=='null' && currentNavFile.type === "file" ? (
           <>
-            <div
-              className="flex text-[color:var(--highlight-text-color)] text-sm items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-2"
-              title="Cursor position"
-            >
-              Ln {cursorPosition.lineNumber}, Col {cursorPosition.column}
-            </div>
             <div
               className="flex text-[color:var(--highlight-text-color)] text-sm items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-2"
               title="Spaces"

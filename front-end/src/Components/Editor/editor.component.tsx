@@ -16,7 +16,6 @@ import useUndoRedo from "./hooks/useUndoRedo.hook";
 import { editorLanguage } from "../../Assets/Data/editorLanguages.data";
 import "./editor.component.css";
 import Loader from "../UI/Loader/Loader.component";
-import { setCursorPosition } from "../../Store/reducres/Editor/Editor.reducer";
 
 interface IPROPS {
   content: string;
@@ -99,15 +98,6 @@ const Editor: React.FC<IPROPS> = ({
     // update the editorContent and the file body in the store
     setEditorContent(value);
     debounceUpdateFileBodyStore(value);
-    const cursorPosition = monacoRef.current
-      ? monacoRef.current.getPosition()
-      : { lineNumber: 1, column: 1 };
-    dispatch(
-      setCursorPosition({
-        lineNumber: cursorPosition?.lineNumber ? cursorPosition.lineNumber : 1,
-        column: cursorPosition?.column ? cursorPosition.column : 1,
-      })
-    );
 
     // if its not undo redo operation then we update the undo redo stack
     // else we don't update the undo redo stack as we are doing undo redo operation and we don't want to update the stack with the same value again
