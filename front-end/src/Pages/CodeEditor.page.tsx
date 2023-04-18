@@ -13,6 +13,7 @@ import {
   toggleIsDrawerOpen,
 } from "../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { addFileToNavigation } from "../Store/reducres/Navigation/FileNavigation.reducer";
+import Footer from "../Components/Footer/Footer.component";
 
 const EDITOR_MIN_WIDTH = 320;
 const EDITOR_MIN_HEIGHT = 480;
@@ -102,7 +103,7 @@ const CodeEditor = () => {
           <Main />
         </div>
       </div>
-      <div className="w-full h-4 bg-[color:var(--accent-color)] "></div>
+      <Footer />
     </div>
   );
 };

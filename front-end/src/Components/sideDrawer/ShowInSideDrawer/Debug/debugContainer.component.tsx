@@ -4,7 +4,7 @@ import Run from "./Run.component";
 
 const DebugContainer = () => {
   return (
-    <div className="flex flex-col justify-start h-full py-2 text-sm whitespace-nowrap ">
+    <div className="flex flex-col justify-start h-full pt-2 text-sm whitespace-nowrap ">
       <div className="pl-5 mt-1.5 mb-2">
         <h2>RUN AND DEBUG</h2>
       </div>

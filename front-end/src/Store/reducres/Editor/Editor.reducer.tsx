@@ -6,6 +6,10 @@ const editorInitialState = {
   wordWrap: "on" as "on" | "off" | "wordWrapColumn" | "bounded",
   isScrollBeyondLastLine: true,
   isMinimapEnabled: true,
+  cursorPosition: { lineNumber: 1, column: 1 } as {
+    lineNumber: number;
+    column: number;
+  },
 };
 
 const editorSlice = createSlice({
@@ -30,6 +34,12 @@ const editorSlice = createSlice({
     setMinimapEnabled(state, action: PayloadAction<boolean>) {
       state.isMinimapEnabled = action.payload;
     },
+    setCursorPosition(
+      state,
+      action: PayloadAction<{ lineNumber: number; column: number }>
+    ) {
+      state.cursorPosition = action.payload;
+    },
   },
 });
 
@@ -39,6 +49,7 @@ export const {
   setMinimapEnabled,
   setScrollBeyondLastLine,
   setWordWrap,
+  setCursorPosition,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;
