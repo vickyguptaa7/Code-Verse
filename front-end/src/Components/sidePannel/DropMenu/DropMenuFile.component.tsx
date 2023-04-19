@@ -11,6 +11,11 @@ import {
 import IDirectory from "../../../Interface/directory.interface";
 import { fileDownloader } from "../../../utils/fileFolder.utils";
 import { scrollToTarget } from "../../../utils/scrollToTargetId.util";
+import {
+  addNotification,
+  removeNotification,
+} from "../../../Store/reducres/Notification/Notification.reducer";
+import { uniqueIdGenerator } from "../../../library/uuid/uuid.lib";
 
 interface IPROPS {
   closeDropMenuHandler: Function;
@@ -30,6 +35,13 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     closeDropMenuHandler();
     const file = new Blob([filesInformation[currFile.id].body]);
     fileDownloader(file, filesInformation[currFile.id].name);
+    dispatch(
+      addNotification({
+        id: uniqueIdGenerator(),
+        description: "Files saved successfully",
+        isWaitUntilComplete: false,
+      })
+    );
   };
 
   const addAllFilesAndFolderToZipHelper = async (
@@ -56,10 +68,26 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   const onSaveAllFileAndFolderHandler = async () => {
     console.log("Save all files and folders");
     closeDropMenuHandler();
+    const notificationId = uniqueIdGenerator();
+    dispatch(
+      addNotification({
+        id: notificationId,
+        description: "Saving all files and folders...",
+        isWaitUntilComplete: true,
+      })
+    );
     const zip = new JSZip();
     await addAllFilesAndFolderToZipHelper(zip, directories, "root");
     const file = await zip.generateAsync({ type: "blob" });
     fileDownloader(file, "All File And Folder");
+    dispatch(
+      addNotification({
+        id: uniqueIdGenerator(),
+        description: "All files and folders saved successfully",
+        isWaitUntilComplete: false,
+      })
+    );
+    dispatch(removeNotification({ id: notificationId }));
   };
 
   const showInSideDrawerHandler = (view: DrawerContent) => {
