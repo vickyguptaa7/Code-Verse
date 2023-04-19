@@ -1,5 +1,3 @@
-import FileCard from "./FileCard";
-
 import {
   removeFileFromNavigation,
   setCurrentNavFile,
@@ -8,6 +6,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { useEffect } from "react";
 import { INavFile } from "../../Interface/file.interface";
+import FileCard from "./FileCard";
 
 interface IPROPS {
   navFilesList: Array<INavFile>;

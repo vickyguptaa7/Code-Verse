@@ -71,13 +71,15 @@ const BottomPannelRightNavigation = () => {
         <BottomPannelButton
           className={mergeClass([
             "flex items-start justify-center",
-            isDropMenuOpen && "bg-[color:var(--hover-text-color)]"
+            isDropMenuOpen && "bg-[color:var(--hover-text-color)]",
           ])}
           Icon={VscEllipsis}
           onClickHandler={openDropMenuHandler}
         />
         <div className="relative overflow-visible">
-          {isDropMenuOpen && dropMenu(dispatch, closeDropMenuHandler)}
+          {isDropMenuOpen ? (
+            <DropMenuBottomPannel closeDropMenuHandler={closeDropMenuHandler} />
+          ) : null}
         </div>
         <BottomPannelButton
           Icon={VscChevronUp}
@@ -93,10 +95,17 @@ const BottomPannelRightNavigation = () => {
   );
 };
 
-function dropMenu(
-  dispatch: Function,
-  closeDropMenuHandler: React.MouseEventHandler
-) {
+interface IPROPS_DROP_MENU {
+  closeDropMenuHandler: React.MouseEventHandler;
+}
+
+const DropMenuBottomPannel: React.FC<IPROPS_DROP_MENU> = ({
+  closeDropMenuHandler,
+}) => {
+  const dispatch = useAppDispatch();
+  const currentNavFile = useAppSelector(
+    (state) => state.fileNavigation.currentNavFile
+  );
   const clearTerminalHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(setTerminalContent(""));
     closeDropMenuHandler(event);
@@ -108,20 +117,23 @@ function dropMenu(
     closeDropMenuHandler(event);
     dispatch(setShowInBottomPannel("output"));
   };
-
+  console.log(currentNavFile);
+  
   return (
-    <DropMenu className="-right-0 top-8 w-36">
+    <DropMenu className="w-40 -right-0 top-8">
       <DropMenuButton name="Clear Output" onClickHandler={clearOutputHandler} />
       <DropMenuButton
         name="Clear Terminal"
         onClickHandler={clearTerminalHandler}
       />
-      <DropMenuButton
-        name="Run Active File"
-        onClickHandler={closeDropMenuHandler}
-      />
+      {currentNavFile.id !== "null" && currentNavFile.type === "file" ? (
+        <DropMenuButton
+          name="Run Active File"
+          onClickHandler={closeDropMenuHandler}
+        />
+      ) : null}
     </DropMenu>
   );
-}
+};
 
 export default BottomPannelRightNavigation;

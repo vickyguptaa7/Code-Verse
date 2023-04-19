@@ -66,8 +66,12 @@ const FileNavigation = () => {
             <VscEllipsis className="text-xl" />
           </Button>
           <div className="relative overflow-visible">
-            {isDropMenuOpen &&
-              dropMenu(isBottomPannelOpen, dispatch, closeDropMenuHandler)}
+            {isDropMenuOpen && (
+              <DropMenuFileNavigation
+                isBottomPannelOpen={isBottomPannelOpen}
+                closeDropMenuHandler={closeDropMenuHandler}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -75,11 +79,19 @@ const FileNavigation = () => {
   );
 };
 
-function dropMenu(
-  isBottomPannelOpen: boolean,
-  dispatch: Function,
-  closeDropMenuHandler: React.MouseEventHandler
-) {
+interface DropMenu {
+  isBottomPannelOpen: boolean;
+  closeDropMenuHandler: React.MouseEventHandler;
+}
+
+const DropMenuFileNavigation: React.FC<DropMenu> = ({
+  isBottomPannelOpen,
+  closeDropMenuHandler,
+}) => {
+  const dispatch = useAppDispatch();
+  const currentNavFile = useAppSelector(
+    (state) => state.fileNavigation.currentNavFile
+  );
   const closeAllFilesHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeAllFilesFromNavigation());
     closeDropMenuHandler(event);
@@ -94,18 +106,20 @@ function dropMenu(
   };
   // TODO: fix the horizontal scrolling issue of the drop down menu
   return (
-    <DropMenu className="right-2.5 top-6 w-36">
+    <DropMenu className="right-2.5 top-6 w-40">
       <DropMenuButton name="Close All" onClickHandler={closeAllFilesHandler} />
-      <DropMenuButton
-        name="Run Active File"
-        onClickHandler={closeDropMenuHandler}
-      />
+      {currentNavFile.id !== "null" && currentNavFile.type === "file" ? (
+        <DropMenuButton
+          name="Run Active File"
+          onClickHandler={closeDropMenuHandler}
+        />
+      ) : null}
       <DropMenuButton
         name={`${!isBottomPannelOpen ? "Open" : "Close"} Terminal`}
         onClickHandler={toggleBottomPannelHandler}
       />
     </DropMenu>
   );
-}
+};
 
 export default FileNavigation;

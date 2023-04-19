@@ -83,7 +83,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   };
 
   return (
-    <DropMenu className="w-36 -top-[54px] left-14">
+    <DropMenu className="w-40 -top-[54px] left-14">
       <OpenFileFolderDropMenuButtons
         closeDropMenuHandler={closeDropMenuHandler}
       />
