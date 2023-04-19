@@ -131,17 +131,7 @@ const Pannel = () => {
             title="Accounts"
             Icon={VscAccount}
             buttonName="accounts"
-            onClickHandler={() => {
-              // const worker = new window.Worker("./demo.worker.js");
-              // worker.postMessage({ n: 1000000000 });
-              // worker.onerror = (err) => err;
-              // worker.onmessage = (e) => {
-              //   const { time, demoN } = e.data;
-              //   console.log(time, demoN);
-              //   worker.terminate();
-              // };
-            }
-          }
+            onClickHandler={() => {}}
           />
           <PannelButtons
             title="Settings"
