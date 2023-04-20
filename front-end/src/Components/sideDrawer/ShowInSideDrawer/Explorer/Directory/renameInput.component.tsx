@@ -117,11 +117,11 @@ const RenameInput: React.FC<IPROPS> = ({
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full pr-1">
       <Input
         inputRef={inputRef}
         className={mergeClass([
-          "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent border-red-900 selection:bg-[color:var(--accent-color)]",
+          "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent border-red-900 selection:bg-[color:var(--accent-color)] ",
           isFileNameExistAlready && "border-red-600",
         ])}
         onKeyDown={onKeyDownHandler}

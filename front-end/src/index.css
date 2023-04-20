@@ -9,11 +9,14 @@
   --primary-text-color: hsl(220, 9%, 50%);
   --highlight-text-color: hsl(220, 9%, 92%);
   --tertiary-text-color: hsl(220, 9%, 92%);
-  --hover-text-color: hsl(217, 19%, 27%);
+  --hover-text-color: hsl(180, 1%, 18%);
   --sidepannel-color: hsl(0, 0%, 9%);
   --bottompannel-color: hsl(0, 0%, 9%);
   --sidedrawer-color: hsl(0, 0%, 9%);
+  --footer-color: hsl(0, 0%, 9%);
   --codeeditor-color: hsl(0, 0%, 12%);
+  --border-color: hsl(0, 0%, 16%);
+  --dropmenu-bg-color: hsl(0, 0%, 16%);
 }
 
 body {

@@ -38,7 +38,7 @@ const Setting: React.FC<IPROPS> = ({ height }) => {
             &nbsp;User&nbsp;
           </h3>
         </div>
-        <div className="h-[1px] bg-[color:var(--primary-text-color)]"></div>
+        <div className="h-[1px] bg-[color:var(--border-color)]"></div>
         <SettingList height={height} settingOptions={settingResult} />
       </div>
     </div>

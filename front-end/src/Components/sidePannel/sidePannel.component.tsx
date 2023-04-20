@@ -21,6 +21,7 @@ import { DropMenuSetting } from "./DropMenu/DropMenuSetting.component";
 
 import PannelButtons from "./pannelButtons.component";
 import FileFolderInput from "./FileFolderInput.component";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
 
@@ -30,6 +31,9 @@ const Pannel = () => {
   const dispatch = useAppDispatch();
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
+  );
+  const isSidePannelPositionOnLeft = useAppSelector(
+    (state) => state.sideDrawer.isSidePannelPositionOnLeft
   );
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
   const sideDrawerHandler = (showDrawer: boolean) => {
@@ -81,7 +85,14 @@ const Pannel = () => {
         />
       )}
       <FileFolderInput />
-      <div className="flex flex-col justify-between h-full bg-[color:var(--sidepannel-color)] text-[color:var(--primary-text-color)]">
+      <div
+        className={mergeClass([
+          "flex flex-col justify-between h-full bg-[color:var(--sidepannel-color)] text-[color:var(--primary-text-color)] ",
+          isSidePannelPositionOnLeft
+            ? "border-r border-[color:var(--border-color)] "
+            : "border-l border-[color:var(--border-color)] ",
+        ])}
+      >
         <nav className="flex flex-col ">
           <PannelButtons
             title="Files Menu"

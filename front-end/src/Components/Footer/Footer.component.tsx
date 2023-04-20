@@ -19,7 +19,7 @@ const Footer = () => {
     : "home";
 
   return (
-    <div className="flex items-center justify-between w-full h-[22px] bg-black gap-1">
+    <div className="flex items-center justify-between w-full h-[22px] bg-[color:var(--footer-color)] gap-1 border-t border-[color:var(--border-color)]">
       <div className="flex h-full gap-1 left-container ">
         <div
           className="px-2.5 h-full flex items-center justify-center bg-[color:var(--accent-color)] hover:brightness-125"
@@ -38,7 +38,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex h-full gap-1 mr-2 right-container ">
-        {currentNavFile.id!=='null' && currentNavFile.type === "file" ? (
+        {currentNavFile.id !== "null" && currentNavFile.type === "file" ? (
           <>
             <div
               className="flex text-[color:var(--highlight-text-color)] text-sm items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-2"

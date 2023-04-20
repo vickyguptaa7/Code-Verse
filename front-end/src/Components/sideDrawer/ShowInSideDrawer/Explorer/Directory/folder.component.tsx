@@ -53,8 +53,8 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
             className={mergeClass([isFolderOpen && "rotate-90"])}
           />
         </div>
-        <div className="flex justify-between gap-3">
-          <div className="flex items-center gap-1.5">
+        <div className="flex justify-between w-full gap-3 ">
+          <div className="flex items-center gap-1.5 w-full">
             <div className="min-w-[18px] max-w-[18px]">
               {folderInfo.iconUrls.length ? (
                 <img
@@ -68,7 +68,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
                 <FaFolder className="text-[15px]" />
               )}
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center w-full">
               {isInputInFocus ? (
                 <RenameInput
                   inputRef={inputRef}

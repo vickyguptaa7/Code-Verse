@@ -9,12 +9,14 @@ const SideDrawer = () => {
   const isDrawerOpenSideIsLeft = useAppSelector(
     (state) => state.sideDrawer.isDrawerOpenSideIsLeft
   );
-  
+
   return (
     <div
       className={mergeClass([
-        "flex h-full bg-[color:var(--sidedrawer-color)]",
-        isDrawerOpenSideIsLeft && "flex-row-reverse"
+        "flex h-full bg-[color:var(--sidedrawer-color)] ",
+        isDrawerOpenSideIsLeft
+          ? "flex-row-reverse border-l border-[color:var(--border-color)]"
+          : "border-r border-[color:var(--border-color)]",
       ])}
     >
       <Pannel />

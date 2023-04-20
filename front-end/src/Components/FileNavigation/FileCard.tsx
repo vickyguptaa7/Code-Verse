@@ -23,7 +23,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   const dispatch = useAppDispatch();
   const isThisActiveNavFile = currentNavFile.id === fileInfo.id;
   const activeClassName = isThisActiveNavFile
-    ? "bg-[color:var(--codeeditor-color)] border-b-[color:var(--accent-color)]"
+    ? "bg-[color:var(--codeeditor-color)] border-b-[color:var(--accent-color)] "
     : "border-b-[color:var(--sidepannel-color)] ";
 
   let languageLogo: JSX.Element;
@@ -64,7 +64,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   return (
     <div
       className={mergeClass([
-        "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px] border-r border-r-black group ",
+        "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px]  group border-r border-r-[color:var(--border-color)]",
         activeClassName
       ])}
       id={fileInfo.id}
@@ -76,7 +76,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       <div className="text-start whitespace-nowrap max-w-[10rem]">
         <h1
           className={mergeClass([
-            "pr-3 text-[color:var(--primary-text-color)] text-ellipsis overflow-hidden",
+            "pr-3 text-[color:var(--primary-text-color)] text-ellipsis overflow-hidden text-sm",
             isThisActiveNavFile
               ? "text-[color:var(--highlight-text-color)]"
               : ""

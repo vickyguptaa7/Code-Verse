@@ -16,14 +16,14 @@ const ExtensionsContainer = () => {
       <div className="pl-5 mt-1.5 mb-2">
         <h2>EXTENSIONS</h2>
       </div>
-      <div className="flex flex-col h-full gap-3 ">
+      <div className="flex flex-col h-full gap-3 pr-1">
         <SearchExtension />
         {isInstalledAndRecommendedVisible ? (
           <div>
             <InstalledAndRecommended />
           </div>
         ) : (
-          <div className="overflow-y-auto" style={{ height: height }}>
+          <div className="overflow-y-auto " style={{ height: height }}>
             <ExtensionCardContainer />
           </div>
         )}

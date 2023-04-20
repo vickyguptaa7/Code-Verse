@@ -18,7 +18,7 @@ const SettingList: React.FC<IPROPS> = ({ height, settingOptions }) => {
       {settingOptions.map((option) => {
         return (
           <div
-            className="px-4 py-4 text-sm hover:brightness-125 "
+            className="px-4 py-4 text-sm hover:bg-[color:var(--border-color)] "
             key={option.type}
           >
             <h3 className="font-semibold">
