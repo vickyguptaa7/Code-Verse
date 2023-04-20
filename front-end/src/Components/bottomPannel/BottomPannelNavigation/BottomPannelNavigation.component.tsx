@@ -1,6 +1,3 @@
-import React from "react";
-import "./BottomPannelNavigation.component.css";
-
 import BottomPannelLeftNavigation from "./BottomPannelLeftNavigation.component";
 import BottomPannelRightNavigation from "./BottomPannelRightNavigation.component";
 

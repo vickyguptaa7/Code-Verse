@@ -3,7 +3,7 @@ import SearchInput from "../../sideDrawer/ShowInSideDrawer/Search/Basic/SearchIn
 
 import { useSettingData } from "./hooks/useSettingData.hook";
 
-import "./Setting.component.css";
+import "./Setting.styles.css";
 import SettingList from "./Basic/SettingList.component";
 
 interface IPROPS {

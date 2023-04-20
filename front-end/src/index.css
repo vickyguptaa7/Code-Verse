@@ -10,12 +10,10 @@
   --highlight-text-color: hsl(220, 9%, 92%);
   --tertiary-text-color: hsl(220, 9%, 92%);
   --hover-text-color: hsl(217, 19%, 27%);
-  --sidepannel-color: hsl(221, 39%, 11%);
-  --bottompannel-color: hsl(221, 39%, 11%);
-  --sidedrawer-color: hsl(221, 39%, 8%);
-  --codeeditor-color: #1e1e1e;
-  --duration:1.4s,
-  --offset:187,
+  --sidepannel-color: hsl(0, 0%, 9%);
+  --bottompannel-color: hsl(0, 0%, 9%);
+  --sidedrawer-color: hsl(0, 0%, 9%);
+  --codeeditor-color: hsl(0, 0%, 12%);
 }
 
 body {

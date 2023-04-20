@@ -14,7 +14,7 @@ import useHighlightText from "./hooks/useHighlightText.hook";
 import useUndoRedo from "./hooks/useUndoRedo.hook";
 
 import { editorLanguage } from "../../Assets/Data/editorLanguages.data";
-import "./editor.component.css";
+import "./editor.styles.css";
 import Loader from "../UI/Loader/Loader.component";
 
 interface IPROPS {
