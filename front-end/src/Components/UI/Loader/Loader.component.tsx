@@ -13,7 +13,7 @@ const Loader: React.FC<IPROPS> = ({ type }) => {
       </div>
     );
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen gap-4 -mt-16">
+    <div className="flex flex-col items-center justify-center w-full h-full gap-4 ">
       <img src={vscodeImg} className="" alt="Loading..." />
       <div className="w-32 overflow-hidden bg-gray-200 rounded-lg">
         <div className="rounded-full moving-div"></div>

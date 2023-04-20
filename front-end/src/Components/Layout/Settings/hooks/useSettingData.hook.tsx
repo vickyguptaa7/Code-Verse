@@ -4,6 +4,7 @@ import {
   setMinimapEnabled,
   setScrollBeyondLastLine,
   setTabSize,
+  setTheme,
   setWordWrap,
 } from "../../../../Store/reducres/Editor/Editor.reducer";
 import {
@@ -12,6 +13,8 @@ import {
 } from "../../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppSelector } from "../../../../Store/store";
 import { ISettingOption } from "../../../../Interface/settingOption.interface";
+import { Theme } from "../../../../Interface/theme.type";
+import { themesNameArray } from "../../../../Assets/Data/theme.data";
 
 export const useSettingData = () => {
   const data: Array<ISettingOption> = [
@@ -87,14 +90,11 @@ export const useSettingData = () => {
       type: "Color Theme",
       inputType: "list",
       info: "Specifies the color theme used in the workbench.",
-      listOptions: ["dark", "light"],
-      initialValue: "dark",
-      updateInStore: (
-        dispatch: Dispatch<Object>,
-        colorTheme: "dark" | "light"
-      ) => {
+      listOptions: themesNameArray,
+      initialValue: useAppSelector((state) => state.editor.theme),
+      updateInStore: (dispatch: Dispatch<Object>, colorTheme: Theme) => {
         // TODO: Update color theme
-        console.log("Color theme updated : ", colorTheme);
+        dispatch(setTheme(colorTheme));
       },
     },
     {

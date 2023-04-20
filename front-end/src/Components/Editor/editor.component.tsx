@@ -46,6 +46,7 @@ const Editor: React.FC<IPROPS> = ({
   const isMinimapEnabled = useAppSelector(
     (state) => state.editor.isMinimapEnabled
   );
+  const currEditorTheme = useAppSelector((state) => state.editor.theme);
 
   const searchedText = useAppSelector((state) => state.search.searchedText);
 
@@ -138,7 +139,6 @@ const Editor: React.FC<IPROPS> = ({
     currentWorkingFileId,
     isDrawerOpen,
   ]);
-
   return (
     <div
       className={mergeClass([
@@ -157,7 +157,7 @@ const Editor: React.FC<IPROPS> = ({
               ? editorLanguage[language]
               : "plaintext"
           }
-          theme="Blackboard"
+          theme={currEditorTheme}
           loading={<Loader type="loading" />}
           options={{
             wordWrap: wordWrap,

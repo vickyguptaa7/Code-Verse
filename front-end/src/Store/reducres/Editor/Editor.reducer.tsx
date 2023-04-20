@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Theme } from "../../../Interface/theme.type";
 
 const editorInitialState = {
   tabSize: 4,
@@ -6,6 +7,7 @@ const editorInitialState = {
   wordWrap: "on" as "on" | "off" | "wordWrapColumn" | "bounded",
   isScrollBeyondLastLine: true,
   isMinimapEnabled: true,
+  theme: "vs-dark" as Theme,
 };
 
 const editorSlice = createSlice({
@@ -30,6 +32,9 @@ const editorSlice = createSlice({
     setMinimapEnabled(state, action: PayloadAction<boolean>) {
       state.isMinimapEnabled = action.payload;
     },
+    setTheme(state, action: PayloadAction<Theme>) {
+      state.theme = action.payload as Theme;
+    },
   },
 });
 
@@ -39,6 +44,7 @@ export const {
   setMinimapEnabled,
   setScrollBeyondLastLine,
   setWordWrap,
+  setTheme,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;
