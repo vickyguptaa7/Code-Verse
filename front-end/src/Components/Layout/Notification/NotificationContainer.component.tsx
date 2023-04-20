@@ -9,7 +9,7 @@ const NotificationContainer = () => {
   return (
     <div className="absolute flex flex-col items-end justify-center gap-3 bottom-8 right-4">
       {notifications.map((notification) => (
-        <Notification key={notification.id} info={notification} />
+        <Notification key={notification.id} notification={notification} />
       ))}
     </div>
   );

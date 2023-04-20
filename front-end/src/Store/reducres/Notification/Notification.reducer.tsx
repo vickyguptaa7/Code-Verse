@@ -1,25 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { INotification } from "../../../Interface/Notification.interface";
 
 const notificationInitialState = {
-  notifications: [] as Array<{
-    id: string;
-    description: string;
-    isWaitUntilComplete: boolean;
-  }>,
+  notifications: [] as Array<INotification>,
 };
 
 const notificationSlice = createSlice({
   name: "notification",
   initialState: notificationInitialState,
   reducers: {
-    addNotification(
-      state,
-      action: PayloadAction<{
-        id: string;
-        description: string;
-        isWaitUntilComplete: boolean;
-      }>
-    ) {
+    addNotification(state, action: PayloadAction<INotification>) {
       state.notifications.push(action.payload);
     },
     removeNotification(state, action: PayloadAction<{ id: string }>) {

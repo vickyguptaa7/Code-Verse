@@ -41,6 +41,7 @@ const FileFolderInput = () => {
         id: notificationId,
         description: "Please wait files are uploading...",
         isWaitUntilComplete: true,
+        type: "info",
       })
     );
     console.log(e.target.files);
@@ -67,6 +68,7 @@ const FileFolderInput = () => {
         id: uniqueIdGenerator(),
         description: "Files uploaded successfully",
         isWaitUntilComplete: false,
+        type: "success",
       })
     );
     dispatch(
@@ -83,6 +85,7 @@ const FileFolderInput = () => {
         id: notificationId,
         description: "Please wait folder is uploading...",
         isWaitUntilComplete: true,
+        type: "info",
       })
     );
 
@@ -125,6 +128,7 @@ const FileFolderInput = () => {
         id: uniqueIdGenerator(),
         description: "Folder uploaded successfully",
         isWaitUntilComplete: false,
+        type: "success",
       })
     );
     dispatch(

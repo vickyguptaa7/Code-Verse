@@ -8,7 +8,7 @@ import {
   setShowInSideDrawer,
   setIsDrawerOpen,
 } from "./../../../Store/reducres/SideDrawer/SideDrawer.reducer";
-import IDirectory from "../../../Interface/directory.interface";
+
 import { fileDownloader } from "../../../utils/fileFolder.utils";
 import { scrollToTarget } from "../../../utils/scrollToTargetId.util";
 import {
@@ -41,6 +41,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         id: uniqueIdGenerator(),
         description: "Files saved successfully",
         isWaitUntilComplete: false,
+        type: "success",
       })
     );
   };
@@ -54,20 +55,40 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         id: notificationId,
         description: "Saving all files and folders...",
         isWaitUntilComplete: true,
+        type: "info",
       })
     );
-    const zip = new JSZip();
-    await addAllFilesAndFolderToZipHelper(zip, directories, "root",filesInformation);
-    const file = await zip.generateAsync({ type: "blob" });
-    fileDownloader(file, "All File And Folder");
-    dispatch(
-      addNotification({
-        id: uniqueIdGenerator(),
-        description: "All files and folders saved successfully",
-        isWaitUntilComplete: false,
-      })
-    );
-    dispatch(removeNotification({ id: notificationId }));
+    try {
+      const zip = new JSZip();
+      await addAllFilesAndFolderToZipHelper(
+        zip,
+        directories,
+        "root",
+        filesInformation
+      );
+      const file = await zip.generateAsync({ type: "blob" });
+      fileDownloader(file, "All File And Folder");
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          description: "All files and folders saved successfully",
+          isWaitUntilComplete: false,
+          type: "success",
+        })
+      );
+      dispatch(removeNotification({ id: notificationId }));
+    } catch (err) {
+      console.log(err);
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          description: "Something went wrong",
+          isWaitUntilComplete: false,
+          type: "error",
+        })
+      );
+      dispatch(removeNotification({ id: notificationId }));
+    }
   };
 
   const showInSideDrawerHandler = (view: DrawerContent) => {

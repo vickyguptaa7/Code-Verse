@@ -28,7 +28,6 @@ const FileNavigation = () => {
     (state) => state.fileNavigation.currentNavFile
   );
   const isNavListEmpty = navFilesList.length === 0;
-  const dispatch = useAppDispatch();
 
   const closeDropMenuHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setIsDropMenuOpen(false);
@@ -79,12 +78,12 @@ const FileNavigation = () => {
   );
 };
 
-interface DropMenu {
+interface IPROPS_DropMenu {
   isBottomPannelOpen: boolean;
   closeDropMenuHandler: React.MouseEventHandler;
 }
 
-const DropMenuFileNavigation: React.FC<DropMenu> = ({
+const DropMenuFileNavigation: React.FC<IPROPS_DropMenu> = ({
   isBottomPannelOpen,
   closeDropMenuHandler,
 }) => {

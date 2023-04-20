@@ -1,35 +1,44 @@
 import React, { useEffect } from "react";
 
-import { VscClose, VscInfo } from "react-icons/vsc";
+import { VscClose, VscInfo, VscWarning } from "react-icons/vsc";
+import { IoMdDoneAll } from "react-icons/io";
 import Button from "../../UI/Button.component";
 import "./Notification.component.css";
-import {
-  removeNotification,
-} from "../../../Store/reducres/Notification/Notification.reducer";
+import { removeNotification } from "../../../Store/reducres/Notification/Notification.reducer";
 import { useAppDispatch } from "../../../Store/store";
+import { INotification } from "../../../Interface/Notification.interface";
 
 interface IPROPS {
-  info: { id: string; description: string; isWaitUntilComplete: boolean };
+  notification: INotification;
 }
 
-const Notification: React.FC<IPROPS> = ({ info }) => {
+const NOTIFICATION_TIMER = 4000;
+
+const Notification: React.FC<IPROPS> = ({ notification }) => {
+  const { id, description, isWaitUntilComplete, type } = notification;
   const dispatch = useAppDispatch();
   const onCloseHandler = () => {
-    dispatch(removeNotification({ id: info.id }));
+    dispatch(removeNotification({ id: id }));
   };
   useEffect(() => {
-    if (info.isWaitUntilComplete) return;
+    if (isWaitUntilComplete) return;
     const timerId = setTimeout(() => {
-      dispatch(removeNotification({ id: info.id }));
-    }, 3000);
+      dispatch(removeNotification({ id: id }));
+    }, NOTIFICATION_TIMER);
     return () => clearTimeout(timerId);
-  }, [dispatch,info]);
+  }, [dispatch, isWaitUntilComplete, id]);
   return (
     <div className="overflow-hidden hover:brightness-90 w-fit notification">
       <div className="text-[color:var(--highlight-text-color)] py-3 px-2 shadow-md rouned-sm bg-slate-800 shadow-slate-900 flex text-sm items-center gap-1">
-        <VscInfo className="text-[color:var(--accent-color)] text-2xl" />
+        {type === "info" ? (
+          <VscInfo className="text-[color:var(--accent-color)] text-2xl" />
+        ) : type === "error" ? (
+          <VscWarning className="text-[color:var(--accent-color)] text-xl" />
+        ) : (
+          <IoMdDoneAll className="text-[color:var(--accent-color)] text-2xl p-1 border-[1.5px] rounded-full  border-[color:var(--accent-color)]" />
+        )}
         <p className="overflow-hidden text-ellipsis whitespace-nowrap">
-          {info.description}
+          {description}
         </p>
         <div className="flex items-center justify-center gap-1 mx-1">
           <Button
@@ -40,7 +49,7 @@ const Notification: React.FC<IPROPS> = ({ info }) => {
           </Button>
         </div>
       </div>
-      {info.isWaitUntilComplete ? <div className="moving-div"></div> : null}
+      {isWaitUntilComplete ? <div className="moving-div"></div> : null}
     </div>
   );
 };

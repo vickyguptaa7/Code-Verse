@@ -29,7 +29,19 @@ const useSearch = () => {
       type: "module",
     });
     searchWorker.postMessage({ filesInformation, searchedText });
-    searchWorker.onerror = (err) => console.log(err);
+    searchWorker.onerror = (err) => {
+      console.log(err);
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          description: "Something went wrong...",
+          isWaitUntilComplete: false,
+          type: "error",
+        })
+      );
+      dispatch(setIsSearching(false));
+      searchWorker.terminate();
+    };
     searchWorker.onmessage = (e) => {
       const { matchingFiles } = e.data;
       dispatch(setSearchedResultFiles(matchingFiles));
@@ -44,13 +56,31 @@ const useSearch = () => {
         id: notificationId,
         description: "Replacing text in files",
         isWaitUntilComplete: true,
+        type: "info",
       })
     );
     const replaceWorker = new Worker("./worker/replace.worker.js", {
       type: "module",
     });
-    replaceWorker.postMessage({ filesInformation, targetFiles, searchedText, replacedText });
-    replaceWorker.onerror = (err) => console.log(err);
+    replaceWorker.postMessage({
+      filesInformation,
+      targetFiles,
+      searchedText,
+      replacedText,
+    });
+    replaceWorker.onerror = (err) => {
+      console.log(err);
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          description: "Something went wrong...",
+          isWaitUntilComplete: false,
+          type: "error",
+        })
+      );
+      dispatch(removeNotification({ id: notificationId }));
+      replaceWorker.terminate();
+    };
     replaceWorker.onmessage = (e) => {
       const { updatedFilesInfo } = e.data;
       dispatch(updateFileBody(updatedFilesInfo));
@@ -59,6 +89,7 @@ const useSearch = () => {
           id: uniqueIdGenerator(),
           description: "Replaced successfully",
           isWaitUntilComplete: false,
+          type: "success",
         })
       );
       dispatch(removeNotification({ id: notificationId }));
