@@ -13,7 +13,7 @@ const SideDrawer = () => {
   return (
     <div
       className={mergeClass([
-        "flex h-full bg-[color:var(--sidedrawer-color)] ",
+        "flex h-full bg-[color:var(--sidedrawer-color)]",
         isDrawerOpenSideIsLeft
           ? "flex-row-reverse border-l border-[color:var(--border-color)]"
           : "border-r border-[color:var(--border-color)]",

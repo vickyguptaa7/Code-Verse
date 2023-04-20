@@ -12,7 +12,7 @@ const ExtensionsContainer = () => {
   const isInstalledAndRecommendedVisible = extensionSearchedText.length === 0;
   let height = Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 120;
   return (
-    <div className="flex flex-col justify-start h-full py-2 text-sm whitespace-nowrap">
+    <div className="flex flex-col justify-start h-full py-2 text-sm whitespace-nowrap text-[color:var(--highlight-text-color)]">
       <div className="pl-5 mt-1.5 mb-2">
         <h2>EXTENSIONS</h2>
       </div>
