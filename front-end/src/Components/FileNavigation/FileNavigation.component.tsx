@@ -105,7 +105,7 @@ const DropMenuFileNavigation: React.FC<IPROPS_DropMenu> = ({
   };
   // TODO: fix the horizontal scrolling issue of the drop down menu
   return (
-    <DropMenu className="right-2.5 top-6 w-40">
+    <DropMenu className="right-2.5 top-5 w-40">
       <DropMenuButton name="Close All" onClickHandler={closeAllFilesHandler} />
       {currentNavFile.id !== "null" && currentNavFile.type === "file" ? (
         <DropMenuButton

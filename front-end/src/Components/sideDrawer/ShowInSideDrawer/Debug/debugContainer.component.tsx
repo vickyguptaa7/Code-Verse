@@ -10,6 +10,7 @@ const DebugContainer = () => {
       </div>
       <div className="flex flex-col h-full">
         <Run />
+        <div className="ml-1 border-t border-[color:var(--border-color)] my-0.5"></div>
         <CollapsibleMenu menuName="BREAKPOINTS" children={null} />
       </div>
     </div>

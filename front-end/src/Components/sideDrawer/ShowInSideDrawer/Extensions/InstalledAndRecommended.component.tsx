@@ -7,6 +7,8 @@ import { useAppSelector } from "../../../../Store/store";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 import ExtensionCard from "./Basic/ExtensionCard.component";
 import { INSTALLED_EXTENSIONS } from "../../../../Assets/Data/extensions.data";
+
+
 const EDITOR_MIN_HEIGHT = 480;
 
 const InstalledAndRecommended = () => {
@@ -51,6 +53,7 @@ const InstalledAndRecommended = () => {
         initialState={isInstalledExtensionOpen}
         setIsCollpaisibleHandler={setIsInstalledExtensionOpen}
       />
+      <div className="ml-1 border-t border-[color:var(--border-color)] my-0.5"></div>
       <CollapsibleMenu
         menuName="RECOMMENDED"
         children={

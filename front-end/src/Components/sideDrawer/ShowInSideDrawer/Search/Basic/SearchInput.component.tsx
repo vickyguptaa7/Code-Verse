@@ -47,7 +47,7 @@ const SearchInput: React.FC<IPROPS> = ({
       onFocus={() => setIsInputInFocus(true)}
       onBlur={() => setIsInputInFocus(false)}
       className={mergeClass([
-        "w-full px-2 py-1 bg-[color:var(--sidepannel-color)] border border-transparent selection:bg-[color:var(--accent-color)]",
+        "w-full px-2 py-1 bg-[color:var(--input-bg-color)] border border-[color:var(--input-border-color)] selection:bg-[color:var(--accent-color)]",
         isInputInFocus ? " border-red-900" : "",
         className,
       ])}

@@ -22,7 +22,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
           updateInStore(dispatch, e.target.value);
         }}
         value={inputText as string}
-        className=" bg-[color:var(--sidepannel-color)] mt-2 outline-none px-1.5 py-1.5 rounded-sm"
+        className=" bg-[color:var(--input-bg-color)] border border-[color:var(--input-border-color)] mt-2 outline-none px-1.5 py-1 rounded-sm min-w-[8rem]"
       >
         {listOptions
           ? listOptions.map((opt) => (
@@ -37,7 +37,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
     return (
       <Input
         type={inputType}
-        className="mt-2 bg-[color:var(--sidepannel-color)] px-2 py-1 text-sm"
+        className="mt-2 bg-[color:var(--input-bg-color)] border border-[color:var(--input-border-color)] px-2 py-1 text-sm"
         inputRef={null}
         onChange={(e) => {
           setInputText(e.target.value);
@@ -51,7 +51,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
       <label className="container mt-2">
         <Input
           type="checkbox"
-          className="mt-12"
+          className="mt-12 bg-[color:var(--input-bg-color)] "
           inputRef={null}
           onChange={(e) => {
             setInputText(e.target.checked);

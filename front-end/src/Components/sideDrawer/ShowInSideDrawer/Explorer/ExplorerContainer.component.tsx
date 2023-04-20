@@ -11,8 +11,10 @@ const Explorer = () => {
       </div>
       <div className={mergeClass(["flex flex-col h-full"])}>
         <ExplorerFolder />
-        <CollapsibleMenu menuName="OUTLINE" children={null}/>
-        <CollapsibleMenu menuName="TIMELINE" children={null}/>
+        <div className="ml-1 border-t border-[color:var(--border-color)] my-0.5"></div>
+        <CollapsibleMenu menuName="OUTLINE" children={null} />
+        <div className="ml-1 border-t border-[color:var(--border-color)] my-0.5"></div>
+        <CollapsibleMenu menuName="TIMELINE" children={null} />
       </div>
     </div>
   );

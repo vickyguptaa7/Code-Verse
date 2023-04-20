@@ -29,7 +29,7 @@ const Setting: React.FC<IPROPS> = ({ height }) => {
           inputRef={inputRef}
           initialInput={searchText}
           name="Search settings..."
-          className="text-sm"
+          className="py-1.5 text-sm"
           durationForDebounce={200}
           updateInStoreText={setSearchText}
         />

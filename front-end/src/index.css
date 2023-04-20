@@ -6,9 +6,9 @@
 
 :root {
   --accent-color: hsl(204, 100%, 40%);
-  --primary-text-color: hsl(220, 9%, 50%);
-  --highlight-text-color: hsl(220, 9%, 92%);
-  --tertiary-text-color: hsl(220, 9%, 92%);
+  --primary-text-color: hsl(0, 0%, 55%);
+  --highlight-text-color: hsl(0, 0%, 90%);
+  --tertiary-text-color: hsl(0, 0%, 80%);
   --hover-text-color: hsl(180, 1%, 18%);
   --sidepannel-color: hsl(0, 0%, 9%);
   --bottompannel-color: hsl(0, 0%, 9%);
@@ -16,7 +16,10 @@
   --footer-color: hsl(0, 0%, 9%);
   --codeeditor-color: hsl(0, 0%, 12%);
   --border-color: hsl(0, 0%, 16%);
-  --dropmenu-bg-color: hsl(0, 0%, 16%);
+  --dropmenu-bg-color: hsl(0, 0%, 12%);
+  --dropmenu-border-color: hsl(0, 0%, 27%);
+  --input-border-color: hsl(0, 0%, 27%);
+  --input-bg-color: hsl(0, 0%, 16%);
 }
 
 body {

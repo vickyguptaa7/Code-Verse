@@ -36,7 +36,7 @@ const Home: React.FC<IPROPS> = ({ height }) => {
 function ShortcutCard(props: { title: string; shortcutKeys: Array<string> }) {
   const { title, shortcutKeys } = props;
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2">
+    <div className="flex flex-wrap items-center justify-center gap-2 font-cascadia">
       <h3 className="pt-1 ">{title}</h3>
       <h3 className="flex gap-1">
         {shortcutKeys.map((key) => {

@@ -37,7 +37,7 @@ export const DropMenuSetting: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     closeDropMenuHandler(event);
   };
   return (
-    <DropMenu className="w-36 bottom-5 left-14">
+    <DropMenu className="w-36 bottom-3.5 left-[54px]">
       <DropMenuButton name="Settings" onClickHandler={openSettingHandler} />
       <DropMenuButton name="Extensions" onClickHandler={openExtensionHandler} />
       <DropMenuButton name="Themes" onClickHandler={onClickHandler} />

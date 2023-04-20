@@ -25,7 +25,7 @@ const ExplorerFolder = () => {
     "file" | "folder" | "none"
   >("none");
   const fileDirectoryHeight = isExplorerFolderOpen
-    ? Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 150
+    ? Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 154
     : 0;
 
   return (
@@ -41,7 +41,7 @@ const ExplorerFolder = () => {
             />
           </div>
           <div className="flex items-center justify-center">
-            <h3 className="font-semibold">FOLDER-NAME</h3>
+            <h3 className="font-semibold">ROOT-DIRECTORY</h3>
           </div>
         </div>
         <ExplorerButtons

@@ -36,11 +36,11 @@ const SearchExtension = () => {
           name="search"
           onFocus={() => setIsSearchInFocus(true)}
           onBlur={() => setIsSearchInFocus(false)}
-          type=""
+          type="text"
           value={searchedText}
           onChange={onChangeHandler}
           className={mergeClass([
-            "w-full px-2 py-1.5 bg-[color:var(--sidepannel-color)] border border-transparent selection:bg-[color:var(--accent-color)]",
+            "w-full px-2 py-1.5 bg-[color:var(--input-bg-color)] border border-[color:var(--input-border-color)] selection:bg-[color:var(--accent-color)]",
             isSearchInFocus ? " border-red-900" : ""
           ])}
           placeholder="Search Extensions In Marketplace"
