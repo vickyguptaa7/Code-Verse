@@ -60,7 +60,6 @@ const ExplorerFolder = () => {
       </div>
       <div
         className="overflow-y-auto"
-        // subtracted 150 bcoz of other content on the explorer to get the scroll bar we have to fix the height of the div
         style={{ height: fileDirectoryHeight }}
       >
         <AnimatePresence>

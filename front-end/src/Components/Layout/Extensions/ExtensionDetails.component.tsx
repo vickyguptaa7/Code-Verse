@@ -84,13 +84,13 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
         </div>
         <div className="w-full mt-4">
           <div className="flex">
-            <h3 className="px-1 pb-1 text-xs border-b-2 border-b-[color:var(--accent-color)]">
+            <h3 className="px-1 pb-1 text-md text-[color:var(--highlight-text-color)] border-b-2 border-b-[color:var(--accent-color)]">
               DETAILS
             </h3>
           </div>
           <div className="w-full h-[2px] bg-[color:var(--border-color)]"></div>
           <div className="mt-1">
-            <p className="text-[color:var(--highlight-text-color)]">
+            <p className="text-[color:var(--tertiary-text-color)]">
               {info.description}
             </p>
           </div>

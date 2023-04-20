@@ -115,7 +115,7 @@ export const useTerminal = () => {
   };
 
   const showCommandHistory = (terminalInput: string) => {
-    addToTerminalContent(terminalInput + "\n" + terminalCommandHistory);
+    addToTerminalContent(terminalInput + "\n\n" + terminalCommandHistory);
   };
 
   const listCurrentDirectoryContent = (terminalInput: string) => {

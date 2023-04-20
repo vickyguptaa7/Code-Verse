@@ -53,9 +53,10 @@ const Drawer = () => {
         ref={refDrawer}
         className={mergeClass([
           "flex text-white w-52 justify-between",
-          isSidePannelPositionOnLeft && "flex-row-reverse"
+          isSidePannelPositionOnLeft && "flex-row-reverse",
         ])}
-        style={{ width: sideDrawerWidth }}
+        // -2 for the border added to the side drawer and the side pannel 1px each
+        style={{ width: sideDrawerWidth-2 }}
       >
         <div className="flex flex-col w-full">
           {/* on reset will perform some task when there will be some error so we can reload the page or we can change the state that is causing the error or something else */}
@@ -71,7 +72,7 @@ const Drawer = () => {
           ref={refResizer}
           className={mergeClass([
             "w-1 h-full duration-300 cursor-move hover:bg-[color:var(--accent-color)] resizable-div-left-right",
-            isDrawerResizing && "bg-[color:var(--accent-color)]"
+            isDrawerResizing && "bg-[color:var(--accent-color)]",
           ])}
         ></div>
       </div>

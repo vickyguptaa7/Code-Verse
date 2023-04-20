@@ -38,8 +38,6 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
     setIsFolderOpen((state) => !state);
   };
 
-  // TODO: Do something for the large names of folder
-
   return (
     <>
       <div
