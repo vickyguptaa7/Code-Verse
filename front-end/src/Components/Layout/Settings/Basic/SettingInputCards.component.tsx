@@ -48,10 +48,10 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
     );
   else
     return (
-      <label className="container mt-2">
+      <label className="flex items-start gap-2 py-1 mt-2 cursor-pointer">
         <Input
           type="checkbox"
-          className="mt-12 bg-[color:var(--input-bg-color)] "
+          className=" bg-[color:var(--input-bg-color)] mt-0.5"
           inputRef={null}
           onChange={(e) => {
             setInputText(e.target.checked);
@@ -59,7 +59,6 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
           }}
           checked={inputText as boolean}
         />
-        <span className="checkmark"></span>
         <p className="text-xs">{info}</p>
       </label>
     );
