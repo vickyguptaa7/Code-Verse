@@ -22,6 +22,13 @@ const terminalSlice = createSlice({
     setTerminalCommandHistory(state, action: PayloadAction<string>) {
       state.terminalCommandHistory += action.payload + "\n";
     },
+    resetTerminal(state) {
+      state.terminalContent = terminalInitialState.terminalContent;
+      state.terminalCommandHistory =
+        terminalInitialState.terminalCommandHistory;
+      state.terminalsCurrentDirectoryInfo =
+        terminalInitialState.terminalsCurrentDirectoryInfo;
+    },
   },
 });
 
@@ -29,6 +36,7 @@ export const {
   setTerminalContent,
   setTerminalsCurrentDirectoryInfo,
   setTerminalCommandHistory,
+  resetTerminal,
 } = terminalSlice.actions;
 
 export default terminalSlice.reducer;

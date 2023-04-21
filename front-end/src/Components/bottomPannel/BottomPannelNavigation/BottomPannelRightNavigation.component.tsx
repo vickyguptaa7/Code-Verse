@@ -18,7 +18,7 @@ import {
   BOTTOM_PANNEL_MIN_SIZE_PX,
 } from "../BottomPannel.Constant";
 import BottomPannelButton from "../bottomPannelButtons.component";
-import { setTerminalContent } from "../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
+import { resetTerminal, setTerminalContent } from "../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
 
 const BottomPannelRightNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -45,6 +45,7 @@ const BottomPannelRightNavigation = () => {
   };
 
   const resetBottomPannelHandler = () => {
+    dispatch(resetTerminal());
     dispatch(resetBottomPannel());
   };
 
