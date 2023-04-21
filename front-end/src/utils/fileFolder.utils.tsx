@@ -1,5 +1,6 @@
 import { supportedFileTypes } from "../Assets/Data/editorLanguages.data";
 import IDirectory from "../Interface/directory.interface";
+import { IFilesInforation, INavFile } from "../Interface/file.interface";
 import { iconObject } from "../Interface/iconObject.interface";
 import { uniqueIdGenerator } from "../library/uuid/uuid.lib";
 
@@ -89,6 +90,39 @@ const sortDirectory = (directory: IDirectory) => {
   directory.children.sort(directoryComparator);
 };
 
+function replaceTextInFiles(
+  filesInformation: IFilesInforation,
+  targetFiles: Array<INavFile>,
+  searchedText: string,
+  replacedText: string
+) {
+  const updatedFilesInfo = [];
+  for (const file of targetFiles) {
+    if (filesInformation[file.id] === undefined) continue;
+    const newString = filesInformation[file.id].body.replaceAll(
+      new RegExp(searchedText, "ig"),
+      replacedText
+    );
+    updatedFilesInfo.push({ id: file.id, body: newString });
+  }
+  return updatedFilesInfo;
+}
+
+function findMatchingFiles(
+  filesInformation: IFilesInforation,
+  searchedText: string
+) {
+  const matchingFiles = [];
+  for (const key in filesInformation) {
+    const file = filesInformation[key];
+    if (file.id === "settings" || file.id === "extension") continue;
+    if (file.body.toLowerCase().includes(searchedText.toLowerCase())) {
+      matchingFiles.push({ id: file.id, type: "file" });
+    }
+  }
+  return matchingFiles;
+}
+
 export {
   fileDownloader,
   findFileExtension,
@@ -97,4 +131,6 @@ export {
   findUniqueFileFolderName,
   sortDirectory,
   isFileQualifyForUpload,
+  replaceTextInFiles,
+  findMatchingFiles
 };

@@ -25,10 +25,11 @@ const useSearch = () => {
     console.log("find", searchedText);
     dispatch(setIsSearching(true));
     if (searchedText.length === 0) return [];
-    const searchWorker = new Worker("./worker/search.worker.js", {
-      type: "module",
-    });
+    const searchWorker = new Worker(
+      new URL("./../../../../../worker/search.worker.ts", import.meta.url)
+    );
     searchWorker.postMessage({ filesInformation, searchedText });
+
     searchWorker.onerror = (err) => {
       console.log(err);
       dispatch(
@@ -42,12 +43,14 @@ const useSearch = () => {
       dispatch(setIsSearching(false));
       searchWorker.terminate();
     };
+
     searchWorker.onmessage = (e) => {
       const { matchingFiles } = e.data;
       dispatch(setSearchedResultFiles(matchingFiles));
       dispatch(setIsSearching(false));
       searchWorker.terminate();
     };
+
   };
   const replaceTextInFiles = async (targetFiles = searchedResultFiles) => {
     const notificationId = uniqueIdGenerator();
@@ -59,15 +62,16 @@ const useSearch = () => {
         type: "info",
       })
     );
-    const replaceWorker = new Worker("./worker/replace.worker.js", {
-      type: "module",
-    });
+    const replaceWorker = new Worker(
+      new URL("./../../../../../worker/replace.worker.ts", import.meta.url)
+    );
     replaceWorker.postMessage({
       filesInformation,
       targetFiles,
       searchedText,
       replacedText,
     });
+
     replaceWorker.onerror = (err) => {
       console.log(err);
       dispatch(
@@ -81,6 +85,7 @@ const useSearch = () => {
       dispatch(removeNotification({ id: notificationId }));
       replaceWorker.terminate();
     };
+
     replaceWorker.onmessage = (e) => {
       const { updatedFilesInfo } = e.data;
       dispatch(updateFileBody(updatedFilesInfo));
@@ -92,6 +97,7 @@ const useSearch = () => {
           type: "success",
         })
       );
+
       dispatch(removeNotification({ id: notificationId }));
       replaceWorker.terminate();
     };
