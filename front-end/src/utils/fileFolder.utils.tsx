@@ -1,7 +1,7 @@
 import { supportedFileTypes } from "../Assets/Data/editorLanguages.data";
 import IDirectory from "../Interface/directory.interface";
 import { IFilesInforation, INavFile } from "../Interface/file.interface";
-import { iconObject } from "../Interface/iconObject.interface";
+import { IIcon } from "../Interface/Icon.interface";
 import { uniqueIdGenerator } from "../library/uuid/uuid.lib";
 
 const fileDownloader = (file: Blob, name: string) => {
@@ -30,7 +30,7 @@ const findFileExtension = (name: string) => {
 const findFileFolderIconUrl = (
   name: string,
   isFolder: boolean,
-  iconList: iconObject
+  iconList: IIcon
 ) => {
   name = name.toLowerCase();
   if (isFolder) {
@@ -132,5 +132,5 @@ export {
   sortDirectory,
   isFileQualifyForUpload,
   replaceTextInFiles,
-  findMatchingFiles
+  findMatchingFiles,
 };

@@ -1,3 +1,3 @@
-export interface iconObject {
+export interface IIcon {
     [key: string]: string;
   }

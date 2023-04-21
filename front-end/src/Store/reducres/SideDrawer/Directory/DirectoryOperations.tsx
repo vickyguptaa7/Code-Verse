@@ -1,6 +1,6 @@
 import IDirectory from "../../../../Interface/directory.interface";
 import { IFilesInforation } from "../../../../Interface/file.interface";
-import { iconObject } from "../../../../Interface/iconObject.interface";
+import { IIcon } from "../../../../Interface/Icon.interface";
 import {
   directoryComparator,
   findFileExtension,
@@ -10,7 +10,7 @@ import {
 const traverseInDirectoryForAdd = (
   filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
-  iconList: iconObject,
+  iconList: IIcon,
   info: {
     id: string;
     parentId: string;
@@ -53,7 +53,7 @@ const traverseInDirectoryForAdd = (
 const traverseInDirectoryForRename = (
   filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
-  iconList: iconObject,
+  iconList: IIcon,
   info: {
     id: string;
     name: string;
@@ -147,7 +147,7 @@ function deleteAllChildFiles(
 function renameOfFileOrFolder(
   filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
-  iconList: iconObject,
+  iconList: IIcon,
   directoryIndx: number,
   info: {
     id: string;
@@ -181,7 +181,7 @@ function renameOfFileOrFolder(
 function addFileOrFolder(
   filesInformation: IFilesInforation,
   directories: Array<IDirectory>,
-  iconList: iconObject,
+  iconList: IIcon,
   info: {
     id: string;
     parentId: string;

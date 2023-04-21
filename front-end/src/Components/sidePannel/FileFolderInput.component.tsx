@@ -5,17 +5,15 @@ import {
   addExternalFileOrFolderToDirectory,
   setFilesInformation,
 } from "../../Store/reducres/SideDrawer/Directory/Directory.reducer";
-import { useAppDispatch } from "../../Store/store";
-import useUpload from "./hook/useUpload.hook";
-import {
-  sortDirectory,
-  findUniqueFileFolderName,
-} from "../../utils/fileFolder.utils";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
+
+import { sortDirectory } from "../../utils/fileFolder.utils";
 import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
 import {
   addNotification,
   removeNotification,
 } from "../../Store/reducres/Notification/Notification.reducer";
+import { processFileUpload } from "../../utils/uploadFileFolder.utils";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -31,8 +29,8 @@ const ACCEPTED_FILES =
 
 const FileFolderInput = () => {
   const dispatch = useAppDispatch();
-
-  const { processFileUpload, processFolderUpload } = useUpload();
+  const folderIcons = useAppSelector((state) => state.Directory.folderIcons);
+  const fileIcons = useAppSelector((state) => state.Directory.fileIcons);
 
   const openFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const notificationId = uniqueIdGenerator();
@@ -54,6 +52,7 @@ const FileFolderInput = () => {
         files[parseInt(fileKey)],
         tempDirectory,
         tempFilesInformation,
+        fileIcons,
         true,
         "root",
         "root"
@@ -88,54 +87,55 @@ const FileFolderInput = () => {
         type: "info",
       })
     );
-
     let files = e.target.files;
     if (!files) return;
-    const { name: folderName, id: folderId } = findUniqueFileFolderName(
-      files[0].webkitRelativePath.split("/")[0],
-      true,
-      true
+
+    const folderUploadWorker = new Worker(
+      new URL("../../worker/folderUpload.worker", import.meta.url)
     );
-    const newDirectory: IDirectory = {
-      id: folderId,
-      parentId: "root",
-      name: folderName,
-      iconUrls: [],
-      isFolder: true,
-      children: [],
-      path: "root/" + folderId,
+    folderUploadWorker.postMessage({ files, folderIcons, fileIcons });
+
+    folderUploadWorker.onerror = (err) => {
+      console.log(err);
+      e.target.value = "";
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          description: "Something went wrong",
+          isWaitUntilComplete: false,
+          type: "error",
+        })
+      );
+      dispatch(
+        removeNotification({
+          id: notificationId,
+        })
+      );
+      folderUploadWorker.terminate();
     };
 
-    const tempFilesInformation: Array<IFile> = [];
-    for (const fileKey in files) {
-      if (isNaN(parseInt(fileKey))) continue;
-      const currFile = files[parseInt(fileKey)];
-      await processFolderUpload(
-        currFile,
-        newDirectory,
-        tempFilesInformation,
-        "root/" + folderId
+    folderUploadWorker.onmessage = (event) => {
+      const { newDirectory, newFilesInformation } = event.data;
+      sortDirectory(newDirectory);
+      dispatch(addExternalFileOrFolderToDirectory([newDirectory]));
+      dispatch(setFilesInformation(newFilesInformation));
+
+      e.target.value = "";
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          description: "Folder uploaded successfully",
+          isWaitUntilComplete: false,
+          type: "success",
+        })
       );
-    }
-
-    sortDirectory(newDirectory);
-    dispatch(addExternalFileOrFolderToDirectory([newDirectory]));
-    dispatch(setFilesInformation(tempFilesInformation));
-
-    e.target.value = "";
-    dispatch(
-      addNotification({
-        id: uniqueIdGenerator(),
-        description: "Folder uploaded successfully",
-        isWaitUntilComplete: false,
-        type: "success",
-      })
-    );
-    dispatch(
-      removeNotification({
-        id: notificationId,
-      })
-    );
+      dispatch(
+        removeNotification({
+          id: notificationId,
+        })
+      );
+      folderUploadWorker.terminate();
+    };
   };
 
   return (

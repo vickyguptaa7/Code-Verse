@@ -19,7 +19,7 @@ const Footer = () => {
     : "home";
 
   return (
-    <div className="flex items-center justify-between w-full h-[22px] bg-[color:var(--footer-color)] gap-1 border-t border-[color:var(--border-color)]">
+    <div className="flex items-center justify-between w-full h-[22px] bg-[color:var(--footer-color)] gap-1 border-t border-[color:var(--border-color)] overflow-hidden">
       <div className="flex h-full gap-1 left-container ">
         <div
           className="px-2.5 h-full flex items-center justify-center bg-[color:var(--accent-color)] hover:brightness-125"
@@ -41,16 +41,16 @@ const Footer = () => {
         {currentNavFile.id !== "null" && currentNavFile.type === "file" ? (
           <>
             <div
-              className="flex text-[color:var(--highlight-text-color)] text-xs items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-2"
+              className="flex text-[color:var(--highlight-text-color)] text-xs items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-2 whitespace-nowrap"
               title="Spaces"
             >
-              Spaces: {tabSize}
+              {`Spaces: ${tabSize}`}
             </div>
             <div
               className="flex text-[color:var(--highlight-text-color)] text-sm items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-2"
               title="Language"
             >
-              <h3 className="">
+              <h3 className="whitespace-nowrap">
                 {editorLanguage[language]
                   ? editorLanguage[language]
                   : "Plain Text"}
@@ -59,7 +59,7 @@ const Footer = () => {
           </>
         ) : null}
         <div
-          className="flex text-[color:var(--highlight-text-color)] text-xs items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-1"
+          className="flex text-[color:var(--highlight-text-color)] text-xs items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-1 whitespace-nowrap"
           title="Keyboard Layout"
         >
           Layout: U.S.

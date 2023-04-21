@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import IDirectory from "../../../../Interface/directory.interface";
 import { IFile } from "../../../../Interface/file.interface";
-import { iconObject } from "../../../../Interface/iconObject.interface";
+import { IIcon } from "../../../../Interface/Icon.interface";
 import {
   traverseInDirectoryForDelete,
   traverseInDirectoryForRename,
@@ -15,8 +15,8 @@ import {
 
 const directoryInitialState = {
   directories: DUMMY_FILE_DIRECTORY,
-  fileIcons: {} as iconObject,
-  folderIcons: {} as iconObject,
+  fileIcons: {} as IIcon,
+  folderIcons: {} as IIcon,
   filesInformation: DUMMY_FILE_INFORMATION,
   undoRedoHistoryInfo: {} as {
     [key: string]: { stack: Array<string>; pointer: number };
@@ -156,7 +156,7 @@ export const {
   updateFileBody,
   addExternalFileOrFolderToDirectory,
   setFilesInformation,
-  setUndoRedoHistoryInfo
+  setUndoRedoHistoryInfo,
 } = directorySlice.actions;
 
 export default directorySlice.reducer;
