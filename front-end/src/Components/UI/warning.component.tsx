@@ -28,7 +28,7 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
     <div className="fixed z-20 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 md:-translate-y-3/4 left-1/2 top-1/2"
     // avoid event bubbling
     onClick={(event)=>{event.stopPropagation()}}>
-      <div className="flex flex-col gap-4 p-6 bg-[color:var(--dropmenu-bg-color)] rounded-sm md:flex-row text-[color:var(--highlight-text-color)]">
+      <div className="flex flex-col gap-4 p-6 bg-[color:var(--dropmenu-bg-color)] rounded-md md:flex-row text-[color:var(--highlight-text-color)] border border-[color:var(--dropmenu-border-color)]">
         <div className="flex items-center justify-center md:block ">
           <img
             src={vscodeImage}

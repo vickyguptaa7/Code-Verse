@@ -102,7 +102,7 @@ export const useTerminal = () => {
   const addToTerminalContent = (terminalInput: string) => {
     dispatch(
       setTerminalContent(
-        `${terminalContent}${terminalsCurrentDirectoryInfo.name}:user$ ${terminalInput}\n`
+        `${terminalContent}${terminalsCurrentDirectoryInfo.name}:root$ ${terminalInput}\n`
       )
     );
   };

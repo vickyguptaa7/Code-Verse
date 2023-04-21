@@ -28,8 +28,8 @@ const Notification: React.FC<IPROPS> = ({ notification }) => {
     return () => clearTimeout(timerId);
   }, [dispatch, isWaitUntilComplete, id]);
   return (
-    <div className="overflow-hidden hover:brightness-90 w-fit notification">
-      <div className="text-[color:var(--highlight-text-color)] py-3 px-2 shadow-md rouned-sm bg-slate-800 shadow-slate-900 flex text-sm items-center gap-1">
+    <div className="overflow-hidden shadow-sm hover:brightness-110 w-fit notification shadow-[color:var(--hover-text-color)]">
+      <div className="text-[color:var(--highlight-text-color)] py-3 px-2 rouned-sm bg-[color:var(--sidepannel-color)]  flex text-sm items-center gap-1">
         {type === "info" ? (
           <VscInfo className="text-[color:var(--accent-color)] text-2xl" />
         ) : type === "error" ? (

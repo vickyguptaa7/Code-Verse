@@ -31,7 +31,7 @@ const App = () => {
         <Loader type="loading" />
       }
     >
-      <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none font-cascadia">
+      <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none font-cascadia overflow-hidden">
         <Routes>
           <Route path="/" element={<CodeEditor />} />
           <Route path="/login" element={<Login />} />

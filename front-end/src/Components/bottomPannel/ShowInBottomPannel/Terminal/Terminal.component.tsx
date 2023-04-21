@@ -47,8 +47,8 @@ const Terminal: React.FC<IPROPS> = ({ terminalActions }) => {
         {terminalContent}
       </div>
       <div className="flex items-end w-full">
-        <span className="whitespace-no-wrap">
-          {terminalsCurrentDirectoryInfo.name}:user{"$ "}
+        <span className="whitespace-nowrap">
+          {terminalsCurrentDirectoryInfo.name}:root{"$"}&nbsp;
         </span>
         <Input
           id="terminalInput"
