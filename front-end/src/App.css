@@ -1,1 +1,17 @@
-
+.light-mode {
+  --accent-color: hsl(210, 99%, 36%);
+  --primary-text-color: hsl(0, 0%, 55%);
+  --highlight-text-color: hsl(0, 0%, 23%);
+  --tertiary-text-color: hsl(0, 0%, 30%);
+  --hover-text-color: hsl(0, 0%, 89%);
+  --sidepannel-color: hsl(0, 0%, 97%);
+  --bottompannel-color: hsl(0, 0%, 97%);
+  --sidedrawer-color: hsl(0, 0%, 95%);
+  --footer-color: hsl(0, 0%, 97%);
+  --codeeditor-color: hsl(0, 0%, 100%);
+  --border-color: hsl(0, 0%, 87%);
+  --dropmenu-bg-color: hsl(0, 0%, 97%);
+  --dropmenu-border-color: hsl(0, 0%, 81%);
+  --input-border-color: hsl(0, 0%, 81%);
+  --input-bg-color: hsl(0, 0%, 100%);
+}

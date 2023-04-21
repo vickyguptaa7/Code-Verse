@@ -25,7 +25,7 @@ const Footer = () => {
           className="px-2.5 h-full flex items-center justify-center bg-[color:var(--accent-color)] hover:brightness-125"
           title="Remote Window"
         >
-          <VscRemote className="text-[color:var(--highlight-text-color)] text-sm" />
+          <VscRemote className="text-sm text-white" />
         </div>
         <div
           className="flex text-[color:var(--highlight-text-color)] text-sm items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-1"

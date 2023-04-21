@@ -18,7 +18,7 @@ const SourceControl = () => {
           style={{ height: height }}
         >
           <Button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
+            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
             onClick={() => window.open("http://github.com/", "_blank")}
             title="comming soon..."
           >
@@ -31,7 +31,7 @@ const SourceControl = () => {
             </p>
           </div>
           <Button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs"
+            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
             onClick={() => window.open("http://github.com/", "_blank")}
             title="comming soon..."
           >
