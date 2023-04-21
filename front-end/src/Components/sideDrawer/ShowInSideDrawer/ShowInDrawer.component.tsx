@@ -8,6 +8,8 @@ import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
 import ExplorerContainer from "./Explorer/ExplorerContainer.component";
 import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 
+import { motion } from "framer-motion";
+
 const DebugContainer = lazy(() => import("./Debug/debugContainer.component"));
 
 const ExtensionsContainer = lazy(
@@ -49,7 +51,7 @@ const Drawer = () => {
 
   return (
     <>
-      <div
+      <motion.div
         ref={refDrawer}
         className={mergeClass([
           "flex text-white w-52 justify-between bg-[color:var(--sidedrawer-color)]",
@@ -57,6 +59,9 @@ const Drawer = () => {
         ])}
         // -2 for the border added to the side drawer and the side pannel 1px each
         style={{ width: sideDrawerWidth - 2 }}
+        initial={{ x: -10, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: -10, opacity: 0, transition: { duration: 0.15} }}
       >
         <div className="flex flex-col w-full">
           {/* on reset will perform some task when there will be some error so we can reload the page or we can change the state that is causing the error or something else */}
@@ -66,7 +71,7 @@ const Drawer = () => {
             </Suspense>
           </ErrorBoundary>
         </div>
-      </div>
+      </motion.div>
       <div className="touch-none">
         <div
           ref={refResizer}
