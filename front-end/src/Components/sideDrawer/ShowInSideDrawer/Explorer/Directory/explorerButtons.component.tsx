@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Backdrop from "../../../../UI/Backdrop.component";
 import Button from "../../../../UI/Button.component";
 import Warning from "../../../../UI/warning.component";
+import { AnimatePresence } from "framer-motion";
 
 interface IPROPS {
   id?: string;
@@ -74,7 +75,7 @@ const ExplorerButtons: React.FC<IPROPS> = ({
   const deleteFileOrFolder = (event: React.MouseEvent) => {
     event.stopPropagation();
     if (id && id.trim().length)
-      dispatch(deleteFileOrFolderOfDirectory({ id, path  }));
+      dispatch(deleteFileOrFolderOfDirectory({ id, path }));
   };
 
   const deleteHandler = (event: React.MouseEvent) => {
@@ -157,19 +158,21 @@ const ExplorerButtons: React.FC<IPROPS> = ({
 
   return (
     <>
-      {isDeleteWarningOpen ? (
-        <>
-          <Backdrop
-            className="bg-opacity-30"
-            onClick={closeDeleteWarningHandler}
-          />
-          <Warning
-            name={name!}
-            onCancel={closeDeleteWarningHandler}
-            onDelete={deleteFileOrFolder}
-          />
-        </>
-      ) : null}
+      <AnimatePresence>
+        {isDeleteWarningOpen ? (
+          <>
+            <Backdrop
+              className="bg-opacity-30"
+              onClick={closeDeleteWarningHandler}
+            />
+            <Warning
+              name={name!}
+              onCancel={closeDeleteWarningHandler}
+              onDelete={deleteFileOrFolder}
+            />
+          </>
+        ) : null}
+      </AnimatePresence>
       <div className="flex items-center justify-center invisible group-hover:visible text-[color:var(--primary-text-color)]">
         {from === "folder" ? (
           <>

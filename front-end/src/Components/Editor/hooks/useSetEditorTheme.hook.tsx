@@ -16,7 +16,7 @@ const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
             return;
           }
           console.log("editorTheme : ", editorTheme);
-          
+
           const themeDetail = await import(
             `monaco-themes/themes/${themesObject[editorTheme]}.json`
           );
@@ -36,7 +36,7 @@ const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
         console.log("error : ", error);
       }
     }
-  }, [monaco, setIsEditorThemeReady]);
+  }, [monaco, setIsEditorThemeReady, editorTheme]);
 };
 
 export default useSetEditorTheme;

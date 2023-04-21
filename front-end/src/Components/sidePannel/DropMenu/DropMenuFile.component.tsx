@@ -104,7 +104,11 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   };
 
   return (
-    <DropMenu className="w-40 -top-[54px] left-[54px]">
+    <DropMenu
+      className="w-40 -top-[54px] left-[54px]"
+      initialX={-175}
+      initialY={20}
+    >
       <OpenFileFolderDropMenuButtons
         closeDropMenuHandler={closeDropMenuHandler}
       />
@@ -114,7 +118,10 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         onClickHandler={onDownloadAllFileAndFolderHandler}
       />
       {currFile.type === "file" && currFile.id !== "null" && (
-        <DropMenuButton name="Save File" onClickHandler={onDownloadFileHandler} />
+        <DropMenuButton
+          name="Save File"
+          onClickHandler={onDownloadFileHandler}
+        />
       )}
       <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
       <DropMenuButton

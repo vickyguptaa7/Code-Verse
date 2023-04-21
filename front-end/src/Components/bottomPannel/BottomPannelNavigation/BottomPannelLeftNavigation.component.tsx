@@ -6,6 +6,7 @@ import Backdrop from "../../UI/Backdrop.component";
 import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
 import BottomPannelButton from "../bottomPannelButtons.component";
+import { AnimatePresence } from "framer-motion";
 
 type bottomPannelContent = "input" | "output" | "terminal" | "debug";
 
@@ -59,31 +60,42 @@ const BottomPannelLeftNavigation = () => {
           onClickHandler={openDropMenuHandler}
         />
         <div className="relative overflow-visible">
-          {isDropMenuOpen &&
-            dropMenu(showInBottomPannelHandler, closeDropMenuHandler)}
+          <AnimatePresence>
+            {isDropMenuOpen && (
+              <DropMenuBottomLeft
+                showInBottomPannelHandler={showInBottomPannelHandler}
+                closeDropMenuHandler={closeDropMenuHandler}
+              />
+            )}
+          </AnimatePresence>
         </div>
       </ul>
     </>
   );
 };
 
-function dropMenu(
-  showInBottomPannelHandler: React.MouseEventHandler,
-  closeDropMenuHandler: React.MouseEventHandler
-) {
+interface IPROPS_Drop_Menu {
+  showInBottomPannelHandler: React.MouseEventHandler;
+  closeDropMenuHandler: React.MouseEventHandler;
+}
+
+const DropMenuBottomLeft: React.FC<IPROPS_Drop_Menu> = ({
+  showInBottomPannelHandler,
+  closeDropMenuHandler,
+}) => {
   const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     showInBottomPannelHandler(event);
     closeDropMenuHandler(event);
   };
 
   return (
-    <DropMenu className="-left-6 top-4 w-28">
+    <DropMenu className="-left-6 top-4 w-28" initialX={-105} initialY={-10}>
       <DropMenuButton name="Input" onClickHandler={onClickHandler} />
       <DropMenuButton name="Output" onClickHandler={onClickHandler} />
       <DropMenuButton name="Debug" onClickHandler={onClickHandler} />
       <DropMenuButton name="Terminal" onClickHandler={onClickHandler} />
     </DropMenu>
   );
-}
+};
 
 export default BottomPannelLeftNavigation;

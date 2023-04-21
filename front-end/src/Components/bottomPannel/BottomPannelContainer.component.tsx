@@ -4,6 +4,7 @@ import BottomPannelNavigation from "./BottomPannelNavigation/BottomPannelNavigat
 import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.component";
 import useBottomPannelResizing from "./hooks/useBottomPannelResizing.hook";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
+import { motion } from "framer-motion";
 
 const BottomPannelContainer = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);
@@ -21,21 +22,24 @@ const BottomPannelContainer = () => {
   );
 
   return (
-    <div
+    <motion.div
       ref={refBottomPannel}
       className="flex flex-col bg-[color:var(--bottompannel-color)] border-t border-t-[color:var(--border-color)] "
-      style={{ height: bottomPannelHeight }}
+      style={{ height: bottomPannelHeight, originY: 1 }}
+      initial={{ scaleY: 0, opacity: 0 }}
+      animate={{ scaleY: 1, opacity: 1 }}
+      transition={{ duration: 0.3 }}
     >
       <div
         ref={refResizer}
         className={mergeClass([
           "w-full h-1 duration-300 hover:bg-[color:var(--accent-color)] hover:cursor-move touch-none",
-          isBottomPannelResizing && "bg-[color:var(--accent-color)]"
+          isBottomPannelResizing && "bg-[color:var(--accent-color)]",
         ])}
       ></div>
       <BottomPannelNavigation />
       <ShowInBottomPannel />
-    </div>
+    </motion.div>
   );
 };
 

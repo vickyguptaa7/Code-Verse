@@ -15,6 +15,7 @@ import {
   setShowInBottomPannel,
 } from "../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
+import { AnimatePresence } from "framer-motion";
 
 const FileNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -65,12 +66,14 @@ const FileNavigation = () => {
             <VscEllipsis className="text-xl" />
           </Button>
           <div className="relative overflow-visible">
-            {isDropMenuOpen && (
-              <DropMenuFileNavigation
-                isBottomPannelOpen={isBottomPannelOpen}
-                closeDropMenuHandler={closeDropMenuHandler}
-              />
-            )}
+            <AnimatePresence>
+              {isDropMenuOpen && (
+                <DropMenuFileNavigation
+                  isBottomPannelOpen={isBottomPannelOpen}
+                  closeDropMenuHandler={closeDropMenuHandler}
+                />
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -105,7 +108,7 @@ const DropMenuFileNavigation: React.FC<IPROPS_DropMenu> = ({
   };
   // TODO: fix the horizontal scrolling issue of the drop down menu
   return (
-    <DropMenu className="right-2.5 top-5 w-40">
+    <DropMenu className="right-2.5 top-5 w-40" initialX={0} initialY={-5}>
       <DropMenuButton name="Close All" onClickHandler={closeAllFilesHandler} />
       {currentNavFile.id !== "null" && currentNavFile.type === "file" ? (
         <DropMenuButton

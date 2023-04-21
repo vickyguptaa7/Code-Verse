@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppSelector } from "../../Store/store";
 import Drawer from "./ShowInSideDrawer/ShowInDrawer.component";
 import Pannel from "../sidePannel/sidePannel.component";

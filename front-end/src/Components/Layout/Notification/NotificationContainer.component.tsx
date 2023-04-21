@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppSelector } from "../../../Store/store";
 import Notification from "./Notification.component";
+import { AnimatePresence } from "framer-motion";
 
 const NotificationContainer = () => {
   const notifications = useAppSelector(
@@ -8,9 +9,11 @@ const NotificationContainer = () => {
   );
   return (
     <div className="absolute flex flex-col items-end justify-center gap-3 bottom-8 right-4">
-      {notifications.map((notification) => (
-        <Notification key={notification.id} notification={notification} />
-      ))}
+      <AnimatePresence>
+        {notifications.map((notification) => (
+          <Notification key={notification.id} notification={notification} />
+        ))}
+      </AnimatePresence>
     </div>
   );
 };

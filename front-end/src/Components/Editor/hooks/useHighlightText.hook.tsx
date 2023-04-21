@@ -103,7 +103,7 @@ const useHighlightText = () => {
           previousDecorations.current![currFile.id].push(decor);
         }
       },
-    [monaco]
+    [monaco, currFile.id]
   );
   return {
     highlightText,

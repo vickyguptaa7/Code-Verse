@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { useEffect } from "react";
 import { INavFile } from "../../Interface/file.interface";
 import FileCard from "./FileCard";
+import { AnimatePresence } from "framer-motion";
 
 interface IPROPS {
   navFilesList: Array<INavFile>;
@@ -40,7 +41,7 @@ const FileContainer: React.FC<IPROPS> = ({ navFilesList }) => {
     if (filesInformation[currentNavFile.id] === undefined) {
       dispatch(setCurrentNavFile(newNavList[newNavList.length - 1]));
     }
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [filesInformation, dispatch]);
 
   const removeFileHandler = (id: string) => {
@@ -57,7 +58,7 @@ const FileContainer: React.FC<IPROPS> = ({ navFilesList }) => {
 
   return (
     <div className="flex overflow-x-auto file-container hidescrollbar1 hidescrollbar2">
-      {listOfFiles}
+      <AnimatePresence>{listOfFiles}</AnimatePresence>
     </div>
   );
 };

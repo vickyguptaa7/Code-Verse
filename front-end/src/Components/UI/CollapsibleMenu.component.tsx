@@ -8,7 +8,7 @@ interface IPROPS {
   children: React.ReactNode;
   initialState?: boolean;
   sibbling?: React.ReactNode;
-  setIsCollpaisibleHandler?:Function;
+  setIsCollpaisibleHandler?: Function;
 }
 
 const CollapsibleMenu: React.FC<IPROPS> = ({
@@ -18,13 +18,13 @@ const CollapsibleMenu: React.FC<IPROPS> = ({
   sibbling,
   setIsCollpaisibleHandler,
 }) => {
-  const dispatch=useAppDispatch();
+  const dispatch = useAppDispatch();
   const [isCollapsibleMenuOpen, setIsCollapsibleMenuOpen] =
     useState(initialState);
 
   const toggleCollapsibleMenuHandler = () => {
     setIsCollapsibleMenuOpen(!isCollapsibleMenuOpen);
-    if(setIsCollpaisibleHandler)
+    if (setIsCollpaisibleHandler)
       dispatch(setIsCollpaisibleHandler(!isCollapsibleMenuOpen));
   };
 

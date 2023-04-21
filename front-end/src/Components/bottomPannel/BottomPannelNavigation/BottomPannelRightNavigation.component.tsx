@@ -18,7 +18,11 @@ import {
   BOTTOM_PANNEL_MIN_SIZE_PX,
 } from "../BottomPannel.Constant";
 import BottomPannelButton from "../bottomPannelButtons.component";
-import { resetTerminal, setTerminalContent } from "../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
+import {
+  resetTerminal,
+  setTerminalContent,
+} from "../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
+import { AnimatePresence } from "framer-motion";
 
 const BottomPannelRightNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -78,9 +82,13 @@ const BottomPannelRightNavigation = () => {
           onClickHandler={openDropMenuHandler}
         />
         <div className="relative overflow-visible">
-          {isDropMenuOpen ? (
-            <DropMenuBottomPannel closeDropMenuHandler={closeDropMenuHandler} />
-          ) : null}
+          <AnimatePresence>
+            {isDropMenuOpen ? (
+              <DropMenuBottomPannel
+                closeDropMenuHandler={closeDropMenuHandler}
+              />
+            ) : null}
+          </AnimatePresence>
         </div>
         <BottomPannelButton
           Icon={VscChevronUp}
@@ -119,9 +127,9 @@ const DropMenuBottomPannel: React.FC<IPROPS_DROP_MENU> = ({
     dispatch(setShowInBottomPannel("output"));
   };
   console.log(currentNavFile);
-  
+
   return (
-    <DropMenu className="w-40 -right-0 top-8">
+    <DropMenu className="w-40 -right-0 top-8" initialX={-5} initialY={-5}>
       <DropMenuButton name="Clear Output" onClickHandler={clearOutputHandler} />
       <DropMenuButton
         name="Clear Terminal"

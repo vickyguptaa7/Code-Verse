@@ -23,6 +23,8 @@ import PannelButtons from "./pannelButtons.component";
 import FileFolderInput from "./FileFolderInput.component";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
+import { AnimatePresence } from "framer-motion";
+
 type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
 
 const Pannel = () => {
@@ -102,9 +104,11 @@ const Pannel = () => {
             onClickHandler={openDropMenuFileHandler}
           />
           <div className="relative overflow-visible">
-            {isDropMenuFileOpen && (
-              <DropMenuFile closeDropMenuHandler={closeDropMenuFileHandler} />
-            )}
+            <AnimatePresence>
+              {isDropMenuFileOpen && (
+                <DropMenuFile closeDropMenuHandler={closeDropMenuFileHandler} />
+              )}
+            </AnimatePresence>
           </div>
           <PannelButtons
             title="Files Explorer"
@@ -152,11 +156,13 @@ const Pannel = () => {
             onClickHandler={openDropMenuSettingHandler}
           />
           <div className="relative overflow-visible">
-            {isDropMenuSettingOpen && (
-              <DropMenuSetting
-                closeDropMenuHandler={closeDropMenuSettingHandler}
-              />
-            )}
+            <AnimatePresence>
+              {isDropMenuSettingOpen && (
+                <DropMenuSetting
+                  closeDropMenuHandler={closeDropMenuSettingHandler}
+                />
+              )}
+            </AnimatePresence>
           </div>
         </nav>
       </div>

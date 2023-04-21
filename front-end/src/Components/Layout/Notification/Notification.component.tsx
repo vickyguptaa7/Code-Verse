@@ -8,6 +8,8 @@ import { removeNotification } from "../../../Store/reducres/Notification/Notific
 import { useAppDispatch } from "../../../Store/store";
 import { INotification } from "../../../Interface/Notification.interface";
 
+import { motion } from "framer-motion";
+
 interface IPROPS {
   notification: INotification;
 }
@@ -28,7 +30,12 @@ const Notification: React.FC<IPROPS> = ({ notification }) => {
     return () => clearTimeout(timerId);
   }, [dispatch, isWaitUntilComplete, id]);
   return (
-    <div className="overflow-hidden shadow-sm hover:brightness-110 w-fit notification shadow-[color:var(--hover-text-color)]">
+    <motion.div
+      className="overflow-hidden shadow-sm hover:brightness-110 w-fit notification shadow-[color:var(--hover-text-color)]"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ x: 300, transition: { duration: 0.5 } }}
+    >
       <div className="text-[color:var(--highlight-text-color)] py-3 px-2 rouned-sm bg-[color:var(--sidepannel-color)]  flex text-sm items-center gap-1">
         {type === "info" ? (
           <VscInfo className="text-[color:var(--accent-color)] text-2xl" />
@@ -50,7 +57,7 @@ const Notification: React.FC<IPROPS> = ({ notification }) => {
         </div>
       </div>
       {isWaitUntilComplete ? <div className="moving-div"></div> : null}
-    </div>
+    </motion.div>
   );
 };
 

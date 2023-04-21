@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { setCurrentNavFile } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import Button from "../UI/Button.component";
 
+import { motion } from "framer-motion";
+
 // constant
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
@@ -62,13 +64,17 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   };
 
   return (
-    <div
+    <motion.div
       className={mergeClass([
         "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px]  group border-r border-r-[color:var(--border-color)]",
-        activeClassName
+        activeClassName,
       ])}
       id={fileInfo.id}
       onClick={changeCurrentFileInNavigationHandler}
+      style={{ originX: 0 }}
+      initial={{ opacity: 0, scaleX: 0 }}
+      animate={{ opacity: 1, scaleX: 1 }}
+      exit={{ opacity: 0, scaleX: 0 }}
     >
       <div className="flex items-center justify-center w-full h-full language-logo">
         {languageLogo}
@@ -79,7 +85,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
             "pr-3 text-[color:var(--primary-text-color)] text-ellipsis overflow-hidden text-sm",
             isThisActiveNavFile
               ? "text-[color:var(--highlight-text-color)]"
-              : ""
+              : "",
           ])}
         >
           {fileInfo.name}
@@ -88,7 +94,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
       <div
         className={mergeClass([
           "close-logo pt-[2px] text-[color:var(--highlight-text-color)] group-hover:visible",
-          isThisActiveNavFile ? "" : "invisible"
+          isThisActiveNavFile ? "" : "invisible",
         ])}
       >
         <Button
@@ -98,7 +104,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
           <RxCross2 className="text-lg hover:bg-[color:var(--hover-text-color)] rounded-md duration-100 p-[2px] flex" />
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

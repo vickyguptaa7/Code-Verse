@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 import Button from "./Button.component";
 
 import vscodeImage from "../../Assets/images/visual-studio-code-icons/vscode.svg";
+import { motion } from "framer-motion";
 interface IPROPS {
   name: string;
   onCancel: React.MouseEventHandler<HTMLButtonElement>;
@@ -20,15 +21,25 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
   const onCheckHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.stopPropagation();
     console.log(event.currentTarget);
-    
+
     dispatch(setIsDeleteWarningEnable(!isChecked));
   };
 
   const content = (
-    <div className="fixed z-20 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 md:-translate-y-3/4 left-1/2 top-1/2"
-    // avoid event bubbling
-    onClick={(event)=>{event.stopPropagation()}}>
-      <div className="flex flex-col gap-4 p-6 bg-[color:var(--dropmenu-bg-color)] rounded-md md:flex-row text-[color:var(--highlight-text-color)] border border-[color:var(--dropmenu-border-color)]">
+    <div
+      className="fixed z-20 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 md:-translate-y-3/4 left-1/2 top-1/2"
+      // avoid event bubbling
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+    >
+      <motion.div
+        className="flex flex-col gap-4 p-6 bg-[color:var(--dropmenu-bg-color)] rounded-md md:flex-row text-[color:var(--highlight-text-color)] border border-[color:var(--dropmenu-border-color)]"
+        initial={{ scale: 0.3 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.4 }}
+        exit={{ scale: 0, transition: { duration: 0.2 } }}
+      >
         <div className="flex items-center justify-center md:block ">
           <img
             src={vscodeImage}
@@ -61,7 +72,7 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
             <Button
               className={mergeClass([
                 "px-4 rounded-sm border-2 border-[color:var(--accent-color)] bg-[color:var(--accent-color)] text-[color:var(--dropmenu-bg-color)]",
-                "hover:bg-transparent hover:text-[color:var(--accent-color)]"
+                "hover:bg-transparent hover:text-[color:var(--accent-color)]",
               ])}
               onClick={onCancel}
             >
@@ -70,7 +81,7 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
             <Button
               className={mergeClass([
                 "px-4 rounded-sm border-2 text-[color:var(--accent-color)] border-[color:var(--accent-color)] ",
-                "hover:bg-[color:var(--accent-color)] hover:text-[color:var(--dropmenu-bg-color)]"
+                "hover:bg-[color:var(--accent-color)] hover:text-[color:var(--dropmenu-bg-color)]",
               ])}
               onClick={onDelete}
             >
@@ -78,7 +89,7 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
             </Button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
   const warnElement = document.getElementById("warning-hook");
