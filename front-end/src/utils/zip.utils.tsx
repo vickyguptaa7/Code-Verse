@@ -17,15 +17,10 @@ export const addAllFilesAndFolderToZipHelper = async (
         filesInformation
       );
     } else {
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          zip.file(
-            dirPath + "/" + directory.name,
-            new Blob([filesInformation[directory.id].body])
-          );
-          resolve("done");
-        }, 0);
-      });
+      zip.file(
+        dirPath + "/" + directory.name,
+        new Blob([filesInformation[directory.id].body])
+      );
     }
   }
 };

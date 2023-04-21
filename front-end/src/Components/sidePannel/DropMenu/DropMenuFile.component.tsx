@@ -1,4 +1,3 @@
-import JSZip from "jszip";
 import { addFileToNavigation } from "../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import DropMenu from "../../UI/DropMenu.component";
@@ -16,7 +15,6 @@ import {
   removeNotification,
 } from "../../../Store/reducres/Notification/Notification.reducer";
 import { uniqueIdGenerator } from "../../../library/uuid/uuid.lib";
-import { addAllFilesAndFolderToZipHelper } from "../../../utils/zip.utils";
 
 interface IPROPS {
   closeDropMenuHandler: Function;
@@ -32,7 +30,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   );
   const directories = useAppSelector((state) => state.Directory.directories);
 
-  const onSaveFileHandler = () => {
+  const onDownloadFileHandler = () => {
     closeDropMenuHandler();
     const file = new Blob([filesInformation[currFile.id].body]);
     fileDownloader(file, filesInformation[currFile.id].name);
@@ -46,7 +44,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     );
   };
 
-  const onSaveAllFileAndFolderHandler = async () => {
+  const onDownloadAllFileAndFolderHandler = async () => {
     console.log("Save all files and folders");
     closeDropMenuHandler();
     const notificationId = uniqueIdGenerator();
@@ -58,26 +56,12 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         type: "info",
       })
     );
-    try {
-      const zip = new JSZip();
-      await addAllFilesAndFolderToZipHelper(
-        zip,
-        directories,
-        "root",
-        filesInformation
-      );
-      const file = await zip.generateAsync({ type: "blob" });
-      fileDownloader(file, "All File And Folder");
-      dispatch(
-        addNotification({
-          id: uniqueIdGenerator(),
-          description: "All files and folders saved successfully",
-          isWaitUntilComplete: false,
-          type: "success",
-        })
-      );
-      dispatch(removeNotification({ id: notificationId }));
-    } catch (err) {
+    const downloadFileFolderWorker = new Worker(
+      new URL("./../../../worker/downloadFileFolder.worker.ts", import.meta.url)
+    );
+    downloadFileFolderWorker.postMessage({ filesInformation, directories });
+
+    downloadFileFolderWorker.onerror = (err) => {
       console.log(err);
       dispatch(
         addNotification({
@@ -88,7 +72,23 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         })
       );
       dispatch(removeNotification({ id: notificationId }));
-    }
+      downloadFileFolderWorker.terminate();
+    };
+
+    downloadFileFolderWorker.onmessage = (e) => {
+      const { file } = e.data;
+      fileDownloader(file, "All File And Folder");
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          description: "All files and folders saved successfully",
+          isWaitUntilComplete: false,
+          type: "success",
+        })
+      );
+      dispatch(removeNotification({ id: notificationId }));
+      downloadFileFolderWorker.terminate();
+    };
   };
 
   const showInSideDrawerHandler = (view: DrawerContent) => {
@@ -111,10 +111,10 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
       <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
       <DropMenuButton
         name="Save All"
-        onClickHandler={onSaveAllFileAndFolderHandler}
+        onClickHandler={onDownloadAllFileAndFolderHandler}
       />
       {currFile.type === "file" && currFile.id !== "null" && (
-        <DropMenuButton name="Save File" onClickHandler={onSaveFileHandler} />
+        <DropMenuButton name="Save File" onClickHandler={onDownloadFileHandler} />
       )}
       <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
       <DropMenuButton
