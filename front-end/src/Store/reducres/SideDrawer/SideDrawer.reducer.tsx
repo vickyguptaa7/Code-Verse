@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getFromLocalStorage } from "../../../utils/localStorage.utils";
 
 export type DrawerContent = "file" | "search" | "git" | "debug" | "extensions";
 
+let prevPosition = getFromLocalStorage("vscode-sidedrawer-position");
+if (prevPosition !== "left" && prevPosition !== "right") prevPosition = "left";
+
 const sideDrawerInitialState = {
-  isSidePannelPositionOnLeft: true,
+  isSidePannelPositionOnLeft: prevPosition === "left" ? true : false,
   isDrawerOpen: true,
-  isDrawerOpenSideIsLeft: false,
+  isDrawerOpenSideIsLeft: prevPosition === "left" ? false : true,
   sideDrawerWidth: 208, // 13 rem inital width of drawer
   showInSideDrawer: "file" as DrawerContent,
   isDeleteWarningEnable: true,

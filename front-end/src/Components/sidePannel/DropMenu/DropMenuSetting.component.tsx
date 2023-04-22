@@ -14,9 +14,6 @@ interface IPROPS {
 
 export const DropMenuSetting: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   const dispatch = useAppDispatch();
-  const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    closeDropMenuHandler(event);
-  };
 
   const openToWhiteboardHandler = (
     event: React.MouseEvent<HTMLButtonElement>

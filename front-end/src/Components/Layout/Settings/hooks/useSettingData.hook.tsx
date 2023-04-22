@@ -15,6 +15,7 @@ import { useAppSelector } from "../../../../Store/store";
 import { ISettingOption } from "../../../../Interface/settingOption.interface";
 import { Theme } from "../../../../Interface/theme.type";
 import { themesNameArray } from "../../../../Assets/Data/theme.data";
+import { storeToLocalStorage } from "../../../../utils/localStorage.utils";
 
 export const useSettingData = () => {
   const data: Array<ISettingOption> = [
@@ -27,6 +28,7 @@ export const useSettingData = () => {
       initialValue: useAppSelector((state) => state.editor.theme),
       updateInStore: (dispatch: Dispatch<Object>, colorTheme: Theme) => {
         dispatch(setTheme(colorTheme));
+        storeToLocalStorage("vscode-color-theme", colorTheme);
       },
     },
     {
@@ -45,6 +47,7 @@ export const useSettingData = () => {
         sideDrawerPosition: "left" | "right"
       ) => {
         dispatch(setSidePannelPosition(sideDrawerPosition));
+        storeToLocalStorage("vscode-sidedrawer-position", sideDrawerPosition);
       },
     },
     {
@@ -56,6 +59,7 @@ export const useSettingData = () => {
       listOptions: [6, 10, 12, 14, 16, 20, 24, 28, 30, 32, 36, 40],
       updateInStore: (dispatch: Dispatch<Object>, fontSize: number) => {
         dispatch(setFontSize(fontSize));
+        storeToLocalStorage("vscode-font-size", fontSize);
       },
     },
     {
@@ -70,6 +74,7 @@ export const useSettingData = () => {
         wordWrap: "on" | "off" | "wordWrapColumn" | "bounded"
       ) => {
         dispatch(setWordWrap(wordWrap));
+        storeToLocalStorage("vscode-word-wrap", wordWrap);
       },
     },
     {
@@ -85,6 +90,10 @@ export const useSettingData = () => {
         isScrollBeyondLastLine: boolean
       ) => {
         dispatch(setScrollBeyondLastLine(isScrollBeyondLastLine));
+        storeToLocalStorage(
+          "vscode-is-scroll-beyond-last-line",
+          isScrollBeyondLastLine
+        );
       },
     },
     {
@@ -98,6 +107,7 @@ export const useSettingData = () => {
         isMinimapEnabled: boolean
       ) => {
         dispatch(setMinimapEnabled(isMinimapEnabled));
+        storeToLocalStorage("vscode-is-minimap-enabled", isMinimapEnabled);
       },
     },
     {
@@ -109,6 +119,7 @@ export const useSettingData = () => {
       initialValue: useAppSelector((state) => state.editor.tabSize),
       updateInStore: (dispatch: Dispatch<Object>, tabSize: number) => {
         dispatch(setTabSize(tabSize));
+        storeToLocalStorage("vscode-tab-size", tabSize);
       },
     },
     {
@@ -124,6 +135,10 @@ export const useSettingData = () => {
         isDeleteWarningEnable: boolean
       ) => {
         dispatch(setIsDeleteWarningEnable(isDeleteWarningEnable));
+        storeToLocalStorage(
+          "vscode-is-delete-warning-enable",
+          isDeleteWarningEnable
+        );
       },
     },
   ];
