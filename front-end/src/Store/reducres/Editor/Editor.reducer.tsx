@@ -7,7 +7,7 @@ const editorInitialState = {
   wordWrap: "on" as "on" | "off" | "wordWrapColumn" | "bounded",
   isScrollBeyondLastLine: false,
   isMinimapEnabled: true,
-  theme: "vs-dark" as Theme,
+  theme: "dracula" as Theme,
 };
 
 const editorSlice = createSlice({

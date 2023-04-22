@@ -32,7 +32,13 @@ const App = () => {
     };
   }, [dispatch]);
   return (
-    <Suspense fallback={<Loader type="loading" />}>
+    <Suspense
+      fallback={
+        <div className="w-screen h-screen pb-32 bg-[color:var(--codeeditor-color)]">
+          <Loader type="loading" />
+        </div>
+      }
+    >
       <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none font-cascadia overflow-hidden">
         <Routes>
           <Route path="/" element={<CodeEditor />} />

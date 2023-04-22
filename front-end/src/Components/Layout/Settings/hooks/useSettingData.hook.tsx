@@ -1,4 +1,4 @@
-import { Dispatch, useEffect } from "react";
+import { Dispatch } from "react";
 import {
   setFontSize,
   setMinimapEnabled,

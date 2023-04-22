@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useAppSelector } from "../../../Store/store";
 import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
@@ -6,13 +6,10 @@ import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
 import Debug from "./Debug/Debug.component";
 import Input from "./Input/Input.component";
 import Output from "./Output/Output.component";
+import Terminal from "./Terminal/Terminal.component";
 
 import { BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX } from "../BottomPannel.Constant";
 import { useTerminal } from "./Terminal/hook/useTerminal.hook";
-
-const Terminal = lazy(() => import("./Terminal/Terminal.component"));
-
-//constant
 
 const ShowInBottomPannel = () => {
   const bottomPannelHeight = useAppSelector(

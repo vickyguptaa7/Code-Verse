@@ -158,7 +158,7 @@ const Editor: React.FC<IPROPS> = ({
               : "plaintext"
           }
           theme={currEditorTheme}
-          loading={<Loader type="loading" />}
+          loading={<Loader type="editorLoader" />}
           options={{
             wordWrap: wordWrap,
             lineNumbersMinChars: 3, // for the line numbers at the left
@@ -183,7 +183,7 @@ const Editor: React.FC<IPROPS> = ({
           }}
         ></MonacoEditor>
       ) : (
-        <Loader type="loading" />
+        <Loader type="editorLoader" />
       )}
     </div>
   );

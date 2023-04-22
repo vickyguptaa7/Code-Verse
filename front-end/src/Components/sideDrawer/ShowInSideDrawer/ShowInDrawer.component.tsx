@@ -1,6 +1,11 @@
-import React, { lazy, Suspense, useRef, useState } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { useAppSelector } from "../../../Store/store";
 import { ErrorBoundary } from "react-error-boundary";
+
+import DebugContainer from "./Debug/debugContainer.component";
+import ExtensionsContainer from "./Extensions/extensionsContainer.component";
+import SourceControlContainer from "./SourceControl/SourceControlContainer.component";
+import SearchContainer from "./Search/searchContainer.component";
 
 import useSideDrawerResizing from "../hooks/useSideDrawerResizing.hook";
 import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
@@ -10,18 +15,6 @@ import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 
 import { motion } from "framer-motion";
 
-const DebugContainer = lazy(() => import("./Debug/debugContainer.component"));
-
-const ExtensionsContainer = lazy(
-  () => import("./Extensions/extensionsContainer.component")
-);
-
-const SourceControlContainer = lazy(
-  () => import("./SourceControl/SourceControlContainer.component")
-);
-const SearchContainer = lazy(
-  () => import("./Search/searchContainer.component")
-);
 
 const Drawer = () => {
   const refDrawer = useRef<HTMLDivElement>(null);
@@ -61,7 +54,7 @@ const Drawer = () => {
         style={{ width: sideDrawerWidth - 2 }}
         initial={{ x: -10, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -10, opacity: 0, transition: { duration: 0.15} }}
+        exit={{ x: -10, opacity: 0, transition: { duration: 0.15 } }}
       >
         <div className="flex flex-col w-full">
           {/* on reset will perform some task when there will be some error so we can reload the page or we can change the state that is causing the error or something else */}
