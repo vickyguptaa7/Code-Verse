@@ -16,7 +16,7 @@ const SideDrawer = () => {
         "flex h-full bg-[color:var(--sidedrawer-color)]",
         isDrawerOpenSideIsLeft
           ? "flex-row-reverse border-l border-[color:var(--border-color)]"
-          : "border-r border-[color:var(--border-color)]",
+          : "border-r border-r-[color:var(--border-color)]",
       ])}
     >
       <Pannel />
