@@ -5,7 +5,7 @@ const editorInitialState = {
   tabSize: 4,
   fontSize: 16,
   wordWrap: "on" as "on" | "off" | "wordWrapColumn" | "bounded",
-  isScrollBeyondLastLine: true,
+  isScrollBeyondLastLine: false,
   isMinimapEnabled: true,
   theme: "vs-dark" as Theme,
 };

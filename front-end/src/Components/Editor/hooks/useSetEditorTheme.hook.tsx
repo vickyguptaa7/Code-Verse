@@ -30,7 +30,7 @@ const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
 
           setIsEditorThemeReady(true);
         };
-
+        // defining the editor theme
         defineTheme();
       } catch (error) {
         console.log("error : ", error);

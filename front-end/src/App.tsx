@@ -7,15 +7,21 @@ import {
   fetchFileIconsAction,
   fetchFolderIconsAction,
 } from "./Store/actions/icons.action";
-import { useAppDispatch } from "./Store/store";
+import { useAppDispatch, useAppSelector } from "./Store/store";
 import { removeFromLocalStorage } from "./utils/localStorage.utils";
 
 import Loader from "./Components/UI/Loader/Loader.component";
+import { themesNameArray } from "./Assets/Data/theme.data";
 
 const CodeEditor = lazy(() => import("./Pages/CodeEditor.page"));
 
 const App = () => {
   const dispatch = useAppDispatch();
+  const editorTheme = useAppSelector((state) => state.editor.theme);
+  useEffect(() => {
+    document.body.classList.remove(...themesNameArray);
+    document.body.classList.add(editorTheme);
+  }, [editorTheme]);
   useEffect(() => {
     dispatch(fetchExtensionsListAction());
     dispatch(fetchFileIconsAction());
@@ -26,11 +32,7 @@ const App = () => {
     };
   }, [dispatch]);
   return (
-    <Suspense
-      fallback={
-        <Loader type="loading" />
-      }
-    >
+    <Suspense fallback={<Loader type="loading" />}>
       <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none font-cascadia overflow-hidden">
         <Routes>
           <Route path="/" element={<CodeEditor />} />

@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { Dispatch, useEffect } from "react";
 import {
   setFontSize,
   setMinimapEnabled,
@@ -19,15 +19,41 @@ import { themesNameArray } from "../../../../Assets/Data/theme.data";
 export const useSettingData = () => {
   const data: Array<ISettingOption> = [
     {
+      name: "Workbench",
+      type: "Color Theme",
+      inputType: "list",
+      info: "Specifies the color theme used in the workbench.",
+      listOptions: themesNameArray,
+      initialValue: useAppSelector((state) => state.editor.theme),
+      updateInStore: (dispatch: Dispatch<Object>, colorTheme: Theme) => {
+        dispatch(setTheme(colorTheme));
+      },
+    },
+    {
+      name: "Workbench",
+      type: "Side Drawer Position",
+      inputType: "list",
+      info: "Specifies the position of the side drawer.",
+      listOptions: ["left", "right"],
+      initialValue: useAppSelector(
+        (state) => state.sideDrawer.isSidePannelPositionOnLeft
+      )
+        ? "left"
+        : "right",
+      updateInStore: (
+        dispatch: Dispatch<Object>,
+        sideDrawerPosition: "left" | "right"
+      ) => {
+        dispatch(setSidePannelPosition(sideDrawerPosition));
+      },
+    },
+    {
       name: "Editor",
       type: "Font Size",
       inputType: "list",
       info: "Controls the font size in pixels.",
       initialValue: useAppSelector((state) => state.editor.fontSize),
-      listOptions: [
-        6, 10, 12, 14, 16, 20, 24, 28, 30, 32, 36, 40, 48, 52, 56, 60, 64, 72,
-        80, 88, 96, 100,
-      ],
+      listOptions: [6, 10, 12, 14, 16, 20, 24, 28, 30, 32, 36, 40],
       updateInStore: (dispatch: Dispatch<Object>, fontSize: number) => {
         dispatch(setFontSize(fontSize));
       },
@@ -79,40 +105,10 @@ export const useSettingData = () => {
       type: "Tab Size",
       inputType: "list",
       info: "Controls the number of spaces a tab is equal to. This setting is overridden based on the file contents when #editor.detectIndentation# is on.",
-      listOptions: [1, 2, 3, 4, 5, 6, 7, 8],
+      listOptions: [2, 3, 4, 5, 6],
       initialValue: useAppSelector((state) => state.editor.tabSize),
       updateInStore: (dispatch: Dispatch<Object>, tabSize: number) => {
         dispatch(setTabSize(tabSize));
-      },
-    },
-    {
-      name: "Workbench",
-      type: "Color Theme",
-      inputType: "list",
-      info: "Specifies the color theme used in the workbench.",
-      listOptions: themesNameArray,
-      initialValue: useAppSelector((state) => state.editor.theme),
-      updateInStore: (dispatch: Dispatch<Object>, colorTheme: Theme) => {
-        // TODO: Update color theme
-        dispatch(setTheme(colorTheme));
-      },
-    },
-    {
-      name: "Workbench",
-      type: "Side Drawer Position",
-      inputType: "list",
-      info: "Specifies the position of the side drawer.",
-      listOptions: ["left", "right"],
-      initialValue: useAppSelector(
-        (state) => state.sideDrawer.isSidePannelPositionOnLeft
-      )
-        ? "left"
-        : "right",
-      updateInStore: (
-        dispatch: Dispatch<Object>,
-        sideDrawerPosition: "left" | "right"
-      ) => {
-        dispatch(setSidePannelPosition(sideDrawerPosition));
       },
     },
     {
