@@ -46,7 +46,7 @@ const ExtensionCard: React.FC<IPROPS> = ({
       {isRecommended ? (
         <>
           <div className="absolute top-0 left-0 w-0 h-0 border-[color:var(--accent-color)] border-b-[28px] border-l-[28px] border-r-8 border-r-transparent border-b-transparent"></div>
-          <VscStarEmpty className="absolute left-[2px] text-xs top-[2px]" />
+          <VscStarEmpty className="absolute left-[2px] text-xs top-[2px] text-white" />
         </>
       ) : null}
       {isImageVisible ? (
@@ -106,7 +106,7 @@ const ExtensionCard: React.FC<IPROPS> = ({
               <VscSettingsGear className="" />
             </Button>
           ) : (
-            <Button className="bg-[color:var(--accent-color)] text-xs text-[color:var(--highlight-text-color)] px-1  rounded-sm hover:brightness-125">
+            <Button className="bg-[color:var(--accent-color)] text-xs text-white px-1  rounded-sm hover:brightness-125">
               Install
             </Button>
           )}

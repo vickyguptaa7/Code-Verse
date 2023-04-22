@@ -70,7 +70,7 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
               <span className="text-sm">Free</span>
             </div>
             <Button
-              className="bg-[color:var(--accent-color)] w-fit px-4 py-0.5 rounded-sm mt-2.5 hover:brightness-125"
+              className="bg-[color:var(--accent-color)] w-fit px-4 py-0.5 rounded-sm mt-2.5 hover:brightness-125 text-white"
               onClick={() => {
                 window.open(
                   VSCODE_MARKETPLACE_INITIAL_URL + info.extensionUrl,
