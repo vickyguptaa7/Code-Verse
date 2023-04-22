@@ -25,14 +25,14 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
   const dispatch = useAppDispatch();
   const isThisActiveNavFile = currentNavFile.id === fileInfo.id;
   const activeClassName = isThisActiveNavFile
-    ? "bg-[color:var(--codeeditor-color)] border-b-[color:var(--accent-color)] "
+    ? "bg-[color:var(--codeeditor-color)] border-b-[color:var(--primary-color)] "
     : "border-b-[color:var(--sidepannel-color)] ";
 
   let languageLogo: JSX.Element;
 
   if (fileInfo.iconUrls.length === 0)
     languageLogo = (
-      <VscFile className="text-[18px] text-[color:var(--accent-color)] " />
+      <VscFile className="text-[18px] text-[color:var(--primary-color)] " />
     );
   else
     languageLogo = (

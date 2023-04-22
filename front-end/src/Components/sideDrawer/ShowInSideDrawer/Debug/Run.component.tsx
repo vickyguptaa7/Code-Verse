@@ -29,7 +29,7 @@ const Run = () => {
           style={{ height: height }}
         >
           <Button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
+            className="bg-[color:var(--primary-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
             onClick={openDebugerHandler}
             title="comming soon..."
           >
@@ -57,7 +57,7 @@ const Run = () => {
             </h3>
           </div>
           <Button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
+            className="bg-[color:var(--primary-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
             onClick={openDebugerHandler}
             title="comming soon..."
           >
@@ -70,7 +70,7 @@ const Run = () => {
             </p>
           </div>
           <Button
-            className="bg-[color:var(--accent-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
+            className="bg-[color:var(--primary-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
             onClick={openDebugerHandler}
             title="comming soon..."
           >

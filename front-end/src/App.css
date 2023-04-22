@@ -1,5 +1,6 @@
-/* .light-mode {
+.vs {
   --accent-color: hsl(204, 100%, 40%);
+  --primary-color:hsl(204, 100%, 40%);
   --primary-text-color: hsl(0, 0%, 55%);
   --highlight-text-color: hsl(0, 0%, 23%);
   --tertiary-text-color: hsl(0, 0%, 30%);
@@ -14,4 +15,45 @@
   --dropmenu-border-color: hsl(0, 0%, 81%);
   --input-border-color: hsl(0, 0%, 81%);
   --input-bg-color: hsl(0, 0%, 100%);
-} */
+  --notification-bg-color: hsl(0, 0%, 97%);
+}
+
+.vs-dark {
+  --accent-color: hsl(204, 100%, 40%);
+  --primary-color:hsl(204, 100%, 40%);
+  --primary-text-color: hsl(0, 0%, 55%);
+  --highlight-text-color: hsl(0, 0%, 90%);
+  --tertiary-text-color: hsl(0, 0%, 80%);
+  --hover-text-color: hsl(180, 1%, 18%);
+  --sidepannel-color: hsl(0, 0%, 9%);
+  --bottompannel-color: hsl(0, 0%, 9%);
+  --sidedrawer-color: hsl(0, 0%, 9%);
+  --footer-color: hsl(0, 0%, 9%);
+  --codeeditor-color: hsl(0, 0%, 12%);
+  --border-color: hsl(0, 0%, 16%);
+  --dropmenu-bg-color: hsl(0, 0%, 12%);
+  --dropmenu-border-color: hsl(0, 0%, 27%);
+  --input-border-color: hsl(0, 0%, 27%);
+  --input-bg-color: hsl(0, 0%, 16%);
+  --notification-bg-color: hsl(0, 0%, 9%);
+}
+
+.monokai{
+  --accent-color: hsl(204, 100%, 40%);
+  --primary-color:hsl(30, 76%, 38%);
+  --primary-text-color: hsl(0, 0%, 55%);
+  --highlight-text-color: hsl(0, 0%, 90%);
+  --tertiary-text-color: hsl(0, 0%, 80%);
+  --hover-text-color: hsl(96, 5%, 22%);
+  --sidepannel-color: hsl(70, 8%, 14%);
+  --bottompannel-color: hsl(70, 8%, 14%);
+  --sidedrawer-color: hsl(80, 5%, 12%);
+  --footer-color: hsl(70, 8%, 20%);
+  --codeeditor-color: hsl(70, 8%, 17%);
+  --border-color: hsl(50, 13%, 20%);
+  --dropmenu-bg-color: hsl(80, 5%, 12%);
+  --dropmenu-border-color: hsl(0, 0%, 38%);
+  --input-border-color: hsl(50, 13%, 54%);
+  --input-bg-color: hsl(78, 8%, 24%);
+  --notification-bg-color: hsl(70, 8%, 25%);
+}

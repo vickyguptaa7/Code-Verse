@@ -22,7 +22,7 @@ const Footer = () => {
     <div className="flex items-center justify-between w-full h-[22px] bg-[color:var(--footer-color)] gap-1 border-t border-[color:var(--border-color)] overflow-hidden">
       <div className="flex h-full gap-1 left-container ">
         <div
-          className="px-2.5 h-full flex items-center justify-center bg-[color:var(--accent-color)] hover:brightness-125"
+          className="px-2.5 h-full flex items-center justify-center bg-[color:var(--primary-color)] hover:brightness-125"
           title="Remote Window"
         >
           <VscRemote className="text-sm text-white" />

@@ -41,7 +41,7 @@ const SearchExtension = () => {
           onChange={onChangeHandler}
           className={mergeClass([
             "w-full px-2 py-1.5 bg-[color:var(--input-bg-color)] border border-[color:var(--input-border-color)] selection:bg-[color:var(--accent-color)]",
-            isSearchInFocus ? " border-[color:var(--accent-color)]" : ""
+            isSearchInFocus ? " border-[color:var(--primary-color)]" : ""
           ])}
           placeholder="Search Extensions In Marketplace"
         />

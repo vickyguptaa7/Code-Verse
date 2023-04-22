@@ -33,7 +33,7 @@ const Setting: React.FC<IPROPS> = ({ height }) => {
           updateInStoreText={setSearchText}
         />
         <div className="flex mt-6">
-          <h3 className="px-1 pb-1 text-sm border-b-2 border-b-[color:var(--accent-color)]">
+          <h3 className="px-1 pb-1 text-sm border-b-2 border-b-[color:var(--primary-color)]">
             &nbsp;User&nbsp;
           </h3>
         </div>

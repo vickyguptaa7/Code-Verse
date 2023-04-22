@@ -48,7 +48,7 @@ const FileNavigation = () => {
       {isDropMenuOpen && (
         <Backdrop onClick={closeDropMenuHandler} className="bg-transparent" />
       )}
-      <div className="flex justify-between bg-[color:var(--sidepannel-color)] border-b border-[color:var(--border-color)]">
+      <div className="flex justify-between bg-[color:var(--sidedrawer-color)] border-b border-[color:var(--border-color)]">
         <FileContainer navFilesList={navFilesList} />
         <div className="flex items-center justify-center p-2 text-[color:var(--highlight-text-color)]">
           {isCurrentNavFileIsExecutable ? (

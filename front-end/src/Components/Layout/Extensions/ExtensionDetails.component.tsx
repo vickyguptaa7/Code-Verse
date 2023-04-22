@@ -70,7 +70,7 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
               <span className="text-sm">Free</span>
             </div>
             <Button
-              className="bg-[color:var(--accent-color)] w-fit px-4 py-0.5 rounded-sm mt-2.5 hover:brightness-125 text-white"
+              className="bg-[color:var(--primary-color)] w-fit px-4 py-0.5 rounded-sm mt-2.5 hover:brightness-125 text-white"
               onClick={() => {
                 window.open(
                   VSCODE_MARKETPLACE_INITIAL_URL + info.extensionUrl,
@@ -84,7 +84,7 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
         </div>
         <div className="w-full mt-4">
           <div className="flex">
-            <h3 className="px-1 pb-1 text-md text-[color:var(--highlight-text-color)] border-b-2 border-b-[color:var(--accent-color)]">
+            <h3 className="px-1 pb-1 text-md text-[color:var(--highlight-text-color)] border-b-2 border-b-[color:var(--primary-color)]">
               DETAILS
             </h3>
           </div>

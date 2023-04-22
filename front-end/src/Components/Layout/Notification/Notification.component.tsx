@@ -36,13 +36,13 @@ const Notification: React.FC<IPROPS> = ({ notification }) => {
       animate={{ opacity: 1 }}
       exit={{ x: 300, transition: { duration: 0.5 } }}
     >
-      <div className="text-[color:var(--highlight-text-color)] py-3 px-2 rouned-sm bg-[color:var(--sidepannel-color)]  flex text-sm items-center gap-1">
+      <div className="text-[color:var(--highlight-text-color)] py-3 px-2 rouned-sm bg-[color:var(--notification-bg-color)]  flex text-sm items-center gap-1">
         {type === "info" ? (
-          <VscInfo className="text-[color:var(--accent-color)] text-2xl" />
+          <VscInfo className="text-[color:var(--primary-color)] text-2xl" />
         ) : type === "error" ? (
-          <VscWarning className="text-[color:var(--accent-color)] text-xl" />
+          <VscWarning className="text-[color:var(--primary-color)] text-xl" />
         ) : (
-          <IoMdDoneAll className="text-[color:var(--accent-color)] text-2xl p-1 border-[1.5px] rounded-full  border-[color:var(--accent-color)]" />
+          <IoMdDoneAll className="text-[color:var(--primary-color)] text-2xl p-1 border-[1.5px] rounded-full  border-[color:var(--primary-color)]" />
         )}
         <p className="overflow-hidden text-ellipsis whitespace-nowrap">
           {description}

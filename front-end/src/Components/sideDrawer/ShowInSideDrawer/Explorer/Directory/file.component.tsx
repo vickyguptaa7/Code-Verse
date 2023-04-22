@@ -42,7 +42,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
               alt="icon"
             />
           ) : (
-            <VscFile className="text-[color:var(--accent-color)] text-[16px]" />
+            <VscFile className="text-[color:var(--primary-color)] text-[16px]" />
           )}
         </div>
         {isInputInFocus ? (

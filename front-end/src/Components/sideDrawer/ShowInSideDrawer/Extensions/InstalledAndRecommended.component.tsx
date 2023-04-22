@@ -46,7 +46,7 @@ const InstalledAndRecommended = () => {
           </div>
         }
         sibbling={
-          <div className="bg-[color:var(--accent-color)] mr-2 px-1.5 rounded-full flex items-center justify-center text-xs text-white">
+          <div className="bg-[color:var(--primary-color)] mr-2 px-1.5 rounded-full flex items-center justify-center text-xs text-white">
             {INSTALLED_EXTENSIONS.length}
           </div>
         }
@@ -74,7 +74,7 @@ const InstalledAndRecommended = () => {
           </div>
         }
         sibbling={
-          <div className="bg-[color:var(--accent-color)] mr-2 px-1.5 rounded-full flex items-center justify-center text-xs text-white">
+          <div className="bg-[color:var(--primary-color)] mr-2 px-1.5 rounded-full flex items-center justify-center text-xs text-white">
             6
           </div>
         }
