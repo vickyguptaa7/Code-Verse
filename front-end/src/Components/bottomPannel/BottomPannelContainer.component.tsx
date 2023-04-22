@@ -34,7 +34,7 @@ const BottomPannelContainer = () => {
         ref={refResizer}
         className={mergeClass([
           "w-full h-1 duration-300 hover:bg-[color:var(--primary-color)] hover:cursor-move touch-none",
-          isBottomPannelResizing && "bg-[color:var(--accent-color)]",
+          isBottomPannelResizing && "bg-[color:var(--primary-color)]",
         ])}
       ></div>
       <BottomPannelNavigation />

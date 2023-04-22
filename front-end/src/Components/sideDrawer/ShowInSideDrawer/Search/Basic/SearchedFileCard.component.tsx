@@ -26,7 +26,7 @@ const SearchedFileCard: React.FC<IPROPS> = ({
 
   if (iconUrls.length === 0)
     languageLogo = (
-      <VscFile className="text-[18px] text-[color:var(--accent-color)] " />
+      <VscFile className="text-[18px] text-[color:var(--primary-color)] " />
     );
   else
     languageLogo = (

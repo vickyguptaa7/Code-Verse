@@ -112,7 +112,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
       <OpenFileFolderDropMenuButtons
         closeDropMenuHandler={closeDropMenuHandler}
       />
-      <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
+      <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--dropmenu-border-color)] my-1"></div>
       <DropMenuButton
         name="Save All"
         onClickHandler={onDownloadAllFileAndFolderHandler}
@@ -123,7 +123,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
           onClickHandler={onDownloadFileHandler}
         />
       )}
-      <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
+      <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--dropmenu-border-color)] my-1"></div>
       <DropMenuButton
         name="Explorer"
         onClickHandler={() => showInSideDrawerHandler("file")}
@@ -144,7 +144,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
         name="Extensions"
         onClickHandler={() => showInSideDrawerHandler("extensions")}
       />
-      <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--primary-text-color)] my-1"></div>
+      <div className="w-4/5 mx-auto h-[0.5px] bg-[color:var(--dropmenu-border-color)] my-1"></div>
       <DropMenuButton name="Welcome" onClickHandler={welcomeHandler} />
     </DropMenu>
   );

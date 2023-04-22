@@ -1,6 +1,6 @@
 .vs {
   --accent-color: hsl(204, 100%, 40%);
-  --primary-color:hsl(204, 100%, 40%);
+  --primary-color: hsl(204, 100%, 40%);
   --primary-text-color: hsl(0, 0%, 55%);
   --highlight-text-color: hsl(0, 0%, 23%);
   --tertiary-text-color: hsl(0, 0%, 30%);
@@ -20,7 +20,7 @@
 
 .vs-dark {
   --accent-color: hsl(204, 100%, 40%);
-  --primary-color:hsl(204, 100%, 40%);
+  --primary-color: hsl(204, 100%, 40%);
   --primary-text-color: hsl(0, 0%, 55%);
   --highlight-text-color: hsl(0, 0%, 90%);
   --tertiary-text-color: hsl(0, 0%, 80%);
@@ -38,9 +38,9 @@
   --notification-bg-color: hsl(0, 0%, 9%);
 }
 
-.monokai{
+.monokai {
   --accent-color: hsl(204, 100%, 40%);
-  --primary-color:hsl(30, 76%, 38%);
+  --primary-color: hsl(30, 76%, 38%);
   --primary-text-color: hsl(0, 0%, 55%);
   --highlight-text-color: hsl(0, 0%, 90%);
   --tertiary-text-color: hsl(0, 0%, 80%);
@@ -57,3 +57,46 @@
   --input-bg-color: hsl(78, 8%, 24%);
   --notification-bg-color: hsl(70, 8%, 25%);
 }
+
+.night-owl {
+  --accent-color: hsl(204, 100%, 40%);
+  --primary-color: hsl(209, 22%, 35%);
+  --primary-text-color: hsl(209, 22%, 35%);
+  --highlight-text-color: hsl(209, 22%, 80%);
+  --tertiary-text-color: hsl(209, 22%, 70%);
+  --hover-text-color: hsl(207, 32%, 17%);
+  --sidepannel-color: hsl(205, 95%, 5%);
+  --bottompannel-color: hsl(205, 95%, 5%);
+  --sidedrawer-color: hsl(205, 95%, 6%);
+  --footer-color: hsl(205, 95%,4%);
+  --codeeditor-color: hsl(205, 95%, 8%);
+  --border-color: hsl(205, 95%, 8%);
+  --dropmenu-bg-color: hsl(205, 95%, 5%);
+  --dropmenu-border-color: hsl(207, 32%, 20%);
+  --input-border-color: hsl(206, 23%, 48%);
+  --input-bg-color: hsl(209, 66%, 14%);
+  --notification-bg-color: hsl(205, 95%,3%);
+}
+
+.dracula {
+  --accent-color: hsl(204, 100%, 40%);
+  --primary-color: hsl(326, 79%, 66%);
+  --primary-text-color: hsl(209, 22%, 35%);
+  --highlight-text-color: hsl(209, 22%, 80%);
+  --tertiary-text-color: hsl(209, 22%, 70%);
+  --hover-text-color: hsl(225, 31%, 15%);
+  --sidepannel-color: hsl(225, 31%, 5%);
+  --bottompannel-color: hsl(225, 31%, 5%);
+  --sidedrawer-color: hsl(225, 31%, 6%);
+  --footer-color: hsl(225, 31%, 5%);
+  --codeeditor-color: hsl(228, 16%, 12%);
+  --border-color: hsl(225, 31%, 10%);
+  --dropmenu-bg-color: hsl(225, 31%, 4%);
+  --dropmenu-border-color: hsl(225, 31%, 15%);
+  --input-border-color: hsl(229, 18%, 20%);
+  --input-bg-color: hsl(225, 31%, 10%);
+  --notification-bg-color: hsl(205, 95%,3%);
+}
+
+
+
