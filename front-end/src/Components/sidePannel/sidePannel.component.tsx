@@ -24,12 +24,15 @@ import FileFolderInput from "./FileFolderInput.component";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 import { AnimatePresence } from "framer-motion";
+import DeveloperInfo from "../UI/DeveloperInfo.component";
 
 type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
 
 const Pannel = () => {
   const [isDropMenuSettingOpen, setIsDropMenuSettingOpen] = useState(false);
   const [isDropMenuFileOpen, setIsDropMenuFileOpen] = useState(false);
+  const [isDeveloperInfoOpen, setIsDeveloperInfoOpen] = useState(false);
+
   const dispatch = useAppDispatch();
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
@@ -71,6 +74,12 @@ const Pannel = () => {
   const openDropMenuFileHandler = () => {
     setIsDropMenuFileOpen(true);
   };
+  const openDeveloperInfoHandler = () => {
+    setIsDeveloperInfoOpen(true);
+  };
+  const closeDeveloperInfoHandler = () => {
+    setIsDeveloperInfoOpen(false);
+  };
 
   return (
     <>
@@ -84,6 +93,12 @@ const Pannel = () => {
         <Backdrop
           onClick={closeDropMenuFileHandler}
           className="bg-transparent"
+        />
+      )}
+      {isDeveloperInfoOpen && (
+        <Backdrop
+          onClick={closeDeveloperInfoHandler}
+          className="bg-opacity-10"
         />
       )}
       <FileFolderInput />
@@ -146,7 +161,7 @@ const Pannel = () => {
             title="Accounts"
             Icon={VscAccount}
             buttonName="accounts"
-            onClickHandler={() => {}}
+            onClickHandler={openDeveloperInfoHandler}
           />
           <PannelButtons
             title="Settings"
@@ -157,6 +172,7 @@ const Pannel = () => {
           />
           <div className="relative overflow-visible">
             <AnimatePresence>
+              {isDeveloperInfoOpen && <DeveloperInfo />}
               {isDropMenuSettingOpen && (
                 <DropMenuSetting
                   closeDropMenuHandler={closeDropMenuSettingHandler}

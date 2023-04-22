@@ -17,7 +17,6 @@ export const DropMenuSetting: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     closeDropMenuHandler(event);
   };
-  // TODO: Add the functionality of each buttons
 
   const openToWhiteboardHandler = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -40,7 +39,7 @@ export const DropMenuSetting: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     <DropMenu className="w-36 bottom-3.5 left-[54px]" initialX={-155} initialY={100}>
       <DropMenuButton name="Settings" onClickHandler={openSettingHandler} />
       <DropMenuButton name="Extensions" onClickHandler={openExtensionHandler} />
-      <DropMenuButton name="Themes" onClickHandler={onClickHandler} />
+      <DropMenuButton name="Themes" onClickHandler={openSettingHandler} />
       <DropMenuButton
         name="White Board"
         onClickHandler={openToWhiteboardHandler}
