@@ -7,6 +7,8 @@ import github from "../../Assets/images/social/github.svg";
 import leetcode from "../../Assets/images/social/leetcode.svg";
 import codeforces from "../../Assets/images/social/codeforces.svg";
 import linkedin from "../../Assets/images/social/linkedin.svg";
+import developer from "../../Assets/images/social/dev.webp";
+
 import Button from "./Button.component";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { useAppSelector } from "../../Store/store";
@@ -47,7 +49,7 @@ const DeveloperInfo = () => {
       <div className="bg-[color:var(--primary-color)] h-20 w-full"></div>
       <div className="absolute flex items-center justify-around w-full top-4 ">
         <img
-          src="https://img.etimg.com/thumb/msid-84146056,width-1200,height-900,imgsize-638053,resizemode-8/20210706_developer-economy_01.jpg"
+          src={developer}
           className="h-24 rounded-full aspect-square border-[5px] border-[color:var(--primary-color)]"
           alt=""
         />

@@ -4,7 +4,6 @@ import {
   setShowInSideDrawer,
 } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
-import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
 import { whiteBoardUrl } from "../SidePannel.constants";

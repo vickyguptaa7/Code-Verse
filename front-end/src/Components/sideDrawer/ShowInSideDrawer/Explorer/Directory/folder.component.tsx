@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaFolder, FaFolderOpen } from "react-icons/fa";
 import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import { useAppSelector } from "../../../../../Store/store";
+import Image from "../../../../UI/Image.component";
 
 interface IPROPS {
   folderInfo: IDirectory;
@@ -54,17 +55,18 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
         <div className="flex justify-between w-full gap-3 ">
           <div className="flex items-center gap-1.5 w-full">
             <div className="min-w-[18px] max-w-[18px]">
-              {folderInfo.iconUrls.length ? (
-                <img
-                  src={folderInfo.iconUrls[isFolderOpen ? 1 : 0]}
-                  className="object-contain"
-                  alt="icon"
-                />
-              ) : isFolderOpen ? (
-                <FaFolderOpen className="text-[15px]" />
-              ) : (
-                <FaFolder className="text-[15px]" />
-              )}
+              <Image
+                fallback={
+                  isFolderOpen ? (
+                    <FaFolderOpen className="text-[15px]" />
+                  ) : (
+                    <FaFolder className="text-[15px]" />
+                  )
+                }
+                src={folderInfo.iconUrls[isFolderOpen ? 1 : 0]}
+                className="object-contain"
+                alt="icon"
+              />
             </div>
             <div className="flex items-center w-full">
               {isInputInFocus ? (

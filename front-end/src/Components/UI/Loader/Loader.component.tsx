@@ -1,5 +1,5 @@
 import React from "react";
-import vscodeImg from "./../../../Assets/images/visual-studio-code-icons/vscode.svg";
+import vscodeImg from "./../../../Assets/images/vsc/vscode.svg";
 import "./Loader.styles.css";
 interface IPROPS {
   type: "spinner" | "loading" | "editorLoader";

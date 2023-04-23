@@ -6,6 +6,7 @@ import { VscFile } from "react-icons/vsc";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
+import Image from "../../../../UI/Image.component";
 
 interface IPROPS {
   fileInfo: IDirectory;
@@ -35,15 +36,14 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
     >
       <div className="flex items-center justify-center w-full gap-1">
         <div className="max-w-[18px] min-w-[18px]">
-          {fileInfo.iconUrls.length ? (
-            <img
-              src={fileInfo.iconUrls[0]}
-              className="object-contain"
-              alt="icon"
-            />
-          ) : (
-            <VscFile className="text-[color:var(--primary-color)] text-[16px]" />
-          )}
+          <Image
+            fallback={
+              <VscFile className="text-[color:var(--primary-color)] text-[16px]" />
+            }
+            src={fileInfo.iconUrls[0]}
+            className="object-contain"
+            alt="icon"
+          />
         </div>
         {isInputInFocus ? (
           <RenameInput
@@ -54,13 +54,11 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
             setIsInputInFocus={setIsInputInFocus}
           />
         ) : (
-          <h3 className=" p-0.5 border border-transparent cursor-pointer select-none overflow-hidden text-ellipsis selection:bg-transparent"
-          style={{
-            width: Math.max(
-              sideDrawerWidth - shiftAmount - 26 - 95,
-              40
-            ),
-          }}
+          <h3
+            className=" p-0.5 border border-transparent cursor-pointer select-none overflow-hidden text-ellipsis selection:bg-transparent"
+            style={{
+              width: Math.max(sideDrawerWidth - shiftAmount - 26 - 95, 40),
+            }}
           >
             {fileInfo.name}
           </h3>

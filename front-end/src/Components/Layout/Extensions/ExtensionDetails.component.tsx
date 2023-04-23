@@ -4,6 +4,10 @@ import { VscCloudDownload, VscStarFull } from "react-icons/vsc";
 import { IExtensionInfo } from "../../../Interface/Extension.interface";
 import { useAppSelector } from "../../../Store/store";
 import Button from "../../UI/Button.component";
+import Image from "../../UI/Image.component";
+
+import defaultIcon from "../../../Assets/images/Extension/defaultIcon.png";
+
 interface IPROPS {
   height: number;
 }
@@ -26,7 +30,8 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
         <div className="h-6"></div>
         <div className="flex flex-col items-center justify-center gap-2">
           <div className="min-w-[160px] max-w-[160px] aspect-square flex items-center justify-center">
-            <img
+            <Image
+              fallback={<img src={defaultIcon} alt="" />}
               src={info.imageUrl.replace("Small", "Default")}
               alt={info.extensionName}
             />

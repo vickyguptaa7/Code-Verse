@@ -14,6 +14,9 @@ import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Button from "../../../../UI/Button.component";
 import { MIN_DRAWER_SIZE_PX } from "../../../sideDrawer.Constant";
 import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
+import Image from "../../../../UI/Image.component";
+
+import defaultIcon from "../../../../../Assets/images/Extension/defaultIcon.png";
 
 interface IPROPS {
   info: IExtensionInfo;
@@ -51,7 +54,14 @@ const ExtensionCard: React.FC<IPROPS> = ({
       ) : null}
       {isImageVisible ? (
         <div className="min-w-[3.5rem] max-w-[3.5rem]">
-          <img
+          <Image
+            fallback={
+              <img
+                className="object-contain h-14 aspect-square"
+                src={defaultIcon}
+                alt=""
+              />
+            }
             src={info.imageUrl}
             className="object-contain h-14 aspect-square"
             alt={info.extensionName}

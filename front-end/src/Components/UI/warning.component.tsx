@@ -5,7 +5,7 @@ import { setIsDeleteWarningEnable } from "../../Store/reducres/SideDrawer/SideDr
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import Button from "./Button.component";
 
-import vscodeImage from "../../Assets/images/visual-studio-code-icons/vscode.svg";
+import vscodeImage from "../../Assets/images/vsc/vscode.svg";
 import { motion } from "framer-motion";
 interface IPROPS {
   name: string;

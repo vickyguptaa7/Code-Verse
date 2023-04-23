@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 
 // constant
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
+import Image from "../UI/Image.component";
 
 interface IPROPS {
   fileInfo: IFile;
@@ -28,18 +29,18 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
     ? "bg-[color:var(--codeeditor-color)] border-b-[color:var(--primary-color)] "
     : "border-b-[color:var(--sidepannel-color)] ";
 
-  let languageLogo: JSX.Element;
-
-  if (fileInfo.iconUrls.length === 0)
-    languageLogo = (
-      <VscFile className="text-[18px] text-[color:var(--primary-color)] " />
-    );
-  else
-    languageLogo = (
-      <div className="max-w-[20px] min-w-[20px]">
-        <img src={fileInfo.iconUrls[0]} className="object-contain" alt="icon" />
-      </div>
-    );
+  let languageLogo = (
+    <div className="max-w-[20px] min-w-[20px]">
+      <Image
+        fallback={
+          <VscFile className="text-[18px] text-[color:var(--primary-color)] " />
+        }
+        src={fileInfo.iconUrls[0]}
+        className="object-contain"
+        alt="icon"
+      />
+    </div>
+  );
 
   const removeHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();

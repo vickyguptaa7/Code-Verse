@@ -1,6 +1,6 @@
 import IDirectory from "../../Interface/directory.interface";
 import { IFilesInforation } from "../../Interface/file.interface";
-import vscodeImage from "../../Assets/images/visual-studio-code-icons/vscode.svg";
+import vscodeImage from "../../Assets/images/vsc/vscode.svg";
 
 let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
   // {

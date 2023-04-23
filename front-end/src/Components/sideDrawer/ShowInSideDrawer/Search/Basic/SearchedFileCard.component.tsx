@@ -4,6 +4,7 @@ import { VscFile, VscReplace } from "react-icons/vsc";
 import { useAppSelector } from "../../../../../Store/store";
 import Button from "../../../../UI/Button.component";
 import useSearch from "../hooks/useSearch.hook";
+import Image from "../../../../UI/Image.component";
 
 interface IPROPS {
   id: string;
@@ -22,18 +23,18 @@ const SearchedFileCard: React.FC<IPROPS> = ({
 }) => {
   const isReplaceOpen = useAppSelector((state) => state.search.isReplaceOpen);
   const { replaceTextInFiles } = useSearch();
-  let languageLogo: JSX.Element;
-
-  if (iconUrls.length === 0)
-    languageLogo = (
-      <VscFile className="text-[18px] text-[color:var(--primary-color)] " />
-    );
-  else
-    languageLogo = (
-      <div className="max-w-[20px] min-w-[20px]">
-        <img src={iconUrls[0]} className="object-contain" alt="icon" />
-      </div>
-    );
+  let languageLogo = (
+    <div className="max-w-[20px] min-w-[20px]">
+      <Image
+        fallback={
+          <VscFile className="text-[18px] text-[color:var(--primary-color)] " />
+        }
+        src={iconUrls[0]}
+        className="object-contain"
+        alt="icon"
+      />
+    </div>
+  );
 
   return (
     <div
