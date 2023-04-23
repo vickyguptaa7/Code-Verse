@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
-import IDirectory from "../../../../../Interface/directory.interface";
-import ExplorerButtons from "./explorerButtons.component";
-import RenameInput from "./renameInput.component";
 import { VscFile } from "react-icons/vsc";
-import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
+import IDirectory from "../../../../../Interface/directory.interface";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
+import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
 import Image from "../../../../UI/Image.component";
+import ExplorerButtons from "./explorerButtons.component";
+import RenameInput from "./renameInput.component";
 
 interface IPROPS {
   fileInfo: IDirectory;
@@ -15,14 +15,16 @@ interface IPROPS {
 const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
+  
   const dispatch = useAppDispatch();
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
+  
   const addToFileNavigationHandler = (event: React.MouseEvent) => {
     if (isInputInFocus) return;
     dispatch(addFileToNavigation({ id: fileInfo.id, type: "file" }));
-    // first the element should be added to the navigation asynchronously and then we scroll to that locationß
+    // first the element should be added to the navigation asynchronously and then we scroll to that location
     scrollToTarget(fileInfo.id);
   };
 

@@ -1,4 +1,3 @@
-import React from "react";
 import SourceControl from "./SourceControl.component";
 
 const SourceControlContainer = () => {

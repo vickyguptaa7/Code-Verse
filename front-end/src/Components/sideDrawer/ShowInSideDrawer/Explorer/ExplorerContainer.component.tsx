@@ -1,7 +1,6 @@
-import ExplorerFolder from "./explorerFolder.component";
-
-import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
+import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
+import ExplorerFolder from "./explorerFolder.component";
 
 const Explorer = () => {
   return (

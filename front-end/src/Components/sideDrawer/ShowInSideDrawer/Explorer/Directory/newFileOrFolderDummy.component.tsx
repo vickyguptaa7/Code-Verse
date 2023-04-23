@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { FaFolder } from "react-icons/fa";
 import { VscChevronRight, VscFile } from "react-icons/vsc";
-
-import useDirectory from "../../../../../hooks/useDirectory.hook";
-import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
+import { addFileOrFolderToDirectory } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
-
-import Input from "../../../../UI/Input.component";
-import { uniqueIdGenerator } from "../../../../../library/uuid/uuid.lib";
+import useDirectory from "../../../../../hooks/useDirectory.hook";
 import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
+import { uniqueIdGenerator } from "../../../../../library/uuid/uuid.lib";
+import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
   isFileOrFolder: "file" | "folder" | "none";
@@ -39,14 +37,15 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
     (state) => state.Directory.infoOfCurrentWorkingFileOrFolder
   );
 
+  // if user tries to add file or folder again then we need to remove the previous one
   useEffect(() => {
     if (!infoOfCurrentWorkingFileOrFolder.isActive) return;
     if (
       infoOfCurrentWorkingFileOrFolder.operation !== "add" ||
       infoOfCurrentWorkingFileOrFolder.id !== parentId
     ) {
-      // user tries to add another file or folder so we need to remove the previous one
-      console.log("collision");
+      // collision so we set the isFileOrFolder to none
+      // more than one file or folder is not allowed to add  at same time in multiple destination
       setIsFileOrFolder("none");
     }
   }, [infoOfCurrentWorkingFileOrFolder, parentId, setIsFileOrFolder]);
@@ -58,9 +57,13 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
     setIsExistAlready(false);
   };
 
+  /*
+   if user creating new file or folder and then suddenly click on other file or folder 
+   then we need to add if the name is unqiue or show warning that file or folder already exists 
+   or if input is empty then we remove the new file or folder dummy
+  */
   const inputBlurHandler = () => {
     // Check if we have changed our state from the file to folder adding then sudden change will flicker ui so we used the setTimout to avoid the file or folder adding in same destination does not flicker ui so we clear time out if its in same destination
-
     const timerId = setTimeout(() => {
       if (!childName.trim().length) {
         setIsFileOrFolder("none");
@@ -75,6 +78,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
       // Added timeout so that there is setFileOrFolder will update and the dummyfileorfolder get removed first and then our new folder or file gets added to directory
       // if its not done then it will add file or folder to directory first and then dummyfileorfolder gets removed so there is wierd ui change
       const newId = uniqueIdGenerator();
+      
       setTimeout(() => {
         dispatch(
           addFileOrFolderToDirectory({
@@ -89,8 +93,10 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
           dispatch(addFileToNavigation({ id: newId, type: "file" }));
         }
       }, 20);
+      
       setIsExistAlready(false);
     }, 160);
+    
     if (setNewFileOrFolderDummyTimerId)
       setNewFileOrFolderDummyTimerId({
         isTimer: true,
@@ -98,8 +104,16 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
       });
   };
 
+  /*
+   when user press enter then we need to add the file or folder to directory 
+    and if the name is not unique then we show warning that file or folder already exists
+    if name is empty we need to show we must provide name for file or folder
+    if name is unique we add the file or folder to directory
+  */
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
+
+      // check if file or folder is already exists or not
       if (
         isFileOrFolderAlreadyExists(directories, path, childName) ||
         !childName.trim().length
@@ -108,6 +122,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         setIsExistAlready(true);
         return;
       }
+      
       setIsFileOrFolder("none");
       // Added timeout so that there is setFileOrFolder will update and the dummyfileorfolder get removed first and then our new folder or file gets added to directory
       // if its not done then it will add file or folder to directory first and then dummyfileorfolder gets removed so there is wierd ui change
@@ -130,6 +145,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
     }
   };
 
+  // if isFileOrFolder is none then we dont need to show the dummy file or folder
   if (isFileOrFolder === "none") return <></>;
 
   return (

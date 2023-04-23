@@ -7,14 +7,14 @@ import {
   VscStarFull,
 } from "react-icons/vsc";
 import { IExtensionInfo } from "../../../../../Interface/Extension.interface";
-import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { updateFileBody } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
-import Button from "../../../../UI/Button.component";
-import { MIN_DRAWER_SIZE_PX } from "../../../sideDrawer.Constant";
+import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
+import Button from "../../../../UI/Button.component";
 import Image from "../../../../UI/Image.component";
+import { MIN_DRAWER_SIZE_PX } from "../../../sideDrawer.Constant";
 
 import defaultIcon from "../../../../../Assets/images/Extension/defaultIcon.png";
 
@@ -29,18 +29,24 @@ const ExtensionCard: React.FC<IPROPS> = ({
   isInstalled = true,
   isRecommended = false,
 }) => {
+  const dispatch = useAppDispatch();
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
-  const dispatch = useAppDispatch();
+
   const isVerified = info.verified.length !== 0;
   const ratingsStar = info.ratings.split(" ")[2];
   const isImageVisible = Math.abs(MIN_DRAWER_SIZE_PX - sideDrawerWidth) > 30;
+
+  // this function will add the extension to the navigation and scroll to the extension in navigation
   const addExtensionToNavigation = () => {
+    // we need to update the filesInformation in the store so that the extension information is available Of the selected extension
     dispatch(updateFileBody([{ id: "extension", body: JSON.stringify(info) }]));
     dispatch(addFileToNavigation({ id: "extension", type: "extension" }));
+    // we need to scroll to the extension in the navigation
     scrollToTarget("extension");
   };
+  
   return (
     <div
       className="cursor-pointer relative flex gap-2 hover:bg-[color:var(--hover-text-color)] px-4 py-3 w-full"

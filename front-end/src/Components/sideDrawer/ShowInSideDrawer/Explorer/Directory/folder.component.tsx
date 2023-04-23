@@ -1,16 +1,14 @@
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useRef, useState } from "react";
+import { FaFolder, FaFolderOpen } from "react-icons/fa";
 import { VscChevronRight } from "react-icons/vsc";
-
 import IDirectory from "../../../../../Interface/directory.interface";
-import RenameInput from "./renameInput.component";
+import { useAppSelector } from "../../../../../Store/store";
+import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
+import Image from "../../../../UI/Image.component";
 import ExplorerButtons from "./explorerButtons.component";
 import NewFileOrFolderDummy from "./newFileOrFolderDummy.component";
-
-import { motion, AnimatePresence } from "framer-motion";
-import { FaFolder, FaFolderOpen } from "react-icons/fa";
-import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
-import { useAppSelector } from "../../../../../Store/store";
-import Image from "../../../../UI/Image.component";
+import RenameInput from "./renameInput.component";
 
 interface IPROPS {
   folderInfo: IDirectory;
@@ -25,9 +23,11 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
   const [isFileOrFolder, setIsFileOrFolder] = useState<
     "file" | "folder" | "none"
   >("none");
+
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
+
   const [newFileOrFolderDummyTimerId, setNewFileOrFolderDummyTimerId] =
     useState<{
       isTimer: boolean;
@@ -35,7 +35,6 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
     }>({ isTimer: false, id: null });
 
   const toggleChildrenVisibilityHandler = () => {
-    console.log("hide/show children visibility");
     setIsFolderOpen((state) => !state);
   };
 

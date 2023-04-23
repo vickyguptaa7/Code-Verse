@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import { VscClose, VscEdit, VscNewFile, VscNewFolder } from "react-icons/vsc";
 import {
@@ -8,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import Backdrop from "../../../../UI/Backdrop.component";
 import Button from "../../../../UI/Button.component";
 import Warning from "../../../../UI/warning.component";
-import { AnimatePresence } from "framer-motion";
 
 interface IPROPS {
   id?: string;
@@ -51,9 +51,11 @@ const ExplorerButtons: React.FC<IPROPS> = ({
     (state) => state.sideDrawer.isDeleteWarningEnable
   );
 
+  // rename handler for the file or folder
   const renameHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsInputInFocus(true);
+    // set the current working file or folder info to the store to avoid the parallel renaming of the file or folder
     dispatch(
       setInfoOfCurrentWorkingFileOrFolder({
         isActive: true,
@@ -61,34 +63,38 @@ const ExplorerButtons: React.FC<IPROPS> = ({
         operation: "rename",
       })
     );
-    console.log("rename");
   };
 
+  // close the delete warning dialog box
   const closeDeleteWarningHandler = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
-    console.log(event.currentTarget, "close");
     event.stopPropagation();
     setIsDeleteWarningOpen(false);
   };
 
+  // delete the file or folder
   const deleteFileOrFolder = (event: React.MouseEvent) => {
     event.stopPropagation();
     if (id && id.trim().length)
       dispatch(deleteFileOrFolderOfDirectory({ id, path }));
   };
 
+  // delete handler for wheter to show the delete warning dialog box or delete the file or folder
   const deleteHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     if (isDeleteWarningEnable) {
       setIsDeleteWarningOpen(true);
-    } else deleteFileOrFolder(event);
+      return;
+    }
+    deleteFileOrFolder(event);
   };
 
+  // add folder to folder or the root
   function addFolderHandler(event: React.MouseEvent) {
     event.stopPropagation();
 
-    // folder to expand
+    // folder to expand if the folder is closed
     if (setIsFolderOpen) setIsFolderOpen(true);
 
     if (setIsFileOrFolder) {

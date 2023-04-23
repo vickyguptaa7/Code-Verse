@@ -1,26 +1,31 @@
-import { useAppDispatch } from "../../../../Store/store";
+import { CODE_EDITOR_MIN_HEIGHT } from "../../../../Pages/CodeEditor.page";
 import {
   setIsBottomPannelOpen,
   setShowInBottomPannel,
 } from "../../../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import { useAppDispatch } from "../../../../Store/store";
 import Button from "../../../UI/Button.component";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 
-const EDITOR_MIN_HEIGHT = 480;
 const VCSCODE_DEBUG_URL = "https://code.visualstudio.com/docs/editor/debugging";
+// height adjustment is used to adjust the height of the run and debug component to fit the side drawer
+const HIGHT_ADJUSTMENT = 120;
 
 const Run = () => {
   const dispatch = useAppDispatch();
+  
+  // height adjustment is used to adjust the height of the debug component to fit the side drawer
+  const height = Math.max(document.body.clientHeight, CODE_EDITOR_MIN_HEIGHT) - HIGHT_ADJUSTMENT;
 
   const openDebugerHandler = () => {
     dispatch(setShowInBottomPannel("debug"));
     dispatch(setIsBottomPannelOpen(true));
   };
+  
   const debugDocsHandler = () => {
     window.open(VCSCODE_DEBUG_URL, "_blank");
   };
-  const height = Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 120;
-
+  
   return (
     <div>
       <CollapsibleMenu menuName="RUN" initialState={true}>

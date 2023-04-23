@@ -1,15 +1,15 @@
-import React, { useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { VscChevronRight } from "react-icons/vsc";
+import { CODE_EDITOR_MIN_HEIGHT } from "../../../../Pages/CodeEditor.page";
 import { useAppSelector } from "../../../../Store/store";
-
+import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
+import Directory from "./Directory/Directory.compoent";
 import ExplorerButtons from "./Directory/explorerButtons.component";
 import NewFileOrFolderDummy from "./Directory/newFileOrFolderDummy.component";
-import Directory from "./Directory/Directory.compoent";
 
-import { VscChevronRight } from "react-icons/vsc";
-import { AnimatePresence, motion } from "framer-motion";
-import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
-
-const EDITOR_MIN_HEIGHT = 480;
+// this is the height adjustment of the explorer
+const HIGHT_ADJUSTMENT = 154;
 
 const ExplorerFolder = () => {
   const childRef = useRef<HTMLInputElement>(null);
@@ -24,8 +24,11 @@ const ExplorerFolder = () => {
   const [isFileOrFolder, setIsFileOrFolder] = useState<
     "file" | "folder" | "none"
   >("none");
+
+  // this is the height of the explorer  so that it can be fit in the side drawer
   const fileDirectoryHeight = isExplorerFolderOpen
-    ? Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 154
+    ? Math.max(document.body.clientHeight, CODE_EDITOR_MIN_HEIGHT) -
+      HIGHT_ADJUSTMENT
     : 0;
 
   return (
@@ -58,10 +61,7 @@ const ExplorerFolder = () => {
           from="root"
         />
       </div>
-      <div
-        className="overflow-y-auto"
-        style={{ height: fileDirectoryHeight }}
-      >
+      <div className="overflow-y-auto" style={{ height: fileDirectoryHeight }}>
         <AnimatePresence>
           {isFileOrFolder !== "none" ? (
             <motion.div

@@ -1,16 +1,22 @@
-import React from "react";
+import { CODE_EDITOR_MIN_HEIGHT } from "../../../../Pages/CodeEditor.page";
 import { useAppSelector } from "../../../../Store/store";
 import ExtensionCardContainer from "./Basic/ExtensionCardContainer.component";
 import InstalledAndRecommended from "./InstalledAndRecommended.component";
 import SearchExtension from "./SearchExtension.component";
 
-const EDITOR_MIN_HEIGHT = 480;
+const HIGHT_ADJUSTMENT = 120;
+
 const ExtensionsContainer = () => {
   const extensionSearchedText = useAppSelector(
     (state) => state.extension.extensionSearchedText
   );
   const isInstalledAndRecommendedVisible = extensionSearchedText.length === 0;
-  let height = Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 120;
+  
+  // height adjustment is done to make the extensions fit the side drawer
+  let height =
+    Math.max(document.body.clientHeight, CODE_EDITOR_MIN_HEIGHT) -
+    HIGHT_ADJUSTMENT;
+    
   return (
     <div className="flex flex-col justify-start h-full py-2 text-sm whitespace-nowrap text-[color:var(--highlight-text-color)]">
       <div className="pl-5 mt-1.5 mb-2">

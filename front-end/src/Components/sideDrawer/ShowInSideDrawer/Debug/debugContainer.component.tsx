@@ -1,4 +1,3 @@
-import React from "react";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 import Run from "./Run.component";
 

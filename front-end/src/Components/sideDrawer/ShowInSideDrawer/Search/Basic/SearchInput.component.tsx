@@ -22,6 +22,7 @@ const SearchInput: React.FC<IPROPS> = ({
   updateInStoreText,
   className,
 }) => {
+
   const [isInputInFocus, setIsInputInFocus] = useState(true);
   const [inputText, setInputText] = useState(initialInput);
 
@@ -30,14 +31,15 @@ const SearchInput: React.FC<IPROPS> = ({
     durationForDebounce
   );
 
+  // this is the handler for the input change
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.currentTarget.value);
     debouncedUpdateSearchedTextInStore(event.currentTarget.value);
-    console.log("changeInput");
   };
 
   // for the initial focus on the search input
   useInputFocus(inputRef);
+
   return (
     <Input
       autoComplete="off"

@@ -1,23 +1,22 @@
-import React, { Suspense, useRef, useState } from "react";
-import { useAppSelector } from "../../../Store/store";
-import { ErrorBoundary } from "react-error-boundary";
-
-import DebugContainer from "./Debug/debugContainer.component";
-import ExtensionsContainer from "./Extensions/extensionsContainer.component";
-import SourceControlContainer from "./SourceControl/SourceControlContainer.component";
-import SearchContainer from "./Search/searchContainer.component";
-
-import useSideDrawerResizing from "../hooks/useSideDrawerResizing.hook";
-import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
-
-import ExplorerContainer from "./Explorer/ExplorerContainer.component";
-import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
-
 import { motion } from "framer-motion";
+import { Suspense, useRef, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { useAppSelector } from "../../../Store/store";
+import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
+import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
+import useSideDrawerResizing from "../hooks/useSideDrawerResizing.hook";
+import DebugContainer from "./Debug/debugContainer.component";
+import ExplorerContainer from "./Explorer/ExplorerContainer.component";
+import ExtensionsContainer from "./Extensions/extensionsContainer.component";
+import SearchContainer from "./Search/searchContainer.component";
+import SourceControlContainer from "./SourceControl/SourceControlContainer.component";
 
 const Drawer = () => {
+  
+  const [isDrawerResizing, setIsDrawerResizing] = useState(false);
   const refDrawer = useRef<HTMLDivElement>(null);
   const refResizer = useRef<HTMLDivElement>(null);
+  
   const isSidePannelPositionOnLeft = useAppSelector(
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
   );
@@ -27,10 +26,11 @@ const Drawer = () => {
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
-  const [isDrawerResizing, setIsDrawerResizing] = useState(false);
 
+  // this hook is used to resize the side drawer
   useSideDrawerResizing(setIsDrawerResizing, refResizer, refDrawer);
 
+  // this is the component that will be shown in the side drawer
   let showComponentInDrawer = <ExplorerContainer />;
   if (showInSideDrawer === "search")
     showComponentInDrawer = <SearchContainer />;

@@ -1,15 +1,23 @@
-import React from "react";
+import { CODE_EDITOR_MIN_HEIGHT } from "../../../../Pages/CodeEditor.page";
 import Button from "../../../UI/Button.component";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
-const EDITOR_MIN_HEIGHT = 480;
+
 const VSCODE_INTRO_TO_GIT_URL =
   "https://code.visualstudio.com/docs/sourcecontrol/intro-to-git";
-  
+// height adjustment is used to adjust the height of the source control component to fit the side drawer
+const HIGHT_ADJUSTMENT = 100;
+
 const SourceControl = () => {
-  const height = Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) - 100;
+
+  // height adjustment is done to make the source fit the side drawer
+  const height =
+    Math.max(document.body.clientHeight, CODE_EDITOR_MIN_HEIGHT) -
+    HIGHT_ADJUSTMENT;
+
   const readDocsHandler = () => {
     window.open(VSCODE_INTRO_TO_GIT_URL, "_blank");
   };
+
   return (
     <div className="flex flex-col">
       <CollapsibleMenu menuName="SOURCE CONTROL" initialState={true}>

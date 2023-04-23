@@ -3,8 +3,8 @@ import { RxCross2 } from "react-icons/rx";
 import { VscFile, VscReplace } from "react-icons/vsc";
 import { useAppSelector } from "../../../../../Store/store";
 import Button from "../../../../UI/Button.component";
-import useSearch from "../hooks/useSearch.hook";
 import Image from "../../../../UI/Image.component";
+import useSearch from "../hooks/useSearch.hook";
 
 interface IPROPS {
   id: string;
@@ -21,8 +21,11 @@ const SearchedFileCard: React.FC<IPROPS> = ({
   removeHandler,
   openFileHandler,
 }) => {
+  
   const isReplaceOpen = useAppSelector((state) => state.search.isReplaceOpen);
+  
   const { replaceTextInFiles } = useSearch();
+  
   let languageLogo = (
     <div className="max-w-[20px] min-w-[20px]">
       <Image

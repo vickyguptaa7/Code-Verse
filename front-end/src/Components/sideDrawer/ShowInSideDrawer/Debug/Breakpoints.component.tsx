@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { VscChevronRight } from "react-icons/vsc";
 import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
 

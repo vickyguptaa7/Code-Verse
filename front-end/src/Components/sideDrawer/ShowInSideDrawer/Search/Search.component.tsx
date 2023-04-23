@@ -1,24 +1,21 @@
-import React, { useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../Store/store";
+import { useEffect, useRef } from "react";
 import { VscChevronRight, VscReplaceAll } from "react-icons/vsc";
-
-import Button from "../../../UI/Button.component";
-import SearchInput from "./Basic/SearchInput.component";
-import SearchResult from "./SearchResult.component";
-
-import useSearch from "./hooks/useSearch.hook";
 import {
   setIsReplaceOpen,
   updateReplacementText,
   updateSearchedText,
 } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";
+import { useAppDispatch, useAppSelector } from "../../../../Store/store";
 import { mergeClass } from "../../../../library/tailwindMerge/tailwindMerge.lib";
+import Button from "../../../UI/Button.component";
 import Loader from "../../../UI/Loader/Loader.component";
+import SearchInput from "./Basic/SearchInput.component";
+import SearchResult from "./SearchResult.component";
+import useSearch from "./hooks/useSearch.hook";
 
 const Search = () => {
   const searchRef = useRef<HTMLInputElement>(null);
   const replaceRef = useRef<HTMLInputElement>(null);
-  const onMountRef = useRef(true);
 
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
@@ -38,18 +35,15 @@ const Search = () => {
 
   const dispatch = useAppDispatch();
   const { findSearchedTextInFiles, replaceTextInFiles } = useSearch();
-  console.log("Search");
 
-  // to avoid redundant space on start and end
-
-  // updating the search results as store searchtext changes as store search text changes with some delay so we reduce the no of find calls
+  /* 
+    when the searched text is changed, we need to find the searched text in the files 
+    and update the store with the result or if filesInformation is changed, 
+    we need to find the searched text in the files
+  */
   useEffect(() => {
-    // onMountRef is used to avoid the onMount calling dispatch as we have to display the previous stuff
-    console.log(onMountRef, "Rerender");
-    if (!onMountRef.current) {
-      findSearchedTextInFiles();
-    } else onMountRef.current = false;
-    // eslint-disable-next-line
+    findSearchedTextInFiles();
+    // eslint-disable-next-line 
   }, [initialSearchedText, filesInformation]);
 
   const updateSearcheTextInStore = (searchedText: string) => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import useDirectory from "../../../../../hooks/useDirectory.hook";
 import IDirectory from "../../../../../Interface/directory.interface";
-import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
+import useDirectory from "../../../../../hooks/useDirectory.hook";
+import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
@@ -25,8 +25,9 @@ const RenameInput: React.FC<IPROPS> = ({
   const [isFileNameExistAlready, setIsFileNameExistAlready] = useState(false);
   const dispatch = useAppDispatch();
   const directories = useAppSelector((state) => state.Directory.directories);
+  
   const { isFileOrFolderAlreadyExists } = useDirectory();
-
+  
   useEffect(() => {
     // On initial render the text will be selected and focused
     inputRef.current?.focus();
@@ -37,6 +38,7 @@ const RenameInput: React.FC<IPROPS> = ({
     (state) => state.Directory.infoOfCurrentWorkingFileOrFolder
   );
 
+  // avoid user to rename two file or folder simultaneously
   useEffect(() => {
     if (!infoOfCurrentWorkingFileOrFolder.isActive) return;
     if (
@@ -44,7 +46,7 @@ const RenameInput: React.FC<IPROPS> = ({
       infoOfCurrentWorkingFileOrFolder.id !== id
     ) {
       // user tries to add another file or folder so we need to remove the previous one
-      console.log("rename collision");
+      // collision in file or folder renaming
       setIsInputInFocus(false);
     }
   }, [infoOfCurrentWorkingFileOrFolder, setIsInputInFocus, id]);
@@ -54,6 +56,9 @@ const RenameInput: React.FC<IPROPS> = ({
     setIsFileNameExistAlready(false);
   };
 
+  // when input get out of focus then we have to do following things
+  // 1. check if the file name entered by the user is unique  if not then show the warning 
+  // 2. if the file name is unique then rename the file or folder
   const inputBlurHandler = () => {
     if (!fileName.trim().length || fileName === directoryInfo.name) {
       setfileName(directoryInfo.name);
@@ -66,7 +71,8 @@ const RenameInput: React.FC<IPROPS> = ({
       isFileOrFolderAlreadyExists(
         directories,
         directoryInfo.path.split("/"),
-        fileName,true
+        fileName,
+        true
       )
     ) {
       setIsFileNameExistAlready(true);
@@ -77,13 +83,16 @@ const RenameInput: React.FC<IPROPS> = ({
         id: directoryInfo.id,
         name: fileName,
         isFolder: directoryInfo.isFolder,
-        path: directoryInfo.path.split('/'),
+        path: directoryInfo.path.split("/"),
       })
     );
     setIsInputInFocus(false);
     setIsFileNameExistAlready(false);
   };
 
+  // when user press enter then we have to do following things
+  // 1. check if the file name entered by the user is unique  if not then show the warning
+  // 2. if the file name is unique then rename the file or folder
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       if (fileName === directoryInfo.name) {
@@ -92,14 +101,15 @@ const RenameInput: React.FC<IPROPS> = ({
       }
       // check if the file with same name does'nt exist already and filename not empty
       if (
-        !fileName.trim().length||
+        !fileName.trim().length ||
         isFileOrFolderAlreadyExists(
           directories,
           directoryInfo.path.split("/"),
-          fileName,true
-        ) 
+          fileName,
+          true
+        )
       ) {
-        console.log('existed');
+        console.log("existed");
         setIsFileNameExistAlready(true);
         return;
       }
@@ -108,7 +118,7 @@ const RenameInput: React.FC<IPROPS> = ({
           id: directoryInfo.id,
           name: fileName,
           isFolder: directoryInfo.isFolder,
-          path: directoryInfo.path.split('/')
+          path: directoryInfo.path.split("/"),
         })
       );
       setIsInputInFocus(false);
