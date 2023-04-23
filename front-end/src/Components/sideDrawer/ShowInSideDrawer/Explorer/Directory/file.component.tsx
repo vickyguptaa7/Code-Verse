@@ -36,7 +36,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
       // extra padding to align the folder and file name
       style={{ paddingLeft: shiftAmount + 26, width: sideDrawerWidth }}
     >
-      <div className="flex items-center justify-center w-full gap-1">
+      <div className="flex items-center justify-start w-full gap-1 ">
         <div className="max-w-[18px] min-w-[18px]">
           <Image
             fallback={
