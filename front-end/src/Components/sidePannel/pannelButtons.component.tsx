@@ -1,6 +1,6 @@
 import React from "react";
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { useAppSelector } from "../../Store/store";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import Button from "../UI/Button.component";
 
 interface IPROPS {
@@ -27,6 +27,13 @@ const PannelButtons: React.FC<IPROPS> = ({
   const showInSideDrawer = useAppSelector(
     (state) => state.sideDrawer.showInSideDrawer
   );
+
+  /*
+  isActive is for the buttons that does not open the side drawer but are still in the side pannel
+  they are here to show the drop menu when clicked and to show that they are active
+  
+  activeClassName is for the buttons that open the side drawer
+  */
 
   let activeClassName = mergeClass([
     "text-[color:var(--highlight-text-color)] border-[color:var(--primary-color)]",

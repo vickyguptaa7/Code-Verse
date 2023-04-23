@@ -35,7 +35,7 @@ const CodeEditor = () => {
 
   /* 
   Total Widht = clientWidth
-  Side_Bars = Side_Pannel_Width + Side_Pannel_Resizer_Width + Side_Drawer_Width
+  Side_Drawer_Width = Side_Pannel_Width + Side_Pannel_Resizer_Width + Show_In_Drawer_Width(named as side drawer)
   Remaing Width = TotalWidth - Side_Bars
   */
 
