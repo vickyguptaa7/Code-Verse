@@ -3,7 +3,6 @@ import React from "react";
 import { RxCross2 } from "react-icons/rx";
 import { VscFile } from "react-icons/vsc";
 
-import { IFile } from "../../Interface/file.interface";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { setCurrentNavFile } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import Button from "../UI/Button.component";
