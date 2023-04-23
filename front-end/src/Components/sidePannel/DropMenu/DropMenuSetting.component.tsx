@@ -3,7 +3,8 @@ import {
   setIsDrawerOpen,
   setShowInSideDrawer,
 } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
-import { useAppDispatch } from "../../../Store/store";
+import { useAppDispatch, useAppSelector } from "../../../Store/store";
+import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
 import { whiteBoardUrl } from "../SidePannel.constants";
@@ -14,7 +15,9 @@ interface IPROPS {
 
 export const DropMenuSetting: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   const dispatch = useAppDispatch();
-
+  const isSidePannelPositionOnLeft = useAppSelector(
+    (state) => state.sideDrawer.isSidePannelPositionOnLeft
+  );
   const openToWhiteboardHandler = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -32,8 +35,17 @@ export const DropMenuSetting: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     dispatch(setShowInSideDrawer("extensions"));
     closeDropMenuHandler(event);
   };
+
   return (
-    <DropMenu className="w-36 bottom-3.5 left-[54px]" initialX={-155} initialY={100}>
+    <DropMenu
+      className={
+        isSidePannelPositionOnLeft
+          ? "w-36 bottom-3.5 left-[54px]"
+          : "w-36 bottom-3.5 right-[54px]"
+      }
+      initialX={isSidePannelPositionOnLeft ? -155 : 15}
+      initialY={100}
+    >
       <DropMenuButton name="Settings" onClickHandler={openSettingHandler} />
       <DropMenuButton name="Extensions" onClickHandler={openExtensionHandler} />
       <DropMenuButton name="Themes" onClickHandler={openSettingHandler} />

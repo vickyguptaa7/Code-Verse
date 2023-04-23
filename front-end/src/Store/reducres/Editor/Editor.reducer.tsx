@@ -1,22 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Theme } from "../../../Interface/theme.type";
-import { getFromLocalStorage } from "../../../utils/localStorage.utils";
-import { themesNameArray } from "../../../Assets/Data/theme.data";
-
-let prevTheme = getFromLocalStorage("vscode-color-theme");
-if (!themesNameArray.find((theme) => theme === prevTheme))
-  prevTheme = "vs-dark";
+import {
+  getPrevFontSize,
+  getPrevMinimapEnabled,
+  getPrevScrollBeyondLastLine,
+  getPrevTabSize,
+  getPrevThemes,
+  getPrevWordWrap,
+} from "../../../utils/localStorage.utils";
 
 const editorInitialState = {
-  tabSize: getFromLocalStorage("vscode-tab-size") || 4,
-  fontSize: getFromLocalStorage("vscode-font-size") || 16,
-  wordWrap:
-    getFromLocalStorage("vscode-word-wrap") ||
-    ("on" as "on" | "off" | "wordWrapColumn" | "bounded"),
-  isScrollBeyondLastLine:
-    getFromLocalStorage("vscode-is-scroll-beyond-last-line") || false,
-  isMinimapEnabled: getFromLocalStorage("vscode-is-minimap-enabled") || true,
-  theme: prevTheme as Theme,
+  tabSize: getPrevTabSize(),
+  fontSize: getPrevFontSize(),
+  wordWrap: getPrevWordWrap(),
+  isScrollBeyondLastLine: getPrevScrollBeyondLastLine(),
+  isMinimapEnabled: getPrevMinimapEnabled(),
+  theme: getPrevThemes(),
 };
 
 const editorSlice = createSlice({

@@ -106,8 +106,8 @@ const Pannel = () => {
         className={mergeClass([
           "flex flex-col justify-between h-full bg-[color:var(--sidepannel-color)] text-[color:var(--primary-text-color)] ",
           isSidePannelPositionOnLeft
-            ? "border-r border-[color:var(--border-color)] "
-            : "border-l border-[color:var(--border-color)] ",
+            ? "border-r border-r-[color:var(--border-color)] "
+            : "border-l border-l-[color:var(--border-color)] ",
         ])}
       >
         <nav className="flex flex-col ">

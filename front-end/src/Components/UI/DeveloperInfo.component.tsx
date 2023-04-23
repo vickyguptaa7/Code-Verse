@@ -8,6 +8,8 @@ import leetcode from "../../Assets/images/social/leetcode.svg";
 import codeforces from "../../Assets/images/social/codeforces.svg";
 import linkedin from "../../Assets/images/social/linkedin.svg";
 import Button from "./Button.component";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
+import { useAppSelector } from "../../Store/store";
 
 const githubUrl = "https://github.com/vickyguptaa7";
 const leetcodeUrl = "https://leetcode.com/vickyguptaa7/";
@@ -15,16 +17,32 @@ const codeforcesUrl = "https://codeforces.com/profile/vickyguptaa7";
 const linkedinUrl = "https://www.linkedin.com/in/vickyguptaa7/";
 
 const DeveloperInfo = () => {
+  const isSidePannelPositionOnLeft = useAppSelector(
+    (state) => state.sideDrawer.isSidePannelPositionOnLeft
+  );
   const onClickHandler = (url: string) => {
     window.open(url, "_blank");
   };
   return (
     <motion.div
-      className="absolute z-10 flex flex-col items-start w-56 rounded-md overflow-hidden bottom-[74px] left-[54px]"
-      initial={{ x: -125, y: 120, scale: 0, opacity: 0 }}
+      className={mergeClass([
+        "absolute z-10 flex flex-col items-start w-56 rounded-md overflow-hidden bottom-[74px]",
+        isSidePannelPositionOnLeft ? "left-[54px]" : "right-[54px]",
+      ])}
+      initial={{
+        x: isSidePannelPositionOnLeft ? -125 : 125,
+        y: 120,
+        scale: 0,
+        opacity: 0,
+      }}
       animate={{ x: 0, y: 0, scale: 1, opacity: 1 }}
       transition={{ duration: 0.3 }}
-      exit={{ x: -125, y: 120, scale: 0, opacity: 0 }}
+      exit={{
+        x: isSidePannelPositionOnLeft ? -125 : 125,
+        y: 120,
+        scale: 0,
+        opacity: 0,
+      }}
     >
       <div className="bg-[color:var(--primary-color)] h-20 w-full"></div>
       <div className="absolute flex items-center justify-around w-full top-4 ">
@@ -48,17 +66,45 @@ const DeveloperInfo = () => {
         </div>
       </div>
       <div className="flex items-center justify-around w-full px-4 py-4 bg-[color:var(--primary-color)] relative">
-        <Button className="absolute left-6 -top-4 " onClick={() => onClickHandler(leetcodeUrl)}>
-          <img src={leetcode} className="p-1 duration-300 rounded-bl-full rounded-br-full h-7 bg-gray-50 hover:-translate-y-1" alt="leetcode" />
+        <Button
+          className="absolute left-6 -top-4 "
+          onClick={() => onClickHandler(leetcodeUrl)}
+        >
+          <img
+            src={leetcode}
+            className="p-1 duration-300 rounded-bl-full rounded-br-full h-7 bg-gray-50 hover:-translate-y-1"
+            alt="leetcode"
+          />
         </Button>
-        <Button className="absolute -top-4 left-[74px]" onClick={() => onClickHandler(codeforcesUrl)}>
-          <img src={codeforces} className="p-1 duration-300 rounded-bl-full rounded-br-full h-7 bg-gray-50 hover:-translate-y-1" alt="codeforces" />
+        <Button
+          className="absolute -top-4 left-[74px]"
+          onClick={() => onClickHandler(codeforcesUrl)}
+        >
+          <img
+            src={codeforces}
+            className="p-1 duration-300 rounded-bl-full rounded-br-full h-7 bg-gray-50 hover:-translate-y-1"
+            alt="codeforces"
+          />
         </Button>
-        <Button className="absolute right-[74px] -top-4" onClick={() => onClickHandler(githubUrl)}>
-          <img src={github} className="p-1 duration-300 rounded-bl-full rounded-br-full h-7 bg-gray-50 hover:-translate-y-1" alt="github" />
+        <Button
+          className="absolute right-[74px] -top-4"
+          onClick={() => onClickHandler(githubUrl)}
+        >
+          <img
+            src={github}
+            className="p-1 duration-300 rounded-bl-full rounded-br-full h-7 bg-gray-50 hover:-translate-y-1"
+            alt="github"
+          />
         </Button>
-        <Button className="absolute right-6 -top-4" onClick={() => onClickHandler(linkedinUrl)}>
-          <img src={linkedin} className="p-1 duration-300 rounded-bl-full rounded-br-full h-7 bg-gray-50 hover:-translate-y-1" alt="linkedin" />
+        <Button
+          className="absolute right-6 -top-4"
+          onClick={() => onClickHandler(linkedinUrl)}
+        >
+          <img
+            src={linkedin}
+            className="p-1 duration-300 rounded-bl-full rounded-br-full h-7 bg-gray-50 hover:-translate-y-1"
+            alt="linkedin"
+          />
         </Button>
       </div>
     </motion.div>

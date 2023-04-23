@@ -28,6 +28,9 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
   );
+  const isSidePannelPositionOnLeft = useAppSelector(
+    (state) => state.sideDrawer.isSidePannelPositionOnLeft
+  );
   const directories = useAppSelector((state) => state.Directory.directories);
 
   const onDownloadFileHandler = () => {
@@ -105,8 +108,12 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
 
   return (
     <DropMenu
-      className="w-40 -top-[54px] left-[54px]"
-      initialX={-175}
+      className={
+        isSidePannelPositionOnLeft
+          ? "w-40 -top-[54px] left-[54px]"
+          : "w-40 -top-[54px] right-[54px]"
+      }
+      initialX={isSidePannelPositionOnLeft ? -175 : 15}
       initialY={20}
     >
       <OpenFileFolderDropMenuButtons
