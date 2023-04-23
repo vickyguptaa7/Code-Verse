@@ -51,9 +51,13 @@ const Drawer = () => {
         ])}
         // -2 for the border added to the side drawer and the side pannel 1px each
         style={{ width: sideDrawerWidth - 2 }}
-        initial={{ x: -10, opacity: 0 }}
+        initial={{ x: isSidePannelPositionOnLeft ? -10 : 10, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -10, opacity: 0, transition: { duration: 0.15 } }}
+        exit={{
+          x: isSidePannelPositionOnLeft ? -10 : 10,
+          opacity: 0,
+          transition: { duration: 0.15 },
+        }}
       >
         <div className="flex flex-col w-full">
           {/* on reset will perform some task when there will be some error so we can reload the page or we can change the state that is causing the error or something else */}

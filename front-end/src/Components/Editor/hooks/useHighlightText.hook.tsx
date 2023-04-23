@@ -5,6 +5,8 @@ import { useMonaco } from "@monaco-editor/react";
 import { useAppSelector } from "../../../Store/store";
 import { DrawerContent } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 
+const CSS_CLASSNAME_HIGHLIGHT_SUFFFIX = "-highlight";
+
 const useHighlightText = () => {
   const monaco = useMonaco();
   const currFile = useAppSelector(
@@ -72,7 +74,8 @@ const useHighlightText = () => {
                   range: match.range,
                   options: {
                     isWholeLine: false,
-                    inlineClassName: editorTheme,
+                    inlineClassName:
+                      editorTheme + CSS_CLASSNAME_HIGHLIGHT_SUFFFIX,
                     minimap: {
                       position: 1,
                       color: "red",
