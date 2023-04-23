@@ -117,11 +117,11 @@ const RenameInput: React.FC<IPROPS> = ({
   };
 
   return (
-    <div className="relative w-full pr-1">
+    <div className="relative w-full mr-1">
       <Input
         inputRef={inputRef}
         className={mergeClass([
-          "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border border-transparent border-red-900 selection:bg-[color:var(--accent-color)] ",
+          "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border  border-[color:var(--primary-color)] selection:bg-[color:var(--accent-color)] ",
           isFileNameExistAlready && "border-red-600",
         ])}
         onKeyDown={onKeyDownHandler}
@@ -130,7 +130,7 @@ const RenameInput: React.FC<IPROPS> = ({
         value={fileName}
       />
       {isFileNameExistAlready ? (
-        <div className="absolute z-20 w-full p-1 break-words whitespace-normal bg-red-900 border-b border-red-600 z-100 border-x">
+        <div className="absolute z-20 w-full p-1 break-words whitespace-normal bg-red-600 border-b border-red-600 z-100 border-x">
           {fileName.trim().length ? (
             <h3>
               A file or folder <span className="font-bold">{fileName}</span>{" "}

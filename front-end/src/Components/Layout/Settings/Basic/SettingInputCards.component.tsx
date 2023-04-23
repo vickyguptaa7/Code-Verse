@@ -57,7 +57,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
             setInputText(e.target.checked);
             updateInStore(dispatch, e.target.checked);
           }}
-          checked={inputText as boolean}
+          checked={inputText==="true"?true:false}
         />
         <p className="text-xs">{info}</p>
       </label>

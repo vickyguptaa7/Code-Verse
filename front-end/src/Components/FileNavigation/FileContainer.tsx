@@ -51,7 +51,9 @@ const FileContainer: React.FC<IPROPS> = ({ navFilesList }) => {
   const listOfFiles = newNavList.map((file) => (
     <FileCard
       key={file.id}
-      fileInfo={filesInformation[file.id]}
+      fileId={file.id}
+      fileName={filesInformation[file.id].name}
+      fileIconUrl={filesInformation[file.id].iconUrls[0]}
       removeFileHandler={removeFileHandler}
     />
   ));

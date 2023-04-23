@@ -146,7 +146,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         <Input
           inputRef={childRef}
           className={mergeClass([
-            "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border  border-red-900  selection:bg-[color:var(--accent-color)]",
+            "w-full overflow-clip p-[2px] bg-transparent outline-none select-none border  border-[color:var(--primary-color)]  selection:bg-[color:var(--accent-color)]",
             isExistAlready ? "border-red-600" : "",
           ])}
           onKeyDown={onKeyDownHandler}
@@ -156,7 +156,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
           autoFocus
         />
         {isExistAlready ? (
-          <div className="absolute z-20 w-full p-1 break-words whitespace-normal bg-red-900 border-b border-red-600 border-x">
+          <div className="absolute z-20 w-full p-1 text-white break-words whitespace-normal bg-red-600 border-b border-red-600 border-x">
             {childName.trim().length ? (
               <h3>
                 A file or folder <span className="font-bold">{childName}</span>{" "}

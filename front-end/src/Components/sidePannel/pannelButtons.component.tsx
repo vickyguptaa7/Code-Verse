@@ -29,9 +29,10 @@ const PannelButtons: React.FC<IPROPS> = ({
   );
 
   let activeClassName = mergeClass([
-    "text-[color:var(--highlight-text-color)] border-[color:var(--highlight-text-color)]",
-    !isSidePannelPositionOnLeft ? "border-r-[3px] mr-0" : "border-l-[3px] ml-0"
+    "text-[color:var(--highlight-text-color)] border-[color:var(--primary-color)]",
+    !isSidePannelPositionOnLeft ? "border-r-[4px] mr-0" : "border-l-[4px] ml-0",
   ]);
+
   if (Icon)
     return (
       <div className="mb-2">
@@ -43,7 +44,7 @@ const PannelButtons: React.FC<IPROPS> = ({
               ? activeClassName
               : isActive
               ? "text-[color:var(--highlight-text-color)]"
-              : ""
+              : "",
           ])}
           title={title}
           data-name={buttonName}

@@ -1,3 +1,22 @@
-.highlights{
-    background-color: chartreuse;
+.highlights {
+  background-color: var(--primary-color);
+}
+.vs {
+  background-color: hsl(170, 90%, 38%);
+}
+
+.vs-dark {
+  background-color: hsl(204, 100%, 40%);
+}
+
+.monokai {
+  background-color: hsl(22, 76%, 50%);
+}
+
+.night-owl {
+  background-color: hsl(209, 22%, 35%);
+}
+
+.dracula {
+  background-color: hsl(326, 79%, 66%);
 }

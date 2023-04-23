@@ -15,16 +15,18 @@ import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import Image from "../UI/Image.component";
 
 interface IPROPS {
-  fileInfo: IFile;
+  fileId: string;
+  fileName: string;
+  fileIconUrl: string;
   removeFileHandler: Function;
 }
 
-const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
+const FileCard: React.FC<IPROPS> = ({ fileId,fileName,fileIconUrl, removeFileHandler }) => {
   const currentNavFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
   );
   const dispatch = useAppDispatch();
-  const isThisActiveNavFile = currentNavFile.id === fileInfo.id;
+  const isThisActiveNavFile = currentNavFile.id === fileId;
   const activeClassName = isThisActiveNavFile
     ? "bg-[color:var(--codeeditor-color)] border-b-[color:var(--primary-color)] "
     : "border-b-[color:var(--sidepannel-color)] ";
@@ -35,7 +37,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
         fallback={
           <VscFile className="text-[18px] text-[color:var(--primary-color)] " />
         }
-        src={fileInfo.iconUrls[0]}
+        src={fileIconUrl}
         className="object-contain"
         alt="icon"
       />
@@ -44,20 +46,20 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
 
   const removeHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    removeFileHandler(fileInfo.id);
-    console.log("Remove", fileInfo.id);
+    removeFileHandler(fileId);
+    console.log("Remove", fileId);
   };
 
   const changeCurrentFileInNavigationHandler = (event: React.MouseEvent) => {
     dispatch(
       setCurrentNavFile({
-        id: fileInfo.id,
+        id: fileId,
         type:
-          fileInfo.id === "setting"
+          fileId === "setting"
             ? "setting"
-            : fileInfo.id === "extension"
+            : fileId === "extension"
             ? "extension"
-            : fileInfo.id === "welcome"
+            : fileId === "welcome"
             ? "welcome"
             : "file",
       })
@@ -70,7 +72,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
         "flex items-center cursor-pointer justify-between gap-2 px-2.5 py-1 pb-1  border-b-[1.6px]  group border-r border-r-[color:var(--border-color)]",
         activeClassName,
       ])}
-      id={fileInfo.id}
+      id={fileId}
       onClick={changeCurrentFileInNavigationHandler}
       style={{ originX: 0 }}
       initial={{ opacity: 0, scaleX: 0 }}
@@ -89,7 +91,7 @@ const FileCard: React.FC<IPROPS> = ({ fileInfo, removeFileHandler }) => {
               : "",
           ])}
         >
-          {fileInfo.name}
+          {fileName}
         </h1>
       </div>
       <div

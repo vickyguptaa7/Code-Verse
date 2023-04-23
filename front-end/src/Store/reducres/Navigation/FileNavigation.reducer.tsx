@@ -12,15 +12,18 @@ const navigationFilesSlice = createSlice({
   name: "files",
   initialState: navigationFilesInitialState,
   reducers: {
+
     addFileToNavigation(state, action: PayloadAction<INavFile>) {
       const isFilePresentAlready =
         state.navFilesList.findIndex(
           (navFile) => navFile.id === action.payload.id
         ) !== -1;
+
       // add only when file is not in the navigation list
       if (!isFilePresentAlready) {
         state.navFilesList.push(action.payload);
       }
+      
       state.currentNavFile = action.payload;
     },
     removeFileFromNavigation(state, action: PayloadAction<{ id: string }>) {

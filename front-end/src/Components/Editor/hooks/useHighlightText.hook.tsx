@@ -10,7 +10,7 @@ const useHighlightText = () => {
   const currFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
   );
-
+  const editorTheme = useAppSelector((state) => state.editor.theme);
   // storing the prev decorations of all the files if they are used in search so that we can remove the prev change and apply the new one
   let previousDecorations = useRef<{
     [key: string]: Array<string>;
@@ -72,7 +72,7 @@ const useHighlightText = () => {
                   range: match.range,
                   options: {
                     isWholeLine: false,
-                    inlineClassName: "highlights",
+                    inlineClassName: editorTheme,
                     minimap: {
                       position: 1,
                       color: "red",

@@ -138,6 +138,7 @@ const Editor: React.FC<IPROPS> = ({
     searchedText,
     currentWorkingFileId,
     isDrawerOpen,
+    content
   ]);
   return (
     <div

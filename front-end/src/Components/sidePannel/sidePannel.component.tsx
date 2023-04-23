@@ -161,6 +161,7 @@ const Pannel = () => {
             title="Accounts"
             Icon={VscAccount}
             buttonName="accounts"
+            isActive={isDeveloperInfoOpen}
             onClickHandler={openDeveloperInfoHandler}
           />
           <PannelButtons
