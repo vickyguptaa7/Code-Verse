@@ -1,8 +1,8 @@
-import { useAppSelector } from "../../Store/store";
-import Drawer from "./ShowInSideDrawer/ShowInDrawer.component";
-import Pannel from "../sidePannel/sidePannel.component";
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { AnimatePresence } from "framer-motion";
+import { useAppSelector } from "../../Store/store";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
+import Pannel from "../sidePannel/sidePannel.component";
+import Drawer from "./ShowInSideDrawer/ShowInDrawer.component";
 
 const SideDrawer = () => {
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);

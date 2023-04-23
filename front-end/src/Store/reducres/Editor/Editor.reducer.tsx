@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Theme } from "../../../Interface/theme.type";
+import { TTheme } from "../../../Interface/Types";
 import {
   getPrevFontSize,
   getPrevMinimapEnabled,
@@ -40,8 +40,8 @@ const editorSlice = createSlice({
     setMinimapEnabled(state, action: PayloadAction<boolean>) {
       state.isMinimapEnabled = action.payload;
     },
-    setTheme(state, action: PayloadAction<Theme>) {
-      state.theme = action.payload as Theme;
+    setTheme(state, action: PayloadAction<TTheme>) {
+      state.theme = action.payload as TTheme;
     },
   },
 });

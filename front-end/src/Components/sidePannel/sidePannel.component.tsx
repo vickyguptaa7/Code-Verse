@@ -1,32 +1,28 @@
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import { MdMenu } from "react-icons/md";
 import {
-  VscFiles,
-  VscSettingsGear,
   VscAccount,
-  VscSearch,
-  VscGitMerge,
   VscDebugAlt,
   VscExtensions,
+  VscFiles,
+  VscGitMerge,
+  VscSearch,
+  VscSettingsGear,
 } from "react-icons/vsc";
-
+import { TDrawerContent } from "../../Interface/Types";
 import {
   setIsDrawerOpen,
   setShowInSideDrawer,
 } from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import Backdrop from "../UI/Backdrop.component";
+import DeveloperInfo from "../UI/DeveloperInfo.component";
 import { DropMenuFile } from "./DropMenu/DropMenuFile.component";
 import { DropMenuSetting } from "./DropMenu/DropMenuSetting.component";
-
-import PannelButtons from "./pannelButtons.component";
 import FileFolderInput from "./FileFolderInput.component";
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
-
-import { AnimatePresence } from "framer-motion";
-import DeveloperInfo from "../UI/DeveloperInfo.component";
-
-type drawerContent = "file" | "search" | "git" | "debug" | "extensions";
+import PannelButtons from "./pannelButtons.component";
 
 const Pannel = () => {
   const [isDropMenuSettingOpen, setIsDropMenuSettingOpen] = useState(false);
@@ -41,39 +37,41 @@ const Pannel = () => {
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
   );
   const isDrawerOpen = useAppSelector((state) => state.sideDrawer.isDrawerOpen);
-  const sideDrawerHandler = (showDrawer: boolean) => {
-    if (isDrawerOpen === showDrawer) return;
-    dispatch(setIsDrawerOpen(showDrawer));
-  };
 
-  // manages the side drawer content and logic to show the side drawer content and the drawer itself
+  /* 
+  this is a handler for the side pannel buttons that open the side drawer and set the content of the side drawer depending on what button was clicked.
+  if same button is clicked twice it will close the side drawer
+  else it will open the side drawer and set the content of the side drawer
+  */
   const showInSideDrawerHandler = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     const name = event.currentTarget.getAttribute("data-name");
+
     // if its already open we just close the drawer
     if (showInSideDrawer === name && isDrawerOpen) {
-      sideDrawerHandler(false);
+      dispatch(setIsDrawerOpen(false));
       return;
     }
-    sideDrawerHandler(true);
-    dispatch(setShowInSideDrawer(name as drawerContent));
-  };
-
-  const closeDropMenuSettingHandler = () => {
-    setIsDropMenuSettingOpen(false);
+    // otherwise we open the drawer and set the content of the drawer
+    dispatch(setIsDrawerOpen(true));
+    dispatch(setShowInSideDrawer(name as TDrawerContent));
   };
 
   const openDropMenuSettingHandler = () => {
     setIsDropMenuSettingOpen(true);
   };
-  const closeDropMenuFileHandler = () => {
-    setIsDropMenuFileOpen(false);
+  const closeDropMenuSettingHandler = () => {
+    setIsDropMenuSettingOpen(false);
   };
 
   const openDropMenuFileHandler = () => {
     setIsDropMenuFileOpen(true);
   };
+  const closeDropMenuFileHandler = () => {
+    setIsDropMenuFileOpen(false);
+  };
+
   const openDeveloperInfoHandler = () => {
     setIsDeveloperInfoOpen(true);
   };

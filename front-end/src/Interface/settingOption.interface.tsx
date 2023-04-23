@@ -1,5 +1,3 @@
-import { Theme } from "./theme.type";
-
 export interface ISettingOption {
   name: string;
   type: string;

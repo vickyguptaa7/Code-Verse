@@ -1,5 +1,5 @@
 import { themesNameArray } from "../Assets/Data/theme.data";
-import { Theme } from "../Interface/theme.type";
+import { TTheme } from "../Interface/Types";
 
 export const getFromLocalStorage = (key: string) => {
   const localStorage = window.localStorage;
@@ -18,7 +18,7 @@ export const removeFromLocalStorage = (key: string) => {
   return localStorage.removeItem(key);
 };
 
-export const getPrevThemes = (): Theme => {
+export const getPrevThemes = (): TTheme => {
   let prevTheme = getFromLocalStorage("vscode-color-theme");
   if (!themesNameArray.find((theme) => theme === prevTheme))
     prevTheme = "vs-dark";

@@ -13,7 +13,7 @@ import {
 } from "../../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppSelector } from "../../../../Store/store";
 import { ISettingOption } from "../../../../Interface/settingOption.interface";
-import { Theme } from "../../../../Interface/theme.type";
+import { TTheme } from "../../../../Interface/Types";
 import { themesNameArray } from "../../../../Assets/Data/theme.data";
 import { storeToLocalStorage } from "../../../../utils/localStorage.utils";
 
@@ -26,7 +26,7 @@ export const useSettingData = () => {
       info: "Specifies the color theme used in the workbench.",
       listOptions: themesNameArray,
       initialValue: useAppSelector((state) => state.editor.theme),
-      updateInStore: (dispatch: Dispatch<Object>, colorTheme: Theme) => {
+      updateInStore: (dispatch: Dispatch<Object>, colorTheme: TTheme) => {
         dispatch(setTheme(colorTheme));
         storeToLocalStorage("vscode-color-theme", colorTheme);
       },

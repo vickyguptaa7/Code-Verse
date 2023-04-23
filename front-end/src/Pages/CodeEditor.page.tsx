@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
-import { useAppDispatch, useAppSelector } from "../Store/store";
+import { useEffect, useState } from "react";
+import Footer from "../Components/Footer/Footer.component";
 import Main from "../Components/Layout/Main.component";
+import SideDrawer from "../Components/sideDrawer/sideDrawer.component";
 import {
   SIDE_PANNEL_RESIZER_WIDTH,
   SIDE_PANNEL_WIDTH,
 } from "../Components/sidePannel/SidePannel.constants";
-import { mergeClass } from "../library/tailwindMerge/tailwindMerge.lib";
 import {
   setShowInBottomPannel,
   toggleIsBottomPannelOpen,
 } from "../Store/reducres/BottomPannel/BottomPannel.reducer";
+import { addFileToNavigation } from "../Store/reducres/Navigation/FileNavigation.reducer";
 import {
   setShowInSideDrawer,
   toggleIsDrawerOpen,
 } from "../Store/reducres/SideDrawer/SideDrawer.reducer";
-import { addFileToNavigation } from "../Store/reducres/Navigation/FileNavigation.reducer";
-import Footer from "../Components/Footer/Footer.component";
+import { useAppDispatch, useAppSelector } from "../Store/store";
+import { mergeClass } from "../library/tailwindMerge/tailwindMerge.lib";
 
 export const CODE_EDITOR_MIN_WIDTH = 320;
 export const CODE_EDITOR_MIN_HEIGHT = 480;
