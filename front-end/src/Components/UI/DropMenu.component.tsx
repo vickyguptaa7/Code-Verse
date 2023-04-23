@@ -1,7 +1,6 @@
+import { motion } from "framer-motion";
 import React, { ReactNode } from "react";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
-
-import { motion } from "framer-motion";
 
 interface PROPS_INTEFACE {
   children: ReactNode;

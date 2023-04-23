@@ -1,17 +1,14 @@
-import React from "react";
-
 import { motion } from "framer-motion";
 
 import { VscLocation } from "react-icons/vsc";
+import codeforces from "../../Assets/images/social/codeforces.svg";
+import developer from "../../Assets/images/social/dev.webp";
 import github from "../../Assets/images/social/github.svg";
 import leetcode from "../../Assets/images/social/leetcode.svg";
-import codeforces from "../../Assets/images/social/codeforces.svg";
 import linkedin from "../../Assets/images/social/linkedin.svg";
-import developer from "../../Assets/images/social/dev.webp";
-
-import Button from "./Button.component";
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { useAppSelector } from "../../Store/store";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
+import Button from "./Button.component";
 
 const githubUrl = "https://github.com/vickyguptaa7";
 const leetcodeUrl = "https://leetcode.com/vickyguptaa7/";
@@ -22,9 +19,11 @@ const DeveloperInfo = () => {
   const isSidePannelPositionOnLeft = useAppSelector(
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
   );
+  
   const onClickHandler = (url: string) => {
     window.open(url, "_blank");
   };
+  
   return (
     <motion.div
       className={mergeClass([

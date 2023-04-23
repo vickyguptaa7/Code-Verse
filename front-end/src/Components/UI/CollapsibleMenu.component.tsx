@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { VscChevronRight } from "react-icons/vsc";
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { useAppDispatch } from "../../Store/store";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 
 interface IPROPS {
   menuName: string;

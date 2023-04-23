@@ -1,12 +1,12 @@
+import { motion } from "framer-motion";
 import React from "react";
 import ReactDOM from "react-dom";
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
+import vscodeImage from "../../Assets/images/vsc/vscode.svg";
 import { setIsDeleteWarningEnable } from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import Button from "./Button.component";
 
-import vscodeImage from "../../Assets/images/vsc/vscode.svg";
-import { motion } from "framer-motion";
 interface IPROPS {
   name: string;
   onCancel: React.MouseEventHandler<HTMLButtonElement>;
@@ -14,14 +14,13 @@ interface IPROPS {
 }
 
 const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
+  const dispatch = useAppDispatch();
   const isChecked = useAppSelector(
     (state) => state.sideDrawer.isDeleteWarningEnable
   );
-  const dispatch = useAppDispatch();
+
   const onCheckHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.stopPropagation();
-    console.log(event.currentTarget);
-
     dispatch(setIsDeleteWarningEnable(!isChecked));
   };
 
