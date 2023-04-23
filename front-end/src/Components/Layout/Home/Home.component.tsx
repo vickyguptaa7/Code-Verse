@@ -1,11 +1,11 @@
 import React from "react";
-
 import vscodeImage from "../../../Assets/images/vsc/vscode-alt.svg";
 import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 import { getOperatingSystem } from "../../../utils/osDetect.utils";
 
 const HOME_CONTENT_MIN_SIZE = 200;
 const os = getOperatingSystem();
+
 interface IPROPS {
   height: number;
 }

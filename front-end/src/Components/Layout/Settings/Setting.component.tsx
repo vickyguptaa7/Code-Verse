@@ -1,9 +1,7 @@
 import React, { useRef, useState } from "react";
 import SearchInput from "../../sideDrawer/ShowInSideDrawer/Search/Basic/SearchInput.component";
-
-import { useSettingData } from "./hooks/useSettingData.hook";
-
 import SettingList from "./Basic/SettingList.component";
+import { useSettingData } from "./hooks/useSettingData.hook";
 
 interface IPROPS {
   height: number;
@@ -12,16 +10,19 @@ interface IPROPS {
 const Setting: React.FC<IPROPS> = ({ height }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState("");
+  
+  // Filter the setting options based on the search text
   const settingResult = useSettingData().filter(
     (settingOption) =>
       settingOption.info.toLowerCase().includes(searchText.toLowerCase()) ||
       settingOption.type.toLowerCase().includes(searchText.toLowerCase())
   );
+  
   return (
     <div className="oveflow-auto">
       <div
         className="text-[color:var(--highlight-text-color)] w-4/5 mx-auto px-3"
-        style={{ height: height}}
+        style={{ height: height }}
       >
         <div className="h-12"></div>
         <SearchInput

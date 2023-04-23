@@ -1,15 +1,12 @@
-import React from "react";
+import { CODE_EDITOR_MIN_HEIGHT } from "../../Pages/CodeEditor.page";
 import { useAppSelector } from "../../Store/store";
-import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
-
 import EditorContainer from "../Editor/EditorContainer.component";
+import { HEIGHT_OF_FILENAVIGATION_AND_FOOTER } from "../bottomPannel/BottomPannel.Constant";
 import ExtensionDetails from "./Extensions/ExtensionDetails.component";
-
 import Home from "./Home/Home.component";
-import Welcome from "./Welcome/Welcome.component";
 import Setting from "./Settings/Setting.component";
+import Welcome from "./Welcome/Welcome.component";
 
-const EDITOR_MIN_HEIGHT = 480;
 const MainView = () => {
   const currentNavFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
@@ -20,8 +17,10 @@ const MainView = () => {
   const isBottomPannelOpen = useAppSelector(
     (state) => state.bottomPannel.isBottomPannelOpen
   );
+
+  // Calculate the height for the editor home page etc.
   let height =
-    Math.max(document.body.clientHeight, EDITOR_MIN_HEIGHT) -
+    Math.max(document.body.clientHeight, CODE_EDITOR_MIN_HEIGHT) -
     HEIGHT_OF_FILENAVIGATION_AND_FOOTER;
   height -= isBottomPannelOpen ? bottomPannelHeight : 0;
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Input from "../../../UI/Input.component";
 import { ISettingOption } from "../../../../Interface/settingOption.interface";
 import { useAppDispatch } from "../../../../Store/store";
+import Input from "../../../UI/Input.component";
 
 interface IPROPS {
   option: ISettingOption;
@@ -13,6 +13,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
   const dispatch = useAppDispatch();
   const [inputText, setInputText] = useState(initialValue);
 
+  // based on the inputType render the input
   if (option.inputType === "list")
     return (
       <select
@@ -57,7 +58,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
             setInputText(e.target.checked);
             updateInStore(dispatch, e.target.checked);
           }}
-          checked={inputText==="true"?true:false}
+          checked={inputText === "true" ? true : false}
         />
         <p className="text-xs">{info}</p>
       </label>

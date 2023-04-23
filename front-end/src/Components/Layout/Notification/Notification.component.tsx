@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 
-import { VscClose, VscInfo, VscWarning } from "react-icons/vsc";
 import { IoMdDoneAll } from "react-icons/io";
-import Button from "../../UI/Button.component";
-import "./Notification.styles.css";
+import { VscClose, VscInfo, VscWarning } from "react-icons/vsc";
+import { INotification } from "../../../Interface/Notification.interface";
 import { removeNotification } from "../../../Store/reducres/Notification/Notification.reducer";
 import { useAppDispatch } from "../../../Store/store";
-import { INotification } from "../../../Interface/Notification.interface";
+import Button from "../../UI/Button.component";
+import "./Notification.styles.css";
 
 import { motion } from "framer-motion";
 
@@ -17,11 +17,14 @@ interface IPROPS {
 const NOTIFICATION_TIMER = 4000;
 
 const Notification: React.FC<IPROPS> = ({ notification }) => {
-  const { id, description, isWaitUntilComplete, type } = notification;
   const dispatch = useAppDispatch();
+  const { id, description, isWaitUntilComplete, type } = notification;
+
   const onCloseHandler = () => {
     dispatch(removeNotification({ id: id }));
   };
+
+  // if the notification is not wait until complete then remove the notification after 4 seconds
   useEffect(() => {
     if (isWaitUntilComplete) return;
     const timerId = setTimeout(() => {
@@ -29,6 +32,7 @@ const Notification: React.FC<IPROPS> = ({ notification }) => {
     }, NOTIFICATION_TIMER);
     return () => clearTimeout(timerId);
   }, [dispatch, isWaitUntilComplete, id]);
+  
   return (
     <motion.div
       className="overflow-hidden shadow-sm hover:brightness-110 w-fit notification shadow-[color:var(--hover-text-color)]"

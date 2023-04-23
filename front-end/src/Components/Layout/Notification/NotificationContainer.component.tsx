@@ -1,7 +1,6 @@
-import React from "react";
+import { AnimatePresence } from "framer-motion";
 import { useAppSelector } from "../../../Store/store";
 import Notification from "./Notification.component";
-import { AnimatePresence } from "framer-motion";
 
 const NotificationContainer = () => {
   const notifications = useAppSelector(

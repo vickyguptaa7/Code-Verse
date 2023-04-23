@@ -1,4 +1,7 @@
 import { Dispatch } from "react";
+import { themesNameArray } from "../../../../Assets/Data/theme.data";
+import { TTheme } from "../../../../Interface/Types";
+import { ISettingOption } from "../../../../Interface/settingOption.interface";
 import {
   setFontSize,
   setMinimapEnabled,
@@ -12,20 +15,36 @@ import {
   setSidePannelPosition,
 } from "../../../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppSelector } from "../../../../Store/store";
-import { ISettingOption } from "../../../../Interface/settingOption.interface";
-import { TTheme } from "../../../../Interface/Types";
-import { themesNameArray } from "../../../../Assets/Data/theme.data";
 import { storeToLocalStorage } from "../../../../utils/localStorage.utils";
 
 export const useSettingData = () => {
-  const data: Array<ISettingOption> = [
+  const editorTheme = useAppSelector((state) => state.editor.theme);
+  const editorFontSize = useAppSelector((state) => state.editor.fontSize);
+  const editorTabSize = useAppSelector((state) => state.editor.tabSize);
+  const editorWordWrap = useAppSelector((state) => state.editor.wordWrap);
+  const editorIsMinimapEnabled = useAppSelector(
+    (state) => state.editor.isMinimapEnabled
+  );
+  const editorIsScrollBeyondLastLine = useAppSelector(
+    (state) => state.editor.isScrollBeyondLastLine
+  );
+  const sideDrawerPosition = useAppSelector(
+    (state) => state.sideDrawer.isSidePannelPositionOnLeft
+  )
+    ? "left"
+    : "right";
+  const isDeleteWarningEnable = useAppSelector(
+    (state) => state.sideDrawer.isDeleteWarningEnable
+  );
+
+  const settingData: Array<ISettingOption> = [
     {
       name: "Workbench",
       type: "Color Theme",
       inputType: "list",
       info: "Specifies the color theme used in the workbench.",
       listOptions: themesNameArray,
-      initialValue: useAppSelector((state) => state.editor.theme),
+      initialValue: editorTheme,
       updateInStore: (dispatch: Dispatch<Object>, colorTheme: TTheme) => {
         dispatch(setTheme(colorTheme));
         storeToLocalStorage("vscode-color-theme", colorTheme);
@@ -37,11 +56,7 @@ export const useSettingData = () => {
       inputType: "list",
       info: "Specifies the position of the side drawer.",
       listOptions: ["left", "right"],
-      initialValue: useAppSelector(
-        (state) => state.sideDrawer.isSidePannelPositionOnLeft
-      )
-        ? "left"
-        : "right",
+      initialValue: sideDrawerPosition,
       updateInStore: (
         dispatch: Dispatch<Object>,
         sideDrawerPosition: "left" | "right"
@@ -55,7 +70,7 @@ export const useSettingData = () => {
       type: "Font Size",
       inputType: "list",
       info: "Controls the font size in pixels.",
-      initialValue: useAppSelector((state) => state.editor.fontSize),
+      initialValue: editorFontSize,
       listOptions: [6, 10, 12, 14, 16, 20, 24, 28, 30, 32, 36, 40],
       updateInStore: (dispatch: Dispatch<Object>, fontSize: number) => {
         dispatch(setFontSize(fontSize));
@@ -67,7 +82,7 @@ export const useSettingData = () => {
       type: "Word Wrap",
       inputType: "list",
       info: "Controls if lines should wrap.",
-      initialValue: useAppSelector((state) => state.editor.wordWrap),
+      initialValue: editorWordWrap,
       listOptions: ["on", "off", "wordWrapColumn", "bounded"],
       updateInStore: (
         dispatch: Dispatch<Object>,
@@ -82,9 +97,7 @@ export const useSettingData = () => {
       type: "Scroll Beyond Last Line",
       inputType: "checkbox",
       info: "Controls whether the editor will scroll beyond the last line.",
-      initialValue: useAppSelector(
-        (state) => state.editor.isScrollBeyondLastLine
-      ),
+      initialValue: editorIsScrollBeyondLastLine,
       updateInStore: (
         dispatch: Dispatch<Object>,
         isScrollBeyondLastLine: boolean
@@ -101,7 +114,7 @@ export const useSettingData = () => {
       type: "Minimap Enabled",
       inputType: "checkbox",
       info: "Controls whether the minimap is shown.",
-      initialValue: useAppSelector((state) => state.editor.isMinimapEnabled),
+      initialValue: editorIsMinimapEnabled,
       updateInStore: (
         dispatch: Dispatch<Object>,
         isMinimapEnabled: boolean
@@ -116,7 +129,7 @@ export const useSettingData = () => {
       inputType: "list",
       info: "Controls the number of spaces a tab is equal to. This setting is overridden based on the file contents when #editor.detectIndentation# is on.",
       listOptions: [2, 3, 4, 5, 6],
-      initialValue: useAppSelector((state) => state.editor.tabSize),
+      initialValue: editorTabSize,
       updateInStore: (dispatch: Dispatch<Object>, tabSize: number) => {
         dispatch(setTabSize(tabSize));
         storeToLocalStorage("vscode-tab-size", tabSize);
@@ -127,9 +140,7 @@ export const useSettingData = () => {
       type: "Warning Message On Delete",
       inputType: "checkbox",
       info: "Displays a warning message when deleting a file or folder.",
-      initialValue: useAppSelector(
-        (state) => state.sideDrawer.isDeleteWarningEnable
-      ),
+      initialValue: isDeleteWarningEnable,
       updateInStore: (
         dispatch: Dispatch<Object>,
         isDeleteWarningEnable: boolean
@@ -142,5 +153,5 @@ export const useSettingData = () => {
       },
     },
   ];
-  return data;
+  return settingData;
 };

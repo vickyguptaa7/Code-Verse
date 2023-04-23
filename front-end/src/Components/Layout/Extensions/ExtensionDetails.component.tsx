@@ -1,12 +1,11 @@
 import React from "react";
 import { MdVerified } from "react-icons/md";
 import { VscCloudDownload, VscStarFull } from "react-icons/vsc";
+import defaultIcon from "../../../Assets/images/Extension/defaultIcon.png";
 import { IExtensionInfo } from "../../../Interface/Extension.interface";
 import { useAppSelector } from "../../../Store/store";
 import Button from "../../UI/Button.component";
 import Image from "../../UI/Image.component";
-
-import defaultIcon from "../../../Assets/images/Extension/defaultIcon.png";
 
 interface IPROPS {
   height: number;
@@ -17,9 +16,13 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
   const fileInformations = useAppSelector(
     (state) => state.Directory.filesInformation
   );
+
+  // parse the extension info from the file information
   const info: IExtensionInfo = JSON.parse(fileInformations.extension.body);
-  console.log();
+
+  // get the ratings star from the info
   const ratingsStar = info.ratings.split(" ")[2];
+
   return (
     <div className="overflow-auto hidescrollbar1 hidescrollbar2">
       <div
