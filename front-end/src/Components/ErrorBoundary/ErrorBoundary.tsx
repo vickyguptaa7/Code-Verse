@@ -7,7 +7,7 @@ export const ErrorFallback: React.FC<FallbackProps> = ({
 }) => {
   return (
     <div role="alert">
-      <p>Something went wrong:</p>
+      <p>Something went wrong;</p>
       <pre>{error.message}</pre>
       <Button onClick={resetErrorBoundary} className="">
         Try again

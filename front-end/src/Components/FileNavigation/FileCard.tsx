@@ -1,16 +1,11 @@
+import { motion } from "framer-motion";
 import React from "react";
-
 import { RxCross2 } from "react-icons/rx";
 import { VscFile } from "react-icons/vsc";
-
-import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { setCurrentNavFile } from "../../Store/reducres/Navigation/FileNavigation.reducer";
-import Button from "../UI/Button.component";
-
-import { motion } from "framer-motion";
-
-// constant
+import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
+import Button from "../UI/Button.component";
 import Image from "../UI/Image.component";
 
 interface IPROPS {
@@ -20,12 +15,18 @@ interface IPROPS {
   removeFileHandler: Function;
 }
 
-const FileCard: React.FC<IPROPS> = ({ fileId,fileName,fileIconUrl, removeFileHandler }) => {
+const FileCard: React.FC<IPROPS> = ({
+  fileId,
+  fileName,
+  fileIconUrl,
+  removeFileHandler,
+}) => {
+  const dispatch = useAppDispatch();
   const currentNavFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
   );
-  const dispatch = useAppDispatch();
   const isThisActiveNavFile = currentNavFile.id === fileId;
+
   const activeClassName = isThisActiveNavFile
     ? "bg-[color:var(--codeeditor-color)] border-b-[color:var(--primary-color)] "
     : "border-b-[color:var(--sidepannel-color)] ";

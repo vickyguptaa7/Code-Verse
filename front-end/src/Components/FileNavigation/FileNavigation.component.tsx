@@ -1,21 +1,18 @@
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
-
 import { VscDebugStart, VscEllipsis } from "react-icons/vsc";
-
-import FileContainer from "./FileContainer";
-import DropMenuButton from "../UI/DropMenuButton.component";
-import Backdrop from "../UI/Backdrop.component";
-import DropMenu from "../UI/DropMenu.component";
-import Button from "../UI/Button.component";
-
-import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { removeAllFilesFromNavigation } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import {
   setIsBottomPannelOpen,
   setShowInBottomPannel,
 } from "../../Store/reducres/BottomPannel/BottomPannel.reducer";
+import { removeAllFilesFromNavigation } from "../../Store/reducres/Navigation/FileNavigation.reducer";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
-import { AnimatePresence } from "framer-motion";
+import Backdrop from "../UI/Backdrop.component";
+import Button from "../UI/Button.component";
+import DropMenu from "../UI/DropMenu.component";
+import DropMenuButton from "../UI/DropMenuButton.component";
+import FileContainer from "./FileContainer";
 
 const FileNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -106,7 +103,7 @@ const DropMenuFileNavigation: React.FC<IPROPS_DropMenu> = ({
     dispatch(setShowInBottomPannel("terminal"));
     closeDropMenuHandler(event);
   };
-  // TODO: fix the horizontal scrolling issue of the drop down menu
+
   return (
     <DropMenu className="right-2.5 top-5 w-40" initialX={0} initialY={-5}>
       <DropMenuButton name="Close All" onClickHandler={closeAllFilesHandler} />

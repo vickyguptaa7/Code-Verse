@@ -1,26 +1,26 @@
+import { AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
+import { INavFile } from "../../Interface/file.interface";
 import {
   removeFileFromNavigation,
   setCurrentNavFile,
   updateNavFileList,
 } from "../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { useEffect } from "react";
-import { INavFile } from "../../Interface/file.interface";
 import FileCard from "./FileCard";
-import { AnimatePresence } from "framer-motion";
 
 interface IPROPS {
   navFilesList: Array<INavFile>;
 }
 
 const FileContainer: React.FC<IPROPS> = ({ navFilesList }) => {
+  const dispatch = useAppDispatch();
   const currentNavFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
   );
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
   );
-  const dispatch = useAppDispatch();
 
   // only have the files that exist in the file information
   const newNavList = navFilesList.filter(

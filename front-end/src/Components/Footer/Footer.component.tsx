@@ -1,8 +1,7 @@
-import React from "react";
 import { RxCrossCircled } from "react-icons/rx";
 import { VscBell, VscFeedback, VscRemote, VscWarning } from "react-icons/vsc";
-import { useAppSelector } from "../../Store/store";
 import { editorLanguage } from "../../Assets/Data/editorLanguages.data";
+import { useAppSelector } from "../../Store/store";
 
 const Footer = () => {
   const currentNavFile = useAppSelector(
@@ -10,10 +9,11 @@ const Footer = () => {
   );
 
   const tabSize = useAppSelector((state) => state.editor.tabSize);
-  console.log(currentNavFile);
   const fileInformation = useAppSelector(
     (state) => state.Directory.filesInformation
   );
+  
+  // get the language of the current file on the main view window
   let language = fileInformation[currentNavFile.id]
     ? fileInformation[currentNavFile.id].language
     : "home";
