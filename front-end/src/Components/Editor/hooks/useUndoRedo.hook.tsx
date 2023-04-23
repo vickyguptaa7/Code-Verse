@@ -28,7 +28,7 @@ const useUndoRedo = (
       }>;
       pointer: number;
     };
-  }>(getFromLocalStorage("historyInfo") || {});
+  }>(getFromLocalStorage("vscode-history-info") || {});
 
   let isUndoRedoOperation = useRef<boolean>(false);
 

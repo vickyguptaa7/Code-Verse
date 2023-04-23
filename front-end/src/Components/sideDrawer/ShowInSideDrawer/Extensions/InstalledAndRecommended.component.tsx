@@ -6,7 +6,7 @@ import {
 import { useAppSelector } from "../../../../Store/store";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 import ExtensionCard from "./Basic/ExtensionCard.component";
-import { INSTALLED_EXTENSIONS } from "../../../../Assets/Data/extensions.data";
+import { INSTALLED_EXTENSIONS,RECOMMENTED_EXTENSIONS } from "../../../../Assets/Data/extensions.data";
 
 
 const EDITOR_MIN_HEIGHT = 480;
@@ -47,7 +47,7 @@ const InstalledAndRecommended = () => {
         }
         sibbling={
           <div className="bg-[color:var(--primary-color)] mr-2 px-1.5 rounded-full flex items-center justify-center text-xs text-white">
-            {INSTALLED_EXTENSIONS.length}
+            {RECOMMENTED_EXTENSIONS.length}
           </div>
         }
         initialState={isInstalledExtensionOpen}
@@ -61,7 +61,7 @@ const InstalledAndRecommended = () => {
             className="h-64 overflow-y-auto "
             style={{ height: recommendedHeight }}
           >
-            {INSTALLED_EXTENSIONS.map((extension) => {
+            {RECOMMENTED_EXTENSIONS.map((extension) => {
               return (
                 <ExtensionCard
                   key={extension.id}

@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router";
 import "./App.css";
-import Login from "./Pages/Login.page";
+
 import { fetchExtensionsListAction } from "./Store/actions/extensions.action";
 import {
   fetchFileIconsAction,
@@ -26,9 +26,10 @@ const App = () => {
     dispatch(fetchExtensionsListAction());
     dispatch(fetchFileIconsAction());
     dispatch(fetchFolderIconsAction());
+    removeFromLocalStorage("vscode-history-info");
     return () => {
       // clear the local storage when the app is unmounted historyInfo of the files
-      removeFromLocalStorage("historyInfo");
+      removeFromLocalStorage("vscode-history-info");
     };
   }, [dispatch]);
   return (
@@ -41,8 +42,7 @@ const App = () => {
     >
       <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none font-cascadia overflow-hidden">
         <Routes>
-          <Route path="/" element={<CodeEditor />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<CodeEditor />} />
         </Routes>
       </div>
     </Suspense>
