@@ -61,14 +61,7 @@ const directorySlice = createSlice({
         path: Array<string>;
       }>
     ) {
-      console.log(
-        traverseInDirectoryForRename(
-          state.filesInformation,
-          state.directories,
-          action.payload.isFolder ? state.folderIcons : state.fileIcons,
-          action.payload
-        )
-      );
+
       state.infoOfCurrentWorkingFileOrFolder = {
         isActive: false,
         id: "",
@@ -89,12 +82,10 @@ const directorySlice = createSlice({
     },
 
     setFileIcons(state, action: PayloadAction<{ [key: string]: string }>) {
-      // console.log(action.payload);
       state.fileIcons = { ...action.payload };
     },
 
     setFolderIcons(state, action: PayloadAction<{ [key: string]: string }>) {
-      // console.log(action.payload);
       state.folderIcons = { ...action.payload };
     },
 

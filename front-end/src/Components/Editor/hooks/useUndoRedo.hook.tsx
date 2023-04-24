@@ -60,7 +60,6 @@ const useUndoRedo = (
     monacoRef.current.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyZ,
       () => {
-        console.log("Redo");
         const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
 
         // if the pointer is at the end of the stack then we don't do anything
@@ -100,7 +99,6 @@ const useUndoRedo = (
     monacoRef.current.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyY,
       () => {
-        console.log("Redo");
         const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
 
         // if the pointer is at the end of the stack then we don't do anything
@@ -136,7 +134,6 @@ const useUndoRedo = (
     monacoRef.current.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyZ,
       () => {
-        console.log("Undo");
         const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];
 
         // if the pointer is at the beginning of the stack then we don't do anything

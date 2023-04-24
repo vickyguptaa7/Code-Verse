@@ -48,7 +48,6 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
   };
 
   const onDownloadAllFileAndFolderHandler = async () => {
-    console.log("Save all files and folders");
     closeDropMenuHandler();
     const notificationId = uniqueIdGenerator();
     dispatch(
@@ -65,7 +64,6 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
     downloadFileFolderWorker.postMessage({ filesInformation, directories });
 
     downloadFileFolderWorker.onerror = (err) => {
-      console.log(err);
       dispatch(
         addNotification({
           id: uniqueIdGenerator(),

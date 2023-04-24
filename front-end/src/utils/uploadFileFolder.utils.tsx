@@ -35,7 +35,7 @@ const processFileUpload = async (
       resolve(reader.result?.toString());
     };
     reader.onerror = () => {
-      console.log("Error while loading file : ", reader.error);
+      console.error("Error while loading file : ", reader.error);
       reject(reader.error);
     };
   });
@@ -74,7 +74,6 @@ const processFolderUpload = async (
 ) => {
   // get the relative path of the file and split it to get the folder names and in the end the file name
   const localPath = file.webkitRelativePath.split("/");
-  console.log("localPath : ", localPath);
 
   // localPathIndx is 1 bcoz the first folder name was generated earlier with unqieue name 
   let localPathIndx = 1;

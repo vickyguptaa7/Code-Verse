@@ -109,7 +109,6 @@ const RenameInput: React.FC<IPROPS> = ({
           true
         )
       ) {
-        console.log("existed");
         setIsFileNameExistAlready(true);
         return;
       }

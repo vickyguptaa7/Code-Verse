@@ -104,7 +104,6 @@ const ExplorerButtons: React.FC<IPROPS> = ({
           setNewFileOrFolderDummyTimerId({ isTimer: false, id: null });
       }
       childRef?.current?.focus();
-      console.log("add Folder");
       setIsFileOrFolder("folder");
       dispatch(
         setInfoOfCurrentWorkingFileOrFolder({
@@ -118,7 +117,6 @@ const ExplorerButtons: React.FC<IPROPS> = ({
 
   function addFileHandler(event: React.MouseEvent) {
     event.stopPropagation();
-    console.log("file handler");
 
     // folder to expand
     if (setIsFolderOpen) setIsFolderOpen(true);
@@ -129,7 +127,6 @@ const ExplorerButtons: React.FC<IPROPS> = ({
           setNewFileOrFolderDummyTimerId({ isTimer: false, id: null });
       }
       childRef?.current?.focus();
-      console.log("add File");
       setIsFileOrFolder("file");
       dispatch(
         setInfoOfCurrentWorkingFileOrFolder({

@@ -29,7 +29,6 @@ const useHighlightText = () => {
         isDrawerOpen: boolean
       ) => {
         if (!monaco || monaco.editor.getModels().length === 0) return;
-        console.log(searchedText, showInSideDrawer, isDrawerOpen);
 
         // getting all the matches of the searched text in the current file opened in the editor
         const matches = monaco.editor

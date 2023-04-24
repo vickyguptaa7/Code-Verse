@@ -71,7 +71,6 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         return;
       }
       if (isFileOrFolderAlreadyExists(directories, path, childName)) {
-        console.log("File already exists!");
         setIsExistAlready(true);
         return;
       }
@@ -119,7 +118,6 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         isFileOrFolderAlreadyExists(directories, path, childName) ||
         !childName.trim().length
       ) {
-        console.log("File already exists! key");
         setIsExistAlready(true);
         return;
       }

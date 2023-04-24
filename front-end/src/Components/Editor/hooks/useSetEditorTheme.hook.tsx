@@ -1,10 +1,13 @@
 import { useMonaco } from "@monaco-editor/react";
 import { useEffect } from "react";
 import { themesObject } from "../../../Assets/Data/theme.data";
-import { useAppSelector } from "../../../Store/store";
+import { addNotification } from "../../../Store/reducres/Notification/Notification.reducer";
+import { useAppDispatch, useAppSelector } from "../../../Store/store";
+import { uniqueIdGenerator } from "../../../library/uuid/uuid.lib";
 
 const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
   const monaco = useMonaco();
+  const dispatch = useAppDispatch();
   const editorTheme = useAppSelector((state) => state.editor.theme);
   useEffect(() => {
     if (monaco) {
@@ -14,7 +17,6 @@ const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
             setIsEditorThemeReady(true);
             return;
           }
-          console.log("editorTheme : ", editorTheme);
 
           const themeDetail = await import(
             `monaco-themes/themes/${themesObject[editorTheme]}.json`
@@ -32,7 +34,15 @@ const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
         // defining the editor theme
         defineTheme();
       } catch (error) {
-        console.log("error : ", error);
+        dispatch(
+          addNotification({
+            id: uniqueIdGenerator(),
+            description: "Something went wrong",
+            isWaitUntilComplete: false,
+            type: "error",
+          })
+        );
+        console.error("error : ", error);
       }
     }
   }, [monaco, setIsEditorThemeReady, editorTheme]);

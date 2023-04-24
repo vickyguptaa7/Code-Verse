@@ -47,7 +47,6 @@ const FileCard: React.FC<IPROPS> = ({
   const removeHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     removeFileHandler(fileId);
-    console.log("Remove", fileId);
   };
 
   const changeCurrentFileInNavigationHandler = (event: React.MouseEvent) => {

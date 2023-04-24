@@ -124,7 +124,6 @@ const DropMenuBottomPannel: React.FC<IPROPS_DROP_MENU> = ({
     closeDropMenuHandler(event);
     dispatch(setShowInBottomPannel("output"));
   };
-  console.log(currentNavFile);
 
   return (
     <DropMenu className="w-40 -right-0 top-8" initialX={-5} initialY={-5}>

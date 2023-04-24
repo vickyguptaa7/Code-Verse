@@ -39,13 +39,9 @@ const useInitializeApp = () => {
     document.body.classList.add(editorTheme);
   }, [editorTheme]);
   useEffect(() => {
-    try {
-      dispatch(fetchExtensionsListAction());
-      dispatch(fetchFileIconsAction());
-      dispatch(fetchFolderIconsAction());
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(fetchExtensionsListAction());
+    dispatch(fetchFileIconsAction());
+    dispatch(fetchFolderIconsAction());
     removeFromLocalStorage("vscode-history-info");
     return () => {
       // clear the local storage when the app is unmounted historyInfo of the files
