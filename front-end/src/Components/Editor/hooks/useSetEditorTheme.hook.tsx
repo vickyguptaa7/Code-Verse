@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-
 import { useMonaco } from "@monaco-editor/react";
+import { useEffect } from "react";
 import { themesObject } from "../../../Assets/Data/theme.data";
 import { useAppSelector } from "../../../Store/store";
 

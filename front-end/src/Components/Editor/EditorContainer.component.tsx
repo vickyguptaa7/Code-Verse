@@ -1,18 +1,17 @@
 import React from "react";
-
-import { useAppSelector } from "../../Store/store";
-
 import { INavFile } from "../../Interface/file.interface";
-
+import { useAppSelector } from "../../Store/store";
 import Editor from "./editor.component";
 
 interface IPROPS {
   editorHeight: number;
-  currentWorkingFile:INavFile
+  currentWorkingFile: INavFile;
 }
 
-const EditorContainer: React.FC<IPROPS> = ({ editorHeight,currentWorkingFile }) => {
-
+const EditorContainer: React.FC<IPROPS> = ({
+  editorHeight,
+  currentWorkingFile,
+}) => {
   const filesInformation = useAppSelector(
     (state) => state.Directory.filesInformation
   );

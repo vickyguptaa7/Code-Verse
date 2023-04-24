@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { VscChevronRight } from "react-icons/vsc";
-import useInputFocus from "../../../../hooks/useInputFocus.hook";
 import { useAppSelector } from "../../../../Store/store";
+import useInputFocus from "../../../../hooks/useInputFocus.hook";
 import Input from "../../../UI/Input.component";
 
 const Debug = () => {

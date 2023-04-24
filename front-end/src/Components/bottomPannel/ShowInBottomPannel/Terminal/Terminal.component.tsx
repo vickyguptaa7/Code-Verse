@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../../../Store/store";
-import Input from "../../../UI/Input.component";
 import { scrollToTarget } from "../../../../utils/scrollToTargetId.util";
+import Input from "../../../UI/Input.component";
 
 interface IPROPS {
   terminalActions: (terminalInput: string) => void;

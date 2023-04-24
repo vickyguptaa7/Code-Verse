@@ -1,21 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-
 import MonacoEditor from "@monaco-editor/react";
 import { editor } from "monaco-editor";
-
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
-
-import { useAppDispatch, useAppSelector } from "../../Store/store";
-import { updateFileBody } from "../../Store/reducres/SideDrawer/Directory/Directory.reducer";
-
-import useDebounce from "../../hooks/useDebounce.hook";
-import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
-import useHighlightText from "./hooks/useHighlightText.hook";
-import useUndoRedo from "./hooks/useUndoRedo.hook";
-
+import React, { useEffect, useRef, useState } from "react";
 import { editorLanguage } from "../../Assets/Data/editorLanguages.data";
-import "./editor.styles.css";
+import { updateFileBody } from "../../Store/reducres/SideDrawer/Directory/Directory.reducer";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
+import useDebounce from "../../hooks/useDebounce.hook";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import Loader from "../UI/Loader/Loader.component";
+import "./editor.styles.css";
+import useHighlightText from "./hooks/useHighlightText.hook";
+import useSetEditorTheme from "./hooks/useSetEditorTheme.hook";
+import useUndoRedo from "./hooks/useUndoRedo.hook";
 
 interface IPROPS {
   content: string;
@@ -138,8 +133,9 @@ const Editor: React.FC<IPROPS> = ({
     searchedText,
     currentWorkingFileId,
     isDrawerOpen,
-    content
+    content,
   ]);
+  
   return (
     <div
       className={mergeClass([

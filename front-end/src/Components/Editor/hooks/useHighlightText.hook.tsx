@@ -1,9 +1,7 @@
-import { useMemo, useRef } from "react";
-
 import { useMonaco } from "@monaco-editor/react";
-
-import { useAppSelector } from "../../../Store/store";
+import { useMemo, useRef } from "react";
 import { DrawerContent } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
+import { useAppSelector } from "../../../Store/store";
 
 const CSS_CLASSNAME_HIGHLIGHT_SUFFFIX = "-highlight";
 

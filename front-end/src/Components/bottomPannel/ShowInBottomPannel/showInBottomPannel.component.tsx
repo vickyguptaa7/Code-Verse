@@ -1,14 +1,12 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useAppSelector } from "../../../Store/store";
 import { ErrorFallback } from "../../ErrorBoundary/ErrorBoundary";
-
+import { BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX } from "../BottomPannel.Constant";
 import Debug from "./Debug/Debug.component";
 import Input from "./Input/Input.component";
 import Output from "./Output/Output.component";
 import Terminal from "./Terminal/Terminal.component";
-
-import { BOTTOM_PANNEL_NAVIGATION_HEIGHT_SIZE_PX } from "../BottomPannel.Constant";
 import { useTerminal } from "./Terminal/hook/useTerminal.hook";
 
 const ShowInBottomPannel = () => {
@@ -23,6 +21,7 @@ const ShowInBottomPannel = () => {
 
   const { terminalActions } = useTerminal();
 
+  // show the component that is selected in the bottom pannel navigation
   let show = <Debug />;
   if (showInBottomPannel === "input")
     show = <Input mainDivHeight={contentShowInBottomPannelHeight} />;

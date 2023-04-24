@@ -1,6 +1,6 @@
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import { VscChevronUp, VscClose, VscEllipsis, VscTrash } from "react-icons/vsc";
-import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 import {
   resetBottomPannel,
   setBottomPannelHeight,
@@ -9,20 +9,20 @@ import {
   setOutputContent,
   setShowInBottomPannel,
 } from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
-import { useAppDispatch, useAppSelector } from "../../../Store/store";
-import Backdrop from "../../UI/Backdrop.component";
-import DropMenu from "../../UI/DropMenu.component";
-import DropMenuButton from "../../UI/DropMenuButton.component";
-import {
-  HEIGHT_OF_FILENAVIGATION_AND_FOOTER,
-  BOTTOM_PANNEL_MIN_SIZE_PX,
-} from "../BottomPannel.Constant";
-import BottomPannelButton from "../bottomPannelButtons.component";
 import {
   resetTerminal,
   setTerminalContent,
 } from "../../../Store/reducres/BottomPannel/Terminal/Terminal.reducer";
-import { AnimatePresence } from "framer-motion";
+import { useAppDispatch, useAppSelector } from "../../../Store/store";
+import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
+import Backdrop from "../../UI/Backdrop.component";
+import DropMenu from "../../UI/DropMenu.component";
+import DropMenuButton from "../../UI/DropMenuButton.component";
+import {
+  BOTTOM_PANNEL_MIN_SIZE_PX,
+  HEIGHT_OF_FILENAVIGATION_AND_FOOTER,
+} from "../BottomPannel.Constant";
+import BottomPannelButton from "../bottomPannelButtons.component";
 
 const BottomPannelRightNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -60,8 +60,6 @@ const BottomPannelRightNavigation = () => {
   const openDropMenuHandler = () => {
     setIsDropMenuOpen(true);
   };
-
-  // TODO:Bottom Pannel Icons fixe ui as some icons are cropped on hover
 
   return (
     <>

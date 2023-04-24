@@ -1,6 +1,6 @@
 import React from "react";
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import { useAppSelector } from "../../Store/store";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import Button from "../UI/Button.component";
 
 interface PROPS_INTERFACE {
@@ -40,7 +40,7 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
       >
         <Icon
           className={mergeClass([
-            "text-xl text-[color:var(--highlight-text-color)] "
+            "text-xl text-[color:var(--highlight-text-color)] ",
           ])}
         />
       </Button>
@@ -52,7 +52,7 @@ const BottomPannelButton: React.FC<PROPS_INTERFACE> = ({
       className={mergeClass([
         "hover:text-[color:var(--highlight-text-color)] mr-4 border-b-[1.5px]",
         className,
-        avtiveClassName
+        avtiveClassName,
       ])}
     >
       <Button

@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import { VscEllipsis } from "react-icons/vsc";
 import { setShowInBottomPannel } from "../../../Store/reducres/BottomPannel/BottomPannel.reducer";
@@ -6,7 +7,6 @@ import Backdrop from "../../UI/Backdrop.component";
 import DropMenu from "../../UI/DropMenu.component";
 import DropMenuButton from "../../UI/DropMenuButton.component";
 import BottomPannelButton from "../bottomPannelButtons.component";
-import { AnimatePresence } from "framer-motion";
 
 type bottomPannelContent = "input" | "output" | "terminal" | "debug";
 

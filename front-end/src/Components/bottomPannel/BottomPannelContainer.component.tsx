@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useRef, useState } from "react";
 import { useAppSelector } from "../../Store/store";
+import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import BottomPannelNavigation from "./BottomPannelNavigation/BottomPannelNavigation.component";
 import ShowInBottomPannel from "./ShowInBottomPannel/showInBottomPannel.component";
 import useBottomPannelResizing from "./hooks/useBottomPannelResizing.hook";
-import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
-import { motion } from "framer-motion";
 
 const BottomPannelContainer = () => {
   const refBottomPannel = useRef<HTMLDivElement>(null);
