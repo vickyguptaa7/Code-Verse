@@ -45,7 +45,7 @@ const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
         console.error("error : ", error);
       }
     }
-  }, [monaco, setIsEditorThemeReady, editorTheme]);
+  }, [monaco, setIsEditorThemeReady, editorTheme, dispatch]);
 };
 
 export default useSetEditorTheme;

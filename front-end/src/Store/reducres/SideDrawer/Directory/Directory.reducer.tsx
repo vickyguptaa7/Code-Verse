@@ -10,7 +10,6 @@ import { directoryComparator } from "../../../../utils/fileFolder.utils";
 import {
   traverseInDirectoryForAdd,
   traverseInDirectoryForDelete,
-  traverseInDirectoryForRename,
 } from "./DirectoryOperations";
 
 const directoryInitialState = {
