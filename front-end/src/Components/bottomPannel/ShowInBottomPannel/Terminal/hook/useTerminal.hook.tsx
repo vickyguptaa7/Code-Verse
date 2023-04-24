@@ -14,6 +14,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import { uniqueIdGenerator } from "../../../../../library/uuid/uuid.lib";
+import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
 
 export const useTerminal = () => {
   const dispatch = useAppDispatch();
@@ -300,6 +301,7 @@ export const useTerminal = () => {
     );
     addToTerminalContent(terminalInput);
     dispatch(addFileToNavigation({ id: fileId, type: "file" }));
+    scrollToTarget(fileId);
   };
 
   // create new directory in the current directory

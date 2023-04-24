@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
 import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import { uniqueIdGenerator } from "../../../../../library/uuid/uuid.lib";
+import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
 import Input from "../../../../UI/Input.component";
 
 interface IPROPS {
@@ -78,7 +79,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
       // Added timeout so that there is setFileOrFolder will update and the dummyfileorfolder get removed first and then our new folder or file gets added to directory
       // if its not done then it will add file or folder to directory first and then dummyfileorfolder gets removed so there is wierd ui change
       const newId = uniqueIdGenerator();
-      
+
       setTimeout(() => {
         dispatch(
           addFileOrFolderToDirectory({
@@ -91,12 +92,13 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         );
         if (isFileOrFolder === "file") {
           dispatch(addFileToNavigation({ id: newId, type: "file" }));
+          scrollToTarget(newId);
         }
       }, 20);
-      
+
       setIsExistAlready(false);
     }, 160);
-    
+
     if (setNewFileOrFolderDummyTimerId)
       setNewFileOrFolderDummyTimerId({
         isTimer: true,
@@ -112,7 +114,6 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
   */
   const onKeyDownHandler = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
-
       // check if file or folder is already exists or not
       if (
         isFileOrFolderAlreadyExists(directories, path, childName) ||
@@ -122,7 +123,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         setIsExistAlready(true);
         return;
       }
-      
+
       setIsFileOrFolder("none");
       // Added timeout so that there is setFileOrFolder will update and the dummyfileorfolder get removed first and then our new folder or file gets added to directory
       // if its not done then it will add file or folder to directory first and then dummyfileorfolder gets removed so there is wierd ui change
@@ -139,6 +140,7 @@ const NewFileOrFolderDummy: React.FC<IPROPS> = ({
         );
         if (isFileOrFolder === "file") {
           dispatch(addFileToNavigation({ id: newId, type: "file" }));
+          scrollToTarget(newId);
         }
       }, 0);
       setIsExistAlready(false);
