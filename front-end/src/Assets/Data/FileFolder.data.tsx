@@ -26,7 +26,7 @@ let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
     ],
     isFolder: false,
     parentId: "root",
-    path: "root/welcomelop",
+    path: "root/" + uniqueId,
     children: [],
   },
 ];

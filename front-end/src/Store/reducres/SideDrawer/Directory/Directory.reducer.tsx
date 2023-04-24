@@ -10,6 +10,7 @@ import { directoryComparator } from "../../../../utils/fileFolder.utils";
 import {
   traverseInDirectoryForAdd,
   traverseInDirectoryForDelete,
+  traverseInDirectoryForRename,
 } from "./DirectoryOperations";
 
 const directoryInitialState = {
@@ -60,7 +61,12 @@ const directorySlice = createSlice({
         path: Array<string>;
       }>
     ) {
-
+      traverseInDirectoryForRename(
+        state.filesInformation,
+        state.directories,
+        action.payload.isFolder ? state.folderIcons : state.fileIcons,
+        action.payload
+      );
       state.infoOfCurrentWorkingFileOrFolder = {
         isActive: false,
         id: "",

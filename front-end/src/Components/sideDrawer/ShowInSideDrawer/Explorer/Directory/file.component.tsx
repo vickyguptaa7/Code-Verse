@@ -31,7 +31,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   return (
     <div
       title="Open"
-      className="flex group justify-between gap-3 cursor-pointer py-[1px]  hover:bg-[color:var(--hover-text-color)] min-w-fit"
+      className="flex group justify-between gap-1 cursor-pointer py-[1px]  hover:bg-[color:var(--hover-text-color)] min-w-fit"
       onClick={addToFileNavigationHandler}
       // extra padding to align the folder and file name
       style={{ paddingLeft: shiftAmount + 26, width: sideDrawerWidth }}
@@ -59,7 +59,7 @@ const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
           <h3
             className=" p-0.5 border border-transparent cursor-pointer select-none overflow-hidden text-ellipsis selection:bg-transparent"
             style={{
-              width: Math.max(sideDrawerWidth - shiftAmount - 26 - 95, 40),
+              width: Math.max(sideDrawerWidth - shiftAmount - 26 - 72, 40),
             }}
           >
             {fileInfo.name}
