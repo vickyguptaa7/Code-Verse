@@ -9,3 +9,5 @@ export const FILE_DIRECTORY_AMOUNT_OF_SHIFT = 8;
 
 // height of the searched file card
 export const SEARCHED_FILE_CARD_HIGHT = 28;
+
+export const SIDE_DRAWER_WIDTH_INITIAL=208;

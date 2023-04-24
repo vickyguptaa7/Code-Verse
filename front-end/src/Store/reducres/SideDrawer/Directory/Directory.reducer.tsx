@@ -1,26 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import IDirectory from "../../../../Interface/directory.interface";
-import { IFile } from "../../../../Interface/file.interface";
-import { IIcon } from "../../../../Interface/Icon.interface";
-import {
-  traverseInDirectoryForDelete,
-  traverseInDirectoryForRename,
-  traverseInDirectoryForAdd,
-} from "./DirectoryOperations";
-import { directoryComparator } from "../../../../utils/fileFolder.utils";
 import {
   DUMMY_FILE_DIRECTORY,
   DUMMY_FILE_INFORMATION,
 } from "../../../../Assets/Data/FileFolder.data";
+import IDirectory from "../../../../Interface/directory.interface";
+import { IFile } from "../../../../Interface/file.interface";
+import { IIcon } from "../../../../Interface/Icon.interface";
+import { directoryComparator } from "../../../../utils/fileFolder.utils";
+import {
+  traverseInDirectoryForAdd,
+  traverseInDirectoryForDelete,
+  traverseInDirectoryForRename,
+} from "./DirectoryOperations";
 
 const directoryInitialState = {
   directories: DUMMY_FILE_DIRECTORY,
   fileIcons: {} as IIcon,
   folderIcons: {} as IIcon,
   filesInformation: DUMMY_FILE_INFORMATION,
-  undoRedoHistoryInfo: {} as {
-    [key: string]: { stack: Array<string>; pointer: number };
-  },
   infoOfCurrentWorkingFileOrFolder: {
     isActive: false,
     operation: "",
@@ -136,14 +133,6 @@ const directorySlice = createSlice({
       }
       state.directories.sort(directoryComparator);
     },
-    setUndoRedoHistoryInfo(
-      state,
-      action: PayloadAction<{
-        [key: string]: { stack: Array<string>; pointer: number };
-      }>
-    ) {
-      state.undoRedoHistoryInfo = action.payload;
-    },
   },
 });
 export const {
@@ -156,7 +145,6 @@ export const {
   updateFileBody,
   addExternalFileOrFolderToDirectory,
   setFilesInformation,
-  setUndoRedoHistoryInfo,
 } = directorySlice.actions;
 
 export default directorySlice.reducer;

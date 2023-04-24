@@ -31,11 +31,13 @@ export const getPrevFontSize = () => {
     prevFontSize = 16;
   return prevFontSize;
 };
+
 export const getPrevTabSize = () => {
   let prevTabSize = parseInt(getFromLocalStorage("vscode-tab-size"));
   if (isNaN(prevTabSize) || prevTabSize < 2 || prevTabSize > 6) prevTabSize = 4;
   return prevTabSize;
 };
+
 export const getPrevWordWrap = () => {
   let prevWordWrap = getFromLocalStorage("vscode-word-wrap");
   if (
@@ -47,6 +49,7 @@ export const getPrevWordWrap = () => {
     prevWordWrap = "on";
   return prevWordWrap;
 };
+
 export const getPrevScrollBeyondLastLine = () => {
   let prevScrollBeyondLastLine = getFromLocalStorage(
     "vscode-is-scroll-beyond-last-line"
@@ -58,6 +61,7 @@ export const getPrevScrollBeyondLastLine = () => {
     prevScrollBeyondLastLine = "false";
   return prevScrollBeyondLastLine;
 };
+
 export const getPrevMinimapEnabled = () => {
   let prevMinimapEnabled = getFromLocalStorage("vscode-is-minimap-enabled");
   if (prevMinimapEnabled !== "true" && prevMinimapEnabled !== "false")

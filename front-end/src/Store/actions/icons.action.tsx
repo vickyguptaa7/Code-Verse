@@ -1,10 +1,12 @@
-import { fetchFileIcons, fetchFolderIcons } from "../../library/firebase/firebase.lib";
-
+import { Dispatch } from "react";
+import {
+  fetchFileIcons,
+  fetchFolderIcons,
+} from "../../library/firebase/firebase.lib";
 import {
   setFileIcons,
   setFolderIcons,
 } from "../reducres/SideDrawer/Directory/Directory.reducer";
-import { Dispatch } from "react";
 
 export const fetchFileIconsAction = () => {
   return async (dispatch: Dispatch<Object>) => {
@@ -15,7 +17,7 @@ export const fetchFileIconsAction = () => {
       }
       dispatch(setFileIcons(data));
     } catch (err) {
-      console.log("error : ", err);
+      console.error("error : ", err);
     }
   };
 };
@@ -29,7 +31,7 @@ export const fetchFolderIconsAction = () => {
       }
       dispatch(setFolderIcons(data));
     } catch (err) {
-      console.log("error : ", err);
+      console.error("error : ", err);
     }
   };
 };

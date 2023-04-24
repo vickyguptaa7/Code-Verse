@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { SIDE_DRAWER_WIDTH_INITIAL } from "../../../Components/sideDrawer/sideDrawer.Constant";
 import { getPrevPosition } from "../../../utils/localStorage.utils";
 
 export type DrawerContent = "file" | "search" | "git" | "debug" | "extensions";
@@ -7,7 +8,7 @@ const sideDrawerInitialState = {
   isSidePannelPositionOnLeft: getPrevPosition().isSidePannelPositionOnLeft,
   isDrawerOpen: true,
   isDrawerOpenSideIsLeft: getPrevPosition().isDrawerOpenSideIsLeft,
-  sideDrawerWidth: 208, // 13 rem inital width of drawer
+  sideDrawerWidth: SIDE_DRAWER_WIDTH_INITIAL,
   showInSideDrawer: "file" as DrawerContent,
   isDeleteWarningEnable: true,
 };

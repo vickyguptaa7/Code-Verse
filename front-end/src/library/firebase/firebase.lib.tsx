@@ -5,16 +5,12 @@ import {
   getDoc,
   getFirestore,
   doc,
-  // setDoc
 } from "firebase/firestore";
 import { IExtensionInfo } from "../../Interface/Extension.interface";
 
-// import { extensions } from "../Extra/Extensions_Details";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
-
-// functions
 
 export const fetchFolderIcons = async () => {
   const folderIconsRef = doc(db, "folderIcons", "620RerXyAqYImRSeEEei");

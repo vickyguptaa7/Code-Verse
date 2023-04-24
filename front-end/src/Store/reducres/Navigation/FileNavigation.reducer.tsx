@@ -1,18 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  DUMMY_FILES,
+  EMPTY_FILE,
+} from "../../../Assets/Data/fileNavigation.data";
 import { INavFile } from "../../../Interface/file.interface";
-import { DUMMY_FILES, EMPTY_FILE } from "../../../Assets/Data/fileNavigation.data";
 
 const navigationFilesInitialState = {
   navFilesList: DUMMY_FILES,
   currentNavFile: DUMMY_FILES[0],
-  undoRedoStack: {} as { [key: string]: { stack: string[]; pointer: number } },
 };
 
 const navigationFilesSlice = createSlice({
   name: "files",
   initialState: navigationFilesInitialState,
   reducers: {
-
     addFileToNavigation(state, action: PayloadAction<INavFile>) {
       const isFilePresentAlready =
         state.navFilesList.findIndex(
@@ -23,7 +24,7 @@ const navigationFilesSlice = createSlice({
       if (!isFilePresentAlready) {
         state.navFilesList.push(action.payload);
       }
-      
+
       state.currentNavFile = action.payload;
     },
     removeFileFromNavigation(state, action: PayloadAction<{ id: string }>) {
@@ -57,7 +58,6 @@ const navigationFilesSlice = createSlice({
     updateNavFileList(state, action: PayloadAction<Array<INavFile>>) {
       state.navFilesList = action.payload;
     },
-    setUndoRedoStack(state, action: PayloadAction<{}>) {},
   },
 });
 

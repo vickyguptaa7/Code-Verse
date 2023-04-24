@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TTheme } from "../../../Interface/Types";
+import { TTheme, TWordWrap } from "../../../Interface/Types";
 import {
   getPrevFontSize,
   getPrevMinimapEnabled,
@@ -28,10 +28,7 @@ const editorSlice = createSlice({
     setFontSize(state, action: PayloadAction<number>) {
       state.fontSize = action.payload;
     },
-    setWordWrap(
-      state,
-      action: PayloadAction<"on" | "off" | "wordWrapColumn" | "bounded">
-    ) {
+    setWordWrap(state, action: PayloadAction<TWordWrap>) {
       state.wordWrap = action.payload;
     },
     setScrollBeyondLastLine(state, action: PayloadAction<boolean>) {

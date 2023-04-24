@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TBottomPannelContent } from "../../../Interface/Types";
 
 const bottomPannelInitialState = {
   isBottomPannelOpen: false,
@@ -10,7 +11,7 @@ const bottomPannelInitialState = {
   debugContent: "",
 };
 
-type bottomPannelContent = "input" | "output" | "terminal" | "debug";
+
 
 const bottomPannelSlice = createSlice({
   name: "sideDrawer",
@@ -25,7 +26,7 @@ const bottomPannelSlice = createSlice({
     setIsMinimizeBottomPannel(state, action: PayloadAction<boolean>) {
       state.isMinimizeBottomPannel = action.payload;
     },
-    setShowInBottomPannel(state, action: PayloadAction<bottomPannelContent>) {
+    setShowInBottomPannel(state, action: PayloadAction<TBottomPannelContent>) {
       state.showInBottomPannel = action.payload;
     },
     toggleIsBottomPannelOpen(state) {

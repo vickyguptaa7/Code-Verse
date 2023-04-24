@@ -153,73 +153,79 @@ const INSTALLED_EXTENSIONS = [
 const RECOMMENTED_EXTENSIONS = [
   {
     id: "rex1",
-    "extensionName": "LeetCode",
-    "imageUrl": "https://leetcode.gallerycdn.vsassets.io/extensions/leetcode/vscode-leetcode/0.18.1/1652090923340/Microsoft.VisualStudio.Services.Icons.Small",
-    "verified": "",
-    "publisher": "力扣 LeetCode",
-    "downloadCount": "691K",
-    "description": "Solve LeetCode problems in VS Code",
-    "ratings": "Average rating: 4.4 out of 5",
-    "extensionUrl": "/items?itemName=LeetCode.vscode-leetcode"
+    extensionName: "LeetCode",
+    imageUrl:
+      "https://leetcode.gallerycdn.vsassets.io/extensions/leetcode/vscode-leetcode/0.18.1/1652090923340/Microsoft.VisualStudio.Services.Icons.Small",
+    verified: "",
+    publisher: "力扣 LeetCode",
+    downloadCount: "691K",
+    description: "Solve LeetCode problems in VS Code",
+    ratings: "Average rating: 4.4 out of 5",
+    extensionUrl: "/items?itemName=LeetCode.vscode-leetcode",
   },
   {
     id: "rex2",
-    "extensionName": "Google Cloud Code",
-    "imageUrl": "https://googlecloudtools.gallerycdn.vsassets.io/extensions/googlecloudtools/cloudcode/1.21.3/1675982856754/Microsoft.VisualStudio.Services.Icons.Small",
-    "verified": "google.com",
-    "publisher": "Google Cloud",
-    "downloadCount": "659K",
-    "description": "Cloud Code is Google Cloud's official IDE extension to develop with your favorite Google Cloud services such as Kubernetes, Cloud Run, and Compute Engine. Cloud Code makes developing with Google Cloud (GCP) feel like working on local code.",
-    "ratings": "Average rating: 2.9 out of 5",
-    "extensionUrl": "/items?itemName=GoogleCloudTools.cloudcode"
+    extensionName: "Google Cloud Code",
+    imageUrl:
+      "https://googlecloudtools.gallerycdn.vsassets.io/extensions/googlecloudtools/cloudcode/1.21.3/1675982856754/Microsoft.VisualStudio.Services.Icons.Small",
+    verified: "google.com",
+    publisher: "Google Cloud",
+    downloadCount: "659K",
+    description:
+      "Cloud Code is Google Cloud's official IDE extension to develop with your favorite Google Cloud services such as Kubernetes, Cloud Run, and Compute Engine. Cloud Code makes developing with Google Cloud (GCP) feel like working on local code.",
+    ratings: "Average rating: 2.9 out of 5",
+    extensionUrl: "/items?itemName=GoogleCloudTools.cloudcode",
   },
   {
     id: "rex3",
-    "extensionName": "colorize",
-    "imageUrl": "https://kamikillerto.gallerycdn.vsassets.io/extensions/kamikillerto/vscode-colorize/0.11.1/1619866227538/Microsoft.VisualStudio.Services.Icons.Small",
-    "verified": "",
-    "publisher": "kamikillerto",
-    "downloadCount": "602K",
-    "description": "A vscode extension to help visualize css colors in files.",
-    "ratings": "Average rating: 4.3 out of 5",
-    "extensionUrl": "/items?itemName=kamikillerto.vscode-colorize"
+    extensionName: "colorize",
+    imageUrl:
+      "https://kamikillerto.gallerycdn.vsassets.io/extensions/kamikillerto/vscode-colorize/0.11.1/1619866227538/Microsoft.VisualStudio.Services.Icons.Small",
+    verified: "",
+    publisher: "kamikillerto",
+    downloadCount: "602K",
+    description: "A vscode extension to help visualize css colors in files.",
+    ratings: "Average rating: 4.3 out of 5",
+    extensionUrl: "/items?itemName=kamikillerto.vscode-colorize",
   },
   {
     id: "rex4",
-    "extensionName": "File Utils",
-    "imageUrl": "https://sleistner.gallerycdn.vsassets.io/extensions/sleistner/vscode-fileutils/3.10.0/1675098144582/Microsoft.VisualStudio.Services.Icons.Small",
-    "verified": "",
-    "publisher": "Steffen Leistner",
-    "downloadCount": "532K",
-    "description": "A convenient way of creating, duplicating, moving, renaming and deleting files and directories.",
-    "ratings": "Average rating: 5.0 out of 5",
-    "extensionUrl": "/items?itemName=sleistner.vscode-fileutils"
+    extensionName: "File Utils",
+    imageUrl:
+      "https://sleistner.gallerycdn.vsassets.io/extensions/sleistner/vscode-fileutils/3.10.0/1675098144582/Microsoft.VisualStudio.Services.Icons.Small",
+    verified: "",
+    publisher: "Steffen Leistner",
+    downloadCount: "532K",
+    description:
+      "A convenient way of creating, duplicating, moving, renaming and deleting files and directories.",
+    ratings: "Average rating: 5.0 out of 5",
+    extensionUrl: "/items?itemName=sleistner.vscode-fileutils",
   },
   {
     id: "rex5",
-    "extensionName": "Bracket Pair Colorization Toggler",
-    "imageUrl": "https://dzhavat.gallerycdn.vsassets.io/extensions/dzhavat/bracket-pair-toggler/0.0.3/1675812133561/Microsoft.VisualStudio.Services.Icons.Small",
-    "verified": "",
-    "publisher": "Dzhavat Ushev",
-    "downloadCount": "469K",
-    "description": "Quickly toggle 'Bracket Pair Colorization' setting with a simple command",
-    "ratings": "Average rating: 3.8 out of 5",
-    "extensionUrl": "/items?itemName=dzhavat.bracket-pair-toggler"
+    extensionName: "Bracket Pair Colorization Toggler",
+    imageUrl:
+      "https://dzhavat.gallerycdn.vsassets.io/extensions/dzhavat/bracket-pair-toggler/0.0.3/1675812133561/Microsoft.VisualStudio.Services.Icons.Small",
+    verified: "",
+    publisher: "Dzhavat Ushev",
+    downloadCount: "469K",
+    description:
+      "Quickly toggle 'Bracket Pair Colorization' setting with a simple command",
+    ratings: "Average rating: 3.8 out of 5",
+    extensionUrl: "/items?itemName=dzhavat.bracket-pair-toggler",
   },
   {
     id: "rex6",
-    "extensionName": "Typescript React code snippets",
-    "imageUrl": "https://infeng.gallerycdn.vsassets.io/extensions/infeng/vscode-react-typescript/1.3.1/1563334822132/Microsoft.VisualStudio.Services.Icons.Small",
-    "verified": "",
-    "publisher": "infeng",
-    "downloadCount": "414K",
-    "description": "Code snippets for react in typescript",
-    "ratings": "Average rating: 4.6 out of 5",
-    "extensionUrl": "/items?itemName=infeng.vscode-react-typescript"
+    extensionName: "Typescript React code snippets",
+    imageUrl:
+      "https://infeng.gallerycdn.vsassets.io/extensions/infeng/vscode-react-typescript/1.3.1/1563334822132/Microsoft.VisualStudio.Services.Icons.Small",
+    verified: "",
+    publisher: "infeng",
+    downloadCount: "414K",
+    description: "Code snippets for react in typescript",
+    ratings: "Average rating: 4.6 out of 5",
+    extensionUrl: "/items?itemName=infeng.vscode-react-typescript",
   },
-]
+];
 
-export {
-    INSTALLED_EXTENSIONS,
-    RECOMMENTED_EXTENSIONS
-}
+export { INSTALLED_EXTENSIONS, RECOMMENTED_EXTENSIONS };

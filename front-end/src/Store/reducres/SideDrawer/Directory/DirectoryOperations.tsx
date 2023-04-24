@@ -29,11 +29,16 @@ const traverseInDirectoryForAdd = (
     addFileOrFolder(filesInformation, directories, iconList, info, currDirPath);
     return true;
   }
+
+  // find the child directory Indx in the directory array of the current directory (directories)
   const childIndx = directories.findIndex(
     (directory) => directory.id === info.path[pathIndx]
   );
+
+  // if the child directory is not found then return false
   if (childIndx === -1) return false;
-  console.log(directories[childIndx], childIndx);
+
+  // if the path is found then add the file or folder to the directory
   if (
     directories[childIndx].isFolder &&
     traverseInDirectoryForAdd(
@@ -47,6 +52,7 @@ const traverseInDirectoryForAdd = (
   )
     return true;
 
+  // if the path is not found then return false
   return false;
 };
 
@@ -61,12 +67,15 @@ const traverseInDirectoryForRename = (
   },
   pathIndx: number = 1
 ) => {
+  // find the childIndx of the directory in the current directory (directories)
   const childIndx = directories.findIndex(
     (directory) => directory.id === info.path[pathIndx]
   );
 
+  // if the childIndx is not found then return false
   if (childIndx === -1) return false;
 
+  // if the path is found then rename the file or folder
   if (info.path.length === pathIndx + 1) {
     renameOfFileOrFolder(
       filesInformation,
@@ -77,6 +86,8 @@ const traverseInDirectoryForRename = (
     );
     return true;
   }
+
+  // if the path is folder then traverse to the child directory
   if (
     directories[childIndx].isFolder &&
     traverseInDirectoryForRename(
@@ -89,6 +100,7 @@ const traverseInDirectoryForRename = (
   )
     return true;
 
+  // if the path is not found then return false
   return false;
 };
 
@@ -99,11 +111,15 @@ const traverseInDirectoryForDelete = (
   path: Array<string>,
   pathIndx: number = 1
 ) => {
+  // find the childIndx of the directory in the current directory (directories)
   const childIndx = directories.findIndex((directory) => {
     return directory.id === path[pathIndx];
   });
+
+  // if the childIndx is not found then return false
   if (childIndx === -1) return false;
-  console.log("Path : ", path, pathIndx);
+
+  // if the path is found then delete the file or folder
   if (path.length === pathIndx + 1 && path[pathIndx] === id) {
     if (directories[childIndx].id === id) {
       if (directories[childIndx].isFolder)
@@ -114,6 +130,7 @@ const traverseInDirectoryForDelete = (
     } else return false;
   }
 
+  // if the path is folder then traverse to the child directory
   if (
     directories[childIndx].isFolder &&
     traverseInDirectoryForDelete(
@@ -126,6 +143,7 @@ const traverseInDirectoryForDelete = (
   )
     return true;
 
+  // if the path is not found then return false
   return false;
 };
 
@@ -190,7 +208,7 @@ function addFileOrFolder(
   },
   path: string
 ) {
-  console.log(path + "/" + info.id);
+  // adding the new file or folder to the directory
   const newItem = {
     id: info.id,
     parentId: info.parentId,
@@ -200,8 +218,11 @@ function addFileOrFolder(
     children: [],
     path: path + "/" + info.id,
   };
+
+  // add the new file or folder to the directories
   directories.unshift(newItem);
 
+  // if its a file then we have to add it to the fileInformation also
   if (!info.isFolder) {
     filesInformation[info.id] = {
       id: info.id,
@@ -211,6 +232,8 @@ function addFileOrFolder(
       language: findFileExtension(newItem.name).extName,
     };
   }
+
+  // sort to organize the files or folders of that directory with respect to name and type ie file or folder
   directories.sort(directoryComparator);
 }
 

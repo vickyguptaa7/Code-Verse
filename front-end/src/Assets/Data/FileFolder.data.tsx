@@ -1,31 +1,46 @@
 import IDirectory from "../../Interface/directory.interface";
 import { IFilesInforation } from "../../Interface/file.interface";
 import vscodeImage from "../../Assets/images/vsc/vscode.svg";
+import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
+
+const readme=
+`#Introduction
+This web app is a clone of the popular code editor, Visual Studio Code (VSCode).
+It provides a similar interface and features to VSCode, but can be accessed directly from your web browser.
+
+#FEATURES
+1.Multiple tabs for editing multiple files simultaneously
+2.Integrated terminal
+3.Search and replace functionality
+4.Code folding
+5.Autocomplete suggestions`
+
+const uniqueId = uniqueIdGenerator();
 
 let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
-  // {
-  //   id: "welcomelop",
-  //   name: "welcomelop",
-  //   iconUrls: [
-  //     "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fc.svg?alt=media&token=3bd3d797-69a3-4150-9f5b-07ec4757bb5f",
-  //   ],
-  //   isFolder: false,
-  //   parentId: "root",
-  //   path: "root/welcomelop",
-  //   children: [],
-  // },
+  {
+    id: uniqueId,
+    name: "readme.md",
+    iconUrls: [
+      "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fmarkdown.svg?alt=media&token=20c16af8-de4f-4fbe-a91c-41e6bf9204f8",
+    ],
+    isFolder: false,
+    parentId: "root",
+    path: "root/welcomelop",
+    children: [],
+  },
 ];
 
 let DUMMY_FILE_INFORMATION: IFilesInforation = {
-  // welcomelop: {
-  //   id: "welcomelop",
-  //   name: "welcomelop",
-  //   iconUrls: [
-  //     "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fc.svg?alt=media&token=3bd3d797-69a3-4150-9f5b-07ec4757bb5f",
-  //   ],
-  //   language: "txt",
-  //   body: "welcome you all!",
-  // },
+  [uniqueId]: {
+    id: uniqueId,
+    name: "readme.md",
+    iconUrls: [
+      "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fmarkdown.svg?alt=media&token=20c16af8-de4f-4fbe-a91c-41e6bf9204f8",
+    ],
+    language: "md",
+    body: readme,
+  },
   setting: {
     id: "setting",
     name: "setting",
@@ -52,3 +67,5 @@ let DUMMY_FILE_INFORMATION: IFilesInforation = {
 };
 
 export { DUMMY_FILE_DIRECTORY, DUMMY_FILE_INFORMATION };
+
+

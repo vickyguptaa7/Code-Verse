@@ -4,6 +4,7 @@ import { IFilesInforation, INavFile } from "../Interface/file.interface";
 import { IIcon } from "../Interface/Icon.interface";
 import { uniqueIdGenerator } from "../library/uuid/uuid.lib";
 
+// download file from the browser using the blob and name of the file
 const fileDownloader = (file: Blob, name: string) => {
   const link = document.createElement("a");
   link.href = URL.createObjectURL(file);
@@ -13,6 +14,7 @@ const fileDownloader = (file: Blob, name: string) => {
   link.parentNode?.removeChild(link);
 };
 
+// find the file extension and return the extension name and also the dot is present or not
 const findFileExtension = (name: string) => {
   let extension = "";
   let isDotPresent = false;
@@ -27,6 +29,7 @@ const findFileExtension = (name: string) => {
   return { extName: extension, isDotPresent };
 };
 
+// find the file or folder icon url from the icon list
 const findFileFolderIconUrl = (
   name: string,
   isFolder: boolean,
@@ -58,6 +61,7 @@ const directoryComparator = (d1: IDirectory, d2: IDirectory) => {
   return d1.name.toLowerCase() > d2.name.toLowerCase() ? 1 : -1; // otherwise sort on the basis of the name
 };
 
+// generate the file or folder name which is unique in the directory
 const findUniqueFileFolderName = (
   name: string,
   isFolder: boolean,
@@ -77,12 +81,14 @@ const findUniqueFileFolderName = (
   return { name: newFileName, id };
 };
 
+// check if the file is qualify for upload or not based on the file extension avoids the file like pdf exe etc
 const isFileQualifyForUpload = (name: string) => {
   const arr = name.split(".");
   if (arr.length === 1) return true;
   return supportedFileTypes[arr[arr.length - 1]] ? true : false;
 };
 
+// sort the directory based on directoryComparator
 const sortDirectory = (directory: IDirectory) => {
   for (const childDir of directory.children) {
     sortDirectory(childDir);
@@ -90,6 +96,7 @@ const sortDirectory = (directory: IDirectory) => {
   directory.children.sort(directoryComparator);
 };
 
+// replace the text in the files
 function replaceTextInFiles(
   filesInformation: IFilesInforation,
   targetFiles: Array<INavFile>,
@@ -108,6 +115,7 @@ function replaceTextInFiles(
   return updatedFilesInfo;
 }
 
+// find the matching files
 function findMatchingFiles(
   filesInformation: IFilesInforation,
   searchedText: string

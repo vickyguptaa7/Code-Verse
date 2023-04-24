@@ -1,8 +1,7 @@
 import { Dispatch } from "react";
-import { fetchExtensionsList } from "../../library/firebase/firebase.lib";
-
-import { setExtensionsList } from "../reducres/SideDrawer/Extensions/Extensions.reducer";
 import { IExtensionInfo } from "../../Interface/Extension.interface";
+import { fetchExtensionsList } from "../../library/firebase/firebase.lib";
+import { setExtensionsList } from "../reducres/SideDrawer/Extensions/Extensions.reducer";
 
 export const fetchExtensionsListAction = () => {
   return async (dispatch: Dispatch<Object>) => {
@@ -14,7 +13,7 @@ export const fetchExtensionsListAction = () => {
       const sortedData = data.sort(myComparator);
       dispatch(setExtensionsList(sortedData));
     } catch (err) {
-      console.log("error : ", err);
+      console.error("error : ", err);
     }
   };
 };

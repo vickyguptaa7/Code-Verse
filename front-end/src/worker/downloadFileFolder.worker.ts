@@ -15,4 +15,4 @@ self.onmessage = async (e) => {
     self.postMessage({file});
 };
 
-export {};
+export { };

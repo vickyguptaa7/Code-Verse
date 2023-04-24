@@ -27,7 +27,7 @@ const searchSlice = createSlice({
     },
     setIsSearching(state, action: PayloadAction<boolean>) {
       state.isSearching = action.payload;
-    }
+    },
   },
 });
 
@@ -36,7 +36,7 @@ export const {
   updateReplacementText,
   setSearchedResultFiles,
   setIsReplaceOpen,
-  setIsSearching
+  setIsSearching,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;
