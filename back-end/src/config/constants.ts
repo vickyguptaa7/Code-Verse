@@ -1,0 +1,1 @@
+export const ACCEPTED_LANGUAGES = ['cpp','java','python','c','javascript'];
