@@ -72,7 +72,7 @@ const Drawer = () => {
         <div
           ref={refResizer}
           className={mergeClass([
-            "w-1 h-full duration-300 bg-[color:var(--sidedrawer-color)] cursor-move hover:bg-[color:var(--primary-color)] resizable-div-left-right",
+            "w-[5px] h-full duration-300 bg-[color:var(--sidedrawer-color)] cursor-move hover:bg-[color:var(--primary-color)] resizable-div-left-right",
             isDrawerResizing && "bg-[color:var(--primary-color)]",
             !isSidePannelPositionOnLeft
               ? "flex-row-reverse border-l border-l-[color:var(--border-color)]"
