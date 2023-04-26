@@ -6,10 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npm run build",
-    "build": "rimraf dist && npx tsc",
     "start": "node dist/app.js",
-    "predev": "npm run build",
-    "dev": "npx tsc -w & nodemon dist/app.js"
+    "build": "tsc -p .",
+    "dev": "nodemon ./src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +19,8 @@
     "@types/node": "^18.16.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "rimraf": "^5.0.0",
+    "ts-node": "^10.9.1",
+    "vm2": "^3.9.17",
     "yup": "^1.1.1"
   },
   "devDependencies": {
