@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TBottomPannelContent } from "../../../Interface/Types";
+import {
+  getIsBottomPannelOpen,
+  storeToLocalStorage,
+} from "../../../utils/localStorage.utils";
 
 const bottomPannelInitialState = {
-  isBottomPannelOpen: false,
+  isBottomPannelOpen: getIsBottomPannelOpen(),
   bottomPannelHeight: 208, // 13 rem inital width of drawer
   isMinimizeBottomPannel: false,
   showInBottomPannel: "input",
@@ -11,14 +15,13 @@ const bottomPannelInitialState = {
   debugContent: "",
 };
 
-
-
 const bottomPannelSlice = createSlice({
   name: "sideDrawer",
   initialState: bottomPannelInitialState,
   reducers: {
     setIsBottomPannelOpen(state, action: PayloadAction<boolean>) {
       state.isBottomPannelOpen = action.payload;
+      storeToLocalStorage("vscode-is-bottom-pannel-open", action.payload);
     },
     setBottomPannelHeight(state, action: PayloadAction<number>) {
       state.bottomPannelHeight = action.payload;
@@ -30,6 +33,10 @@ const bottomPannelSlice = createSlice({
       state.showInBottomPannel = action.payload;
     },
     toggleIsBottomPannelOpen(state) {
+      storeToLocalStorage(
+        "vscode-is-bottom-pannel-open",
+        !state.isBottomPannelOpen
+      );
       state.isBottomPannelOpen = !state.isBottomPannelOpen;
     },
     resetBottomPannel(state) {

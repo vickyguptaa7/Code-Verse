@@ -51,21 +51,20 @@ export const getPrevWordWrap = () => {
 };
 
 export const getPrevScrollBeyondLastLine = () => {
-  let prevScrollBeyondLastLine = getFromLocalStorage(
-    "vscode-is-scroll-beyond-last-line"
+  let prevScrollBeyondLastLine = JSON.parse(
+    getFromLocalStorage("vscode-is-scroll-beyond-last-line")
   );
-  if (
-    prevScrollBeyondLastLine !== "true" &&
-    prevScrollBeyondLastLine !== "false"
-  )
-    prevScrollBeyondLastLine = "false";
+  if (prevScrollBeyondLastLine !== true && prevScrollBeyondLastLine !== false)
+    prevScrollBeyondLastLine = false;
   return prevScrollBeyondLastLine;
 };
 
 export const getPrevMinimapEnabled = () => {
-  let prevMinimapEnabled = getFromLocalStorage("vscode-is-minimap-enabled");
-  if (prevMinimapEnabled !== "true" && prevMinimapEnabled !== "false")
-    prevMinimapEnabled = "true";
+  let prevMinimapEnabled = JSON.parse(
+    getFromLocalStorage("vscode-is-minimap-enabled")
+  );
+  if (prevMinimapEnabled !== true && prevMinimapEnabled !== false)
+    prevMinimapEnabled = true;
   return prevMinimapEnabled;
 };
 
@@ -77,4 +76,22 @@ export const getPrevPosition = () => {
     isSidePannelPositionOnLeft: prevPosition === "left" ? true : false,
     isDrawerOpenSideIsLeft: prevPosition === "left" ? false : true,
   };
+};
+
+export const getPrevIsDrawerOpen = () => {
+  let prevIsDrawerOpen = JSON.parse(
+    getFromLocalStorage("vscode-is-drawer-open")
+  );
+  if (prevIsDrawerOpen !== true && prevIsDrawerOpen !== false)
+    prevIsDrawerOpen = true;
+  return prevIsDrawerOpen;
+};
+// isBottomPannelOpen
+export const getIsBottomPannelOpen = () => {
+  let isBottomPannelOpen = JSON.parse(
+    getFromLocalStorage("vscode-is-bottom-pannel-open")
+  );
+  if (isBottomPannelOpen !== true && isBottomPannelOpen !== false)
+    isBottomPannelOpen = false;
+  return isBottomPannelOpen;
 };
