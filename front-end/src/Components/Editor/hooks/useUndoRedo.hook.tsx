@@ -6,6 +6,7 @@ import {
   getFromLocalStorage,
   storeToLocalStorage,
 } from "../../../utils/localStorage.utils";
+import { IUndoRedo } from "../../../Interface/undoRedo.interface";
 
 const useUndoRedo = (
   monacoRef: React.RefObject<editor.IStandaloneCodeEditor>,
@@ -17,15 +18,7 @@ const useUndoRedo = (
   const dispatch = useAppDispatch();
 
   // using the local storage for storing the history of undo redo of the files
-  let undoRedoHistoryInfo = useRef<{
-    [key: string]: {
-      stack: Array<{
-        cursorPosition: { lineNumber: number; column: number };
-        content: string;
-      }>;
-      pointer: number;
-    };
-  }>(getFromLocalStorage("vscode-history-info") || {});
+  let undoRedoHistoryInfo = useRef<IUndoRedo>(getFromLocalStorage("vscode-history-info") || {});
 
   let isUndoRedoOperation = useRef<boolean>(false);
 
@@ -165,7 +158,7 @@ const useUndoRedo = (
       }
     );
     return () => {
-      storeToLocalStorage("historyInfo", undoRedoHistory);
+      storeToLocalStorage("vscode-history-info", undoRedoHistory);
     };
     // used to remove the warning of add undoRedoHistory
     //eslint-disable-next-line

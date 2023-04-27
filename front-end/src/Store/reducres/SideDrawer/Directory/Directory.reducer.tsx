@@ -120,6 +120,10 @@ const directorySlice = createSlice({
       }
     },
 
+    setDirectories(state, action: PayloadAction<Array<IDirectory>>) {
+      state.directories = action.payload;
+    },
+
     addExternalFileOrFolderToDirectory(
       state,
       action: PayloadAction<Array<IDirectory>>
@@ -141,6 +145,7 @@ export const {
   updateFileBody,
   addExternalFileOrFolderToDirectory,
   setFilesInformation,
+  setDirectories,
 } = directorySlice.actions;
 
 export default directorySlice.reducer;

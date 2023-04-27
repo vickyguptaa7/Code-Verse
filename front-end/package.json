@@ -15,6 +15,7 @@
     "@types/uuid": "^9.0.1",
     "firebase": "^9.17.2",
     "framer-motion": "^10.0.1",
+    "idb": "^7.1.1",
     "jszip": "^3.10.1",
     "monaco-editor": "^0.35.0",
     "monaco-themes": "^0.4.3",

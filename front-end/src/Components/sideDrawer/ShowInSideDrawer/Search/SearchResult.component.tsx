@@ -10,7 +10,7 @@ import { SEARCHED_FILE_CARD_HIGHT } from "../../sideDrawer.Constant";
 import SearchedFileCard from "./Basic/SearchedFileCard.component";
 
 // hight adjustment is used to adjust the height of the search in search drawer
-const HIGHT_ADJUSTMENT = 115;
+const HIGHT_ADJUSTMENT = 120;
 
 interface IPROPS {
   filesInformation: IFilesInforation;
@@ -38,14 +38,14 @@ const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
       )
     );
   };
-  
+
   // open the file in the code editor
   const openFileHandler = (event: React.MouseEvent, id: string) => {
     event.stopPropagation();
     dispatch(addFileToNavigation({ id: id, type: "file" }));
     scrollToTarget(id);
   };
-  
+
   // map the searched result files to the searched file card
   const list = searchedResultFiles.map((file) => {
     return (
@@ -59,7 +59,7 @@ const SearchResult: React.FC<IPROPS> = ({ filesInformation }) => {
       />
     );
   });
-  
+
   return (
     <div className="flex flex-col gap-2 mt-3" style={{ height: height }}>
       <div className="pl-8">

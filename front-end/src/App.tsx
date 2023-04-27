@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router";
 import "./App.css";
 import { themesNameArray } from "./Assets/Data/theme.data";
 import Loader from "./Components/UI/Loader/Loader.component";
+import { setInitialDirectory } from "./Store/actions/directory.action";
 import { fetchExtensionsListAction } from "./Store/actions/extensions.action";
 import {
   fetchFileIconsAction,
@@ -10,6 +11,7 @@ import {
 } from "./Store/actions/icons.action";
 import { useAppDispatch, useAppSelector } from "./Store/store";
 import { removeFromLocalStorage } from "./utils/localStorage.utils";
+
 const CodeEditor = lazy(() => import("./Pages/CodeEditor.page"));
 
 const App = () => {
@@ -42,6 +44,7 @@ const useInitializeApp = () => {
     dispatch(fetchExtensionsListAction());
     dispatch(fetchFileIconsAction());
     dispatch(fetchFolderIconsAction());
+    dispatch(setInitialDirectory());
     removeFromLocalStorage("vscode-history-info");
     return () => {
       // clear the local storage when the app is unmounted historyInfo of the files
