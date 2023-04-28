@@ -12,7 +12,7 @@
 
 @keyframes move-right {
   0% {
-    left: -30px;
+    left: -40px;
   }
   100% {
     left: calc(100%);

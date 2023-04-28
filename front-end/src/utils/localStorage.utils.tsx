@@ -68,6 +68,15 @@ export const getPrevMinimapEnabled = () => {
   return prevMinimapEnabled;
 };
 
+export const getPrevIsDeleteWarningEnable=()=>{
+  let prevIsDeleteWarningEnable = JSON.parse(
+    getFromLocalStorage("vscode-is-delete-warning-enable")
+  );
+  if (prevIsDeleteWarningEnable !== true && prevIsDeleteWarningEnable !== false)
+    prevIsDeleteWarningEnable = true;
+  return prevIsDeleteWarningEnable;
+}
+
 export const getPrevPosition = () => {
   let prevPosition = getFromLocalStorage("vscode-sidedrawer-position");
   if (prevPosition !== "left" && prevPosition !== "right")
