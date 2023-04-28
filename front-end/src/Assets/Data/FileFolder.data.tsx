@@ -1,10 +1,14 @@
+import vscodeImage from "../../Assets/images/vsc/vscode.svg";
 import IDirectory from "../../Interface/directory.interface";
 import { IFilesInforation } from "../../Interface/file.interface";
-import vscodeImage from "../../Assets/images/vsc/vscode.svg";
+import {
+  getFromDirectoryIndexDB,
+  storeToDirectoryIndexDB,
+  storeToFilesInformationDirectoryIndexDB,
+} from "../../library/idb/idb.lib";
 import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
 
-const readme=
-`#Introduction
+const README = `#Introduction
 This web app is a clone of the popular code editor, Visual Studio Code (VSCode).
 It provides a similar interface and features to VSCode, but can be accessed directly from your web browser.
 
@@ -13,34 +17,13 @@ It provides a similar interface and features to VSCode, but can be accessed dire
 2.Integrated terminal
 3.Search and replace functionality
 4.Code folding
-5.Autocomplete suggestions`
+5.Autocomplete suggestions`;
 
 const uniqueId = uniqueIdGenerator();
 
-let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [
-  {
-    id: uniqueId,
-    name: "readme.md",
-    iconUrls: [
-      "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fmarkdown.svg?alt=media&token=20c16af8-de4f-4fbe-a91c-41e6bf9204f8",
-    ],
-    isFolder: false,
-    parentId: "root",
-    path: "root/" + uniqueId,
-    children: [],
-  },
-];
+let DUMMY_FILE_DIRECTORY: Array<IDirectory> = [];
 
 let DUMMY_FILE_INFORMATION: IFilesInforation = {
-  [uniqueId]: {
-    id: uniqueId,
-    name: "readme.md",
-    iconUrls: [
-      "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fmarkdown.svg?alt=media&token=20c16af8-de4f-4fbe-a91c-41e6bf9204f8",
-    ],
-    language: "md",
-    body: readme,
-  },
   setting: {
     id: "setting",
     name: "setting",
@@ -66,6 +49,35 @@ let DUMMY_FILE_INFORMATION: IFilesInforation = {
   },
 };
 
-export { DUMMY_FILE_DIRECTORY, DUMMY_FILE_INFORMATION };
-
-
+const intialManagementOfIndxDb = async () => {
+  const dir = await getFromDirectoryIndexDB("vscode-directory");
+  if (!dir?.length) {
+    await storeToDirectoryIndexDB("vscode-directory", [
+      {
+        id: uniqueId,
+        name: "readme.md",
+        iconUrls: [
+          "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fmarkdown.svg?alt=media&token=20c16af8-de4f-4fbe-a91c-41e6bf9204f8",
+        ],
+        isFolder: false,
+        parentId: "root",
+        path: "root/" + uniqueId,
+        children: [],
+      },
+    ]);
+    await storeToFilesInformationDirectoryIndexDB(uniqueId, {
+      id: uniqueId,
+      name: "readme.md",
+      iconUrls: [
+        "https://firebasestorage.googleapis.com/v0/b/online-code-editor-a43af.appspot.com/o/fileIcons%2Fmarkdown.svg?alt=media&token=20c16af8-de4f-4fbe-a91c-41e6bf9204f8",
+      ],
+      language: "md",
+      body: README,
+    });
+  }
+};
+export {
+  DUMMY_FILE_DIRECTORY,
+  DUMMY_FILE_INFORMATION,
+  intialManagementOfIndxDb,
+};

@@ -327,6 +327,7 @@ export const supportedFileTypes: { [key: string]: string } = {
   tsx: "tsx",
   twig: "twig",
   typescript: "typescript",
+  txt: "txt",
   vb: "vb",
   vbhtml: "vbhtml",
   verilog: "verilog",

@@ -2,6 +2,10 @@ import IDirectory from "../../../../Interface/directory.interface";
 import { IFilesInforation } from "../../../../Interface/file.interface";
 import { IIcon } from "../../../../Interface/Icon.interface";
 import {
+  removeFromFilesInformationDirectoryIndexDB,
+  storeToFilesInformationDirectoryIndexDB,
+} from "../../../../library/idb/idb.lib";
+import {
   directoryComparator,
   findFileExtension,
   findFileFolderIconUrl,
@@ -122,9 +126,12 @@ const traverseInDirectoryForDelete = (
   // if the path is found then delete the file or folder
   if (path.length === pathIndx + 1 && path[pathIndx] === id) {
     if (directories[childIndx].id === id) {
-      if (directories[childIndx].isFolder)
+      if (directories[childIndx].isFolder) {
         deleteAllChildFiles(filesInformation, directories[childIndx].children);
-      else delete filesInformation[directories[childIndx].id];
+      } else {
+        removeFromFilesInformationDirectoryIndexDB(directories[childIndx].id);
+        delete filesInformation[directories[childIndx].id];
+      }
       directories.splice(childIndx, 1);
       return true;
     } else return false;
@@ -157,6 +164,7 @@ function deleteAllChildFiles(
       deleteAllChildFiles(filesInformation, directory.children);
     } else {
       // removing the files
+      removeFromFilesInformationDirectoryIndexDB(directory.id);
       delete filesInformation[directory.id];
     }
   }
@@ -191,6 +199,7 @@ function renameOfFileOrFolder(
       iconUrls: newIconUrl,
       language: findFileExtension(info.name).extName,
     };
+    storeToFilesInformationDirectoryIndexDB(info.id, filesInformation[info.id]);
   }
   // sort to organize the files or folders of that directory with respect to name and type ie file or folder
   directories.sort(directoryComparator);
@@ -231,6 +240,7 @@ function addFileOrFolder(
       body: "",
       language: findFileExtension(newItem.name).extName,
     };
+    storeToFilesInformationDirectoryIndexDB(info.id, filesInformation[info.id]);
   }
 
   // sort to organize the files or folders of that directory with respect to name and type ie file or folder

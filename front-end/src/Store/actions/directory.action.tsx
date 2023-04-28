@@ -1,16 +1,25 @@
 import { Dispatch } from "react";
-import { getFromIndexDB } from "../../library/idb/idb.lib";
-import { setDirectories } from "../reducres/SideDrawer/Directory/Directory.reducer";
+import { intialManagementOfIndxDb } from "../../Assets/Data/FileFolder.data";
+import {
+  getFromDirectoryIndexDB,
+  getFromFilesInformationIndexDB,
+} from "../../library/idb/idb.lib";
+import {
+  initialAddFilesInformation,
+  setDirectories,
+} from "../reducres/SideDrawer/Directory/Directory.reducer";
 
 export const setInitialDirectory = () => {
   return async (dispatch: Dispatch<Object>) => {
     try {
-      const prevDirectory = await getFromIndexDB("vscode-directory");
+      await intialManagementOfIndxDb();
+      const prevDirectory = await getFromDirectoryIndexDB("vscode-directory");
+      const prevFilesInformation = await getFromFilesInformationIndexDB();
       if (!prevDirectory) {
         return;
       }
-      console.log(prevDirectory);
       dispatch(setDirectories(prevDirectory));
+      dispatch(initialAddFilesInformation(prevFilesInformation));
     } catch (err) {
       console.error("error : ", err);
     }

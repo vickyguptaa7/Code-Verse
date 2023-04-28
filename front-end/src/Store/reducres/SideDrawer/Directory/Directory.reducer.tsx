@@ -120,6 +120,12 @@ const directorySlice = createSlice({
       }
     },
 
+    initialAddFilesInformation(state, action: PayloadAction<Array<IFile>>) {
+      for (const file of action.payload) {
+        state.filesInformation[file.id] = file;
+      }
+    },
+
     setDirectories(state, action: PayloadAction<Array<IDirectory>>) {
       state.directories = action.payload;
     },
@@ -139,13 +145,14 @@ export const {
   addFileOrFolderToDirectory,
   renameFileOrFolderOfDirectory,
   deleteFileOrFolderOfDirectory,
+  addExternalFileOrFolderToDirectory,
+  updateFileBody,
+  initialAddFilesInformation,
   setInfoOfCurrentWorkingFileOrFolder,
   setFileIcons,
   setFolderIcons,
-  updateFileBody,
-  addExternalFileOrFolderToDirectory,
-  setFilesInformation,
   setDirectories,
+  setFilesInformation,
 } = directorySlice.actions;
 
 export default directorySlice.reducer;

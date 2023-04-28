@@ -3,7 +3,6 @@ import { SIDE_DRAWER_WIDTH_INITIAL } from "../../../Components/sideDrawer/sideDr
 import {
   getPrevIsDrawerOpen,
   getPrevPosition,
-  storeToLocalStorage,
 } from "../../../utils/localStorage.utils";
 
 export type DrawerContent = "file" | "search" | "git" | "debug" | "extensions";
@@ -23,7 +22,6 @@ const sideDrawerSlice = createSlice({
   reducers: {
     setIsDrawerOpen(state, action: PayloadAction<boolean>) {
       state.isDrawerOpen = action.payload;
-      storeToLocalStorage("vscode-is-drawer-open", action.payload);
     },
     setSidePannelPosition(state, action: PayloadAction<"left" | "right">) {
       state.isSidePannelPositionOnLeft =
@@ -40,7 +38,6 @@ const sideDrawerSlice = createSlice({
       state.isDeleteWarningEnable = action.payload;
     },
     toggleIsDrawerOpen(state) {
-      storeToLocalStorage("vscode-is-drawer-open", !state.isDrawerOpen);
       state.isDrawerOpen = !state.isDrawerOpen;
     },
   },
