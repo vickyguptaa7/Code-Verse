@@ -17,10 +17,10 @@ const VirtualList: React.FC<IPROPS> = ({ itemCount, itemSize, list }) => {
       {({ height, width }) => (
         <List
           className="List"
-          height={height}
+          height={height ? height : 30}
           itemCount={itemCount}
           itemSize={itemSize}
-          width={width}
+          width={width ? width : 50}
         >
           {results}
         </List>
