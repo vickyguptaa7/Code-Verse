@@ -1,26 +1,36 @@
-import { VM } from "vm2";
+import Docker from "dockerode";
+
+const docker = new Docker();
 
 export const executeJsCode = async (code: string) => {
-  let output = "";
-  const vm = new VM({
-    timeout: 1000,
-    allowAsync: false,
-    sandbox: {
-      setTimeout,
-      require,
-      console: {
-        log: (data: string) => {
-          output += data;
-        },
-      },
+  const container = await docker.createContainer({
+    Image: "node",
+    WorkingDir: "/usr/src/app",
+    Tty: true,
+    HostConfig: {
+      Binds: [`${__dirname}/file.js:/usr/src/app/file.js`],
     },
+    Cmd: ["node", "file.js"],
   });
+
+  container.attach(
+    { stream: true, stdout: true, stderr: true },
+    (err, stream) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      if (stream)
+        stream.on("data", (data) => {
+          console.log("container : ", data.toString());
+        });
+    }
+  );
+  await container.start();
+  await container.wait();
   try {
-    vm.run(code);
-    return output;
   } catch (err) {
     console.log(err);
-    if (err instanceof Error) throw new Error(err.message);
-    else throw new Error("Something went wrong while executing your code");
   }
+  await container.remove();
 };
