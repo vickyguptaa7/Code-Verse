@@ -9,6 +9,7 @@ interface IPROPS {
   onClickHandler: React.MouseEventHandler;
   buttonName: string;
   isActive?: boolean;
+  isRotate?: boolean;
 }
 
 const PannelButtons: React.FC<IPROPS> = ({
@@ -17,6 +18,7 @@ const PannelButtons: React.FC<IPROPS> = ({
   onClickHandler,
   buttonName,
   isActive = false,
+  isRotate = false,
 }) => {
   const isSidePannelPositionOnLeft = useAppSelector(
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
@@ -56,7 +58,12 @@ const PannelButtons: React.FC<IPROPS> = ({
           title={title}
           data-name={buttonName}
         >
-          <Icon className="text-2xl" />
+          <Icon
+            className={mergeClass([
+              "text-2xl",
+              isRotate &&isActive? "-rotate-90 duration-200":"rotate-0 duration-200",
+            ])}
+          />
         </Button>
       </div>
     );

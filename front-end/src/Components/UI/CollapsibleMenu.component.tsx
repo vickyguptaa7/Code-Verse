@@ -37,7 +37,7 @@ const CollapsibleMenu: React.FC<IPROPS> = ({
         <div className="flex">
           <div className="flex items-center justify-center p-1">
             <VscChevronRight
-              className={mergeClass([isCollapsibleMenuOpen ? "rotate-90" : ""])}
+              className={mergeClass([isCollapsibleMenuOpen ? "rotate-90" : "","duration-200"])}
             />
           </div>
           <div className="flex items-center justify-center">

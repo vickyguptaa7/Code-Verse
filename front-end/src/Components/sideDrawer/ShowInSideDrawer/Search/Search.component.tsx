@@ -65,7 +65,7 @@ const Search = () => {
           onClick={toggleSearchHandler}
         >
           <VscChevronRight
-            className={mergeClass([isReplaceOpen ? "rotate-90" : ""])}
+            className={mergeClass([isReplaceOpen ? "rotate-90" : "","duration-200"])}
           />
         </div>
         <div className="flex flex-col items-center justify-center w-full gap-2 pr-1">

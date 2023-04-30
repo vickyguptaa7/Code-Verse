@@ -48,7 +48,7 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
       >
         <div className="flex items-center justify-center">
           <VscChevronRight
-            className={mergeClass([isFolderOpen && "rotate-90"])}
+            className={mergeClass([isFolderOpen && "rotate-90","duration-200"])}
           />
         </div>
         <div className="flex justify-between w-full gap-3 ">

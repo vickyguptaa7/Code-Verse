@@ -168,6 +168,7 @@ const Pannel = () => {
             isActive={isDropMenuSettingOpen}
             buttonName="settings"
             onClickHandler={openDropMenuSettingHandler}
+            isRotate={true}
           />
           <div className="relative overflow-visible">
             <AnimatePresence>
