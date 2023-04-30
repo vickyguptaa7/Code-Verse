@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
 import Button from "../UI/Button.component";
 import Image from "../UI/Image.component";
+import { scrollToTarget } from "../../utils/scrollToTargetId.util";
 
 interface IPROPS {
   fileId: string;
@@ -63,6 +64,7 @@ const FileCard: React.FC<IPROPS> = ({
             : "file",
       })
     );
+    scrollToTarget(fileId);
   };
 
   return (
