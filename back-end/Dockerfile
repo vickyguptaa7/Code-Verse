@@ -8,10 +8,20 @@ RUN apt-get update && \
 
 
 COPY . /app
+
 WORKDIR /app
 
+# Install Node.js dependencies
 RUN npm install 
 
+# Install TypeScript
+RUN npm install -g typescript
+
+# Build the app
+RUN tsc -p .
+
+# Expose port 6000
 EXPOSE 6000
 
-CMD ["npm", "run","dev"]
+# Run the app in production mode
+CMD ["npm", "run","prod"]
