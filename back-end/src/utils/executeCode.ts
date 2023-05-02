@@ -37,11 +37,18 @@ export const executeCode = async (
     const timerId = setTimeout(() => {
       executeChildProcess.kill();
       removeCodeFile(codeId, language);
-      reject(  "Process timed out" );
+      reject("Process timed out");
     }, 2000);
 
     let output = "",
       error = "";
+
+    if (input) {
+      input.split("\n").forEach((inLine) => {
+        executeChildProcess.stdin.write(inLine + "\n");
+      });
+      executeChildProcess.stdin.end();
+    }
 
     executeChildProcess.stdout.on("data", (data: Buffer) => {
       output += data.toString();
