@@ -1,18 +1,14 @@
 import { Request, Response } from "express";
-import { executeJsCode } from "../utils/executeJsCode";
+import { executeCode } from "../utils/executeCode";
 import { ICodeSubmission } from "../utils/validationSchema";
 
 export const getCodeOutput = async (req: Request, res: Response) => {
-  const { language, code } = req.body as ICodeSubmission;
-  console.log(language, code);
+  const { language, code, input } = req.body as ICodeSubmission;
+  console.log(language, code, input);
 
   try {
-    if (language === "javascript") {
-      const output = await executeJsCode(code);
-      res.send({ output });
-    } else {
-      throw new Error("Language not supported now");
-    }
+    const output = await executeCode(code, language, input);
+    res.send( output );
   } catch (err) {
     console.log(err);
     res.status(500).send(`Something went wrong: ${err}`);
