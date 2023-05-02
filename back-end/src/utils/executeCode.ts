@@ -68,6 +68,7 @@ export const executeCode = async (
       clearTimeout(timerId);
     });
   });
+  
   removeCodeFile(codeId, language);
 
   return result;
