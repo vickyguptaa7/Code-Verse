@@ -1,5 +1,10 @@
 import { join } from "path";
-import { SUPPORTED_LANGUAGES_EXTENSIONS } from "../config/constants";
+import {
+  PATH_TO_CODE_FOLDER,
+  PATH_TO_OUTPUT_FOLDER,
+  SUPPORTED_LANGUAGES_EXTENSIONS,
+  SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS,
+} from "../config/constants";
 import { TLanguage } from "./validationSchema";
 
 export interface ICommands {
@@ -9,20 +14,29 @@ export interface ICommands {
   executionArgs?: string[];
 }
 
-export const getCodeCompileAndExecuteCommands = (codeId: string, language: TLanguage): ICommands => {
+export const getCodeCompileAndExecuteCommands = (
+  codeId: string,
+  language: TLanguage
+): ICommands => {
   switch (language) {
     case "cpp":
       return {
         compileCommand: "g++",
         compilationArgs: [
           join(
-            process.cwd(),
-            `/usr/code/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            __dirname,
+            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
           "-o",
-          join(process.cwd(), `/usr/output/${codeId}.out`),
+          join(
+            __dirname,
+            `${PATH_TO_OUTPUT_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
+          ),
         ],
-        executeCommand: join(process.cwd(), `/usr/output/${codeId}.out`),
+        executeCommand: join(
+          __dirname,
+          `${PATH_TO_OUTPUT_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
+        ),
       };
 
     case "c":
@@ -31,12 +45,18 @@ export const getCodeCompileAndExecuteCommands = (codeId: string, language: TLang
         compilationArgs: [
           join(
             process.cwd(),
-            `/usr/code/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
           "-o",
-          join(process.cwd(), `/usr/output/${codeId}.out`),
+          join(
+            __dirname,
+            `${PATH_TO_OUTPUT_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
+          ),
         ],
-        executeCommand: join(process.cwd(), `/usr/output/${codeId}.out`),
+        executeCommand: join(
+          __dirname,
+          `${PATH_TO_OUTPUT_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
+        ),
       };
 
     case "java":
@@ -44,8 +64,8 @@ export const getCodeCompileAndExecuteCommands = (codeId: string, language: TLang
         executeCommand: "java",
         executionArgs: [
           join(
-            process.cwd(),
-            `/usr/code/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            __dirname,
+            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
         ],
       };
@@ -55,8 +75,8 @@ export const getCodeCompileAndExecuteCommands = (codeId: string, language: TLang
         executeCommand: "python3",
         executionArgs: [
           join(
-            process.cwd(),
-            `/usr/code/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            __dirname,
+            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
         ],
       };
@@ -66,8 +86,8 @@ export const getCodeCompileAndExecuteCommands = (codeId: string, language: TLang
         executeCommand: "node",
         executionArgs: [
           join(
-            process.cwd(),
-            `/usr/code/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            __dirname,
+            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
         ],
       };

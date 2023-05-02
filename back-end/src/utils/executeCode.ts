@@ -16,16 +16,22 @@ export const executeCode = async (
     executionArgs,
   }: ICommands = getCodeCompileAndExecuteCommands(codeId, language);
 
-  if (compileCommand) {
-    await new Promise((resolve, reject) => {
-      const compileCodeProcess = spawn(compileCommand, compilationArgs || []);
-      compileCodeProcess.stderr.on("data", (data: Buffer) => {
-        reject(data.toString());
+  try {
+    if (compileCommand) {
+      await new Promise((resolve, reject) => {
+        const compileCodeProcess = spawn(compileCommand, compilationArgs || []);
+        compileCodeProcess.stderr.on("data", (data: Buffer) => {
+          reject(data.toString());
+        });
+        compileCodeProcess.on("exit", (code: number) => {
+          resolve(code);
+        });
       });
-      compileCodeProcess.on("exit", (code: number) => {
-        resolve(code);
-      });
-    });
+    }
+  } catch (err) {
+    console.log(err);
+    removeCodeFile(codeId, language);
+    return { error: err };
   }
 
   const result = await new Promise((resolve, reject) => {
