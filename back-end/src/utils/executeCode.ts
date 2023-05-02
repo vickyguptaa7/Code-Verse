@@ -1,6 +1,6 @@
 import { spawn } from "child_process";
 import { createCodeFile, removeCodeFile } from "./codeFileManager";
-import { ICommands, getCommands } from "./getCommands";
+import { ICommands, getCodeCompileAndExecuteCommands } from "./commands";
 import { TLanguage } from "./validationSchema";
 
 export const executeCode = async (
@@ -14,7 +14,7 @@ export const executeCode = async (
     compilationArgs,
     executeCommand,
     executionArgs,
-  }: ICommands = getCommands(codeId, language);
+  }: ICommands = getCodeCompileAndExecuteCommands(codeId, language);
 
   if (compileCommand) {
     await new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ export const executeCode = async (
         reject(data.toString());
       });
       compileCodeProcess.on("exit", (code: number) => {
-        resolve(0);
+        resolve(code);
       });
     });
   }
@@ -68,7 +68,7 @@ export const executeCode = async (
       clearTimeout(timerId);
     });
   });
-  
+
   removeCodeFile(codeId, language);
 
   return result;

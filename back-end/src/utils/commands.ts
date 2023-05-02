@@ -9,7 +9,7 @@ export interface ICommands {
   executionArgs?: string[];
 }
 
-export const getCommands = (codeId: string, language: TLanguage): ICommands => {
+export const getCodeCompileAndExecuteCommands = (codeId: string, language: TLanguage): ICommands => {
   switch (language) {
     case "cpp":
       return {
