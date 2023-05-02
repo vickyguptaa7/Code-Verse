@@ -16,5 +16,5 @@ export const SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS = {
   javascript: "",
 };
 
-export const PATH_TO_CODE_FOLDER = "../../usr/code";
-export const PATH_TO_OUTPUT_FOLDER = "../../usr/output";
+export const PATH_TO_CODE_FOLDER = "../../temp/code";
+export const PATH_TO_OUTPUT_FOLDER = "../../temp/output";
