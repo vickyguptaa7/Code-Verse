@@ -16,8 +16,8 @@ export const executeCode = async (
     executionArgs,
   }: ICommands = getCodeCompileAndExecuteCommands(codeId, language);
 
-  try {
-    if (compileCommand) {
+  if (compileCommand) {
+    try {
       await new Promise((resolve, reject) => {
         const compileCodeProcess = spawn(compileCommand, compilationArgs || []);
         compileCodeProcess.stderr.on("data", (data: Buffer) => {
@@ -27,11 +27,11 @@ export const executeCode = async (
           resolve(code);
         });
       });
+    } catch (err) {
+      console.log(err);
+      removeCodeFile(codeId, language);
+      return { error: err };
     }
-  } catch (err) {
-    console.log(err);
-    removeCodeFile(codeId, language);
-    return { error: err };
   }
 
   const result = await new Promise((resolve, reject) => {

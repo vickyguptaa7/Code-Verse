@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  backend:
+    # container_name: vscode-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    read_only: true
+    image: 'test5'
+    ports:
+      - '6000:6000'
+    volumes:
+      - vscode:/app/dist/temp/code:rw
+      - vscode:/app/dist/temp/output:rw
+    env_file:
+      - ./.env
+
+volumes:
+  vscode:
+
+
