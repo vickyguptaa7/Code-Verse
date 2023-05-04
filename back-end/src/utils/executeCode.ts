@@ -45,7 +45,7 @@ export const executeCode = async (
       removeCodeFile(codeId, language);
       console.log("Error : ", error, " Output : ", output);
       reject(" Process timed out");
-    }, 2000);
+    }, 10 * 2000);
 
     if (input.length > 0) {
       input.split("\n").forEach((inLine) => {
