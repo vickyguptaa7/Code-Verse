@@ -40,16 +40,17 @@ export const executeCode = async (
       timeout: 2000,
     });
 
-    const timerId = setTimeout(() => {
-      executeChildProcess.kill();
-      removeCodeFile(codeId, language);
-      reject("Process timed out");
-    }, 2000);
-
     let output = "",
       error = "";
 
-    if (input) {
+    const timerId = setTimeout(() => {
+      executeChildProcess.kill();
+      removeCodeFile(codeId, language);
+      console.log("Error : ", error, " Output : ", output);
+      reject(" Process timed out");
+    }, 2000);
+
+    if (input.length > 0) {
       input.split("\n").forEach((inLine) => {
         executeChildProcess.stdin.write(inLine + "\n");
       });
