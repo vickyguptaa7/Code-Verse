@@ -35,10 +35,7 @@ export const executeCode = async (
   }
 
   const result = await new Promise((resolve, reject) => {
-    const executeChildProcess = spawn(executeCommand, executionArgs || [], {
-      stdio: "pipe",
-      timeout: 2000,
-    });
+    const executeChildProcess = spawn(executeCommand, executionArgs || []);
 
     let output = "",
       error = "";
