@@ -25,17 +25,20 @@ export const getCodeCompileAndExecuteCommands = (
         compilationArgs: [
           join(
             __dirname,
-            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            PATH_TO_CODE_FOLDER,
+            `${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
           "-o",
           join(
             __dirname,
-            `${PATH_TO_OUTPUT_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
+            PATH_TO_OUTPUT_FOLDER,
+            `${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
           ),
         ],
         executeCommand: join(
           __dirname,
-          `${PATH_TO_OUTPUT_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
+          PATH_TO_OUTPUT_FOLDER,
+          `${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
         ),
       };
 
@@ -44,18 +47,21 @@ export const getCodeCompileAndExecuteCommands = (
         compileCommand: "gcc",
         compilationArgs: [
           join(
-            process.cwd(),
-            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            __dirname,
+            PATH_TO_CODE_FOLDER,
+            `${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
           "-o",
           join(
             __dirname,
-            `${PATH_TO_OUTPUT_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
+            PATH_TO_OUTPUT_FOLDER,
+            `${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
           ),
         ],
         executeCommand: join(
           __dirname,
-          `${PATH_TO_OUTPUT_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
+          PATH_TO_OUTPUT_FOLDER,
+          `${codeId}.${SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS[language]}`
         ),
       };
 
@@ -65,7 +71,8 @@ export const getCodeCompileAndExecuteCommands = (
         executionArgs: [
           join(
             __dirname,
-            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            PATH_TO_CODE_FOLDER,
+            `${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
         ],
       };
@@ -76,7 +83,8 @@ export const getCodeCompileAndExecuteCommands = (
         executionArgs: [
           join(
             __dirname,
-            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            PATH_TO_CODE_FOLDER,
+            `${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
         ],
       };
@@ -87,7 +95,8 @@ export const getCodeCompileAndExecuteCommands = (
         executionArgs: [
           join(
             __dirname,
-            `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+            PATH_TO_CODE_FOLDER,
+            `${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
           ),
         ],
       };

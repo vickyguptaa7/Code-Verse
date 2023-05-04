@@ -2,6 +2,7 @@ import { spawn } from "child_process";
 import { createCodeFile, removeCodeFile } from "./codeFileManager";
 import { ICommands, getCodeCompileAndExecuteCommands } from "./commands";
 import { TLanguage } from "./validationSchema";
+import { TimeoutTimeInSeconds } from "../config/constants";
 
 export const executeCode = async (
   code: string,
@@ -15,7 +16,7 @@ export const executeCode = async (
     executeCommand,
     executionArgs,
   }: ICommands = getCodeCompileAndExecuteCommands(codeId, language);
-
+  console.log(compileCommand, compilationArgs, executeCommand, executionArgs);
   if (compileCommand) {
     try {
       await new Promise((resolve, reject) => {
@@ -33,18 +34,19 @@ export const executeCode = async (
       return { error: err };
     }
   }
-
+  console.log('created code file');
+  
   const result = await new Promise((resolve, reject) => {
     const executeChildProcess = spawn(executeCommand, executionArgs || [], {
       stdio: "pipe",
-      timeout: 2000,
+      timeout: TimeoutTimeInSeconds*1000,
     });
 
     const timerId = setTimeout(() => {
       executeChildProcess.kill();
       removeCodeFile(codeId, language);
       reject("Process timed out");
-    }, 2000);
+    }, TimeoutTimeInSeconds*1000);
 
     let output = "",
       error = "";
