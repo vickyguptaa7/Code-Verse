@@ -27,7 +27,7 @@ const DeveloperInfo = () => {
   return (
     <motion.div
       className={mergeClass([
-        "absolute z-10 flex flex-col items-start w-56 rounded-md overflow-hidden bottom-[74px]",
+        "absolute z-10 flex flex-col items-start w-52 rounded-md overflow-hidden bottom-[74px]",
         isSidePannelPositionOnLeft ? "left-[54px]" : "right-[54px]",
       ])}
       initial={{
@@ -45,7 +45,7 @@ const DeveloperInfo = () => {
         opacity: 0,
       }}
     >
-      <div className="bg-[color:var(--primary-color)] h-20 w-full"></div>
+      <div className="bg-[color:var(--primary-color)] h-20 w-full border-r-[3px] border-l-[3px] border-t-[3px] rounded-t-lg border-gray-50"></div>
       <div className="absolute flex items-center justify-around w-full top-4 ">
         <img
           src={developer}
@@ -66,9 +66,9 @@ const DeveloperInfo = () => {
           <h5>India, Delhi</h5>
         </div>
       </div>
-      <div className="flex items-center justify-around w-full px-4 py-4 bg-[color:var(--primary-color)] relative">
+      <div className="flex items-center justify-around w-full px-4 py-4 bg-[color:var(--primary-color)] relative border-r-[3px] border-l-[3px] border-b-[3px] rounded-b-lg border-gray-50">
         <Button
-          className="absolute left-6 -top-4 "
+          className="absolute left-4 -top-4 "
           onClick={() => onClickHandler(leetcodeUrl)}
         >
           <img
@@ -78,7 +78,7 @@ const DeveloperInfo = () => {
           />
         </Button>
         <Button
-          className="absolute -top-4 left-[74px]"
+          className="absolute -top-4 left-[64px]"
           onClick={() => onClickHandler(codeforcesUrl)}
         >
           <img
@@ -88,7 +88,7 @@ const DeveloperInfo = () => {
           />
         </Button>
         <Button
-          className="absolute right-[74px] -top-4"
+          className="absolute right-[64px] -top-4"
           onClick={() => onClickHandler(githubUrl)}
         >
           <img
@@ -98,7 +98,7 @@ const DeveloperInfo = () => {
           />
         </Button>
         <Button
-          className="absolute right-6 -top-4"
+          className="absolute right-4 -top-4"
           onClick={() => onClickHandler(linkedinUrl)}
         >
           <img
