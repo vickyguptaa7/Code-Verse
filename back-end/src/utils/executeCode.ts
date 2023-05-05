@@ -1,8 +1,8 @@
 import { spawn } from "child_process";
+import { TimeoutTimeInSeconds } from "../config/constants";
 import { createCodeFile, removeCodeFile } from "./codeFileManager";
 import { ICommands, getCodeCompileAndExecuteCommands } from "./commands";
 import { TLanguage } from "./validationSchema";
-import { TimeoutTimeInSeconds } from "../config/constants";
 
 export const executeCode = async (
   code: string,
@@ -16,7 +16,7 @@ export const executeCode = async (
     executeCommand,
     executionArgs,
   }: ICommands = getCodeCompileAndExecuteCommands(codeId, language);
-  console.log(compileCommand, compilationArgs, executeCommand, executionArgs);
+
   if (compileCommand) {
     try {
       await new Promise((resolve, reject) => {
@@ -34,27 +34,30 @@ export const executeCode = async (
       return { error: err };
     }
   }
-  console.log('created code file');
-  
+
   const result = await new Promise((resolve, reject) => {
     const executeChildProcess = spawn(executeCommand, executionArgs || [], {
-      stdio: "pipe",
-      timeout: TimeoutTimeInSeconds*1000,
+      timeout: TimeoutTimeInSeconds * 1000,
     });
 
     const timerId = setTimeout(() => {
       executeChildProcess.kill();
       removeCodeFile(codeId, language);
       reject("Process timed out");
-    }, TimeoutTimeInSeconds*1000);
+    }, TimeoutTimeInSeconds * 1000);
 
     let output = "",
       error = "";
 
     if (input) {
-      input.split("\n").forEach((inLine) => {
-        executeChildProcess.stdin.write(inLine + "\n");
+      executeChildProcess.stdin.on("error", (err: Object) => {
+        console.error(`Error writing to stdin: ${err}`);
       });
+      executeChildProcess.stdin.writableHighWaterMark;
+      const lineByLineInput = input.split("\n");
+      for (const line of lineByLineInput) {
+        executeChildProcess.stdin.write(line + "\n");
+      }
       executeChildProcess.stdin.end();
     }
 
