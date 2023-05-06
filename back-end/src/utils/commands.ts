@@ -67,6 +67,16 @@ export const getCodeCompileAndExecuteCommands = (
 
     case "java":
       return {
+        compileCommand: "javac",
+        compilationArgs: [
+          join(
+            __dirname,
+            PATH_TO_CODE_FOLDER,
+            `${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
+          ),
+          "-d",
+          join(__dirname, PATH_TO_OUTPUT_FOLDER),
+        ],
         executeCommand: "java",
         executionArgs: [
           join(
