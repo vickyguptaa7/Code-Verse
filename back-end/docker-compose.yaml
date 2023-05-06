@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     # read_only: true
-    image: 'test8'
+    image: 'test9'
     ports:
       - '6000:6000'
     env_file:
