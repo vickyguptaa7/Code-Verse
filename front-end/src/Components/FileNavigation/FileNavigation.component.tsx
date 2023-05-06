@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
-import { VscDebugStart, VscEllipsis } from "react-icons/vsc";
+import { VscEllipsis } from "react-icons/vsc";
 import {
   setIsBottomPannelOpen,
   setShowInBottomPannel,
@@ -13,6 +13,7 @@ import Button from "../UI/Button.component";
 import DropMenu from "../UI/DropMenu.component";
 import DropMenuButton from "../UI/DropMenuButton.component";
 import FileContainer from "./FileContainer";
+import ExecuteButton from "./ExecuteButton";
 
 const FileNavigation = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
@@ -49,9 +50,7 @@ const FileNavigation = () => {
         <FileContainer navFilesList={navFilesList} />
         <div className="flex items-center justify-center p-2 text-[color:var(--highlight-text-color)]">
           {isCurrentNavFileIsExecutable ? (
-            <Button className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]">
-              <VscDebugStart className="text-2xl p-0.5" />
-            </Button>
+            <ExecuteButton/>
           ) : null}
           <Button
             className={mergeClass([

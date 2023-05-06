@@ -45,7 +45,7 @@ const DeveloperInfo = () => {
         opacity: 0,
       }}
     >
-      <div className="bg-[color:var(--primary-color)] h-20 w-full border-r-[3px] border-l-[3px] border-t-[3px] rounded-t-lg border-gray-50"></div>
+      <div className="bg-[color:var(--primary-color)] h-20 w-full border-t-[3px] rounded-t-lg border-gray-50"></div>
       <div className="absolute flex items-center justify-around w-full top-4 ">
         <img
           src={developer}
@@ -66,7 +66,7 @@ const DeveloperInfo = () => {
           <h5>India, Delhi</h5>
         </div>
       </div>
-      <div className="flex items-center justify-around w-full px-4 py-4 bg-[color:var(--primary-color)] relative border-r-[3px] border-l-[3px] border-b-[3px] rounded-b-lg border-gray-50">
+      <div className="flex items-center justify-around w-full px-4 py-4 bg-[color:var(--primary-color)] relative border-b-[3px] rounded-b-lg border-gray-50">
         <Button
           className="absolute left-4 -top-4 "
           onClick={() => onClickHandler(leetcodeUrl)}

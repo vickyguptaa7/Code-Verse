@@ -342,3 +342,5 @@ export const supportedFileTypes: { [key: string]: string } = {
   yml: "yml",
   "YAML-tmLanguage": "yaml",
 };
+
+export const SUPPORTED_LANGUAGES = ["cpp", "java", "python", "c", "javascript"];
