@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install system dependencies
 RUN apt-get update && \ 
-    apt-get install -y gcc python3 python3-pip default-jre default-jdk nodejs npm curl && \
+    apt-get install -y gcc python3 python3-pip openjdk-11-jdk nodejs npm curl && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Node Version Manager and Node.js version 18.16.0
