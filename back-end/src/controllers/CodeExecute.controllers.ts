@@ -11,6 +11,6 @@ export const getCodeOutput = async (req: Request, res: Response) => {
     res.send(output);
   } catch (err) {
     console.log(err);
-    res.status(400).send(`${err}`);
+    res.status(400).send(JSON.stringify({ error: err }));
   }
 };

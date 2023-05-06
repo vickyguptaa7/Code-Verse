@@ -20,7 +20,7 @@ const getCodeOutput = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (err) {
         console.log(err);
-        res.status(400).send(`${err}`);
+        res.status(400).send(JSON.stringify({ error: err }));
     }
 });
 exports.getCodeOutput = getCodeOutput;
