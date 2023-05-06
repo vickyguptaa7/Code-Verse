@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { TimeoutTimeInSeconds } from "../config/constants";
+import { ID, TimeoutTimeInSeconds } from "../config/constants";
 import { createCodeFile, removeCodeFile } from "./codeFileManager";
 import { ICommands, getCodeCompileAndExecuteCommands } from "./commands";
 import { TLanguage } from "./validationSchema";
@@ -38,6 +38,8 @@ export const executeCode = async (
   const result = await new Promise((resolve, reject) => {
     const executeChildProcess = spawn(executeCommand, executionArgs || [], {
       timeout: TimeoutTimeInSeconds * 1000,
+      uid: ID,
+      gid: ID,
     });
 
     const timerId = setTimeout(() => {

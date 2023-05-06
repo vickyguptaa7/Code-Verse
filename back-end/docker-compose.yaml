@@ -5,20 +5,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    read_only: true
-    image: 'test6'
+    # read_only: true
+    image: 'test8'
     ports:
       - '6000:6000'
-    volumes:
-      - vscode-data:/app/dist/temp/code:rw
-      - vscode-output:/app/dist/temp/output:rw
-      - vscode-temp:/../tmp:rw
     env_file:
       - ./.env
-
-volumes:
-  vscode-data:
-  vscode-output:
-  vscode-temp:
 
 
