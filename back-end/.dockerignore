@@ -1,2 +1,7 @@
 node_modules
-dist
+src
+Learnings.txt
+.env
+.gitignore
+.dockerignore
+

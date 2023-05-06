@@ -7,9 +7,7 @@ RUN apk update && \
         gcc \
         g++ \
         python3 \
-        python3-dev \
-        py3-pip \
-        openjdk11 \
+        openjdk16 \
         nodejs \
         npm \
         curl && \
@@ -21,16 +19,10 @@ WORKDIR /app
 COPY package.json .
 
 # Install Node.js dependencies
-RUN npm install 
-
-# Install TypeScript
-RUN npm install -g typescript
+RUN npm install --only=production
 
 # Copy the rest of the app's source code
 COPY . .
-
-# Build the app
-RUN tsc -p .
 
 # Expose port 6000
 EXPOSE 6000
