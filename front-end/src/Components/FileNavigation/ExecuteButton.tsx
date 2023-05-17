@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { VscDebugStart } from "react-icons/vsc";
 import {
   SUPPORTED_LANGUAGES,
@@ -19,6 +20,7 @@ import Button from "../UI/Button.component";
 const URL = "https://vscode-s.onrender.com/api/execute";
 
 const ExecuteButton = () => {
+  const [isRequestPending, setIsRequestPending] = useState(false);
   const currentNavFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
   );
@@ -35,6 +37,17 @@ const ExecuteButton = () => {
   const dispatch = useAppDispatch();
 
   const codeExecutionHandler = async () => {
+    if (isRequestPending) {
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          type: "info",
+          isWaitUntilComplete: false,
+          description: "Previous request is pending!",
+        })
+      );
+      return;
+    }
     console.log("codeExecutionHandler");
     const language =
       editorLanguage[fileInformation[currentNavFile.id].language];
@@ -51,6 +64,7 @@ const ExecuteButton = () => {
       );
       return;
     }
+    setIsRequestPending(true);
     const id = uniqueIdGenerator();
     dispatch(
       addNotification({
@@ -60,20 +74,37 @@ const ExecuteButton = () => {
         description: "Executing Code...",
       })
     );
-    const response = await fetch(URL, {
-      method: "POST",
-      body: JSON.stringify({
-        code: fileInformation[currentNavFile.id].body,
-        language: language,
-        input: inputContent,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "x-api-key": process.env.REACT_APP_BACKEND_API_KEY || "",
-      },
-    });
-    const data = await response.json();
+
+    let response;
+    try {
+      response = await fetch(URL, {
+        method: "POST",
+        body: JSON.stringify({
+          code: fileInformation[currentNavFile.id].body,
+          language: language,
+          input: inputContent,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "x-api-key": process.env.REACT_APP_BACKEND_API_KEY || "",
+        },
+      });
+    } catch (err) {
+      dispatch(
+        addNotification({
+          id: uniqueIdGenerator(),
+          type: "error",
+          isWaitUntilComplete: false,
+          description: "Error in connecting to server",
+        })
+      );
+      dispatch(removeNotification({ id: id }));
+      setIsRequestPending(false);
+      return;
+    }
+
+    const data = await response?.json();
     const { error, output } = data;
     const toShow = error.length ? "Error : " + error : output;
     dispatch(setIsBottomPannelOpen(true));
@@ -84,9 +115,10 @@ const ExecuteButton = () => {
         outputContent.length ? outputContent + "\n" + toShow : toShow
       )
     );
-
+    setIsRequestPending(false);
     dispatch(removeNotification({ id: id }));
   };
+
   return (
     <Button
       className="flex items-center justify-center mr-4 rounded-lg hover:bg-[color:var(--hover-text-color)]"
