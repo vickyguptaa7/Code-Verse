@@ -37,7 +37,7 @@ const Loader: React.FC<IPROPS> = ({ type }) => {
       animate={{ opacity: 1, scale: 1 }}
     >
       <img src={logo} className="w-40 aspect-square" alt="Loading..." />
-      <div className="w-32 overflow-hidden bg-gray-200 rounded-lg">
+      <div className="w-40 overflow-hidden bg-gray-200 rounded-lg">
         <div className="rounded-full moving-div"></div>
       </div>
     </motion.div>

@@ -110,11 +110,16 @@ const ExecuteButton = () => {
     dispatch(setIsBottomPannelOpen(true));
     dispatch(setShowInBottomPannel("output"));
 
-    dispatch(
-      setOutputContent(
-        outputContent.length ? outputContent + "\n" + toShow : toShow
-      )
+    // avoid adding more than 10000 characters in output
+    let newOutputContent = outputContent.length
+      ? outputContent + "\n" + toShow
+      : toShow;
+    newOutputContent = newOutputContent?.slice(
+      -Math.min(newOutputContent?.length, 10000)
     );
+    console.log(newOutputContent);
+    
+    dispatch(setOutputContent(newOutputContent));
     setIsRequestPending(false);
     dispatch(removeNotification({ id: id }));
   };

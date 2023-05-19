@@ -24,7 +24,7 @@ const App = () => {
         </div>
       }
     >
-      <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none font-cascadia overflow-hidden hidescrollbar1 hidescrollbar2">
+      <div className="App min-h-[30rem] h-screen min-w-[20rem] select-none font-cascadia overflow-hidden">
         <Routes>
           <Route path="/*" element={<CodeEditor />} />
         </Routes>
