@@ -10,7 +10,7 @@ import Image from "../../UI/Image.component";
 interface IPROPS {
   height: number;
 }
-const VSCODE_MARKETPLACE_INITIAL_URL = "https://marketplace.visualstudio.com";
+const CODEVERSE_MARKETPLACE_INITIAL_URL = "https://marketplace.visualstudio.com";
 
 const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
   const fileInformations = useAppSelector(
@@ -81,7 +81,7 @@ const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
               className="bg-[color:var(--primary-color)] w-fit px-4 py-0.5 rounded-sm mt-2.5 hover:brightness-125 text-white"
               onClick={() => {
                 window.open(
-                  VSCODE_MARKETPLACE_INITIAL_URL + info.extensionUrl,
+                  CODEVERSE_MARKETPLACE_INITIAL_URL + info.extensionUrl,
                   "_blank"
                 );
               }}

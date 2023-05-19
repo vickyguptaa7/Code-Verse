@@ -7,7 +7,7 @@ import { useAppDispatch } from "../../../../Store/store";
 import Button from "../../../UI/Button.component";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 
-const VCSCODE_DEBUG_URL = "https://code.visualstudio.com/docs/editor/debugging";
+const CODEVERSE_DEBUG_URL = "https://code.visualstudio.com/docs/editor/debugging";
 // height adjustment is used to adjust the height of the run and debug component to fit the side drawer
 const HIGHT_ADJUSTMENT = 120;
 
@@ -23,7 +23,7 @@ const Run = () => {
   };
   
   const debugDocsHandler = () => {
-    window.open(VCSCODE_DEBUG_URL, "_blank");
+    window.open(CODEVERSE_DEBUG_URL, "_blank");
   };
   
   return (

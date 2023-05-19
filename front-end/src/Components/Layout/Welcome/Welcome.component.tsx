@@ -1,4 +1,5 @@
 import React from "react";
+import { IoSchoolOutline } from "react-icons/io5";
 import {
   VscFolderOpened,
   VscGitMerge,
@@ -7,17 +8,16 @@ import {
   VscNewFile,
   VscStarEmpty,
 } from "react-icons/vsc";
-import { IoSchoolOutline } from "react-icons/io5";
-import Button from "../../UI/Button.component";
-import { useAppDispatch } from "../../../Store/store";
 import {
   setIsDrawerOpen,
   setShowInSideDrawer,
 } from "../../../Store/reducres/SideDrawer/SideDrawer.reducer";
+import { useAppDispatch } from "../../../Store/store";
+import Button from "../../UI/Button.component";
 
-const VSCODE_BASIC_URL =
+const CODEVERSE_BASIC_URL =
   "https://code.visualstudio.com/docs/introvideos/basics";
-const VSCODE_TIPS_AND_TRICKS_URL =
+const CODEVERSE_TIPS_AND_TRICKS_URL =
   "https://code.visualstudio.com/docs/getstarted/tips-and-tricks#vscode";
 
 interface IPROPS {
@@ -34,7 +34,7 @@ const Welcome: React.FC<IPROPS> = ({ height }) => {
         <div className="">
           <div className="h-12"></div>
           <h1 className="text-4xl text-[color:var(--highlight-text-color)]">
-            Visual Studio Code
+            Code Verse
           </h1>
           <h3 className="text-xl text-[color:var(--primary-text-color)] mt-2">
             Editing evolved
@@ -116,10 +116,10 @@ function OpenFileFolderButtons() {
 
 function Walkthroughs() {
   const basicIntroHandler = () => {
-    window.open(VSCODE_BASIC_URL, "_blank");
+    window.open(CODEVERSE_BASIC_URL, "_blank");
   };
   const tipsAndTricksHandler = () => {
-    window.open(VSCODE_TIPS_AND_TRICKS_URL, "_blank");
+    window.open(CODEVERSE_TIPS_AND_TRICKS_URL, "_blank");
   };
   return (
     <div className="flex flex-col gap-3 my-8">
@@ -131,9 +131,9 @@ function Walkthroughs() {
         >
           <div className="absolute top-0 left-0 w-0 h-0 border-[color:var(--accent-color)] border-b-[36px] border-l-[36px] border-r-8 border-r-transparent border-b-transparent "></div>
           <VscStarEmpty className="absolute left-[3px] text-sm top-[3px] text-white" />
-          <h5 className="text-left">Get Started with VS Code</h5>
+          <h5 className="text-left">Get Started with Code Verse</h5>
           <p className="mt-1 text-sm text-left">
-            Discover the best customization to make VS Code yours.
+            Discover the best customization to make Code Verse yours.
           </p>
         </Button>
         <Button
