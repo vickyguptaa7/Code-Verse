@@ -36,9 +36,10 @@ const Notification: React.FC<IPROPS> = ({ notification }) => {
   return (
     <motion.div
       className="overflow-hidden shadow-sm hover:brightness-110 w-fit notification shadow-[color:var(--hover-text-color)]"
+      key={id}
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      exit={{ x: 300, transition: { duration: 0.5, delay: 0.5 } }}
+      exit={{ x: 350, transition: { duration: 0.5, delay: 0.5 } }}
     >
       <div className="text-[color:var(--highlight-text-color)] py-3 px-2 rouned-sm bg-[color:var(--notification-bg-color)]  flex text-sm items-center gap-1">
         {type === "info" ? (
