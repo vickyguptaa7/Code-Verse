@@ -90,6 +90,9 @@ export const useTerminal = () => {
           deleteFileOrDirectory(twoArgInput[1], terminalInput);
           return;
         default:
+          addToTerminalContent(
+            `${terminalInput}\nbash: ${terminalInput}: command not found`
+          );
           break;
       }
     } else {
