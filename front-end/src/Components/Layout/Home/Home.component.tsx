@@ -1,5 +1,5 @@
 import React from "react";
-import vscodeImage from "../../../Assets/images/vsc/vscode-alt.svg";
+import logo from "../../../Assets/images/code-verse/code-verse-alt.png";
 import { mergeClass } from "../../../library/tailwindMerge/tailwindMerge.lib";
 import { getOperatingSystem } from "../../../utils/osDetect.utils";
 
@@ -20,7 +20,7 @@ const Home: React.FC<IPROPS> = ({ height }) => {
       style={{ height: height + 40 }}
     >
       <div className="m-2">
-        <img src={vscodeImage} className="w-48" alt="" />
+        <img src={logo} className="w-48" alt="" />
       </div>
       <div className="font-sans text-[color:var(--primary-text-color)] flex justify-center items-center gap-1.5">
         <div className="flex flex-col items-end justify-center gap-3 m-4 text-sm">

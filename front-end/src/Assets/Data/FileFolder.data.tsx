@@ -1,4 +1,4 @@
-import vscodeImage from "../../Assets/images/vsc/vscode.svg";
+import logo from "../../Assets/images/code-verse/code-verse.png";
 import IDirectory from "../../Interface/directory.interface";
 import { IFilesInforation } from "../../Interface/file.interface";
 import {
@@ -9,8 +9,8 @@ import {
 import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
 
 const README = `#Introduction
-This web app is a clone of the popular code editor, Visual Studio Code (VSCode).
-It provides a similar interface and features to VSCode, but can be accessed directly from your web browser.
+This web app is a clone of the popular code editor, Code Verse.
+It provides a similar interface and features to Code Verse, but can be accessed directly from your web browser.
 
 #FEATURES
 1.Multiple tabs for editing multiple files simultaneously
@@ -43,7 +43,7 @@ let DUMMY_FILE_INFORMATION: IFilesInforation = {
   welcome: {
     id: "welcome",
     name: "Welcome",
-    iconUrls: [vscodeImage],
+    iconUrls: [logo],
     language: "welcome",
     body: "",
   },

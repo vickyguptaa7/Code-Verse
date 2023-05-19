@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
-import vscodeImg from "./../../../Assets/images/vsc/vscode.svg";
+import logo from "./../../../Assets/images/code-verse/code-verse.svg";
 import "./Loader.styles.css";
 interface IPROPS {
   type: "spinner" | "loading" | "editorLoader";
@@ -25,7 +25,7 @@ const Loader: React.FC<IPROPS> = ({ type }) => {
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
       >
-        <img src={vscodeImg} className="w-16 animate-bounce" alt="Loading..." />
+        <img src={logo} className="w-32 animate-bounce aspect-square"  alt="Loading..." />
       </motion.div>
     );
   }
@@ -36,7 +36,7 @@ const Loader: React.FC<IPROPS> = ({ type }) => {
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
     >
-      <img src={vscodeImg} className="" alt="Loading..." />
+      <img src={logo} className="w-40 aspect-square" alt="Loading..." />
       <div className="w-32 overflow-hidden bg-gray-200 rounded-lg">
         <div className="rounded-full moving-div"></div>
       </div>

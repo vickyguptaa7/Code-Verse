@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import ReactDOM from "react-dom";
-import vscodeImage from "../../Assets/images/vsc/vscode.svg";
+import vscodeImage from "../../Assets/images/code-verse/code-verse.svg";
 import { setIsDeleteWarningEnable } from "../../Store/reducres/SideDrawer/SideDrawer.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { mergeClass } from "../../library/tailwindMerge/tailwindMerge.lib";
@@ -42,7 +42,7 @@ const Warning: React.FC<IPROPS> = ({ name, onCancel, onDelete }) => {
         <div className="flex items-center justify-center md:block ">
           <img
             src={vscodeImage}
-            className="w-16 md:w-20 aspect-square"
+            className="w-28 md:w-36 aspect-square"
             alt=""
           />
         </div>
