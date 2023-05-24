@@ -119,7 +119,7 @@ const INSTALLED_EXTENSIONS = [
     publisher: "Microsoft",
     downloadCount: "52.2M",
     description:
-      "A performant, feature-rich language server for Python in VS Code",
+      "A performant, feature-rich language server for Python in Code Verse",
     ratings: "Average rating: 3.3 out of 5",
     extensionUrl: "/items?itemName=ms-python.vscode-pylance",
   },
@@ -159,7 +159,7 @@ const RECOMMENTED_EXTENSIONS = [
     verified: "",
     publisher: "力扣 LeetCode",
     downloadCount: "691K",
-    description: "Solve LeetCode problems in VS Code",
+    description: "Solve LeetCode problems in Code Verse",
     ratings: "Average rating: 4.4 out of 5",
     extensionUrl: "/items?itemName=LeetCode.vscode-leetcode",
   },
