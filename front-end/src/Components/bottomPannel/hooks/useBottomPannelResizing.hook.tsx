@@ -63,6 +63,15 @@ const useBottomPannelResizing = (
       window.getComputedStyle(resizableBottomPannel).height
     );
     let y_cord = 0;
+
+    /**
+     * This function updates the height of a resizable bottom panel based on the user's pointer
+     * movement, with certain constraints on the minimum and maximum height.
+     * @param {PointerEvent} event - PointerEvent - an event that is triggered when the pointer device
+     * (such as a mouse or touch screen) moves over an element on the screen. It contains information
+     * about the position and movement of the pointer, as well as other details such as the type of
+     * pointer device being used.
+     */
     const onPointerMoveBottomPannelResize = (event: PointerEvent) => {
       const change_y = y_cord - event.clientY;
       // if change is in desired percentage then only update
@@ -95,6 +104,12 @@ const useBottomPannelResizing = (
       );
     };
 
+    /**
+     * This function handles the event when the user releases the pointer after resizing the bottom
+     * panel.
+     * @param {PointerEvent} event - A PointerEvent object representing the pointerup event that
+     * triggered the function.
+     */
     const onPointerUpBottomPannelResize = (event: PointerEvent) => {
       document.removeEventListener(
         "pointermove",
@@ -121,12 +136,21 @@ const useBottomPannelResizing = (
       setIsBottomPannelResizing(false);
     };
 
+    /**
+     * This function sets event listeners and a state variable to indicate that the bottom panel is
+     * being resized by the user.
+     * @param {PointerEvent} event - PointerEvent - a type of event that is triggered when a pointing
+     * device (such as a mouse or touch screen) is used to interact with an element on the web page. In
+     * this case, the event is being used to track the vertical position of the pointer when it is
+     * clicked on the bottom panel
+     */
     const onPointerDownBottomPannelResize = (event: PointerEvent) => {
       y_cord = event.clientY;
       document.addEventListener("pointerup", onPointerUpBottomPannelResize);
       document.addEventListener("pointermove", onPointerMoveBottomPannelResize);
       setIsBottomPannelResizing(true);
     };
+
     const resizerSideDiv = refResizer.current!;
     resizerSideDiv.addEventListener(
       "pointerdown",

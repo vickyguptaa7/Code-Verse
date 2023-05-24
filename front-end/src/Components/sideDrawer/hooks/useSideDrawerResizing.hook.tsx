@@ -56,7 +56,14 @@ const useSideDrawerResizing = (
 
     let x_cord = 0;
 
-    // when pointer move the drawer is resized (here move means drag + click)
+    /**
+     * This function updates the width and position of a resizable drawer element based on the user's
+     * pointer movement, while also ensuring that the width stays within certain minimum and maximum
+     * limits.
+     * @param {PointerEvent} event - A PointerEvent object representing the pointer movement event that
+     * triggered the function. It contains information about the position and movement of the pointer,
+     * as well as other properties such as the target element and the type of pointer device used.
+     */
     const onPointerMoveSideResize = (event: PointerEvent) => {
       // get the change in x cordinate
       const change_x = isSidePannelPositionOnLeft
@@ -73,6 +80,9 @@ const useSideDrawerResizing = (
       else if change is more than maximum size then set the width to maximum size and update the x_cord accordingly
       x_cord is updated depending on the sideDrawer position left or right
       x_cord store's the position of the x coordinate where the resizing ends or the resizer element  position
+      
+      This code block is checking the change in the x-coordinate of the pointer movement and
+      updating the width and position of the resizable drawer element accordingly. 
       */
       if (
         change_x + width > MIN_DRAWER_SIZE_PX &&
@@ -100,14 +110,26 @@ const useSideDrawerResizing = (
       dispatch(setSideDrawerWidth(width));
     };
 
-    // when pointer up the resizing is stopped and remove the move and up event listeners
+    /**
+     * This function removes event listeners and sets a state variable to false.
+     * @param {PointerEvent} event - PointerEvent - an event object that contains information about a
+     * pointer (e.g. mouse, touch, pen) input. It is passed as a parameter to the function
+     * `onPointerUpSideResize` which is called when the pointer is lifted up after a resize operation.
+     */
     const onPointerUpSideResize = (event: PointerEvent) => {
       document.removeEventListener("pointermove", onPointerMoveSideResize);
       document.removeEventListener("pointerup", onPointerUpSideResize);
       setIsDrawerResizing(false);
     };
 
-    // when pointer down the resizing is started and add the move and up event listeners
+    /**
+     * This function sets up event listeners for pointer movement and release, and updates the state to
+     * indicate that the drawer is being resized.
+     * @param {PointerEvent} event - PointerEvent - a type of event that is triggered when a pointing
+     * device (such as a mouse or touch screen) is used to interact with an element on the web page. In
+     * this case, it is used to track the position of the pointer when the user clicks on the side of a
+     * drawer to
+     */
     const onPointerDownSideResize = (event: PointerEvent) => {
       x_cord = event.clientX;
       document.addEventListener("pointerup", onPointerUpSideResize);

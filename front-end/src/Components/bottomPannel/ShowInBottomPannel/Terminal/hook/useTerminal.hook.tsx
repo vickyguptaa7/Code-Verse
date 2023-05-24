@@ -41,7 +41,16 @@ export const useTerminal = () => {
     children: directories,
   };
 
-  // all the action that can be done in terminal are here
+  /**
+   * This is a function that takes in a terminal input and performs various actions based on the input,
+   * such as clearing the terminal content, listing directory content, changing directories, creating
+   * files and directories, and deleting files or directories.
+   * @param {string} terminalInput - The parameter `terminalInput` is a string representing the user
+   * input in the terminal.
+   * @returns In the `terminalActions` function, various `return` statements are used to exit the
+   * function early after executing a specific command. In the `clearTerminalContent` function, nothing
+   * is being returned explicitly, so it will return `undefined` by default.
+   */
   const terminalActions = (terminalInput: string) => {
     if (!terminalInput.length) {
       addToTerminalContent("");
@@ -106,7 +115,12 @@ export const useTerminal = () => {
     dispatch(setTerminalContent(""));
   };
 
-  // add the terminal input to the terminal content with the current directory info
+  /**
+   * This function adds a string to the terminal content with the current directory information and the
+   * input provided.
+   * @param {string} terminalInput - A string representing the input entered by the user in the
+   * terminal.
+   */
   const addToTerminalContent = (terminalInput: string) => {
     dispatch(
       setTerminalContent(
@@ -115,20 +129,34 @@ export const useTerminal = () => {
     );
   };
 
+  /**
+   * This function closes the terminal by setting the bottom panel to be closed.
+   */
   const closeTerminal = () => {
     dispatch(setIsBottomPannelOpen(false));
   };
 
+  /**
+   * This function adds a command to the terminal command history.
+   * @param {string} command - The `command` parameter is a string that represents a command entered by
+   * the user in a terminal.
+   */
   const addCommandToHistory = (command: string) => {
     dispatch(setTerminalCommandHistory(command));
   };
 
-  // display the command history to the terminal content
+  /**
+   * This function adds the terminal input and command history to the terminal content.
+   * @param {string} terminalInput - The input that the user typed into the terminal.
+   */
   const showCommandHistory = (terminalInput: string) => {
     addToTerminalContent(terminalInput + "\n\n" + terminalCommandHistory);
   };
 
-  // list the content of the current directory to the terminal content
+  /**
+   * This function lists the contents of the current directory in a terminal.
+   * @param {string} terminalInput - The input entered by the user in the terminal.
+   */
   const listCurrentDirectoryContent = (terminalInput: string) => {
     let contents: Array<IDirectory> = directories;
 
@@ -152,7 +180,10 @@ export const useTerminal = () => {
     addToTerminalContent(terminalInput + "\n" + output);
   };
 
-  //print the current directory path to the terminal content
+  /**
+   * This function prints the current working directory path in a terminal.
+   * @param {string} terminalInput - The input entered by the user in the terminal.
+   */
   const printWorkingDirectory = (terminalInput: string) => {
     let path = findDirectoryPath(
       rootDirectory,
@@ -161,6 +192,13 @@ export const useTerminal = () => {
     addToTerminalContent(terminalInput + "\n" + path);
   };
 
+  /**
+   * This function changes the current directory of a terminal to the root directory and adds the input
+   * to the terminal content.
+   * @param {string} terminalInput - The `terminalInput` parameter is a string that represents the
+   * command entered by the user in the terminal. In this case, it is used to add the command to the
+   * terminal content.
+   */
   const changeDirectoryToRoot = (terminalInput: string) => {
     dispatch(
       setTerminalsCurrentDirectoryInfo({
@@ -173,6 +211,13 @@ export const useTerminal = () => {
   };
 
   // change the current directory to the target directory
+  /**
+   * This function changes the current directory in a terminal based on a target path.
+   * @param {string} targetPath - A string representing the path of the target directory that the user
+   * wants to change to.
+   * @param {string} terminalInput - The input command entered by the user in the terminal.
+   * @returns The function does not have a return statement, so it returns `undefined` by default.
+   */
   const changeDirectory = (targetPath: string, terminalInput: string) => {
     // get the current directory from directories
     let currentDirectory = findDirectory(
@@ -264,7 +309,14 @@ export const useTerminal = () => {
     );
   };
 
-  // create new file in the current directory
+  /**
+   * This function creates a new file and adds it to the current directory, checking for existing files
+   * and handling errors.
+   * @param {string} fileName - A string representing the name of the file to be created.
+   * @param {string} terminalInput - The input entered by the user in the terminal.
+   * @returns The function `createFile` does not have a return statement, so it returns `undefined` by
+   * default.
+   */
   const createFile = (fileName: string, terminalInput: string) => {
     // get the current directory from directories
     let currentDirectory = findDirectory(
@@ -307,7 +359,17 @@ export const useTerminal = () => {
     scrollToTarget(fileId);
   };
 
-  // create new directory in the current directory
+  /**
+   * This function creates a new directory and adds it to the current directory if it does not already
+   * exist.
+   * @param {string} directoryName - A string representing the name of the directory to be created.
+   * @param {string} terminalInput - The terminal input is a string that represents the command entered
+   * by the user in the terminal. It is used to display the command in the terminal output.
+   * @returns The function does not return anything explicitly, but it may return early with a `return`
+   * statement if certain conditions are met. If the current directory does not exist or if the
+   * directory already exists, the function will return early without performing any further actions.
+   * Otherwise, it will create a new directory and add it to the current directory.
+   */
   const createDirectory = (directoryName: string, terminalInput: string) => {
     // get the current directory from directories
     let currentDirectory = findDirectory(
@@ -348,7 +410,14 @@ export const useTerminal = () => {
     addToTerminalContent(terminalInput);
   };
 
-  // delete file or directory from the current directory
+  /**
+   * This function deletes a file or directory from the current directory in a file system.
+   * @param {string} name - A string representing the name of the file or directory to be deleted.
+   * @param {string} terminalInput - A string representing the user input in the terminal. It is used
+   * to display error messages or other information related to the operation being performed.
+   * @returns The function is not returning anything explicitly, but it may return early with a
+   * `return` statement if the current directory or the file/directory to be deleted is not found.
+   */
   const deleteFileOrDirectory = (name: string, terminalInput: string) => {
     // get the current directory from directories
     let currentDirectory = findDirectory(

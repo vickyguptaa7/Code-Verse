@@ -171,6 +171,12 @@ const useUndoRedo = (
     dispatch,
   ]);
 
+ /**
+  * This function updates the undo/redo stack for a given file with the current cursor position and
+  * content.
+  * @param {string} value - The `value` parameter is a string representing the new content that is
+  * being added to the undo-redo stack.
+  */
   const updateUndoRedoStack = (value: string) => {
     let cursorPosition = monacoRef.current?.getPosition();
     const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];

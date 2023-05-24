@@ -21,6 +21,18 @@ const useHighlightText = () => {
     previousDecorations.current[currFile.id] = Array<string>();
   }
 
+  /**
+   * This function highlights searched text in a Monaco editor and removes previous decorations.
+   * @param {string} searchedText - A string representing the text that is being searched for in the
+   * editor.
+   * @param {DrawerContent} showInSideDrawer - `showInSideDrawer` is a parameter of type
+   * `DrawerContent` which is used to determine what content should be displayed in the side drawer. It
+   * is used in the `highlightText` function to check if the side drawer is in search mode or not. If
+   * it is not in search mode
+   * @param {boolean} isDrawerOpen - `isDrawerOpen` is a boolean value that indicates whether the side
+   * drawer is currently open or not.
+   * @returns The function does not have a return statement, so it returns `undefined` by default.
+   */
   const highlightText = (
     searchedText: string,
     showInSideDrawer: DrawerContent,
