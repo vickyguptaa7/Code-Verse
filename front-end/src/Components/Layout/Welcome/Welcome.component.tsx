@@ -16,9 +16,9 @@ import { useAppDispatch } from "../../../Store/store";
 import Button from "../../UI/Button.component";
 
 const CODEVERSE_BASIC_URL =
-  "https://code.visualstudio.com/docs/introvideos/basics";
+  "https://github.com/vickyguptaa7/Code-Verse";
 const CODEVERSE_TIPS_AND_TRICKS_URL =
-  "https://code.visualstudio.com/docs/getstarted/tips-and-tricks#vscode";
+  "https://github.com/vickyguptaa7/Code-Verse";
 
 interface IPROPS {
   height: number;

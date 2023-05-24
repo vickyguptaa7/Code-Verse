@@ -47,7 +47,7 @@ export const useSettingData = () => {
       initialValue: editorTheme,
       updateInStore: (dispatch: Dispatch<Object>, colorTheme: TTheme) => {
         dispatch(setTheme(colorTheme));
-        storeToLocalStorage("vscode-color-theme", colorTheme);
+        storeToLocalStorage("codeverse-color-theme", colorTheme);
       },
     },
     {
@@ -62,7 +62,10 @@ export const useSettingData = () => {
         sideDrawerPosition: "left" | "right"
       ) => {
         dispatch(setSidePannelPosition(sideDrawerPosition));
-        storeToLocalStorage("vscode-sidedrawer-position", sideDrawerPosition);
+        storeToLocalStorage(
+          "codeverse-sidedrawer-position",
+          sideDrawerPosition
+        );
       },
     },
     {
@@ -74,7 +77,7 @@ export const useSettingData = () => {
       listOptions: [6, 10, 12, 14, 16, 20, 24, 28, 30, 32, 36, 40],
       updateInStore: (dispatch: Dispatch<Object>, fontSize: number) => {
         dispatch(setFontSize(fontSize));
-        storeToLocalStorage("vscode-font-size", fontSize);
+        storeToLocalStorage("codeverse-font-size", fontSize);
       },
     },
     {
@@ -89,7 +92,7 @@ export const useSettingData = () => {
         wordWrap: "on" | "off" | "wordWrapColumn" | "bounded"
       ) => {
         dispatch(setWordWrap(wordWrap));
-        storeToLocalStorage("vscode-word-wrap", wordWrap);
+        storeToLocalStorage("codeverse-word-wrap", wordWrap);
       },
     },
     {
@@ -104,7 +107,7 @@ export const useSettingData = () => {
       ) => {
         dispatch(setScrollBeyondLastLine(isScrollBeyondLastLine));
         storeToLocalStorage(
-          "vscode-is-scroll-beyond-last-line",
+          "codeverse-is-scroll-beyond-last-line",
           isScrollBeyondLastLine
         );
       },
@@ -120,7 +123,7 @@ export const useSettingData = () => {
         isMinimapEnabled: boolean
       ) => {
         dispatch(setMinimapEnabled(isMinimapEnabled));
-        storeToLocalStorage("vscode-is-minimap-enabled", isMinimapEnabled);
+        storeToLocalStorage("codeverse-is-minimap-enabled", isMinimapEnabled);
       },
     },
     {
@@ -132,7 +135,7 @@ export const useSettingData = () => {
       initialValue: editorTabSize,
       updateInStore: (dispatch: Dispatch<Object>, tabSize: number) => {
         dispatch(setTabSize(tabSize));
-        storeToLocalStorage("vscode-tab-size", tabSize);
+        storeToLocalStorage("codeverse-tab-size", tabSize);
       },
     },
     {
@@ -147,7 +150,7 @@ export const useSettingData = () => {
       ) => {
         dispatch(setIsDeleteWarningEnable(isDeleteWarningEnable));
         storeToLocalStorage(
-          "vscode-is-delete-warning-enable",
+          "codeverse-is-delete-warning-enable",
           isDeleteWarningEnable
         );
       },

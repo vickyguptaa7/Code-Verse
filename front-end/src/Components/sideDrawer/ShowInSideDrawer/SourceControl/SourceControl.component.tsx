@@ -2,8 +2,8 @@ import { CODE_EDITOR_MIN_HEIGHT } from "../../../../Pages/CodeEditor.page";
 import Button from "../../../UI/Button.component";
 import CollapsibleMenu from "../../../UI/CollapsibleMenu.component";
 
-const CODEVERSE_INTRO_TO_GIT_URL =
-  "https://code.visualstudio.com/docs/sourcecontrol/intro-to-git";
+const CODEVERSE_GIT_URL =
+  "https://github.com/vickyguptaa7/Code-Verse";
 // height adjustment is used to adjust the height of the source control component to fit the side drawer
 const HIGHT_ADJUSTMENT = 100;
 
@@ -15,7 +15,7 @@ const SourceControl = () => {
     HIGHT_ADJUSTMENT;
 
   const readDocsHandler = () => {
-    window.open(CODEVERSE_INTRO_TO_GIT_URL, "_blank");
+    window.open(CODEVERSE_GIT_URL, "_blank");
   };
 
   return (
@@ -27,7 +27,7 @@ const SourceControl = () => {
         >
           <Button
             className="bg-[color:var(--primary-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
-            onClick={() => window.open("http://github.com/", "_blank")}
+            onClick={() => window.open(CODEVERSE_GIT_URL, "_blank")}
             title="comming soon..."
           >
             Open Folder
@@ -40,7 +40,7 @@ const SourceControl = () => {
           </div>
           <Button
             className="bg-[color:var(--primary-color)] w-full py-1.5 px-2 hover:scale-105 duration-300 max-w-xs text-white"
-            onClick={() => window.open("http://github.com/", "_blank")}
+            onClick={() => window.open(CODEVERSE_GIT_URL, "_blank")}
             title="comming soon..."
           >
             Clone Repository

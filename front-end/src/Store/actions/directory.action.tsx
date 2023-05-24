@@ -21,7 +21,9 @@ export const setInitialDirectory = () => {
   return async (dispatch: Dispatch<Object>) => {
     try {
       await intialManagementOfIndxDb();
-      const prevDirectory = await getFromDirectoryIndexDB("vscode-directory");
+      const prevDirectory = await getFromDirectoryIndexDB(
+        "codeverse-directory"
+      );
       const prevFilesInformation = await getFromFilesInformationIndexDB();
       if (!prevDirectory) {
         return;

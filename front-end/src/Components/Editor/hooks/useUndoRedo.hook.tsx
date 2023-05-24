@@ -1,12 +1,12 @@
 import { useMonaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
 import React, { useEffect, useRef } from "react";
+import { IUndoRedo } from "../../../Interface/undoRedo.interface";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import {
   getFromLocalStorage,
   storeToLocalStorage,
 } from "../../../utils/localStorage.utils";
-import { IUndoRedo } from "../../../Interface/undoRedo.interface";
 
 const useUndoRedo = (
   monacoRef: React.RefObject<editor.IStandaloneCodeEditor>,
@@ -18,7 +18,9 @@ const useUndoRedo = (
   const dispatch = useAppDispatch();
 
   // using the local storage for storing the history of undo redo of the files
-  let undoRedoHistoryInfo = useRef<IUndoRedo>(getFromLocalStorage("vscode-history-info") || {});
+  let undoRedoHistoryInfo = useRef<IUndoRedo>(
+    getFromLocalStorage("codeverse-history-info") || {}
+  );
 
   let isUndoRedoOperation = useRef<boolean>(false);
 
@@ -158,7 +160,7 @@ const useUndoRedo = (
       }
     );
     return () => {
-      storeToLocalStorage("vscode-history-info", undoRedoHistory);
+      storeToLocalStorage("codeverse-history-info", undoRedoHistory);
     };
     // used to remove the warning of add undoRedoHistory
     //eslint-disable-next-line
@@ -171,12 +173,12 @@ const useUndoRedo = (
     dispatch,
   ]);
 
- /**
-  * This function updates the undo/redo stack for a given file with the current cursor position and
-  * content.
-  * @param {string} value - The `value` parameter is a string representing the new content that is
-  * being added to the undo-redo stack.
-  */
+  /**
+   * This function updates the undo/redo stack for a given file with the current cursor position and
+   * content.
+   * @param {string} value - The `value` parameter is a string representing the new content that is
+   * being added to the undo-redo stack.
+   */
   const updateUndoRedoStack = (value: string) => {
     let cursorPosition = monacoRef.current?.getPosition();
     const currentFileUndoRedo = undoRedoHistoryInfo.current[currFile.id];

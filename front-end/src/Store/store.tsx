@@ -20,7 +20,7 @@ const persistMiddleware: Middleware = (store) => (next) => (action) => {
   if (action.type.startsWith("sideDrawer/setIsDrawerOpen")) {
     const result = next(action);
     storeToLocalStorage(
-      "vscode-is-drawer-open",
+      "codeverse-is-drawer-open",
       store.getState().sideDrawer.isDrawerOpen
     );
     return result;
@@ -28,7 +28,7 @@ const persistMiddleware: Middleware = (store) => (next) => (action) => {
   if (action.type.startsWith("bottomPannel/setIsBottomPannelOpen")) {
     const result = next(action);
     storeToLocalStorage(
-      "vscode-is-bottom-pannel-open",
+      "codeverse-is-bottom-pannel-open",
       store.getState().bottomPannel.isBottomPannelOpen
     );
     return result;
@@ -41,7 +41,7 @@ const persistMiddleware: Middleware = (store) => (next) => (action) => {
   ) {
     const result = next(action);
     storeToDirectoryIndexDB(
-      "vscode-directory",
+      "codeverse-directory",
       store.getState().Directory.directories
     );
     return result;

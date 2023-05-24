@@ -7,7 +7,7 @@ function returns a promise that resolves to a database instance that can be used
 operations on the object stores. The `upgrade` function is called when the database is first created
 or when the version number is incremented, and it is used to define the structure of the database by
 creating object stores and indexes. */
-const dbPromise = openDB("vscode", 1, {
+const dbPromise = openDB("code-verse", 1, {
   upgrade(db) {
     if (!db.objectStoreNames.contains("directory"))
       db.createObjectStore("directory");

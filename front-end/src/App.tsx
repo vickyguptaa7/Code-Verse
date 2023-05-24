@@ -45,10 +45,10 @@ const useInitializeApp = () => {
     dispatch(fetchFileIconsAction());
     dispatch(fetchFolderIconsAction());
     dispatch(setInitialDirectory());
-    removeFromLocalStorage("vscode-history-info");
+    removeFromLocalStorage("codeverse-history-info");
     return () => {
       // clear the local storage when the app is unmounted historyInfo of the files
-      removeFromLocalStorage("vscode-history-info");
+      removeFromLocalStorage("codeverse-history-info");
     };
   }, [dispatch]);
 };

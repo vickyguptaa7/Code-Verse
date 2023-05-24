@@ -50,9 +50,9 @@ let DUMMY_FILE_INFORMATION: IFilesInforation = {
 };
 
 const intialManagementOfIndxDb = async () => {
-  const dir = await getFromDirectoryIndexDB("vscode-directory");
+  const dir = await getFromDirectoryIndexDB("codeverse-directory");
   if (!dir?.length) {
-    await storeToDirectoryIndexDB("vscode-directory", [
+    await storeToDirectoryIndexDB("codeverse-directory", [
       {
         id: uniqueId,
         name: "readme.md",

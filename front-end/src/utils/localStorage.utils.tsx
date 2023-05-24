@@ -55,7 +55,7 @@ export const removeFromLocalStorage = (key: string) => {
  * found in the `themesNameArray`, it will return the `"vs-dark"` theme. The return type is `TTheme`.
  */
 export const getPrevThemes = (): TTheme => {
-  let prevTheme = getFromLocalStorage("vscode-color-theme");
+  let prevTheme = getFromLocalStorage("codeverse-color-theme");
   if (!themesNameArray.find((theme) => theme === prevTheme))
     prevTheme = "vs-dark";
   return prevTheme;
@@ -69,7 +69,7 @@ export const getPrevThemes = (): TTheme => {
  * the range of 6 to 40, the function returns the default font size of 16.
  */
 export const getPrevFontSize = () => {
-  let prevFontSize = parseInt(getFromLocalStorage("vscode-font-size"));
+  let prevFontSize = parseInt(getFromLocalStorage("codeverse-font-size"));
   if (isNaN(prevFontSize) || prevFontSize < 6 || prevFontSize > 40)
     prevFontSize = 16;
   return prevFontSize;
@@ -84,7 +84,7 @@ export const getPrevFontSize = () => {
  * greater than 6, the function sets the `prevTabSize` variable to
  */
 export const getPrevTabSize = () => {
-  let prevTabSize = parseInt(getFromLocalStorage("vscode-tab-size"));
+  let prevTabSize = parseInt(getFromLocalStorage("codeverse-tab-size"));
   if (isNaN(prevTabSize) || prevTabSize < 2 || prevTabSize > 6) prevTabSize = 4;
   return prevTabSize;
 };
@@ -93,11 +93,11 @@ export const getPrevTabSize = () => {
  * This function retrieves the previous word wrap setting from local storage and returns it, defaulting
  * to "on" if the value is not recognized.
  * @returns The function `getPrevWordWrap` returns the value of the `prevWordWrap` variable, which is
- * either the value of the "vscode-word-wrap" key in the local storage or "on" if the value is not one
+ * either the value of the "codeverse-word-wrap" key in the local storage or "on" if the value is not one
  * of the accepted values ("on", "off", "wordWrapColumn", "bounded").
  */
 export const getPrevWordWrap = () => {
-  let prevWordWrap = getFromLocalStorage("vscode-word-wrap");
+  let prevWordWrap = getFromLocalStorage("codeverse-word-wrap");
   if (
     prevWordWrap !== "on" &&
     prevWordWrap !== "off" &&
@@ -109,7 +109,7 @@ export const getPrevWordWrap = () => {
 };
 
 /**
- * This function retrieves the previous value of a setting called "vscode-is-scroll-beyond-last-line"
+ * This function retrieves the previous value of a setting called "codeverse-is-scroll-beyond-last-line"
  * from local storage and returns it, defaulting to false if the value is not a boolean.
  * @returns The function `getPrevScrollBeyondLastLine` returns the value of the
  * `prevScrollBeyondLastLine` variable, which is retrieved from local storage using the
@@ -118,7 +118,7 @@ export const getPrevWordWrap = () => {
  */
 export const getPrevScrollBeyondLastLine = () => {
   let prevScrollBeyondLastLine = JSON.parse(
-    getFromLocalStorage("vscode-is-scroll-beyond-last-line")
+    getFromLocalStorage("codeverse-is-scroll-beyond-last-line")
   );
   if (prevScrollBeyondLastLine !== true && prevScrollBeyondLastLine !== false)
     prevScrollBeyondLastLine = false;
@@ -129,12 +129,12 @@ export const getPrevScrollBeyondLastLine = () => {
  * This function retrieves the previous state of the minimap from local storage and returns it,
  * defaulting to true if no previous state is found.
  * @returns The function `getPrevMinimapEnabled` returns the value of the `prevMinimapEnabled`
- * variable, which is either the boolean value stored in the "vscode-is-minimap-enabled" key in local
+ * variable, which is either the boolean value stored in the "codeverse-is-minimap-enabled" key in local
  * storage, or `true` if the value is not a boolean.
  */
 export const getPrevMinimapEnabled = () => {
   let prevMinimapEnabled = JSON.parse(
-    getFromLocalStorage("vscode-is-minimap-enabled")
+    getFromLocalStorage("codeverse-is-minimap-enabled")
   );
   if (prevMinimapEnabled !== true && prevMinimapEnabled !== false)
     prevMinimapEnabled = true;
@@ -152,7 +152,7 @@ export const getPrevMinimapEnabled = () => {
  */
 export const getPrevIsDeleteWarningEnable = () => {
   let prevIsDeleteWarningEnable = JSON.parse(
-    getFromLocalStorage("vscode-is-delete-warning-enable")
+    getFromLocalStorage("codeverse-is-delete-warning-enable")
   );
   if (prevIsDeleteWarningEnable !== true && prevIsDeleteWarningEnable !== false)
     prevIsDeleteWarningEnable = true;
@@ -169,7 +169,7 @@ export const getPrevIsDeleteWarningEnable = () => {
  * previous position was "left" and `
  */
 export const getPrevPosition = () => {
-  let prevPosition = getFromLocalStorage("vscode-sidedrawer-position");
+  let prevPosition = getFromLocalStorage("codeverse-sidedrawer-position");
   if (prevPosition !== "left" && prevPosition !== "right")
     prevPosition = "left";
   return {
@@ -187,7 +187,7 @@ export const getPrevPosition = () => {
  */
 export const getPrevIsDrawerOpen = () => {
   let prevIsDrawerOpen = JSON.parse(
-    getFromLocalStorage("vscode-is-drawer-open")
+    getFromLocalStorage("codeverse-is-drawer-open")
   );
   if (prevIsDrawerOpen !== true && prevIsDrawerOpen !== false)
     prevIsDrawerOpen = true;
@@ -199,12 +199,12 @@ export const getPrevIsDrawerOpen = () => {
  * defaulting to false if the value is not a valid boolean.
  * @returns The function `getIsBottomPannelOpen` returns a boolean value indicating whether the bottom
  * panel is open or not. It retrieves the value from local storage using the key
- * "vscode-is-bottom-pannel-open" and parses it as a boolean. If the value is not a boolean, it
+ * "codeverse-is-bottom-pannel-open" and parses it as a boolean. If the value is not a boolean, it
  * defaults to false.
  */
 export const getIsBottomPannelOpen = () => {
   let isBottomPannelOpen = JSON.parse(
-    getFromLocalStorage("vscode-is-bottom-pannel-open")
+    getFromLocalStorage("codeverse-is-bottom-pannel-open")
   );
   if (isBottomPannelOpen !== true && isBottomPannelOpen !== false)
     isBottomPannelOpen = false;
