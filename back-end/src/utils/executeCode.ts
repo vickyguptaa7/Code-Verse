@@ -16,7 +16,7 @@ export const executeCode = async (
     executeCommand,
     executionArgs,
   }: ICommands = getCodeCompileAndExecuteCommands(codeId, language);
-  let start=Date.now();
+  let start = Date.now();
   if (compileCommand) {
     try {
       await new Promise((resolve, reject) => {
@@ -34,8 +34,6 @@ export const executeCode = async (
       return { error: err };
     }
   }
-  console.log("compile time : ",Date.now()-start);
-  start=Date.now();
   const result = await new Promise((resolve, reject) => {
     const executeChildProcess = spawn(executeCommand, executionArgs || [], {
       uid: ID,
@@ -45,7 +43,9 @@ export const executeCode = async (
     const timerId = setTimeout(() => {
       executeChildProcess.kill();
       removeCodeFile(codeId, language);
-      reject("Process timed out");
+      reject(
+        "Process timed out! \nOne of the reason could be no input provided."
+      );
     }, TimeoutTimeInSeconds * 1000);
 
     let output = "",
@@ -81,8 +81,9 @@ export const executeCode = async (
       clearTimeout(timerId);
     });
   });
-  console.log("execution time : ",Date.now()-start);
+  const exectionTime = Date.now() - start;
+  console.log("execution time : ", exectionTime);
   removeCodeFile(codeId, language);
 
-  return result;
+  return { result, exectionTime };
 };

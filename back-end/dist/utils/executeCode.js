@@ -36,8 +36,6 @@ const executeCode = (code, language, input) => __awaiter(void 0, void 0, void 0,
             return { error: err };
         }
     }
-    console.log("compile time : ", Date.now() - start);
-    start = Date.now();
     const result = yield new Promise((resolve, reject) => {
         const executeChildProcess = (0, child_process_1.spawn)(executeCommand, executionArgs || [], {
             uid: constants_1.ID,
@@ -46,7 +44,7 @@ const executeCode = (code, language, input) => __awaiter(void 0, void 0, void 0,
         const timerId = setTimeout(() => {
             executeChildProcess.kill();
             (0, codeFileManager_1.removeCodeFile)(codeId, language);
-            reject("Process timed out");
+            reject("Process timed out! \nOne of the reason could be no input provided.");
         }, constants_1.TimeoutTimeInSeconds * 1000);
         let output = "", error = "";
         if (input) {
@@ -75,8 +73,9 @@ const executeCode = (code, language, input) => __awaiter(void 0, void 0, void 0,
             clearTimeout(timerId);
         });
     });
-    console.log("execution time : ", Date.now() - start);
+    const exectionTime = Date.now() - start;
+    console.log("execution time : ", exectionTime);
     (0, codeFileManager_1.removeCodeFile)(codeId, language);
-    return result;
+    return { result, exectionTime };
 });
 exports.executeCode = executeCode;

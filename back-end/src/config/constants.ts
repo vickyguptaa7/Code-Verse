@@ -19,8 +19,10 @@ export const SUPPORTED_LANGUAGES_OUTPUT_EXTENSIONS = {
 export const PATH_TO_CODE_FOLDER = "../temp/code";
 export const PATH_TO_OUTPUT_FOLDER = "../temp/output";
 
-export const TimeoutTimeInSeconds = 30;
+export const TimeoutTimeInSeconds = 20;
 
-// The uid and gid are the user id and group id of the user who owns the file on the host machine. 
+// The uid and gid are the user id and group id of the user who owns the file on the host machine.
 // 1000 for non-root user on Linux and macOS
 export const ID = 1000;
+
+export const SERVER_URL = "https://vscode-s.onrender.com";
