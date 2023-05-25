@@ -13,7 +13,7 @@ exports.getCodeOutput = void 0;
 const executeCode_1 = require("../utils/executeCode");
 const getCodeOutput = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { language, code, input } = req.body;
-    console.log(language, code, input);
+    console.log(language);
     try {
         const output = yield (0, executeCode_1.executeCode)(code, language, input);
         res.send(output);

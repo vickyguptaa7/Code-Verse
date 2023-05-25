@@ -69,13 +69,13 @@ const executeCode = (code, language, input) => __awaiter(void 0, void 0, void 0,
             clearTimeout(timerId);
         });
         executeChildProcess.on("exit", (code) => {
-            resolve({ error, output });
+            const executionTime = Date.now() - start;
+            console.log("execution time : ", executionTime);
+            resolve({ error, output, executionTime });
             clearTimeout(timerId);
         });
     });
-    const exectionTime = Date.now() - start;
-    console.log("execution time : ", exectionTime);
     (0, codeFileManager_1.removeCodeFile)(codeId, language);
-    return { result, exectionTime };
+    return result;
 });
 exports.executeCode = executeCode;

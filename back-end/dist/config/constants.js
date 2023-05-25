@@ -22,4 +22,4 @@ exports.TimeoutTimeInSeconds = 20;
 // The uid and gid are the user id and group id of the user who owns the file on the host machine.
 // 1000 for non-root user on Linux and macOS
 exports.ID = 1000;
-exports.SERVER_URL = "https://vscode-s.onrender.com";
+exports.SERVER_URL = "https://code-verse.onrender.com";

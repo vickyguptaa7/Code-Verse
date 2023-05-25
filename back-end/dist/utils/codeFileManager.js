@@ -22,21 +22,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeCodeFile = exports.createCodeFile = void 0;
 const fs_1 = __importStar(require("fs"));
-const path_1 = __importStar(require("path"));
+const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
 const constants_1 = require("../config/constants");
 const createCodeFile = (code, language) => {
     const codeId = (0, uuid_1.v4)();
-    console.log(__dirname);
-    let files = (0, fs_1.readdirSync)((0, path_1.join)(__dirname, constants_1.PATH_TO_CODE_FOLDER));
-    console.log(files);
     const filePath = path_1.default.join(__dirname, `${constants_1.PATH_TO_CODE_FOLDER}/${codeId}.${constants_1.SUPPORTED_LANGUAGES_EXTENSIONS[language]}`);
     fs_1.default.writeFileSync(filePath, code);
-    files = (0, fs_1.readdirSync)((0, path_1.join)(__dirname, constants_1.PATH_TO_CODE_FOLDER));
-    console.log(files);
     return { codeId };
 };
 exports.createCodeFile = createCodeFile;
