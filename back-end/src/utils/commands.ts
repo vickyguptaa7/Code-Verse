@@ -14,6 +14,17 @@ export interface ICommands {
   executionArgs?: string[];
 }
 
+/**
+ * This function returns the appropriate commands for compiling and executing code based on the
+ * language specified.
+ * @param {string} codeId - A string representing the unique identifier of the code file being compiled
+ * and executed.
+ * @param {TLanguage} language - The programming language of the code that needs to be compiled and
+ * executed. It can be one of the following: "cpp", "c", "java", "python", or "javascript".
+ * @returns The function `getCodeCompileAndExecuteCommands` returns an object of type `ICommands` which
+ * contains the commands needed to compile and execute the code based on the language specified. The
+ * specific commands returned depend on the language specified as an argument to the function.
+ */
 export const getCodeCompileAndExecuteCommands = (
   codeId: string,
   language: TLanguage

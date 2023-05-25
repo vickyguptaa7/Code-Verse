@@ -2,8 +2,8 @@ import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import cron from "node-cron";
 import helmet from "helmet";
+import cron from "node-cron";
 
 import { SERVER_URL } from "./config/constants";
 import { validateApiKey } from "./middlewares/validateApiKey.middleware";
@@ -12,12 +12,14 @@ import pingRoute from "./routes/Ping.route";
 
 dotenv.config();
 
-const port =  process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(helmet({
-  crossOriginEmbedderPolicy: false,
-}))
+app.use(
+  helmet({
+    crossOriginEmbedderPolicy: false,
+  })
+);
 app.use(
   cors({
     origin: "https://code-verse-app.netlify.app",
@@ -35,6 +37,11 @@ app.listen(port, () => {
   console.log("now listending on port", port);
 });
 
+/* This code is scheduling a cron job to run every 14 minutes. The cron job sends a GET request to the
+"/api/ping" endpoint of the server using axios and logs the response data to the console. The
+request includes an "x-api-key" header with the value of the API key stored in the environment
+variable "process.env.API_KEY". This cron job is useful for keeping the server awake and preventing
+it from going to sleep due to inactivity. */
 cron.schedule("*/14 * * * *", async () => {
   try {
     const response = await axios({
