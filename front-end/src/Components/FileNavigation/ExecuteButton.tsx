@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
 import Button from "../UI/Button.component";
 
-const URL = "https://vscode-s.onrender.com/api/execute";
+const URL = "https://code-verse.onrender.com/api/execute";
 
 const ExecuteButton = () => {
   const [isRequestPending, setIsRequestPending] = useState(false);
@@ -105,8 +105,11 @@ const ExecuteButton = () => {
     }
 
     const data = await response?.json();
-    const { error, output } = data;
-    const toShow = error.length ? "Error : " + error : output;
+    const { error, output, executionTime } = data;
+    const toShow = error.length
+      ? `Error : ${error}\n`
+      : `${output}\nExecution Time : ${executionTime}ms\n`;
+
     dispatch(setIsBottomPannelOpen(true));
     dispatch(setShowInBottomPannel("output"));
 
@@ -118,7 +121,7 @@ const ExecuteButton = () => {
       -Math.min(newOutputContent?.length, 10000)
     );
     console.log(newOutputContent);
-    
+
     dispatch(setOutputContent(newOutputContent));
     setIsRequestPending(false);
     dispatch(removeNotification({ id: id }));

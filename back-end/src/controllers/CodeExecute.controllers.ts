@@ -4,8 +4,8 @@ import { ICodeSubmission } from "../utils/validationSchema";
 
 export const getCodeOutput = async (req: Request, res: Response) => {
   const { language, code, input } = req.body as ICodeSubmission;
-  console.log(language, code, input);
-
+  console.log(language);
+  
   try {
     const output = await executeCode(code, language, input);
     res.send(output);

@@ -25,4 +25,4 @@ export const TimeoutTimeInSeconds = 20;
 // 1000 for non-root user on Linux and macOS
 export const ID = 1000;
 
-export const SERVER_URL = "https://vscode-s.onrender.com";
+export const SERVER_URL = "https://code-verse.onrender.com";

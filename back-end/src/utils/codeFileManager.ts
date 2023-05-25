@@ -1,5 +1,5 @@
-import fs, { existsSync, readdirSync } from "fs";
-import path, { join } from "path";
+import fs, { existsSync } from "fs";
+import path from "path";
 import { v4 as uuidv4 } from "uuid";
 import {
   PATH_TO_CODE_FOLDER,
@@ -11,19 +11,13 @@ import { TLanguage } from "./validationSchema";
 
 export const createCodeFile = (code: string, language: TLanguage) => {
   const codeId = uuidv4();
-  console.log(__dirname);
-
-  let files = readdirSync(join(__dirname, PATH_TO_CODE_FOLDER));
-  console.log(files);
 
   const filePath = path.join(
     __dirname,
     `${PATH_TO_CODE_FOLDER}/${codeId}.${SUPPORTED_LANGUAGES_EXTENSIONS[language]}`
   );
-  fs.writeFileSync(filePath, code);
-  files = readdirSync(join(__dirname, PATH_TO_CODE_FOLDER));
-  console.log(files);
 
+  fs.writeFileSync(filePath, code);
   return { codeId };
 };
 

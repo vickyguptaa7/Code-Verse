@@ -77,13 +77,13 @@ export const executeCode = async (
     });
 
     executeChildProcess.on("exit", (code: number) => {
-      resolve({ error, output });
+      const executionTime = Date.now() - start;
+      console.log("execution time : ", executionTime);
+      resolve({ error, output, executionTime });
       clearTimeout(timerId);
     });
   });
-  const exectionTime = Date.now() - start;
-  console.log("execution time : ", exectionTime);
   removeCodeFile(codeId, language);
 
-  return { result, exectionTime };
+  return result;
 };
