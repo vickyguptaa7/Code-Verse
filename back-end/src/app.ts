@@ -20,7 +20,7 @@ app.use(helmet({
 }))
 app.use(
   cors({
-    origin: "code-verse-app.netlify.app",
+    origin: "https://code-verse-app.netlify.app",
   })
 );
 app.use(express.json());
