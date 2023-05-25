@@ -1,13 +1,8 @@
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "./firebaseConfig.lib";
 
-import {
-  getDoc,
-  getFirestore,
-  doc,
-} from "firebase/firestore";
+import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { IExtensionInfo } from "../../Interface/Extension.interface";
-
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
@@ -34,6 +29,19 @@ export const fetchFileIcons = async () => {
   return data.data();
 };
 
+/**
+ * This function retrieves the current count from a Firestore document, increments it by 1, updates the
+ * document with the new count, and returns the updated count.
+ * @returns The function `getViews` returns the updated count value from the Firestore database.
+ * Specifically, it returns the count value incremented by 1 after updating the document with the new
+ * count value.
+ */
+export const getAndUpdateViews = async () => {
+  const counterRef = doc(db, "counter", "es3oVGx0Sd4imUQoTYgR");
+  const data = await getDoc(counterRef);
+  await updateDoc(counterRef, { count: data.data()?.count + 1 });
+  return data.data()?.count + 1;
+};
 
 /**
  * This function fetches a list of extension information from a Firestore database and returns it as an

@@ -1,3 +1,4 @@
+import { AiOutlineEye } from "react-icons/ai";
 import { RxCrossCircled } from "react-icons/rx";
 import { VscBell, VscFeedback, VscRemote, VscWarning } from "react-icons/vsc";
 import { editorLanguage } from "../../Assets/Data/editorLanguages.data";
@@ -9,10 +10,11 @@ const Footer = () => {
   );
 
   const tabSize = useAppSelector((state) => state.editor.tabSize);
+  const views = useAppSelector((state) => state.editor.views);
   const fileInformation = useAppSelector(
     (state) => state.Directory.filesInformation
   );
-  
+
   // get the language of the current file on the main view window
   let language = fileInformation[currentNavFile.id]
     ? fileInformation[currentNavFile.id].language
@@ -64,6 +66,15 @@ const Footer = () => {
         >
           Layout: U.S.
         </div>
+        {views ? (
+          <div
+            className="flex text-[color:var(--highlight-text-color)] text-sm items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-1"
+            title="Views"
+          >
+            <AiOutlineEye />
+            <p className="text-xs">{views}</p>
+          </div>
+        ) : null}
         <div
           className="flex text-[color:var(--highlight-text-color)] text-sm items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-1"
           title="Tweet Feedback"

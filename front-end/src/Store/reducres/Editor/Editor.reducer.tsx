@@ -16,6 +16,7 @@ const editorInitialState = {
   isScrollBeyondLastLine: getPrevScrollBeyondLastLine(),
   isMinimapEnabled: getPrevMinimapEnabled(),
   theme: getPrevThemes(),
+  views: 0,
 };
 
 const editorSlice = createSlice({
@@ -40,6 +41,9 @@ const editorSlice = createSlice({
     setTheme(state, action: PayloadAction<TTheme>) {
       state.theme = action.payload as TTheme;
     },
+    setViews(state, action: PayloadAction<number>) {
+      state.views = action.payload;
+    }
   },
 });
 
@@ -50,6 +54,7 @@ export const {
   setScrollBeyondLastLine,
   setWordWrap,
   setTheme,
+  setViews
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

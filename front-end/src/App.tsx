@@ -9,6 +9,7 @@ import {
   fetchFileIconsAction,
   fetchFolderIconsAction,
 } from "./Store/actions/icons.action";
+import { fetchAndUpdateViewsAction } from "./Store/actions/views.action";
 import { useAppDispatch, useAppSelector } from "./Store/store";
 import { removeFromLocalStorage } from "./utils/localStorage.utils";
 
@@ -36,15 +37,18 @@ const App = () => {
 const useInitializeApp = () => {
   const dispatch = useAppDispatch();
   const editorTheme = useAppSelector((state) => state.editor.theme);
+
   useEffect(() => {
     document.body.classList.remove(...themesNameArray);
     document.body.classList.add(editorTheme);
   }, [editorTheme]);
+
   useEffect(() => {
     dispatch(fetchExtensionsListAction());
     dispatch(fetchFileIconsAction());
     dispatch(fetchFolderIconsAction());
     dispatch(setInitialDirectory());
+    dispatch(fetchAndUpdateViewsAction());
     removeFromLocalStorage("codeverse-history-info");
     return () => {
       // clear the local storage when the app is unmounted historyInfo of the files
