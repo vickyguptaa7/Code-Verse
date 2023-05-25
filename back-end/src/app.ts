@@ -15,10 +15,12 @@ dotenv.config();
 const port =  process.env.PORT || 3000;
 const app = express();
 
-app.use(helmet())
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+}))
 app.use(
   cors({
-    origin: "*",
+    origin: "code-verse-app.netlify.app",
   })
 );
 app.use(express.json());
