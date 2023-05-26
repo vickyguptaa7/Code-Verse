@@ -12,11 +12,10 @@ import SearchContainer from "./Search/searchContainer.component";
 import SourceControlContainer from "./SourceControl/SourceControlContainer.component";
 
 const Drawer = () => {
-  
   const [isDrawerResizing, setIsDrawerResizing] = useState(false);
   const refDrawer = useRef<HTMLDivElement>(null);
   const refResizer = useRef<HTMLDivElement>(null);
-  
+
   const isSidePannelPositionOnLeft = useAppSelector(
     (state) => state.sideDrawer.isSidePannelPositionOnLeft
   );
@@ -46,11 +45,10 @@ const Drawer = () => {
       <motion.div
         ref={refDrawer}
         className={mergeClass([
-          "flex text-white w-52 justify-between bg-[color:var(--sidedrawer-color)]",
+          "flex text-white  justify-between bg-[color:var(--sidedrawer-color)]",
           isSidePannelPositionOnLeft && "flex-row-reverse",
         ])}
-        // -2 for the border added to the side drawer and the side pannel 1px each
-        style={{ width: sideDrawerWidth - 2 }}
+        style={{ width: sideDrawerWidth }}
         initial={{ x: isSidePannelPositionOnLeft ? -10 : 10, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{
