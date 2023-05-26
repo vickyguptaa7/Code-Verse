@@ -1,5 +1,5 @@
 import React from "react";
-import { ISettingOption } from "../../../../Interface/settingOption.interface";
+import { ISettingOption } from "../../../../@types/settingOption.d";
 import SettingInputCards from "./SettingInputCards.component";
 
 const HEIGHT_OF_ABOVE_CONTENTS = 150;

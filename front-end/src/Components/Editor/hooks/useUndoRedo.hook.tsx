@@ -1,7 +1,7 @@
 import { useMonaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
 import React, { useEffect, useRef } from "react";
-import { IUndoRedo } from "../../../Interface/undoRedo.interface";
+import { IUndoRedo } from "../../../@types/undoRedo.d";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import {
   getFromLocalStorage,

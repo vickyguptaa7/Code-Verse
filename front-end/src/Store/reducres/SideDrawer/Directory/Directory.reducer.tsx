@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import IDirectory from "../../../../@types/directory.d";
+import { IFile } from "../../../../@types/file.d";
+import { IIcon } from "../../../../@types/Icon.d";
 import {
   DUMMY_FILE_DIRECTORY,
   DUMMY_FILE_INFORMATION,
 } from "../../../../Assets/Data/FileFolder.data";
-import IDirectory from "../../../../Interface/directory.interface";
-import { IFile } from "../../../../Interface/file.interface";
-import { IIcon } from "../../../../Interface/Icon.interface";
 import { directoryComparator } from "../../../../utils/fileFolder.utils";
 import {
   traverseInDirectoryForAdd,

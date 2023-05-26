@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { INavFile } from "../../../../Interface/file.interface";
+import { INavFile } from "../../../../@types/file.d";
 
 const searchInitialState = {
   replacementText: "",

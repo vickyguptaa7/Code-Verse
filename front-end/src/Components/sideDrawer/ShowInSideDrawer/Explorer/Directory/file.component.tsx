@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { VscFile } from "react-icons/vsc";
-import IDirectory from "../../../../../Interface/directory.interface";
+import IDirectory from "../../../../../@types/directory.d";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import { scrollToTarget } from "../../../../../utils/scrollToTargetId.util";
@@ -15,12 +15,12 @@ interface IPROPS {
 const File: React.FC<IPROPS> = ({ fileInfo, shiftAmount }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInputInFocus, setIsInputInFocus] = useState(false);
-  
+
   const dispatch = useAppDispatch();
   const sideDrawerWidth = useAppSelector(
     (state) => state.sideDrawer.sideDrawerWidth
   );
-  
+
   const addToFileNavigationHandler = (event: React.MouseEvent) => {
     if (isInputInFocus) return;
     dispatch(addFileToNavigation({ id: fileInfo.id, type: "file" }));

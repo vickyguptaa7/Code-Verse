@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { INavFile } from "../../Interface/file.interface";
+import { INavFile } from "../../@types/file.d";
 import {
   removeFileFromNavigation,
   setCurrentNavFile,

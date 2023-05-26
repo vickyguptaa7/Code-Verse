@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TBottomPannelContent } from "../../../Interface/Types";
-import {
-  getIsBottomPannelOpen,
-} from "../../../utils/localStorage.utils";
+import { TBottomPannelContent } from "../../../@types/general.d";
+import { getIsBottomPannelOpen } from "../../../utils/localStorage.utils";
 
 const bottomPannelInitialState = {
   isBottomPannelOpen: getIsBottomPannelOpen(),

@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import { FaFolder, FaFolderOpen } from "react-icons/fa";
 import { VscChevronRight } from "react-icons/vsc";
-import IDirectory from "../../../../../Interface/directory.interface";
+import IDirectory from "../../../../../@types/directory.d";
 import { useAppSelector } from "../../../../../Store/store";
 import { mergeClass } from "../../../../../library/tailwindMerge/tailwindMerge.lib";
 import Image from "../../../../UI/Image.component";
@@ -48,7 +48,10 @@ const Folder: React.FC<IPROPS> = ({ folderInfo, children, shiftAmount }) => {
       >
         <div className="flex items-center justify-center">
           <VscChevronRight
-            className={mergeClass([isFolderOpen && "rotate-90","duration-200"])}
+            className={mergeClass([
+              isFolderOpen && "rotate-90",
+              "duration-200",
+            ])}
           />
         </div>
         <div className="flex justify-between w-full gap-3 ">

@@ -1,6 +1,6 @@
 import React from "react";
-import IDirectory from "../../Interface/directory.interface";
-import { IFile } from "../../Interface/file.interface";
+import IDirectory from "../../@types/directory.d";
+import { IFile } from "../../@types/file.d";
 import {
   addExternalFileOrFolderToDirectory,
   setFilesInformation,

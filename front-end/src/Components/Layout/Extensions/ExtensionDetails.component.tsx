@@ -1,8 +1,8 @@
 import React from "react";
 import { MdVerified } from "react-icons/md";
 import { VscCloudDownload, VscStarFull } from "react-icons/vsc";
+import { IExtensionInfo } from "../../../@types/Extension.d";
 import defaultIcon from "../../../Assets/images/Extension/defaultIcon.png";
-import { IExtensionInfo } from "../../../Interface/Extension.interface";
 import { useAppSelector } from "../../../Store/store";
 import Button from "../../UI/Button.component";
 import Image from "../../UI/Image.component";
@@ -10,7 +10,8 @@ import Image from "../../UI/Image.component";
 interface IPROPS {
   height: number;
 }
-const CODEVERSE_MARKETPLACE_INITIAL_URL = "https://marketplace.visualstudio.com";
+const CODEVERSE_MARKETPLACE_INITIAL_URL =
+  "https://marketplace.visualstudio.com";
 
 const ExtensionDetails: React.FC<IPROPS> = ({ height }) => {
   const fileInformations = useAppSelector(

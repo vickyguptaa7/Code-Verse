@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ISettingOption } from "../../../../Interface/settingOption.interface";
+import { ISettingOption } from "../../../../@types/settingOption.d";
 import { useAppDispatch } from "../../../../Store/store";
 import Input from "../../../UI/Input.component";
 
@@ -58,7 +58,7 @@ const SettingInputCards: React.FC<IPROPS> = ({ option }) => {
             setInputText(e.target.checked);
             updateInStore(dispatch, e.target.checked);
           }}
-          checked={inputText  ? true : false}
+          checked={inputText ? true : false}
         />
         <p className="text-xs">{info}</p>
       </label>

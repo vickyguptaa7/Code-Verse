@@ -1,6 +1,6 @@
-import IDirectory from "../../../../Interface/directory.interface";
-import { IFilesInforation } from "../../../../Interface/file.interface";
-import { IIcon } from "../../../../Interface/Icon.interface";
+import IDirectory from "../../../../@types/directory.d";
+import { IFilesInforation } from "../../../../@types/file.d";
+import { IIcon } from "../../../../@types/Icon.d";
 import {
   removeFromFilesInformationDirectoryIndexDB,
   storeToFilesInformationDirectoryIndexDB,
@@ -208,7 +208,6 @@ const traverseInDirectoryForDelete = (
   // if the path is not found then return false
   return false;
 };
-
 
 /**
  * This function recursively deletes all child files in a given directory.

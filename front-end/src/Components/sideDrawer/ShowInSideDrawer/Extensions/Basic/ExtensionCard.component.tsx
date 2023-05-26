@@ -6,7 +6,7 @@ import {
   VscStarEmpty,
   VscStarFull,
 } from "react-icons/vsc";
-import { IExtensionInfo } from "../../../../../Interface/Extension.interface";
+import { IExtensionInfo } from "../../../../../@types/Extension.d";
 import { addFileToNavigation } from "../../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { updateFileBody } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
@@ -46,7 +46,7 @@ const ExtensionCard: React.FC<IPROPS> = ({
     // we need to scroll to the extension in the navigation
     scrollToTarget("extension");
   };
-  
+
   return (
     <div
       className="cursor-pointer relative flex gap-2 hover:bg-[color:var(--hover-text-color)] px-4 py-3 w-full"

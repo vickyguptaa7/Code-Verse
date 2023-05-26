@@ -1,4 +1,4 @@
-import { INavFile } from "../../Interface/file.interface";
+import { INavFile } from "../../@types/file.d";
 
 let DUMMY_FILES: Array<INavFile> = [
   {

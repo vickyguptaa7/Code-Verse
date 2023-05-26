@@ -1,5 +1,5 @@
 import React from "react";
-import { INavFile } from "../../Interface/file.interface";
+import { INavFile } from "../../@types/file.d";
 import { useAppSelector } from "../../Store/store";
 import Editor from "./editor.component";
 

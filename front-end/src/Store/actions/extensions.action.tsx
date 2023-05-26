@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { IExtensionInfo } from "../../Interface/Extension.interface";
+import { IExtensionInfo } from "../../@types/Extension.d";
 import { fetchExtensionsList } from "../../library/firebase/firebase.lib";
 import { setExtensionsList } from "../reducres/SideDrawer/Extensions/Extensions.reducer";
 

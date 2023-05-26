@@ -1,5 +1,5 @@
+import { TTheme } from "../@types/general.d";
 import { themesNameArray } from "../Assets/Data/theme.data";
-import { TTheme } from "../Interface/Types";
 
 /**
  * This function retrieves a value from local storage by its key and returns it as a parsed JSON

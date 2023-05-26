@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
+import { TTheme } from "../../../../@types/general.d";
+import { ISettingOption } from "../../../../@types/settingOption.d";
 import { themesNameArray } from "../../../../Assets/Data/theme.data";
-import { TTheme } from "../../../../Interface/Types";
-import { ISettingOption } from "../../../../Interface/settingOption.interface";
 import {
   setFontSize,
   setMinimapEnabled,

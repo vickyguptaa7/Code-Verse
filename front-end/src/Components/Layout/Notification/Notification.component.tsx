@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { IoMdDoneAll } from "react-icons/io";
 import { VscClose, VscInfo, VscWarning } from "react-icons/vsc";
-import { INotification } from "../../../Interface/Notification.interface";
+import { INotification } from "../../../@types/Notification.d";
 import { removeNotification } from "../../../Store/reducres/Notification/Notification.reducer";
 import { useAppDispatch } from "../../../Store/store";
 import Button from "../../UI/Button.component";

@@ -1,6 +1,6 @@
+import IDirectory from "../../@types/directory.d";
+import { IFilesInforation } from "../../@types/file.d";
 import logo from "../../Assets/images/code-verse/code-verse.png";
-import IDirectory from "../../Interface/directory.interface";
-import { IFilesInforation } from "../../Interface/file.interface";
 import {
   getFromDirectoryIndexDB,
   storeToDirectoryIndexDB,

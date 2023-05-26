@@ -1,4 +1,4 @@
-import IDirectory from "../Interface/directory.interface";
+import IDirectory from "../@types/directory.d";
 
 const useDirectory = () => {
   /**
@@ -70,21 +70,21 @@ const useDirectory = () => {
     return false;
   };
 
-/**
- * The function finds a directory within a directory tree given a path.
- * @param {IDirectory} directory - The root directory or a subdirectory of type IDirectory that we want
- * to search for a specific directory within.
- * @param directoryPath - An array of strings representing the path to the target directory. Each
- * element in the array represents a directory name in the path, starting from the root directory. For
- * example, if the target directory is located at "/root/folder/subfolder", then directoryPath would be
- * ["root", "folder", "
- * @param {number} [indx=1] - indx is a parameter that keeps track of the current index of the
- * directory path array that is being traversed. It is initialized to 1 because the first element of
- * the path is the root directory, which is already passed as the first parameter to the function. The
- * indx parameter is incremented by 1
- * @returns The function `findDirectory` returns an `IDirectory` object if the target directory is
- * found in the directory tree, otherwise it returns `null`.
- */
+  /**
+   * The function finds a directory within a directory tree given a path.
+   * @param {IDirectory} directory - The root directory or a subdirectory of type IDirectory that we want
+   * to search for a specific directory within.
+   * @param directoryPath - An array of strings representing the path to the target directory. Each
+   * element in the array represents a directory name in the path, starting from the root directory. For
+   * example, if the target directory is located at "/root/folder/subfolder", then directoryPath would be
+   * ["root", "folder", "
+   * @param {number} [indx=1] - indx is a parameter that keeps track of the current index of the
+   * directory path array that is being traversed. It is initialized to 1 because the first element of
+   * the path is the root directory, which is already passed as the first parameter to the function. The
+   * indx parameter is incremented by 1
+   * @returns The function `findDirectory` returns an `IDirectory` object if the target directory is
+   * found in the directory tree, otherwise it returns `null`.
+   */
   const findDirectory = (
     directory: IDirectory,
     directoryPath: Array<string>,
@@ -119,26 +119,26 @@ const useDirectory = () => {
     return null;
   };
 
- /**
-  * The function recursively searches for a target directory in a given directory structure and returns
-  * its path.
-  * @param {IDirectory} directory - The root directory object from which the search for the target
-  * directory will begin.
-  * @param directoryPath - directoryPath is an array of strings that represents the path to the target
-  * directory. Each string in the array represents the id of a directory in the path. The first element
-  * of the array is the id of the root directory.
-  * @param {number} [indx=1] - indx is a parameter that keeps track of the current index of the
-  * directory path being searched. It starts at 1 because the first element of the path is the root
-  * directory. As the function recursively searches through the directory tree, indx is incremented to
-  * move to the next element in the directory path.
-  * @param {string} [directoryPathWithName] - The parameter `directoryPathWithName` is a string that
-  * represents the path of the parent directories leading up to the current directory being searched.
-  * It is used to keep track of the path as the function recursively searches for the target directory.
-  * It is initialized as an empty string in the function call and is updated
-  * @returns The function `findDirectoryPath` returns a string that represents the path of the target
-  * directory if it is found in the given directory tree, or it returns the string "path not found" if
-  * the target directory is not found.
-  */
+  /**
+   * The function recursively searches for a target directory in a given directory structure and returns
+   * its path.
+   * @param {IDirectory} directory - The root directory object from which the search for the target
+   * directory will begin.
+   * @param directoryPath - directoryPath is an array of strings that represents the path to the target
+   * directory. Each string in the array represents the id of a directory in the path. The first element
+   * of the array is the id of the root directory.
+   * @param {number} [indx=1] - indx is a parameter that keeps track of the current index of the
+   * directory path being searched. It starts at 1 because the first element of the path is the root
+   * directory. As the function recursively searches through the directory tree, indx is incremented to
+   * move to the next element in the directory path.
+   * @param {string} [directoryPathWithName] - The parameter `directoryPathWithName` is a string that
+   * represents the path of the parent directories leading up to the current directory being searched.
+   * It is used to keep track of the path as the function recursively searches for the target directory.
+   * It is initialized as an empty string in the function call and is updated
+   * @returns The function `findDirectoryPath` returns a string that represents the path of the target
+   * directory if it is found in the given directory tree, or it returns the string "path not found" if
+   * the target directory is not found.
+   */
   const findDirectoryPath = (
     directory: IDirectory,
     directoryPath: Array<string>,

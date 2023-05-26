@@ -1,6 +1,6 @@
-import { IIcon } from "../Interface/Icon.interface";
-import IDirectory from "../Interface/directory.interface";
-import { IFile } from "../Interface/file.interface";
+import { IIcon } from "../@types/Icon.d";
+import IDirectory from "../@types/directory.d";
+import { IFile } from "../@types/file.d";
 import { uniqueIdGenerator } from "../library/uuid/uuid.lib";
 import {
   findFileExtension,

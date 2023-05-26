@@ -1,5 +1,5 @@
 import React from "react";
-import { IFilesInforation } from "../../../../Interface/file.interface";
+import { IFilesInforation } from "../../../../@types/file.d";
 import { CODE_EDITOR_MIN_HEIGHT } from "../../../../Pages/CodeEditor.page";
 import { addFileToNavigation } from "../../../../Store/reducres/Navigation/FileNavigation.reducer";
 import { setSearchedResultFiles } from "../../../../Store/reducres/SideDrawer/Search/Search.reducer";

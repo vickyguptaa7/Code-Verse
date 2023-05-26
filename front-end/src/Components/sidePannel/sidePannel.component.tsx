@@ -10,7 +10,7 @@ import {
   VscSearch,
   VscSettingsGear,
 } from "react-icons/vsc";
-import { TDrawerContent } from "../../Interface/Types";
+import { TDrawerContent } from "../../@types/general.d";
 import {
   setIsDrawerOpen,
   setShowInSideDrawer,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import IDirectory from "../../../../../Interface/directory.interface";
+import IDirectory from "../../../../../@types/directory.d";
 import { renameFileOrFolderOfDirectory } from "../../../../../Store/reducres/SideDrawer/Directory/Directory.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import useDirectory from "../../../../../hooks/useDirectory.hook";
@@ -25,9 +25,9 @@ const RenameInput: React.FC<IPROPS> = ({
   const [isFileNameExistAlready, setIsFileNameExistAlready] = useState(false);
   const dispatch = useAppDispatch();
   const directories = useAppSelector((state) => state.Directory.directories);
-  
+
   const { isFileOrFolderAlreadyExists } = useDirectory();
-  
+
   useEffect(() => {
     // On initial render the text will be selected and focused
     inputRef.current?.focus();
@@ -57,7 +57,7 @@ const RenameInput: React.FC<IPROPS> = ({
   };
 
   // when input get out of focus then we have to do following things
-  // 1. check if the file name entered by the user is unique  if not then show the warning 
+  // 1. check if the file name entered by the user is unique  if not then show the warning
   // 2. if the file name is unique then rename the file or folder
   const inputBlurHandler = () => {
     if (!fileName.trim().length || fileName === directoryInfo.name) {

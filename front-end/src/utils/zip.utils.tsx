@@ -1,6 +1,6 @@
 import JSZip from "jszip";
-import IDirectory from "../Interface/directory.interface";
-import { IFilesInforation } from "../Interface/file.interface";
+import IDirectory from "../@types/directory.d";
+import { IFilesInforation } from "../@types/file.d";
 
 /**
  * This function recursively adds all files and folders to a JSZip object, given an array of

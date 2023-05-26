@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TTheme, TWordWrap } from "../../../Interface/Types";
+import { TTheme, TWordWrap } from "../../../@types/general.d";
 import {
   getPrevFontSize,
   getPrevMinimapEnabled,
@@ -43,7 +43,7 @@ const editorSlice = createSlice({
     },
     setViews(state, action: PayloadAction<number>) {
       state.views = action.payload;
-    }
+    },
   },
 });
 
@@ -54,7 +54,7 @@ export const {
   setScrollBeyondLastLine,
   setWordWrap,
   setTheme,
-  setViews
+  setViews,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { INavFile } from "../../../@types/file.d";
 import {
   DUMMY_FILES,
   EMPTY_FILE,
 } from "../../../Assets/Data/fileNavigation.data";
-import { INavFile } from "../../../Interface/file.interface";
 
 const navigationFilesInitialState = {
   navFilesList: DUMMY_FILES,

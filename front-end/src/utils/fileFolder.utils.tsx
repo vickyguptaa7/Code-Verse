@@ -1,7 +1,7 @@
+import { IIcon } from "../@types/Icon.d";
+import IDirectory from "../@types/directory.d";
+import { IFilesInforation, INavFile } from "../@types/file.d";
 import { supportedFileTypes } from "../Assets/Data/editorLanguages.data";
-import IDirectory from "../Interface/directory.interface";
-import { IFilesInforation, INavFile } from "../Interface/file.interface";
-import { IIcon } from "../Interface/Icon.interface";
 import { uniqueIdGenerator } from "../library/uuid/uuid.lib";
 
 /**

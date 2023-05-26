@@ -1,5 +1,5 @@
+import IDirectory from "../../../../../@types/directory.d";
 import { terminalHelpInfo } from "../../../../../Assets/Data/terminal.data";
-import IDirectory from "../../../../../Interface/directory.interface";
 import { setIsBottomPannelOpen } from "../../../../../Store/reducres/BottomPannel/BottomPannel.reducer";
 import {
   setTerminalCommandHistory,

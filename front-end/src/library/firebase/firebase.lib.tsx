@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "./firebaseConfig.lib";
 
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
-import { IExtensionInfo } from "../../Interface/Extension.interface";
+import { IExtensionInfo } from "../../@types/Extension.d";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);

@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-import IDirectory from "../Interface/directory.interface";
-import { IFile } from "../Interface/file.interface";
+import IDirectory from "../@types/directory.d";
+import { IFile } from "../@types/file.d";
 import { findUniqueFileFolderName } from "../utils/fileFolder.utils";
 import { processFolderUpload } from "../utils/uploadFileFolder.utils";
 
