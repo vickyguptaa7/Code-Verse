@@ -1,6 +1,11 @@
 # Code Verse Frontend
 
+<video src="./../extra/demo.mov" controls>
+</video>
+
 ## Features
+
+The code editor app offers multiple features. Here are some of the features:
 
 - Multiple tabs for editing multiple files simultaneously
 - Integrated terminal
