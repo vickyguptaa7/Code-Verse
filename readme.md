@@ -7,8 +7,7 @@
 Welcome to CodeVerse, an online code editor and compiler designed to support various programming languages including Java, C++, Python, and more. With CodeVerse, you can write, edit, and execute your code seamlessly within a web-based environment.
 
 <p align="center">
-<img src="./extra/editor.png
-" alt="editor image" style="width: 100%;">
+<img src="./extra/editor.png" alt="editor image" style="width: 100%;">
 </p>
 
 ## Features
