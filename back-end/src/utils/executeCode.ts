@@ -47,7 +47,7 @@ export const executeCode = async (
     } catch (err) {
       console.log(err);
       removeCodeFile(codeId, language);
-      return { error: err };
+      return { error: err, output: "", executionTime: 0 };
     }
   }
   const result = await new Promise((resolve, reject) => {

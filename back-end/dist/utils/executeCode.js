@@ -47,7 +47,7 @@ const executeCode = (code, language, input) => __awaiter(void 0, void 0, void 0,
         catch (err) {
             console.log(err);
             (0, codeFileManager_1.removeCodeFile)(codeId, language);
-            return { error: err };
+            return { error: err, output: "", executionTime: 0 };
         }
     }
     const result = yield new Promise((resolve, reject) => {
