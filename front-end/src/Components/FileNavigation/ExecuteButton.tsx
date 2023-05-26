@@ -15,6 +15,12 @@ import {
 } from "../../Store/reducres/Notification/Notification.reducer";
 import { useAppDispatch, useAppSelector } from "../../Store/store";
 import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
+import {
+  ERROR_SERVER_NOTIFICATION_MESSAGE,
+  EXECUTING_CODE_NOTIFICATION_MESSAGE,
+  PENDING_NOTIFICATION_MESSAGE,
+  UNSUPPORTED_LANGUAGE_NOTIFICATION_MESSAGE,
+} from "../Layout/Notification/notification.constant";
 import Button from "../UI/Button.component";
 
 const URL = "https://code-verse.onrender.com/api/execute";
@@ -33,17 +39,28 @@ const ExecuteButton = () => {
   const outputContent = useAppSelector(
     (state) => state.bottomPannel.outputContent
   );
+  const notifications = useAppSelector(
+    (state) => state.notification.notifications
+  );
 
   const dispatch = useAppDispatch();
 
   const codeExecutionHandler = async () => {
     if (isRequestPending) {
+      // avoid unnecessary notifications of same type
+      if (
+        notifications.find(
+          (notification) =>
+            notification.description === PENDING_NOTIFICATION_MESSAGE
+        )
+      )
+        return;
       dispatch(
         addNotification({
           id: uniqueIdGenerator(),
           type: "info",
           isWaitUntilComplete: false,
-          description: "Previous request is pending!",
+          description: PENDING_NOTIFICATION_MESSAGE,
         })
       );
       return;
@@ -52,14 +69,13 @@ const ExecuteButton = () => {
     const language =
       editorLanguage[fileInformation[currentNavFile.id].language];
     console.log(language);
-
     if (!SUPPORTED_LANGUAGES.find((lang) => lang === language)) {
       dispatch(
         addNotification({
           id: uniqueIdGenerator(),
           type: "error",
           isWaitUntilComplete: false,
-          description: "Language not supported",
+          description: UNSUPPORTED_LANGUAGE_NOTIFICATION_MESSAGE,
         })
       );
       return;
@@ -71,7 +87,7 @@ const ExecuteButton = () => {
         id: id,
         type: "info",
         isWaitUntilComplete: true,
-        description: "Executing Code...",
+        description: EXECUTING_CODE_NOTIFICATION_MESSAGE,
       })
     );
 
@@ -91,16 +107,24 @@ const ExecuteButton = () => {
         },
       });
     } catch (err) {
+      dispatch(removeNotification({ id: id }));
+      setIsRequestPending(false);
+      // avoid unnecessary notifications of same type
+      if (
+        notifications.find(
+          (notification) =>
+            notification.description === ERROR_SERVER_NOTIFICATION_MESSAGE
+        )
+      )
+        return;
       dispatch(
         addNotification({
           id: uniqueIdGenerator(),
           type: "error",
           isWaitUntilComplete: false,
-          description: "Error in connecting to server",
+          description: ERROR_SERVER_NOTIFICATION_MESSAGE,
         })
       );
-      dispatch(removeNotification({ id: id }));
-      setIsRequestPending(false);
       return;
     }
 

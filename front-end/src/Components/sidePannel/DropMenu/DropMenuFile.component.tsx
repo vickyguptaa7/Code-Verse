@@ -15,6 +15,7 @@ import {
   removeNotification,
 } from "../../../Store/reducres/Notification/Notification.reducer";
 import { uniqueIdGenerator } from "../../../library/uuid/uuid.lib";
+import { ERROR_NOTIFICATION_MESSAGE } from "../../Layout/Notification/notification.constant";
 
 interface IPROPS {
   closeDropMenuHandler: Function;
@@ -67,7 +68,7 @@ export const DropMenuFile: React.FC<IPROPS> = ({ closeDropMenuHandler }) => {
       dispatch(
         addNotification({
           id: uniqueIdGenerator(),
-          description: "Something went wrong",
+          description: ERROR_NOTIFICATION_MESSAGE,
           isWaitUntilComplete: false,
           type: "error",
         })

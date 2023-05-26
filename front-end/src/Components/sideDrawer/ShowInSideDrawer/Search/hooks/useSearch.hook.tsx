@@ -9,6 +9,7 @@ import {
 } from "../../../../../Store/reducres/SideDrawer/Search/Search.reducer";
 import { useAppDispatch, useAppSelector } from "../../../../../Store/store";
 import { uniqueIdGenerator } from "../../../../../library/uuid/uuid.lib";
+import { ERROR_NOTIFICATION_MESSAGE } from "../../../../Layout/Notification/notification.constant";
 
 const useSearch = () => {
   const dispatch = useAppDispatch();
@@ -43,7 +44,7 @@ const useSearch = () => {
       dispatch(
         addNotification({
           id: uniqueIdGenerator(),
-          description: "Something went wrong...",
+          description: ERROR_NOTIFICATION_MESSAGE,
           isWaitUntilComplete: false,
           type: "error",
         })
@@ -99,7 +100,7 @@ const useSearch = () => {
       dispatch(
         addNotification({
           id: uniqueIdGenerator(),
-          description: "Something went wrong...",
+          description: ERROR_NOTIFICATION_MESSAGE,
           isWaitUntilComplete: false,
           type: "error",
         })

@@ -15,6 +15,7 @@ import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
 import { sortDirectory } from "../../utils/fileFolder.utils";
 import { processFileUpload } from "../../utils/uploadFileFolder.utils";
 import { ACCEPTED_FILES } from "./SidePannel.constants";
+import { ERROR_NOTIFICATION_MESSAGE } from "../Layout/Notification/notification.constant";
 
 /* 
 this makes it so that we can use the directory webkitdirectory 
@@ -125,7 +126,7 @@ const FileFolderInput = () => {
       dispatch(
         addNotification({
           id: uniqueIdGenerator(),
-          description: "Something went wrong",
+          description: ERROR_NOTIFICATION_MESSAGE,
           isWaitUntilComplete: false,
           type: "error",
         })

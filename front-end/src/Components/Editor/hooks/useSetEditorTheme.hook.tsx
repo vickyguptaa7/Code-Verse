@@ -4,6 +4,7 @@ import { themesObject } from "../../../Assets/Data/theme.data";
 import { addNotification } from "../../../Store/reducres/Notification/Notification.reducer";
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
 import { uniqueIdGenerator } from "../../../library/uuid/uuid.lib";
+import { ERROR_NOTIFICATION_MESSAGE } from "../../Layout/Notification/notification.constant";
 
 const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
   const monaco = useMonaco();
@@ -37,7 +38,7 @@ const useSetEditorTheme = (setIsEditorThemeReady: Function) => {
         dispatch(
           addNotification({
             id: uniqueIdGenerator(),
-            description: "Something went wrong",
+            description: ERROR_NOTIFICATION_MESSAGE,
             isWaitUntilComplete: false,
             type: "error",
           })
