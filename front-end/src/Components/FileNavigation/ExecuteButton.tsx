@@ -107,8 +107,8 @@ const ExecuteButton = () => {
     const data = await response?.json();
     const { error, output, executionTime } = data;
     const toShow = error.length
-      ? `Error : ${error}\n`
-      : `${output}\nExecution Time : ${executionTime}ms\n`;
+      ? `Error : ${error.trin()}\n`
+      : `${output.trim()}\nExecution Time : ${executionTime}ms\n`;
 
     dispatch(setIsBottomPannelOpen(true));
     dispatch(setShowInBottomPannel("output"));
