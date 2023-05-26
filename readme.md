@@ -8,7 +8,7 @@ Welcome to CodeVerse, an online code editor and compiler designed to support var
 
 <p align="center">
 <img src="./extra/editor.png
-" alt="Image" style="width: 100%">
+" alt="editor image" style="width: 100%;">
 </p>
 
 ## Features
