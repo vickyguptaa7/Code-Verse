@@ -26,7 +26,15 @@
 
 - **Code Folding**: When dealing with large code files, readability becomes crucial. CodeVerse allows you to collapse or fold sections of code, such as functions, classes, or loops, to hide their details temporarily. This feature helps you focus on specific parts of your code and improves overall code organization.
 
+- **Import files and folders**: I integrated a feature that allows me to import files and folders from my local system directly into the code editor web app. This makes it seamless to integrate my existing codebase into the editor.
+
+- **Download files and folders**: Another convenient feature I added is the ability to download files and folders from the web app. This functionality makes it effortless to save and share code with others.
+
+- **Persistent data**: One critical aspect I focused on was data persistence. The code editor automatically saves my work, ensuring that I never lose progress, even if I close the app or refresh the browser.
+
 - **Autocomplete Suggestions**: CodeVerse offers intelligent autocomplete suggestions as you type. The app analyzes your code context and provides suggestions for variables, functions, and other relevant code snippets. This feature saves time, reduces typos, and helps you write code more efficiently.
+
+
 
 <br>
 

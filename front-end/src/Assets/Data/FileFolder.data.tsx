@@ -9,15 +9,17 @@ import {
 import { uniqueIdGenerator } from "../../library/uuid/uuid.lib";
 
 const README = `#Introduction
-This web app is a clone of the popular code editor, Code Verse.
-It provides a similar interface and features to Code Verse, but can be accessed directly from your web browser.
+Welcome to CodeVerse, an online code editor and compiler designed to support various programming languages including Java, C++, Python, and more. With CodeVerse, you can write, edit, and execute your code seamlessly within a web-based environment.
 
 #FEATURES
-1.Multiple tabs for editing multiple files simultaneously
-2.Integrated terminal
-3.Search and replace functionality
-4.Code folding
-5.Autocomplete suggestions`;
+- Multiple tabs for editing multiple files simultaneously
+- Integrated terminal
+- Search and replace functionality
+- Code folding
+- Autocomplete suggestions
+- Import files and folders from your local system
+- Download files and folders to your local system
+- Persistent storage of files and folders`;
 
 const uniqueId = uniqueIdGenerator();
 
