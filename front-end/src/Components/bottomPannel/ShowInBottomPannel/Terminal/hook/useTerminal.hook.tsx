@@ -453,6 +453,7 @@ export const useTerminal = () => {
         path: fileOrFolder.path.split("/"),
       })
     );
+    addToTerminalContent(terminalInput);
   };
 
   return {
