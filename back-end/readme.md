@@ -65,6 +65,8 @@ To set up the Code Verse Backend using Docker, follow these steps:
 
    The backend is listening on port `3000` of your local machine.
 
+<br/>
+
 ## Stopping the Container
 
 To stop the Code Verse Backend container, use the following command:
@@ -110,7 +112,7 @@ The Code Verse Backend exposes the following API endpoints:
     }
     ```
 
-  Javascript example of making an API call
+    Javascript example of making an API call
 
   ```javascript
   const fetchAPI = async () => {
@@ -126,11 +128,14 @@ The Code Verse Backend exposes the following API endpoints:
     };
 
     try {
-      const response = await fetch("https://api.example.com/api/execute", {
-        method: "POST",
-        headers: headers,
-        body: code,
-      });
+      const response = await fetch(
+        "https://code-verse.onrender.com/api/execute",
+        {
+          method: "POST",
+          headers: headers,
+          body: code,
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Request failed with status " + response.status);
@@ -144,3 +149,9 @@ The Code Verse Backend exposes the following API endpoints:
   };
   fetchAPI();
   ```
+
+<br/>
+
+## Supported Languages For Online Compilation
+
+> C, C++, Java, Python and JavaScript
