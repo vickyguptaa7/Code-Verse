@@ -2,6 +2,8 @@ import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import { rateLimit } from "express-rate-limit";
+import slowDown from "express-slow-down";
 import helmet from "helmet";
 import cron from "node-cron";
 
@@ -15,6 +17,18 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
 
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minutes
+  max: 15, // limit each IP to 15 requests per windowMs
+  message: { error: "Too many requests, please try again after 1 minutes." },
+});
+
+const speedLimiter = slowDown({
+  windowMs: 60 * 1000, // 1 minutes
+  delayAfter: 1, // allow 10 requests per 1 minutes, then...
+  delayMs: 200, // begin adding 250ms of delay per request
+});
+
 app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
@@ -25,6 +39,10 @@ app.use(
     origin: "https://code-verse-app.netlify.app",
   })
 );
+
+app.use(limiter);
+app.use(speedLimiter);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

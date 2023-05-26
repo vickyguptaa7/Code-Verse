@@ -53,8 +53,8 @@ export const executeCode = async (
   }
   const result = await new Promise((resolve, reject) => {
     const executeChildProcess = spawn(executeCommand, executionArgs || [], {
-      uid: ID,
-      gid: ID,
+      // uid: ID,
+      // gid: ID,
     });
 
     const timerId = setTimeout(() => {
