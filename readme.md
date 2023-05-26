@@ -4,13 +4,13 @@
 <img src="./front-end/public/favicon.svg" alt="Image" style="width: 100px;">
 </p>
 
-Welcome to CodeVerse, an online code editor and compiler designed to support various programming languages including Java, C++, Python, and more. With CodeVerse, you can write, edit, and execute your code seamlessly within a web-based environment.
+    Welcome to CodeVerse, an online code editor and compiler designed to support various programming languages including Java, C++, Python, and more. With CodeVerse, you can write, edit, and execute your code seamlessly within a web-based environment.
 
 <p align="center">
 <img src="./extra/editor.png" alt="editor image" style="width: 100%;">
 </p>
 
-## Features
+> ## Features
 
 - **Multi-Language Support**: CodeVerse supports multiple programming languages, providing a versatile platform for coding in Java, C++, Python, and other popular languages.
 
@@ -26,9 +26,11 @@ Welcome to CodeVerse, an online code editor and compiler designed to support var
 
 - **Autocomplete Suggestions**: CodeVerse offers intelligent autocomplete suggestions as you type. The app analyzes your code context and provides suggestions for variables, functions, and other relevant code snippets. This feature saves time, reduces typos, and helps you write code more efficiently.
 
-## Technologies Used
+<br/>
 
-CodeVerse is built using modern web technologies and frameworks, including:
+> ## Technologies Used
+
+    CodeVerse is built using modern web technologies and frameworks, including:
 
 - **Frontend**: The frontend is developed using HTML, CSS, and JavaScript. It utilizes popular libraries like React.js to create a dynamic and responsive user interface.
 
