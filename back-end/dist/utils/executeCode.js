@@ -52,8 +52,8 @@ const executeCode = (code, language, input) => __awaiter(void 0, void 0, void 0,
     }
     const result = yield new Promise((resolve, reject) => {
         const executeChildProcess = (0, child_process_1.spawn)(executeCommand, executionArgs || [], {
-        // uid: ID,
-        // gid: ID,
+            uid: constants_1.ID,
+            gid: constants_1.ID,
         });
         const timerId = setTimeout(() => {
             executeChildProcess.kill();

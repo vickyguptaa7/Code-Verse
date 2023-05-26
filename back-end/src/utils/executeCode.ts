@@ -23,7 +23,6 @@ export const executeCode = async (
   language: TLanguage,
   input: string
 ) => {
-  
   const { codeId } = createCodeFile(code, language);
   const {
     compileCommand,
@@ -31,7 +30,7 @@ export const executeCode = async (
     executeCommand,
     executionArgs,
   }: ICommands = getCodeCompileAndExecuteCommands(codeId, language);
-  
+
   let start = Date.now();
 
   if (compileCommand) {
@@ -53,8 +52,8 @@ export const executeCode = async (
   }
   const result = await new Promise((resolve, reject) => {
     const executeChildProcess = spawn(executeCommand, executionArgs || [], {
-      // uid: ID,
-      // gid: ID,
+      uid: ID,
+      gid: ID,
     });
 
     const timerId = setTimeout(() => {

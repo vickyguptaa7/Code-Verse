@@ -25,8 +25,8 @@ const limiter = rateLimit({
 
 const speedLimiter = slowDown({
   windowMs: 60 * 1000, // 1 minutes
-  delayAfter: 1, // allow 10 requests per 1 minutes, then...
-  delayMs: 200, // begin adding 250ms of delay per request
+  delayAfter: 1, // add dealy after 1 requests 
+  delayMs: 200, // begin adding 200ms of delay per request
 });
 
 app.use(

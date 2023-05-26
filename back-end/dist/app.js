@@ -35,7 +35,7 @@ const limiter = (0, express_rate_limit_1.rateLimit)({
 const speedLimiter = (0, express_slow_down_1.default)({
     windowMs: 60 * 1000,
     delayAfter: 1,
-    delayMs: 200, // begin adding 250ms of delay per request
+    delayMs: 200, // begin adding 200ms of delay per request
 });
 app.use((0, helmet_1.default)({
     crossOriginEmbedderPolicy: false,
