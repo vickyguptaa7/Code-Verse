@@ -6,9 +6,9 @@
 
 > Welcome to CodeVerse, an online code editor and compiler designed to support various programming languages including Java, C++, Python, and more. With CodeVerse, you can write, edit, and execute your code seamlessly within a web-based environment.
 
-<p align="center">
-<img src="./extra/editor.png" alt="editor image" style="width: 100%;">
-</p>
+<br>
+
+[![Thumnail](./extra/editor.png)](https://drive.google.com/file/d/1fb9qxVC3P0jJJSlBV9ZefCoFSuXPaV3M/view?usp=sharing)
 
 <br>
 
@@ -33,8 +33,6 @@
 - **Persistent data**: One critical aspect I focused on was data persistence. The code editor automatically saves my work, ensuring that I never lose progress, even if I close the app or refresh the browser.
 
 - **Autocomplete Suggestions**: CodeVerse offers intelligent autocomplete suggestions as you type. The app analyzes your code context and provides suggestions for variables, functions, and other relevant code snippets. This feature saves time, reduces typos, and helps you write code more efficiently.
-
-
 
 <br>
 
