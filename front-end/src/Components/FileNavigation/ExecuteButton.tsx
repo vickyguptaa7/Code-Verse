@@ -65,7 +65,7 @@ const ExecuteButton = () => {
       );
       return;
     }
-    console.log("codeExecutionHandler");
+
     const language =
       editorLanguage[fileInformation[currentNavFile.id].language];
     console.log(language);

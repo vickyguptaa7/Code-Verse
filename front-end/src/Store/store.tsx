@@ -10,6 +10,7 @@ import TerminalReducer from "./reducres/BottomPannel/Terminal/Terminal.reducer";
 import EditorReducer from "./reducres/Editor/Editor.reducer";
 import fileNavigationReducer from "./reducres/Navigation/FileNavigation.reducer";
 import NotificationReducer from "./reducres/Notification/Notification.reducer";
+import BrowserReducer from "./reducres/SideDrawer/Browser/Browser.reducer";
 import DirectoryReducer from "./reducres/SideDrawer/Directory/Directory.reducer";
 import ExtensionsReducer from "./reducres/SideDrawer/Extensions/Extensions.reducer";
 import SearchReducer from "./reducres/SideDrawer/Search/Search.reducer";
@@ -73,6 +74,7 @@ const store = configureStore({
     terminal: TerminalReducer,
     editor: EditorReducer,
     notification: NotificationReducer,
+    browser: BrowserReducer,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware().concat(persistMiddleware);

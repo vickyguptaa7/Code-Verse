@@ -1,10 +1,17 @@
 import { AiOutlineEye } from "react-icons/ai";
+import { CiStreamOn } from "react-icons/ci";
 import { RxCrossCircled } from "react-icons/rx";
 import { VscBell, VscFeedback, VscRemote, VscWarning } from "react-icons/vsc";
-import { editorLanguage } from "../../Assets/Data/editorLanguages.data";
-import { useAppSelector } from "../../Store/store";
+import {
+  editorLanguage,
+  SUPPORTED_LANGUAGES_FOR_LIVE_SERVER,
+} from "../../Assets/Data/editorLanguages.data";
+import { setIsBrowserOpen } from "../../Store/reducres/SideDrawer/Browser/Browser.reducer";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
+import Button from "../UI/Button.component";
 
 const Footer = () => {
+  const dispatch = useAppDispatch();
   const currentNavFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
   );
@@ -16,9 +23,15 @@ const Footer = () => {
   );
 
   // get the language of the current file on the main view window
-  let language = fileInformation[currentNavFile.id]
+  const language = fileInformation[currentNavFile.id]
     ? fileInformation[currentNavFile.id].language
     : "home";
+
+  const mappedLanguage = editorLanguage[language];
+
+  const liveServerHandler = () => {
+    dispatch(setIsBrowserOpen(true));
+  };
 
   return (
     <div className="flex items-center justify-between w-full h-[22px] bg-[color:var(--footer-color)] gap-1 border-t border-[color:var(--border-color)] overflow-hidden">
@@ -40,6 +53,15 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex h-full gap-1 mr-2 right-container ">
+        {SUPPORTED_LANGUAGES_FOR_LIVE_SERVER.includes(mappedLanguage) && (
+          <Button
+            className="flex text-[color:var(--highlight-text-color)] text-xs items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-1 whitespace-nowrap"
+            title="Live Server"
+            onClick={liveServerHandler}
+          >
+            <CiStreamOn /> Live Server
+          </Button>
+        )}
         {currentNavFile.id !== "null" && currentNavFile.type === "file" ? (
           <>
             <div
