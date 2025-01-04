@@ -4,6 +4,10 @@ const browserInitialState = {
   isBrowserOpen: false,
   isBrowserMinimized: false,
   isFullScreen: false,
+  htmlFildId: "",
+  htmlFileParentPath: "",
+  cssFilesIds: [],
+  jsFilesIds: [],
 };
 
 const browserSlice = createSlice({
@@ -21,10 +25,21 @@ const browserSlice = createSlice({
     setIsFullScreen(state, action: PayloadAction<boolean>) {
       state.isFullScreen = action.payload;
     },
+    setHtmlFileId(state, action: PayloadAction<string>) {
+      state.htmlFildId = action.payload;
+    },
+    setHtmlFileParentPath(state, action: PayloadAction<string>) {
+      state.htmlFileParentPath = action.payload;
+    },
   },
 });
 
-export const { setIsBrowserOpen, setIsBrowserMinimized, setIsFullScreen } =
-  browserSlice.actions;
+export const {
+  setIsBrowserOpen,
+  setIsBrowserMinimized,
+  setIsFullScreen,
+  setHtmlFileId,
+  setHtmlFileParentPath,
+} = browserSlice.actions;
 
 export default browserSlice.reducer;

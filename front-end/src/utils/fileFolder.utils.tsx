@@ -217,14 +217,58 @@ function findMatchingFiles(
   return matchingFiles;
 }
 
+function getFileParentPath(id: string, directories: Array<IDirectory>): string {
+  for (const directory of directories) {
+    if (directory.id === id) {
+      const path = directory.path.split("/");
+      path.pop();
+      return path.join("/");
+    }
+    if (directory.isFolder && getFileParentPath(id, directory.children))
+      return getFileParentPath(id, directory.children);
+  }
+  return "";
+}
+
+function getDirectoryUsingPath(
+  path: string[],
+  directories: Array<IDirectory>,
+  indx = 1
+): Array<IDirectory> {
+  if (indx === path.length) return directories;
+  for (const directory of directories) {
+    if (directory.id === path[indx])
+      return getDirectoryUsingPath(path, directory.children, indx + 1);
+  }
+  return directories;
+}
+
+function getFileIdUsingNamedPath(
+  path: string[],
+  directories: Array<IDirectory>,
+  indx = 0
+): string | null {
+  if (indx === path.length) return null;
+  for (const directory of directories) {
+    if (directory.isFolder && directory.name === path[indx])
+      return getFileIdUsingNamedPath(path, directory.children, indx + 1);
+    if (!directory.isFolder && directory.name === path[indx])
+      return directory.id;
+  }
+  return null;
+}
+
 export {
+  directoryComparator,
   fileDownloader,
   findFileExtension,
   findFileFolderIconUrl,
-  directoryComparator,
+  findMatchingFiles,
   findUniqueFileFolderName,
-  sortDirectory,
+  getDirectoryUsingPath,
+  getFileIdUsingNamedPath,
+  getFileParentPath,
   isFileQualifyForUpload,
   replaceTextInFiles,
-  findMatchingFiles,
+  sortDirectory,
 };

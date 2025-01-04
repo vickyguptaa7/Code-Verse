@@ -74,7 +74,7 @@ const BrowserNavbar = ({
           onClick={browserCloseHandler}
         >
           <MdOutlineClose
-            className="invisible text-white group-hover:visible"
+            className="invisible text-black group-hover:visible"
             size="10"
           />
         </Button>
@@ -83,7 +83,7 @@ const BrowserNavbar = ({
           onClick={browserMinimizedHandler}
         >
           <GoDash
-            className="invisible text-white group-hover:visible"
+            className="invisible text-black group-hover:visible"
             size="10"
           />
         </Button>
@@ -92,7 +92,7 @@ const BrowserNavbar = ({
           onClick={browserFullScreenHandler}
         >
           <FiMinimize2
-            className="invisible text-white group-hover:visible"
+            className="invisible text-black group-hover:visible"
             size="9"
           />
         </Button>
