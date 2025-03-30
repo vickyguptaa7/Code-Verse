@@ -36,7 +36,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "https://code-verse-app.netlify.app",
+    origin: "*",
   })
 );
 
@@ -47,6 +47,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(validateApiKey);
+
+app.use((req, res, next) => {
+  console.log("--- Request Details ---");
+  console.log("Method:", req.method);
+  console.log("URL:", req.url);
+  console.log("HTTP Version:", req.httpVersion);
+  console.log("Headers:", req.headers);
+  console.log("Query:", req.query);
+  console.log("Body:", req.body);
+  console.log("Params:", req.params);
+  console.log("IP:", req.ip);
+  console.log("Protocol:", req.protocol);
+  console.log("Hostname:", req.hostname);
+  console.log("Cookies:", req.cookies);
+  console.log("------------------------");
+  next();
+});
 
 app.use("/api/ping", pingRoute);
 app.use("/api/execute", codeExecuteRoute);

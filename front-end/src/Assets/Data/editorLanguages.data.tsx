@@ -344,3 +344,5 @@ export const supportedFileTypes: { [key: string]: string } = {
 };
 
 export const SUPPORTED_LANGUAGES = ["cpp", "java", "python", "c", "javascript"];
+
+export const SUPPORTED_LANGUAGES_FOR_LIVE_SERVER = ["html"];

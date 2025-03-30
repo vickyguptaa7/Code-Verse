@@ -1,14 +1,28 @@
-import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineStop } from "react-icons/ai";
+import { CiStreamOn } from "react-icons/ci";
 import { RxCrossCircled } from "react-icons/rx";
 import { VscBell, VscFeedback, VscRemote, VscWarning } from "react-icons/vsc";
-import { editorLanguage } from "../../Assets/Data/editorLanguages.data";
-import { useAppSelector } from "../../Store/store";
+import {
+  editorLanguage,
+  SUPPORTED_LANGUAGES_FOR_LIVE_SERVER,
+} from "../../Assets/Data/editorLanguages.data";
+import {
+  setHtmlFileId,
+  setHtmlFileParentPath,
+  setIsBrowserOpen,
+} from "../../Store/reducres/SideDrawer/Browser/Browser.reducer";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
+import { getFileParentPath } from "../../utils/fileFolder.utils";
+import Button from "../UI/Button.component";
 
 const Footer = () => {
+  const dispatch = useAppDispatch();
   const currentNavFile = useAppSelector(
     (state) => state.fileNavigation.currentNavFile
   );
-
+  const isBrowserOpen = useAppSelector((state) => state.browser.isBrowserOpen);
+  const currHtmlFileId = useAppSelector((state) => state.browser.htmlFildId);
+  const directories = useAppSelector((state) => state.Directory.directories);
   const tabSize = useAppSelector((state) => state.editor.tabSize);
   const views = useAppSelector((state) => state.editor.views);
   const fileInformation = useAppSelector(
@@ -16,9 +30,28 @@ const Footer = () => {
   );
 
   // get the language of the current file on the main view window
-  let language = fileInformation[currentNavFile.id]
+  const language = fileInformation[currentNavFile.id]
     ? fileInformation[currentNavFile.id].language
     : "home";
+
+  const mappedLanguage = editorLanguage[language];
+
+  const liveServerHandler = () => {
+    if (currentNavFile.id === currHtmlFileId) {
+      dispatch(setHtmlFileId(""));
+      dispatch(setHtmlFileParentPath(""));
+      return;
+    }
+    dispatch(setIsBrowserOpen(true));
+    dispatch(setHtmlFileId(currentNavFile.id));
+    dispatch(
+      setHtmlFileParentPath(getFileParentPath(currentNavFile.id, directories))
+    );
+  };
+
+  const browserHandler = () => {
+    dispatch(setIsBrowserOpen(!isBrowserOpen));
+  };
 
   return (
     <div className="flex items-center justify-between w-full h-[22px] bg-[color:var(--footer-color)] gap-1 border-t border-[color:var(--border-color)] overflow-hidden">
@@ -40,6 +73,34 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex h-full gap-1 mr-2 right-container ">
+        {SUPPORTED_LANGUAGES_FOR_LIVE_SERVER.includes(mappedLanguage) &&
+          currHtmlFileId === currentNavFile.id && (
+            <Button
+              className="flex text-[color:var(--highlight-text-color)] text-xs items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-1 whitespace-nowrap"
+              title="Browser"
+              onClick={browserHandler}
+            >
+              Browser
+            </Button>
+          )}
+        {SUPPORTED_LANGUAGES_FOR_LIVE_SERVER.includes(mappedLanguage) && (
+          <Button
+            className="flex text-[color:var(--highlight-text-color)] text-xs items-center justify-center gap-1 hover:bg-[color:var(--hover-text-color)] h-full px-1 whitespace-nowrap"
+            title="Live Server"
+            onClick={liveServerHandler}
+          >
+            {currHtmlFileId !== currentNavFile.id ? (
+              <>
+                <CiStreamOn /> Go Live
+              </>
+            ) : (
+              <>
+                {" "}
+                <AiOutlineStop /> Port : 3000
+              </>
+            )}
+          </Button>
+        )}
         {currentNavFile.id !== "null" && currentNavFile.type === "file" ? (
           <>
             <div

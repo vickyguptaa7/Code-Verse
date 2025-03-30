@@ -26,3 +26,6 @@ export const TimeoutTimeInSeconds = 20;
 export const ID = 1000;
 
 export const SERVER_URL = "https://code-verse.onrender.com";
+
+export const MAX_QUEUE_SIZE = 50;
+export const MAX_CONCURRENT_EXECUTIONS = 1;

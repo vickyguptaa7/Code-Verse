@@ -40,7 +40,10 @@ const ExplorerFolder = () => {
         >
           <div className="flex items-center justify-center p-1">
             <VscChevronRight
-              className={mergeClass([isExplorerFolderOpen ? "rotate-90" : "","duration-200"])}
+              className={mergeClass([
+                isExplorerFolderOpen ? "rotate-90" : "",
+                "duration-200",
+              ])}
             />
           </div>
           <div className="flex items-center justify-center">

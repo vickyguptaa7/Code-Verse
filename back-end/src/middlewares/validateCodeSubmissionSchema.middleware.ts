@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { ValidationError } from "yup";
-import { codeSubmissionSchema } from "../utils/validationSchema";
+import {
+  codeSubmissionOutputSchema,
+  codeSubmissionSchema,
+} from "../utils/validationSchema";
 
 /**
  * This function validates a code submission schema and returns an error message if the validation
@@ -19,19 +22,40 @@ import { codeSubmissionSchema } from "../utils/validationSchema";
  * the error message is returned. If there is any other error, a 500 status response with the message
  * "Internal server error" is returned.
  */
-const validateCodeSubmissionSchema=async(req:Request,res:Response,next:NextFunction)=>{
-    const body=req.body;
-    try{
-        await codeSubmissionSchema.validate(body);
-        return next();
-    }catch(error){
-        if(error instanceof ValidationError)
-        {
-            res.status(400).json({error:error.message});
-            return;
-        }
-        return res.status(500).send('Internal server error');
+const validateCodeSubmissionSchema = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const body = req.body;
+  try {
+    await codeSubmissionSchema.validate(body);
+    return next();
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(400).json({ error: error.message });
+      return;
     }
-}
+    return res.status(500).send("Internal server error");
+  }
+};
+
+export const ValidateCodeSubmissionOutputSchema = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const body = req.params;
+  try {
+    await codeSubmissionOutputSchema.validate(body);
+    return next();
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(400).json({ error: error.message });
+      return;
+    }
+    return res.status(500).send("Internal server error");
+  }
+};
 
 export default validateCodeSubmissionSchema;

@@ -65,10 +65,10 @@ const ExecuteButton = () => {
       );
       return;
     }
-    console.log("codeExecutionHandler");
+
     const language =
       editorLanguage[fileInformation[currentNavFile.id].language];
-    console.log(language);
+
     if (!SUPPORTED_LANGUAGES.find((lang) => lang === language)) {
       dispatch(
         addNotification({
@@ -129,10 +129,46 @@ const ExecuteButton = () => {
     }
 
     const data = await response?.json();
-    const { error, output, executionTime } = data;
+    const { id: submission_id } = data;
+    setTimeout(() => getSubmissionStatus(submission_id, id), 5000);
+  };
+
+  const getSubmissionStatus = async (
+    submission_id: string,
+    notification_id: string
+  ) => {
+    let response;
+    try {
+      response = await fetch(`${URL}${submission_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "x-api-key": process.env.REACT_APP_BACKEND_API_KEY || "",
+        },
+      });
+    } catch (err) {
+      dispatch(setIsBottomPannelOpen(true));
+      dispatch(setShowInBottomPannel("output"));
+      dispatch(setOutputContent(JSON.stringify(err)));
+      dispatch(removeNotification({ id: notification_id }));
+      setIsRequestPending(false);
+      return;
+    }
+
+    const data = await response?.json();
+    const { status } = data;
+    if (status === "pending") {
+      setTimeout(
+        () => getSubmissionStatus(submission_id, notification_id),
+        5000
+      );
+      return;
+    }
+    const { error, output } = data;
     const toShow = error.length
       ? `Error : ${error.trimEnd()}\n`
-      : `${output.trimEnd()}\nExecution Time : ${executionTime}ms\n`;
+      : `${output.trimEnd()}`;
 
     dispatch(setIsBottomPannelOpen(true));
     dispatch(setShowInBottomPannel("output"));
@@ -148,7 +184,7 @@ const ExecuteButton = () => {
 
     dispatch(setOutputContent(newOutputContent));
     setIsRequestPending(false);
-    dispatch(removeNotification({ id: id }));
+    dispatch(removeNotification({ id: notification_id }));
   };
 
   return (

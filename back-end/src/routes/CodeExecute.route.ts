@@ -1,9 +1,13 @@
-import express from 'express';
-import { getCodeOutput } from '../controllers/CodeExecute.controllers';
-import validateCodeSubmissionSchema from '../middlewares/validateCodeSubmissionSchema.middleware';
+import express from "express";
+import {
+    getSubmissionStatus,
+    submitCode,
+} from "../controllers/CodeExecute.controllers";
+import validateCodeSubmissionSchema, { ValidateCodeSubmissionOutputSchema } from "../middlewares/validateCodeSubmissionSchema.middleware";
 
-const router= express.Router();
+const router = express.Router();
 
-router.post('/',validateCodeSubmissionSchema,getCodeOutput);
+router.post("/", validateCodeSubmissionSchema, submitCode);
+router.get("/:id", ValidateCodeSubmissionOutputSchema, getSubmissionStatus);
 
 export default router;
