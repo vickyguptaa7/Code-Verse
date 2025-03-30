@@ -7,7 +7,7 @@ RUN apk update && \
         gcc \
         g++ \
         python3 \
-        openjdk16 \
+        openjdk17 \
         nodejs \
         npm \
         curl && \
