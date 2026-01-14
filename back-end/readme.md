@@ -67,9 +67,53 @@ To set up the Code Verse Backend using Docker, follow these steps:
 
 <br/>
 
+## Development with Hot Reloading
+
+For development with hot reloading (live changes), use the Makefile commands:
+
+```bash
+# Start development server with hot reloading
+make dev
+
+# Or build and start (if you made changes to Dockerfile.dev)
+make dev-build
+
+# Stop development server
+make dev-down
+
+# View logs
+make dev-logs
+```
+
+Changes to files in the `src/` directory will automatically reload the server.
+
+<br/>
+
+## Makefile Commands
+
+| Command           | Description                                 |
+| ----------------- | ------------------------------------------- |
+| `make dev`        | Start development server with hot reloading |
+| `make dev-build`  | Build and start development server          |
+| `make dev-down`   | Stop development server                     |
+| `make dev-logs`   | View development server logs                |
+| `make prod`       | Start production server                     |
+| `make prod-build` | Build and start production server           |
+| `make prod-down`  | Stop production server                      |
+| `make prod-logs`  | View production server logs                 |
+| `make clean`      | Remove all containers and images            |
+| `make status`     | Show running containers                     |
+
+<br/>
+
 ## Stopping the Container
 
 To stop the Code Verse Backend container, use the following command:
+
+    make dev-down   # For development
+    make prod-down  # For production
+
+Or manually:
 
     docker stop <container_id>
 

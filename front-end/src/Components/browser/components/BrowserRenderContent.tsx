@@ -65,7 +65,7 @@ const BrowserRenderContent = () => {
     <iframe
       srcDoc={inlineAssets(htmlContent)}
       title="Remote Window"
-      className=""
+      className="bg-white"
       width="100%"
       height="94%"
     ></iframe>

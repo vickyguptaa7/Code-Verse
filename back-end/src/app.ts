@@ -14,7 +14,7 @@ import pingRoute from "./routes/Ping.route";
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const app = express();
 
 const limiter = rateLimit({
@@ -36,7 +36,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "https://code-verse-app.netlify.app",
+    origin: "*",
   })
 );
 

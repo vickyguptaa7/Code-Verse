@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # Development service with hot reloading
+  backend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: code-verse-backend-dev
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./src:/app/src
+      - ./.env:/app/.env
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+
+  # Production service
+  backend-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: code-verse-backend-prod
+    ports:
+      - "6000:6000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
