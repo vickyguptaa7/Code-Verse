@@ -36,7 +36,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "*",
+    origin: "https://code-verse-app.netlify.app",
   })
 );
 
