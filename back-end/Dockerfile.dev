@@ -1,0 +1,28 @@
+# Development Dockerfile with hot reloading
+FROM alpine:latest
+
+# Install system dependencies
+RUN apk update && \
+    apk add --no-cache \
+    gcc \
+    g++ \
+    python3 \
+    openjdk17 \
+    nodejs \
+    npm \
+    curl && \
+    rm -rf /var/cache/apk/*
+
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install all dependencies (including devDependencies for nodemon/ts-node)
+RUN npm install
+
+# Expose port 6000
+EXPOSE 6000
+
+# Run the app in development mode with hot reloading
+CMD ["npm", "run", "dev"]

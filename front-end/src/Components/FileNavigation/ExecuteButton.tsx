@@ -139,7 +139,8 @@ const ExecuteButton = () => {
   ) => {
     let response;
     try {
-      response = await fetch(`${URL}${submission_id}`, {
+      if (!submission_id) throw new Error("No submission id found");
+      response = await fetch(`${URL}/${submission_id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
