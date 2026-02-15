@@ -28,19 +28,19 @@ const URL = "https://code-verse.onrender.com/api/execute";
 const ExecuteButton = () => {
   const [isRequestPending, setIsRequestPending] = useState(false);
   const currentNavFile = useAppSelector(
-    (state) => state.fileNavigation.currentNavFile
+    (state) => state.fileNavigation.currentNavFile,
   );
   const fileInformation = useAppSelector(
-    (state) => state.Directory.filesInformation
+    (state) => state.Directory.filesInformation,
   );
   const inputContent = useAppSelector(
-    (state) => state.bottomPannel.inputContent
+    (state) => state.bottomPannel.inputContent,
   );
   const outputContent = useAppSelector(
-    (state) => state.bottomPannel.outputContent
+    (state) => state.bottomPannel.outputContent,
   );
   const notifications = useAppSelector(
-    (state) => state.notification.notifications
+    (state) => state.notification.notifications,
   );
 
   const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ const ExecuteButton = () => {
       if (
         notifications.find(
           (notification) =>
-            notification.description === PENDING_NOTIFICATION_MESSAGE
+            notification.description === PENDING_NOTIFICATION_MESSAGE,
         )
       )
         return;
@@ -61,7 +61,7 @@ const ExecuteButton = () => {
           type: "info",
           isWaitUntilComplete: false,
           description: PENDING_NOTIFICATION_MESSAGE,
-        })
+        }),
       );
       return;
     }
@@ -76,7 +76,7 @@ const ExecuteButton = () => {
           type: "error",
           isWaitUntilComplete: false,
           description: UNSUPPORTED_LANGUAGE_NOTIFICATION_MESSAGE,
-        })
+        }),
       );
       return;
     }
@@ -88,7 +88,7 @@ const ExecuteButton = () => {
         type: "info",
         isWaitUntilComplete: true,
         description: EXECUTING_CODE_NOTIFICATION_MESSAGE,
-      })
+      }),
     );
 
     let response;
@@ -113,7 +113,7 @@ const ExecuteButton = () => {
       if (
         notifications.find(
           (notification) =>
-            notification.description === ERROR_SERVER_NOTIFICATION_MESSAGE
+            notification.description === ERROR_SERVER_NOTIFICATION_MESSAGE,
         )
       )
         return;
@@ -123,19 +123,24 @@ const ExecuteButton = () => {
           type: "error",
           isWaitUntilComplete: false,
           description: ERROR_SERVER_NOTIFICATION_MESSAGE,
-        })
+        }),
       );
       return;
     }
 
     const data = await response?.json();
     const { id: submission_id } = data;
+
+    if (!submission_id) {
+      updateOutputWithResult(data, id);
+      return;
+    }
     setTimeout(() => getSubmissionStatus(submission_id, id), 5000);
   };
 
   const getSubmissionStatus = async (
     submission_id: string,
-    notification_id: string
+    notification_id: string,
   ) => {
     let response;
     try {
@@ -162,10 +167,17 @@ const ExecuteButton = () => {
     if (status === "pending") {
       setTimeout(
         () => getSubmissionStatus(submission_id, notification_id),
-        5000
+        5000,
       );
       return;
     }
+    updateOutputWithResult(data, notification_id);
+  };
+
+  const updateOutputWithResult = (
+    data: { error: string; output: string },
+    notification_id: string,
+  ) => {
     const { error, output } = data;
     const toShow = error.length
       ? `Error : ${error.trimEnd()}\n`
@@ -179,7 +191,7 @@ const ExecuteButton = () => {
       ? outputContent + "\n" + toShow
       : toShow;
     newOutputContent = newOutputContent?.slice(
-      -Math.min(newOutputContent?.length, 10000)
+      -Math.min(newOutputContent?.length, 10000),
     );
     console.log(newOutputContent);
 
